@@ -1,0 +1,55 @@
+package test.opcode;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.Stack;
+
+import org.junit.Test;
+
+import com.gannon.Executor.Instruction.BIConst_0;
+import com.gannon.Executor.JVMExecutionObjects.BFrame;
+import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+
+public class BIConst_0Test {
+
+	@Test
+	public void testExecute() {
+		BIConst_0 iconst0 = new BIConst_0();
+		Stack<Integer> operandStack = new  Stack<Integer>();
+		BLocalVarTable varTable = new BLocalVarTable();
+		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		
+		// Before calling the execute method,  LocalVariableTable and operand stack will be empty
+		// Expectation is, BIConst_0 will load 0 on top of the operand stack,
+	
+		iconst0.execute(activeFrame);
+		
+		Stack<Integer> resultOprndStack = new  Stack<Integer>();
+		resultOprndStack = activeFrame.getOperandStack();
+		
+		Stack<Integer> expectedOprndStack = new  Stack<Integer>();
+		expectedOprndStack.push(0);
+		
+		assertEquals(expectedOprndStack, resultOprndStack);
+	}
+
+	@Test
+	public void testGetOpcodeCommand() {
+		System.out.println("getOpcodeCommand");
+		BIConst_0 instance = new BIConst_0();
+
+		String expResult = "iconst_0";
+		String result = instance.getOpcodeCommand();
+		assertEquals(expResult, result);
+	}
+
+	@Test
+	public void testExecuteBFrame() {
+		System.out.println("getOpcode");
+		BIConst_0 instance = new BIConst_0();
+		int expResult = 3;
+		int result = instance.getOpcode();
+		assertEquals(expResult, result);
+	}
+
+}
