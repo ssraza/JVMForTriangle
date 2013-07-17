@@ -7,19 +7,19 @@ import org.junit.Test;
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.Instruction.BALoad;
-import com.gannon.Executor.Instruction.BBipush;
-import com.gannon.Executor.Instruction.BIAdd;
-import com.gannon.Executor.Instruction.BIConst_0;
-import com.gannon.Executor.Instruction.BIConst_1;
-import com.gannon.Executor.Instruction.BILoad;
-import com.gannon.Executor.Instruction.BIReturn;
-import com.gannon.Executor.Instruction.BIStore;
-import com.gannon.Executor.Instruction.BInstruction;
-import com.gannon.Executor.Instruction.BInvokeSpecial;
-import com.gannon.Executor.Instruction.BInvokeVirtual;
-import com.gannon.Executor.Instruction.BPutStatic;
-import com.gannon.Executor.Instruction.BReturn;
+import com.gannon.jvm.instructions.BALoad;
+import com.gannon.jvm.instructions.BBipush;
+import com.gannon.jvm.instructions.BIAdd;
+import com.gannon.jvm.instructions.BIConst_0;
+import com.gannon.jvm.instructions.BIConst_1;
+import com.gannon.jvm.instructions.BILoad;
+import com.gannon.jvm.instructions.BIReturn;
+import com.gannon.jvm.instructions.BIStore;
+import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BInvokeSpecial;
+import com.gannon.jvm.instructions.BInvokeVirtual;
+import com.gannon.jvm.instructions.BPutStatic;
+import com.gannon.jvm.instructions.BReturn;
 
 public class TestOpcodeGeneration {
 

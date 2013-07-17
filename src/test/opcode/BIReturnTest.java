@@ -6,10 +6,10 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.GannonJVM.JVMStackSingleton;
-import com.gannon.Executor.Instruction.BIReturn;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.instructions.BIReturn;
 
 public class BIReturnTest {
 

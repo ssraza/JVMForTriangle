@@ -9,10 +9,10 @@ import java.util.Stack;
 import org.junit.Test;
 import org.objectweb.asm.Label;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.Instruction.BIConst_1;
-import com.gannon.Executor.Instruction.BIFicmpge;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.instructions.BIConst_1;
+import com.gannon.jvm.instructions.BIFicmpge;
 
 public class BIFicmpgeTest {
 

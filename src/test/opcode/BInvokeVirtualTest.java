@@ -10,11 +10,11 @@ import org.junit.Test;
 
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.GannonJVM.JVMStackSingleton;
-import com.gannon.Executor.Instruction.BInvokeVirtual;
 import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class BInvokeVirtualTest {
 

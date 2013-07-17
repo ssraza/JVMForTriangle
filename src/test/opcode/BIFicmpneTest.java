@@ -8,10 +8,10 @@ import java.util.Stack;
 import org.junit.Test;
 import org.objectweb.asm.Label;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.Instruction.BIFicmpne;
-import com.gannon.Executor.Instruction.BInvokeVirtual;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.instructions.BIFicmpne;
+import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class BIFicmpneTest {
 

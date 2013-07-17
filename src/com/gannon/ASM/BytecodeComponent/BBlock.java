@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.objectweb.asm.Label;
 
-import com.gannon.Executor.Instruction.BInstruction;
+import com.gannon.jvm.instructions.BInstruction;
 
 /**
  * This class is a part of data structure created to organize the information

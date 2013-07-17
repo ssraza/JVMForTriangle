@@ -6,9 +6,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.Instruction.BIConst_1;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.instructions.BIConst_1;
 
 public class BIConst_1Test {
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Graph.GraphObjects.Graph.Edge;
+import com.gannon.jvm.instructions.BInstruction;
 
 public class GraphObjectBuilder {
 	private ArrayList<Block> blockList = new ArrayList<Block>();

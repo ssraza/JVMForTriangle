@@ -5,11 +5,11 @@ import java.util.Stack;
 import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.GannonJVM.JVMStackSingleton;
-import com.gannon.Executor.GannonJVM.GannonJVM;
 import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.MethodExecutor;
 
 public class FlexibleBytecodeExecutor {
 	public static void main(String[] arg){
@@ -39,7 +39,7 @@ public class FlexibleBytecodeExecutor {
 			
 			JVMStackSingleton.getInstance().addMethodFrame(activeFrame);//add caller's methodFrame
 			
-			GannonJVM executor = new GannonJVM(activeFrame);
+			MethodExecutor executor = new MethodExecutor(activeFrame);
 			
 			executor.execute();
 			

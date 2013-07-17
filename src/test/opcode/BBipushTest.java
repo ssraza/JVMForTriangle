@@ -6,9 +6,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.Instruction.BBipush;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.instructions.BBipush;
 
 public class BBipushTest {
 

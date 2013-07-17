@@ -10,9 +10,9 @@ import org.junit.Test;
 import org.objectweb.asm.Label;
 
 import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.BLocalVarTable;
-import com.gannon.Executor.Instruction.BIFicmpeq;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.instructions.BIFicmpeq;
 
 public class BIFicmpeqTest {
 

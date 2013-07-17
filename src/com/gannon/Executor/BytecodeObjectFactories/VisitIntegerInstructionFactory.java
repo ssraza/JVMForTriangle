@@ -1,9 +1,9 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
-import com.gannon.Executor.Instruction.BBipush;
-import com.gannon.Executor.Instruction.BIReturn;
-import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Utility.HardBytecode;
+import com.gannon.jvm.instructions.BBipush;
+import com.gannon.jvm.instructions.BIReturn;
+import com.gannon.jvm.instructions.BInstruction;
 
 public class VisitIntegerInstructionFactory {
 	BInstruction instr;

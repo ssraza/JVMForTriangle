@@ -1,10 +1,10 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
-import com.gannon.Executor.Instruction.BIFicmpeq;
-import com.gannon.Executor.Instruction.BIFicmpge;
-import com.gannon.Executor.Instruction.BIFicmpne;
-import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Utility.HardBytecode;
+import com.gannon.jvm.instructions.BIFicmpeq;
+import com.gannon.jvm.instructions.BIFicmpge;
+import com.gannon.jvm.instructions.BIFicmpne;
+import com.gannon.jvm.instructions.BInstruction;
 
 import org.objectweb.asm.Label;
 

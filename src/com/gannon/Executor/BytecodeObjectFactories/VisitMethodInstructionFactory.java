@@ -1,15 +1,15 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
-import com.gannon.Executor.Instruction.BGetField;
-import com.gannon.Executor.Instruction.BGetStatic;
-import com.gannon.Executor.Instruction.BInstruction;
-import com.gannon.Executor.Instruction.BInvokeInterface;
-import com.gannon.Executor.Instruction.BInvokeSpecial;
-import com.gannon.Executor.Instruction.BInvokeStatic;
-import com.gannon.Executor.Instruction.BInvokeVirtual;
-import com.gannon.Executor.Instruction.BPutField;
-import com.gannon.Executor.Instruction.BPutStatic;
 import com.gannon.Utility.HardBytecode;
+import com.gannon.jvm.instructions.BGetField;
+import com.gannon.jvm.instructions.BGetStatic;
+import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BInvokeInterface;
+import com.gannon.jvm.instructions.BInvokeSpecial;
+import com.gannon.jvm.instructions.BInvokeStatic;
+import com.gannon.jvm.instructions.BInvokeVirtual;
+import com.gannon.jvm.instructions.BPutField;
+import com.gannon.jvm.instructions.BPutStatic;
 
 public class VisitMethodInstructionFactory {
 BInstruction instr; 

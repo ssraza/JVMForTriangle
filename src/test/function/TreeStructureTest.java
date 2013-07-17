@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.Instruction.BIAdd;
-import com.gannon.Executor.Instruction.BILoad;
-import com.gannon.Executor.Instruction.BIReturn;
-import com.gannon.Executor.Instruction.BIStore;
-import com.gannon.Executor.Instruction.BInstruction;
+import com.gannon.jvm.instructions.BIAdd;
+import com.gannon.jvm.instructions.BILoad;
+import com.gannon.jvm.instructions.BIReturn;
+import com.gannon.jvm.instructions.BIStore;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.treeStructure.Node;
 import com.gannon.treeStructure.Tree;
 import com.gannon.treeStructure.TreeStructure;

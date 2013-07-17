@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import org.objectweb.asm.Label;
 
-import com.gannon.Executor.GannonJVM.BFrame;
-import com.gannon.Executor.GannonJVM.JVMStackSingleton;
-import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Utility.ByteCodeUtility;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.instructions.BInstruction;
 
 /**
  * This class is a part of data structure created to organize the information

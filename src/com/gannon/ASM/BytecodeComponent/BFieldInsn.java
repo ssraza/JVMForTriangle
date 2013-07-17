@@ -4,7 +4,7 @@
  */
 package com.gannon.ASM.BytecodeComponent;
 
-import com.gannon.Executor.Instruction.BInstruction;
+import com.gannon.jvm.instructions.BInstruction;
 
 /**
  *

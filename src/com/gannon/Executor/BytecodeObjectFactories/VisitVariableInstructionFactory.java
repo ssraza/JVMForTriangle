@@ -1,11 +1,11 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
-import com.gannon.Executor.Instruction.BALoad;
-import com.gannon.Executor.Instruction.BAStore;
-import com.gannon.Executor.Instruction.BILoad;
-import com.gannon.Executor.Instruction.BIStore;
-import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Utility.HardBytecode;
+import com.gannon.jvm.instructions.BALoad;
+import com.gannon.jvm.instructions.BAStore;
+import com.gannon.jvm.instructions.BILoad;
+import com.gannon.jvm.instructions.BIStore;
+import com.gannon.jvm.instructions.BInstruction;
 
 
 //operation to variables
