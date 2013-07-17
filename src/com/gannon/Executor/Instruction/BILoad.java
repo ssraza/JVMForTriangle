@@ -2,8 +2,9 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Utility.HardBytecode;
 
 public class BILoad extends BInstruction {
 	private int operand1;
@@ -19,7 +20,7 @@ public class BILoad extends BInstruction {
 	}
 
 	public String toString() {
-		return super.toString() + " " + operand1;
+		return super.toString() + " "  + getOpcodeCommand()+" " + operand1;
 	}
 
     //
@@ -40,11 +41,12 @@ public class BILoad extends BInstruction {
 		return 21;
 	}
 
-	public String getOpcodeCommand() {
-		return "iload" + " " + operand1;
+	public Integer getOperand() {
+		return operand1;
 	}
 
-	public int getOperand() {
-		return operand1;
+	@Override
+	public String getOpcodeCommand() {
+		return "iload";
 	}
 }

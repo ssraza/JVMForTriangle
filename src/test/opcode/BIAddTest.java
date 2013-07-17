@@ -10,9 +10,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 import com.gannon.Executor.Instruction.BIAdd;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
 
 public class BIAddTest {
 
@@ -31,7 +31,7 @@ public class BIAddTest {
 		operandStack.add(5);
 		operandStack.add(9);
 
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		BIAdd bIAdd = new BIAdd();
 		
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position.

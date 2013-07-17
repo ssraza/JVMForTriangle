@@ -2,20 +2,20 @@ package com.gannon.Main;
 
 import java.util.ArrayList;
 
+import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.ASM.BytecodeReader.ByteCodeClassGenerator;
 
 public class InterfaceDisplay {
 
 	private String className;
 	private ArrayList<BMethod> bMethod = new ArrayList<BMethod>();
-	private static ByteCodeClassGenerator cParser;
+	private static BClassGenerator cParser;
 	private BClass bClass;
 
 	public void readFile(String fileName) {
-		cParser = new ByteCodeClassGenerator(fileName);
-		cParser.cparser();
+		cParser = new BClassGenerator(fileName);
+		cParser.getBClass();
 		InterfaceAPISingleton.getInstance().setbClass(
 				cParser.getbFactory().getBClass());
 	}

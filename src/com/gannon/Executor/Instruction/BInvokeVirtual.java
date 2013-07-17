@@ -5,10 +5,9 @@ import java.util.Stack;
 
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
-import com.gannon.Executor.JVMExecutionObjects.JVMStackSingleton;
-import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
 
 public class BInvokeVirtual extends BInstruction {
 
@@ -37,7 +36,7 @@ public class BInvokeVirtual extends BInstruction {
 		activeFrame.setPC(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
 
-		BClass bClass = InterfaceAPISingleton.getInstance().getbClass();
+		BClass bClass = JVMStackSingleton.getInstance().getbClass();
 
 		BMethod nextMethod = getNextMethod(owner, name, bClass);
 

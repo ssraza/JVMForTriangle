@@ -2,8 +2,8 @@ package com.gannon.Main;
 
 import java.util.Vector;
 
+import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeReader.ByteCodeClassGenerator;
 
 /*
  * This class will pass the .class file name to ClassParser 

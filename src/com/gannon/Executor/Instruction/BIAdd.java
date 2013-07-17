@@ -2,7 +2,8 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Utility.HardBytecode;
 
 public class BIAdd extends BInstruction {
 
@@ -12,7 +13,6 @@ public class BIAdd extends BInstruction {
 
 	public BIAdd(int lineNumber) {
 		setLineNumber(lineNumber);
-		System.out.println("BIAdd extends BInstruction ");
 	}
 
 	public Object execute(BFrame activeFrame) {
@@ -31,17 +31,9 @@ public class BIAdd extends BInstruction {
 	public int getOpcode() {
 		return 96;
 	}
-
+	
+	@Override
 	public String getOpcodeCommand() {
 		return "iadd";
 	}
-
-	public String toString() {
-		return super.toString();
-	}
-
-	public String getOperand() {
-		return "-1";
-	}
-
 }

@@ -6,10 +6,10 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 import com.gannon.Executor.Instruction.BAStore;
 import com.gannon.Executor.Instruction.BILoad;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
 
 public class BILoadTest {
 
@@ -46,7 +46,7 @@ public class BILoadTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position, 2 on 1st and 5 on 2nd.
 		// Expectation is, BILoad(2) should load what ever is there on 2nd position of local variable table,
@@ -75,7 +75,7 @@ public class BILoadTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position, 2 on 1st and 5 on 2nd.
 		// Expectation is, BILoad(1) should load what ever is there on 1st position of local variable table,
@@ -104,7 +104,7 @@ public class BILoadTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		//create a frame
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 
 		//invoke iload 3
 		BILoad bILoad = new BILoad(3);

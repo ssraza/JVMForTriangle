@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.Executor.GannonJVM.BFrame;
 import com.gannon.Executor.Instruction.BInstruction;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
 
 public class ByteCodeUtility {
 	private BFrame activeFrame;

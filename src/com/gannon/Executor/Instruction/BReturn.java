@@ -2,10 +2,9 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
-import com.gannon.Executor.JVMExecutionObjects.JVMStackSingleton;
-import com.gannon.Main.Main;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
 
 public class BReturn extends BInstruction {
 
@@ -28,7 +27,6 @@ public class BReturn extends BInstruction {
 		Integer pc = activeFrame.getPC();
 		activeFrame.setPC(++pc);
 		JVMStackSingleton.getInstance().removeMethodFrame();
-		Main.setReturnType("void");
 		return null;// return a null letting main know to execute next method
 
 	}

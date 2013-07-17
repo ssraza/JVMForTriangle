@@ -1,15 +1,15 @@
 package com.gannon.ParameterDependency;
 
+import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeReader.ByteCodeClassGenerator;
 import com.gannon.Main.InterfaceAPISingleton;
 
 public class GenerateBinaryTree {
 	public static void main(String[] arg) {
 		System.out.println("Start of Execution");
-		ByteCodeClassGenerator clasGen = new ByteCodeClassGenerator(
+		BClassGenerator clasGen = new BClassGenerator(
 				"Hello.class");
-		clasGen.cparser();
+		clasGen.getBClass();
 		BClass loadedClass = clasGen.getbFactory().getBClass();
 		InterfaceAPISingleton.getInstance().setbClass(loadedClass);
 		

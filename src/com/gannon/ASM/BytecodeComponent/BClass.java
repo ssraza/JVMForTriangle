@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * This class is a part of data structure created to organize the information
  * about the class being visited. This Class will have the information of class.
- * 
- * 
+ *
+ *
  * @param className
  *            Name of the class visited
  * @param superClass
@@ -36,10 +36,10 @@ public class BClass {
 		super();
 	}
 
-	public BClass(String name) {
-		super();
-		this.className = name;
-	}
+	// public BClass(String name) {
+	// super();
+	// this.className = name;
+	// }
 
 	public String getClassName() {
 		return className;
@@ -69,12 +69,13 @@ public class BClass {
 		return methodList;
 	}
 
-	public BMethod getMethod(String MethodName) {
+	public BMethod getMethod(String methodName) {
 		for (BMethod aMethod : methodList) {
-			if (aMethod.getName() == MethodName) {
+			if (aMethod.getName().equals(methodName)) {
 				return aMethod;
 			}
 		}
+		System.out.println(methodName+" is not found: null from BClass!");
 		return null;
 	}
 
@@ -102,22 +103,6 @@ public class BClass {
 		this.version = version;
 	}
 
-	/**
-	 * This method is use to display the class details of the class visited. And
-	 * to display the methods informations under that class.
-	 * **/
-	public void display() {
-		System.out.println("\n\n\n\n");
-		System.out.println("Display Class ============================");
-		System.out.println("class version: " + version);
-		System.out.println("Access flag: " + classAccess);
-		System.out.println(className + "extends" + superClass + " " + "{");
-		System.out.println("source: " + sourceFile);
-		for (BMethod aMethod : methodList) {
-			aMethod.display();
-		}
-	}
-
 	public Integer getIndexOf(String MethodName) {
 		int returnVal = 0;
 		int index = 0;
@@ -130,5 +115,10 @@ public class BClass {
 		}
 
 		return returnVal;
+	}
+
+	public String getShortClassName() {
+		int index=className.lastIndexOf('/');
+		return className.substring(index+1);
 	}
 }

@@ -10,9 +10,9 @@ import org.junit.Test;
 import org.objectweb.asm.Label;
 
 import com.gannon.ASM.BytecodeComponent.BBlock;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 import com.gannon.Executor.Instruction.BIFicmpeq;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
 
 public class BIFicmpeqTest {
 
@@ -34,7 +34,7 @@ public class BIFicmpeqTest {
 		labelMapping.put(label2.toString(), 8);
 		labelMapping.put(label3.toString(), 12);				
 		
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method,  operand stack will have 5 at 0th position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 8. 
@@ -64,7 +64,7 @@ public class BIFicmpeqTest {
 		labelMapping.put(label3.toString(), 12);				
 					
 		
-		BFrame activeFrame = new BFrame(varTable, 10, operandStack);
+		BFrame activeFrame = new BFrame(10, varTable, operandStack);
 		activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method,  operand stack will have 5 at 0th position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 11. 
@@ -93,7 +93,7 @@ public class BIFicmpeqTest {
 		labelMapping.put(label2.toString(), 8);
 		labelMapping.put(label3.toString(), 12);				
 		
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method,  operand stack will have 5 at 0th position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 8. 
@@ -123,7 +123,7 @@ public class BIFicmpeqTest {
 		labelMapping.put(label3.toString(), 12);				
 					
 		
-		BFrame activeFrame = new BFrame(varTable, 10, operandStack);
+		BFrame activeFrame = new BFrame(10, varTable, operandStack);
 		activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method,  operand stack will have 5 at 0th position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 11. 

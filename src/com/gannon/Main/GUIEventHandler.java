@@ -9,10 +9,10 @@ import java.util.Vector;
 
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.JVMStackSingleton;
-import com.gannon.Executor.MethodExecuter.MethodDataCollector;
-import com.gannon.Executor.MethodExecuter.MethodExecuter;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
+import com.gannon.Executor.GannonJVM.MethodDataCollector;
+import com.gannon.Executor.GannonJVM.GannonJVM;
 
 /**
  *
@@ -45,7 +45,7 @@ public class GUIEventHandler {
 //                    System.out.println("Size of JVM Stack: "+JVMStackSingleton.getInstance().size());
                     Integer displayValue = null;
 
-                    MethodExecuter executeMethod = new MethodExecuter(JVMStackSingleton.getInstance().getActiveBFrame());
+                    GannonJVM executeMethod = new GannonJVM(JVMStackSingleton.getInstance().getActiveBFrame());
                     executeMethod.execute();
                     displayValue = executeMethod.getReturnValue();
                     interfaceAPI.setDisplayValue(displayValue);

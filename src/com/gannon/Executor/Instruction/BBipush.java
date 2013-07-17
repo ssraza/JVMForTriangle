@@ -2,9 +2,11 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 
+//push one-byte signed integer
+//http://www.vmth.ucdavis.edu/incoming/Jasmin/ref-_bipush.html
 public class BBipush extends BInstruction {
 
 	private int operand1;
@@ -43,7 +45,7 @@ public class BBipush extends BInstruction {
 		return super.toString() + " " + operand1;
 	}
 
-	public int getOperand() {
+	public Integer getOperand() {
 		return operand1;
 	}
 

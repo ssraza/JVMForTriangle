@@ -1,6 +1,6 @@
 package com.gannon.Executor.Instruction;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
+import com.gannon.Executor.GannonJVM.BFrame;
 import com.gannon.Utility.HardBytecode;
 
 /**
@@ -28,12 +28,8 @@ public abstract class BInstruction {
 	public abstract Object execute(BFrame activeFrame);
 
 	public abstract int getOpcode();
-
-	public abstract String getOpcodeCommand();
-
-	public String getOpcodeString(int opcode){
-		return HardBytecode.getStringByteCode(opcode);
-	}
+	
+	public abstract String getOpcodeCommand();//readable opcode
 
 	public int getLineNumber() {
 		return lineNumber;
@@ -41,6 +37,10 @@ public abstract class BInstruction {
 
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
+	}
+
+	public String toString(){
+		return String.valueOf(lineNumber) + " "+getOpcodeCommand();
 	}
 
 }

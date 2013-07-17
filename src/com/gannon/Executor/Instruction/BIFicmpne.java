@@ -5,8 +5,8 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 
 import org.objectweb.asm.Label;
 
@@ -77,7 +77,7 @@ public class BIFicmpne extends BInstruction {
 	}
 
 	public String getOpcodeCommand() {
-		return "if_cmpne" + " " + label.toString();
+		return "if_cmpne" ;
 	}
 
 	public Label getOperand() {

@@ -5,8 +5,10 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.ASM.BytecodeComponent.BBlock;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Utility.HardBytecode;
 
 import org.objectweb.asm.Label;
 
@@ -31,25 +33,24 @@ public class BIFicmpeq extends BInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-		//Integer pc = activeFrame.getPC();
-		HashMap<String, Integer> labelMapping = activeFrame.getLabelMap();
-		HashMap<Integer, BInstruction> instructionMapping = activeFrame.getInstructionMap();
-		Integer programCounter = activeFrame.getPC();
 
-		Integer firstValue = (Integer)myOperandStack.pop();
-		Integer secondValue = (Integer)myOperandStack.pop();
-		activeFrame.setPC(++programCounter);
+		Integer programCounter = activeFrame.getPC();// next instruction will
+														// fetched for execution
 
-		if(firstValue == secondValue){
-			System.out.println("Condition satisfied first value is equal to second"+firstValue+"  "+secondValue);
-			programCounter = labelMapping.get(this.label.toString());
-			System.out.println("New program counter "+ programCounter);
+		Integer firstValue = (Integer) myOperandStack.pop();
+		Integer secondValue = (Integer) myOperandStack.pop();
+
+		if (firstValue == secondValue) {
+			BBlock b = activeFrame.getMethod().findBBlock(label);
+			programCounter = b.getbLable().getLineNumber();
 			activeFrame.setPC(programCounter);
-		}
-		else{
-			System.out.println("Condition is not satisfied, first value is not equal to second value "+firstValue+"  "+secondValue);
-			sendFeedBackToUser(firstValue,secondValue, activeFrame);
+		} else {
+			System.out
+					.println("Condition is not satisfied, first value is not equal to second value "
+							+ firstValue + "  " + secondValue);
 			myOperandStack.clear();
+			activeFrame.setPC(++programCounter);// set next instruction to
+												// executed
 		}
 
 		activeFrame.setOperandStack(myOperandStack);
@@ -58,16 +59,14 @@ public class BIFicmpeq extends BInstruction {
 		return activeFrame;
 	}
 
-
-
 	private void sendFeedBackToUser(Integer firstValue, Integer secondValue,
 			BFrame activeFrame) {
 
-		JOptionPane.showMessageDialog(null, "Condition is not satisfied, first value ("+firstValue+") is not equal " +
-				"to second value("+secondValue+") !");
+		JOptionPane.showMessageDialog(null,
+				"Condition is not satisfied, first value (" + firstValue
+						+ ") is not equal " + "to second value(" + secondValue
+						+ ") !");
 	}
-
-
 
 	public String toString() {
 		return super.toString() + " " + label.toString();
@@ -77,11 +76,12 @@ public class BIFicmpeq extends BInstruction {
 		return 159;
 	}
 
-	public String getOpcodeCommand() {
-		return "if_cmpeq" + " " + label.toString();
-	}
-
 	public Label getOperand() {
 		return this.label;
+	}
+
+	@Override
+	public String getOpcodeCommand() {
+		return "if_cmpeq";
 	}
 }

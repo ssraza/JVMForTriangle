@@ -5,6 +5,9 @@ import java.util.HashMap;
 
 import org.objectweb.asm.Label;
 
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
+import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Utility.ByteCodeUtility;
 
 /**
@@ -12,8 +15,8 @@ import com.gannon.Utility.ByteCodeUtility;
  * about the class being visited. This Class will have the information of method
  * being visited and object list of local variables, instrutions, line details,
  * lable deatils, stack details.
- * 
- * 
+ *
+ *
  * @param name
  *            Name of the Method
  * @param methodAccess
@@ -39,7 +42,6 @@ public class BMethod {
 	private ArrayList<BLineNumber> lineDetails = new ArrayList<BLineNumber>();
 	private ArrayList<BBlock> blockList = new ArrayList<BBlock>();
 	private ArrayList<BStackMaxLocals> stackDetails = new ArrayList<BStackMaxLocals>();
-	//public boolean expectedMethod;
 
 	public BMethod() {
 
@@ -70,7 +72,6 @@ public class BMethod {
 	public void addBlock(BBlock aBlock) {
 		blockList.add(aBlock);
 	}
-	
 
 	public ArrayList<BLocalVariable> getLocalVariables() {
 		return localVariables;
@@ -96,61 +97,39 @@ public class BMethod {
 		this.name = name;
 	}
 
-	public void display() {
-
-		System.out.println("\naccess flag:" + " " + methodAccess);
-		System.out.println("Method " + name + " " + methodDesc);
-
-		for (BBlock lbl : blockList) {
-			lbl.display();
+	public ArrayList<BInstruction> getInstructions() {
+		ArrayList<BInstruction> instructionList = new ArrayList<BInstruction>();
+		for (BBlock block : blockList) {
+			instructionList.addAll(block.getInstructions());
 		}
-
+		return instructionList;
 	}
 
-	
-	/*
-	public String displayAsString() {
-		StringBuilder result = new StringBuilder();
-		for (BInstruction intr : instructions) {
-			result.append(intr.toString() + "\n");
+	public BBlock findBBlock(Label label) {
+		for (BBlock block : blockList) {
+			if (block.getbLable().equals(label)) {
+				return block;
+			}
 		}
-		return result.toString();
-
+		return null;
 	}
 
-	public String[] getDisplayStrings() {
-		ArrayList<String> result = new ArrayList<String>();
-		for (BInstruction intr : instructions) {
-			result.add(intr.getOpcodeCommand() + "\n");
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (BBlock block : blockList) {
+			sb.append(block.toString());
 		}
-		return result.toArray(new String[result.size()]);
-
-	}*/
-
-//	public String[] getDisplayByteCodes(){
-//		ArrayList<String> result = new ArrayList<String>();
-//		ByteCodeUtility utility = new ByteCodeUtility();
-//		for(BBlock lbl: blockList){
-//			result.add(lbl.getNewLableName());
-//			result.addAll(utility.getModifiedLabelBytecodes(lbl.getInstructions()));
-//		}
-//		int lastIndex = result.size();
-//		result.remove(lastIndex-1);
-//		return result.toArray(new String[result.size()]);
-//	}
-	
-	public String[] getBytecodesForDisplay(){
-		ArrayList<String> result = new ArrayList<String>();
-		ByteCodeUtility utility = new ByteCodeUtility();
-		HashMap<String, String> labelNameMapping = utility.createLabelMapping(blockList);
-		for(BBlock label: blockList){
-			result.add(label.getNewLableName());
-			result.addAll(utility.getModifiedLabelBytecodes(label.getInstructions(), labelNameMapping));
-		}
-		int lastIndex = result.size();
-		result.remove(lastIndex-1);
-		return result.toArray(new String[result.size()]);
+		return sb.toString();
 	}
 
-	
+	// not use now
+	public BLabel findbLabels(Label l) {
+		for (BBlock block : blockList) {
+			if (block.getbLable().getLabel().equals(l)) {
+				return block.getbLable();
+			}
+		}
+		return null;
+	}
+
 }

@@ -6,10 +6,10 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 import com.gannon.Executor.Instruction.BALoad;
 import com.gannon.Executor.Instruction.BInstruction;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
 
 public class BALoadTest {
 
@@ -23,7 +23,7 @@ public class BALoadTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 		varTable.add(new Integer(7)); // add value 7 to index 0
 		
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position.
 		// Expectation is, BALoad(0) should load what ever is there on 0th position of local variable table,
@@ -52,7 +52,7 @@ public class BALoadTest {
 		varTable.add(new Integer(7)); // add value 7 to index 0
 		varTable.add(new Integer(8)); // add value 8 to index 1
 
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		bload.execute(activeFrame);
 		
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position. and 8 on its 1st.

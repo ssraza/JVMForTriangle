@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.ASM.BytecodeReader.ByteCodeClassGenerator;
 import com.gannon.Executor.Instruction.BALoad;
 import com.gannon.Executor.Instruction.BBipush;
 import com.gannon.Executor.Instruction.BILoad;
@@ -23,8 +23,8 @@ public class BytecodeFactoryTest {
 
 	@Test
 	public void testLebel() {
-		ByteCodeClassGenerator clasGen = new ByteCodeClassGenerator("Hello.class");
-		clasGen.cparser();
+		BClassGenerator clasGen = new BClassGenerator("Hello.class");
+		clasGen.getBClass();
 		BClass triangleClass = clasGen.getbFactory().getBClass();
 			System.out.println("879787454 "+triangleClass.getClassName());
 			System.out.println("455454"+triangleClass.getMethods().get(2).getName());

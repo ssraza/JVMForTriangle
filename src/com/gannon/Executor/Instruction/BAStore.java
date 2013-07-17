@@ -2,8 +2,8 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 
 public class BAStore extends BInstruction {
 	private int operand1;
@@ -48,7 +48,7 @@ public class BAStore extends BInstruction {
 		return super.toString() + " " + operand1;
 	}
 
-	public int getOperand() {
+	public Object getOperand() {
 		return operand1;
 	}
 

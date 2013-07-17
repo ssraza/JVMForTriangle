@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 
 import org.objectweb.asm.Label;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
 
 /**
  * @author Pratik
@@ -79,7 +79,7 @@ public class BIFicmpge extends BInstruction {
 	}
 
 	public String getOpcodeCommand() {
-		return "if_cmpge" + " " + label.toString();
+		return "if_cmpge";
 	}
 
 	public Label getOperand() {

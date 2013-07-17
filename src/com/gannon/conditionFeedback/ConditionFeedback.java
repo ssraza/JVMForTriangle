@@ -2,10 +2,10 @@ package com.gannon.conditionFeedback;
 
 import java.util.ArrayList;
 
+import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
 import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.ASM.BytecodeReader.ByteCodeClassGenerator;
 import com.gannon.Executor.Instruction.BInstruction;
 import com.gannon.Main.InterfaceAPISingleton;
 
@@ -13,9 +13,9 @@ public class ConditionFeedback {
 	
 	public static void main(String [] args) {
 
-		ByteCodeClassGenerator clasGen = new ByteCodeClassGenerator(
+		BClassGenerator clasGen = new BClassGenerator(
 				"Hello.class");
-		clasGen.cparser();
+		clasGen.getBClass();
 		BClass loadedClass = clasGen.getbFactory().getBClass();
 		InterfaceAPISingleton.getInstance().setbClass(loadedClass);
 		

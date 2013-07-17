@@ -10,10 +10,10 @@ import org.junit.Test;
 
 import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
 import com.gannon.Executor.Instruction.BInvokeVirtual;
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
-import com.gannon.Executor.JVMExecutionObjects.JVMStackSingleton;
 import com.gannon.Main.InterfaceAPISingleton;
 
 public class BInvokeVirtualTest {
@@ -60,7 +60,7 @@ public class BInvokeVirtualTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 				
-		BFrame activeFrame = new BFrame(varTable, 0, operandStack);
+		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
 		virtualCallTest.execute(activeFrame);
 		

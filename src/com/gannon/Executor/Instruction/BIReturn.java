@@ -2,10 +2,9 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
-import com.gannon.Executor.JVMExecutionObjects.BLocalVarTable;
-import com.gannon.Executor.JVMExecutionObjects.JVMStackSingleton;
-import com.gannon.Main.Main;
+import com.gannon.Executor.GannonJVM.BFrame;
+import com.gannon.Executor.GannonJVM.BLocalVarTable;
+import com.gannon.Executor.GannonJVM.JVMStackSingleton;
 
 public class BIReturn extends BInstruction {
 	public BIReturn() {
@@ -29,19 +28,15 @@ public class BIReturn extends BInstruction {
 
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+
 		Integer pc = activeFrame.getPC();
-		activeFrame.setPC(++pc);
-		// myLocalVariableTable.clear();
-		Main.setReturnType("integer");
+		//-1 means the end of the instructions??
+		activeFrame.setPC(-1);
 
-		JVMStackSingleton.getInstance().removeMethodFrame();
-		if (JVMStackSingleton.getInstance().size() != 0)
-			JVMStackSingleton.getInstance().getActiveBFrame().getOperandStack()
-					.push((Integer) myOperandStack.lastElement());
-
-		System.out.println("JVMSingleton size: "+ JVMStackSingleton.getInstance().getJavaStackSize());
-		System.out.println("Return value frm iReturn "+ myOperandStack.lastElement());
+		JVMStackSingleton.getInstance().popActivekFrame();
+		if (JVMStackSingleton.getInstance().size() != 0){
+			JVMStackSingleton.getInstance().peekActivekFrame().getOperandStack().push((Integer) myOperandStack.lastElement());
+		}
 		return (Integer) myOperandStack.pop();
 
 	}
@@ -52,10 +47,6 @@ public class BIReturn extends BInstruction {
 
 	public String getOpcodeCommand() {
 		return "ireturn";
-	}
-
-	public String getOperand() {
-		return "-1";
 	}
 
 }

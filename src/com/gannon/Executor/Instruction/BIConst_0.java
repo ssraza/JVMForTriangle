@@ -2,7 +2,7 @@ package com.gannon.Executor.Instruction;
 
 import java.util.Stack;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
+import com.gannon.Executor.GannonJVM.BFrame;
 
 public class BIConst_0 extends BInstruction {
 
@@ -31,7 +31,7 @@ public class BIConst_0 extends BInstruction {
 		return "iconst_0";
 	}
 
-	public int getOperand() {
+	public Integer getOperand() {
 		return 0;
 	}
 

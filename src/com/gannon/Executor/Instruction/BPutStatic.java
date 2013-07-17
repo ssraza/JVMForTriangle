@@ -1,6 +1,6 @@
 package com.gannon.Executor.Instruction;
 
-import com.gannon.Executor.JVMExecutionObjects.BFrame;
+import com.gannon.Executor.GannonJVM.BFrame;
 
 public class BPutStatic extends BInstruction {
 
