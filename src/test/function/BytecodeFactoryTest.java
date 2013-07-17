@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
-import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.component.BBlock;
+import com.gannon.asm.component.BClass;
+import com.gannon.asm.component.BMethod;
 import com.gannon.jvm.instructions.BALoad;
 import com.gannon.jvm.instructions.BBipush;
 import com.gannon.jvm.instructions.BILoad;

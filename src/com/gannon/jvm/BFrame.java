@@ -2,7 +2,8 @@ package com.gannon.jvm;
 
 import java.util.HashMap;
 import java.util.Stack;
-import com.gannon.ASM.BytecodeComponent.*;
+
+import com.gannon.asm.components.*;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class BFrame {
@@ -13,7 +14,7 @@ public class BFrame {
 
 	private HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 	private HashMap<Integer, BInstruction> instructionMap = new HashMap<Integer, BInstruction>();
-	
+
 	public BFrame(int PC, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
 		this.PC = PC;
@@ -28,7 +29,7 @@ public class BFrame {
 		this.PC = PC;
 		this.localVariableTable = localVariableTable;
 		this.operandStack=operandStack;
-		
+
 	}
 
 	public BMethod getMethod() {

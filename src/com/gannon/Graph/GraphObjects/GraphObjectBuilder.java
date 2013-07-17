@@ -2,9 +2,9 @@ package com.gannon.Graph.GraphObjects;
 
 import java.util.ArrayList;
 
-import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.ASM.BytecodeComponent.BMethod;
 import com.gannon.Graph.GraphObjects.Graph.Edge;
+import com.gannon.asm.component.BBlock;
+import com.gannon.asm.component.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class GraphObjectBuilder {

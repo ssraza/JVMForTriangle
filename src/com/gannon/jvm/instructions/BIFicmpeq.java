@@ -5,8 +5,8 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
-import com.gannon.ASM.BytecodeComponent.BBlock;
 import com.gannon.Utility.HardBytecode;
+import com.gannon.asm.components.BBlock;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 
@@ -40,7 +40,7 @@ public class BIFicmpeq extends BInstruction {
 		Integer firstValue = (Integer) myOperandStack.pop();
 		Integer secondValue = (Integer) myOperandStack.pop();
 
-		if (firstValue == secondValue) {
+		if (firstValue.equals(secondValue)) {
 			BBlock b = activeFrame.getMethod().findBBlock(label);
 			programCounter = b.getbLable().getLineNumber();
 			activeFrame.setPC(programCounter);

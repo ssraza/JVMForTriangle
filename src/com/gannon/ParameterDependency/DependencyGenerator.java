@@ -3,8 +3,8 @@ package com.gannon.ParameterDependency;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.asm.component.BBlock;
+import com.gannon.asm.component.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class DependencyGenerator {

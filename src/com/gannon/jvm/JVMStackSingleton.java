@@ -21,16 +21,22 @@ public class JVMStackSingleton {
 	public BFrame peekActivekFrame() {
 		return javaStack.peek();
 	}
-	
+
 	public BFrame popActivekFrame() {
 		return javaStack.pop();
 	}
-	
+
 	public int size() {
 		return javaStack.size();
 	}
-	
+
 	public void pushFrame(BFrame mFrame) {
 		javaStack.push(mFrame);
+	}
+
+	public void clear(){
+		if(javaStack!=null){
+			javaStack.clear();
+		}
 	}
 }

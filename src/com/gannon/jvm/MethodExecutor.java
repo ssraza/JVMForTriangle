@@ -2,12 +2,12 @@ package com.gannon.jvm;
 
 import java.util.ArrayList;
 
-import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.Utility.ByteCodeUtility;
+import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class MethodExecutor {
+	private ArrayList<Integer> executedInsIDs=new ArrayList<Integer>();
+
 	public MethodExecutor() {
 		super();
 	}
@@ -22,6 +22,9 @@ public class MethodExecutor {
 		// flag pc =-1 points to next executing instruction
 		// the flag is set in return instruction
 		while (activeFrame.getPC() != -1) {
+			//tracking instructions have been executed
+			executedInsIDs.add(activeFrame.getPC());
+
 			BInstruction bInstruction = instructions.get(activeFrame.getPC());
 			result = bInstruction.execute(activeFrame);
 			// In case of Bytecode return, we will unload the method frame
@@ -33,7 +36,7 @@ public class MethodExecutor {
 			 * activeFrame.getMethod(); instructions = method.getInstructions();
 			 * } else { break; }
 			 */
-			System.out.println(activeFrame.getPC());
+
 		}
 
 		//post execution job, need to method to method calling
@@ -53,4 +56,7 @@ public class MethodExecutor {
 
 	}
 
+	public ArrayList<Integer> getExecutedInsIDs() {
+		return executedInsIDs;
+	}
 }

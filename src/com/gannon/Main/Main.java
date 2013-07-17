@@ -16,12 +16,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
-import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeComponent.BLocalVariable;
-import com.gannon.ASM.BytecodeComponent.BMethod;
-import com.gannon.ASM.BytecodeComponent.BStackMaxLocals;
 import com.gannon.Graph.GraphGenerator.GraphGeneratorNew;
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.component.BClass;
+import com.gannon.asm.component.BLocalVariable;
+import com.gannon.asm.component.BMethod;
+import com.gannon.asm.component.BStackMaxLocals;
 
 /**
  * 

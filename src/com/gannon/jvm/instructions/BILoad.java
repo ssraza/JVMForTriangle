@@ -20,7 +20,7 @@ public class BILoad extends BInstruction {
 	}
 
 	public String toString() {
-		return super.toString() + " "  + getOpcodeCommand()+" " + operand1;
+		return super.toString() + " " + getOperand();
 	}
 
     //

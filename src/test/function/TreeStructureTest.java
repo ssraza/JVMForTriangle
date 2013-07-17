@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
-import com.gannon.ASM.BytecodeComponent.BBlock;
-import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.asm.component.BBlock;
+import com.gannon.asm.component.BMethod;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BILoad;
 import com.gannon.jvm.instructions.BIReturn;

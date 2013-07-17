@@ -2,10 +2,10 @@ package com.gannon.Utility;
 
 import java.util.Stack;
 
-import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
-import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeComponent.BMethod;
 import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.component.BClass;
+import com.gannon.asm.component.BMethod;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 import com.gannon.jvm.JVMStackSingleton;

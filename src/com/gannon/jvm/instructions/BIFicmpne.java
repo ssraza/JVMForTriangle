@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
+import com.gannon.asm.components.BBlock;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 
@@ -33,25 +34,21 @@ public class BIFicmpne extends BInstruction {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 		Integer programCounter = activeFrame.getPC();
-		HashMap<String, Integer> labelMapping = activeFrame.getLabelMap();
-		HashMap<Integer, BInstruction> instructionMapping = activeFrame
-				.getInstructionMap();
 
-		Integer firstValue = (Integer) myOperandStack.pop();
 		Integer secondValue = (Integer) myOperandStack.pop();
-		activeFrame.setPC(++programCounter);
+		Integer firstValue = (Integer) myOperandStack.pop();
 
-		if (firstValue != secondValue) {
-			System.out
-					.println("Condition satisfied first value is not equal to second"
-							+ firstValue + "  " + secondValue);
-			programCounter = labelMapping.get(this.label.toString());
-			System.out.println("New program counter " + programCounter);
-			activeFrame.setPC(programCounter);
+
+		if (!firstValue.equals(secondValue)) {
+			BBlock b = activeFrame.getMethod().findBBlock(label);
+			programCounter = b.getbLable().getLineNumber();
+
+			System.out.println("line nubmer "+programCounter);
 		}
 		else{
 			System.out.println("Condition is not satisfied, first value is equal to second value "+firstValue+"  "+secondValue);
 			myOperandStack.clear();
+			++programCounter;
 		}
 
 		activeFrame.setPC(programCounter);

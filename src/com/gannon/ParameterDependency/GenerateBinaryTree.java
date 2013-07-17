@@ -1,8 +1,8 @@
 package com.gannon.ParameterDependency;
 
-import com.gannon.ASM.BytecodeClassGenerator.BClassGenerator;
-import com.gannon.ASM.BytecodeComponent.BClass;
 import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.component.BClass;
 
 public class GenerateBinaryTree {
 	public static void main(String[] arg) {

@@ -19,13 +19,6 @@ public class BIReturn extends BInstruction {
 		return super.toString();
 	}
 
-	// public Integer execute(BFrame activeFrame, BJVMStack jStack) {
-	// jStack.pop();
-	// BFrame buttonFrame=jStack.peek();
-	// buttonFrame.getOperandStack().push(activeFrame.getOperandStack().pop());
-	//
-	// }
-
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		Integer pc = activeFrame.getPC();

@@ -3,7 +3,7 @@ package com.gannon.jvm;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.gannon.ASM.BytecodeComponent.BMethod;
+import com.gannon.asm.components.BMethod;
 
 public class GannonJVM {
 	private JVMStackSingleton jvmStack;
@@ -47,4 +47,9 @@ public class GannonJVM {
 		//push the frame to JVM stack
 		jvmStack.pushFrame(activeFrame);
 	}
+
+	public ArrayList<Integer> getExecutedInsIDs() {
+		return executor.getExecutedInsIDs();
+	}
+
 }

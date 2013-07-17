@@ -2,11 +2,11 @@ package com.gannon.Graph.GraphGenerator;
 
 import java.util.ArrayList;
 
-import com.gannon.ASM.BytecodeComponent.BClass;
-import com.gannon.ASM.BytecodeComponent.BMethod;
 import com.gannon.Graph.GraphObjects.Graph;
 import com.gannon.Graph.GraphObjects.GraphObjectBuilder;
 import com.gannon.Main.InterfaceAPISingleton;
+import com.gannon.asm.component.BClass;
+import com.gannon.asm.component.BMethod;
 
 public class GraphGeneratorNew {
 	// public static void main(String[] args) throws IOException {
