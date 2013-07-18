@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import com.gannon.asm.components.BMethod;
+import com.gannon.treeStructure.Path;
 
 public class GannonJVM {
 	private JVMStackSingleton jvmStack;
 	private MethodExecutor executor;
+	private Path executedPath;
 
 	public GannonJVM(JVMStackSingleton jvmStack, MethodExecutor executor) {
 		super();
@@ -18,7 +20,9 @@ public class GannonJVM {
 	public Object run(BMethod method, ArrayList<Object> inputs) {
 		// be sure to push the active frame to stack
 		preExecution(method,inputs);
-		return executor.execute(jvmStack);
+		Object result=executor.execute(jvmStack);
+		executedPath= collectingExecutedPath(inputs);
+		return result;
 	}
 
 	public JVMStackSingleton getJvmStack() {
@@ -48,8 +52,14 @@ public class GannonJVM {
 		jvmStack.pushFrame(activeFrame);
 	}
 
-	public ArrayList<Integer> getExecutedInsIDs() {
-		return executor.getExecutedInsIDs();
+	private Path collectingExecutedPath(ArrayList<Object> inputs) {
+		Path executedPath = executor.getExecutedPath();
+		executedPath.setInputs(inputs);
+		return executedPath;
+	}
+
+	private Path getExecutedPath() {
+		return executedPath;
 	}
 
 }

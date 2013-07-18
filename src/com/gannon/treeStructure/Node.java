@@ -17,4 +17,10 @@ public class Node {
 	public void setIns(BInstruction ins) {
 		this.ins = ins;
 	}
+
+	public Integer getInstructionLineNumber(){
+		return ins.getLineNumber();
+	}
+
+
 }

@@ -10,11 +10,6 @@ public class PredicateNode extends Node{
 		super(ins);
 	}
 
-	public PredicateNode(BInstruction ins, Boolean runTimePredicateValue) {
-		super(ins);
-		this.runTimePredicateValue = runTimePredicateValue;
-	}
-
 	public Boolean getRunTimePredicateValue() {
 		return runTimePredicateValue;
 	}

@@ -1,12 +1,11 @@
 package com.gannon.treeStructure;
 
 public class Tree {
-
 	private Node rootNode;
 	private Node leftLeaf;
 	private Node rightLeaf;
 	private Object ArithmaticOperation;
-	
+
 	public Tree(Node rootNode, Node leftLeaf, Node rightLeaf,
 			Object arithmaticOperation) {
 		super();
@@ -39,6 +38,6 @@ public class Tree {
 	public void setArithmaticOperation(Object arithmaticOperation) {
 		ArithmaticOperation = arithmaticOperation;
 	}
-	
-	
+
+
 }

@@ -14,7 +14,7 @@ public class BLocalVarTable {
 		this.localVars = localVar;
 	}
 
-	public ArrayList<Object> getLocalVar() {
+	public ArrayList<Object> getLocalVars() {
 		return localVars;
 	}
 
@@ -48,8 +48,8 @@ public class BLocalVarTable {
 	public Object elementAt(int location) {
 		return localVars.get(location);
 	}
-	
-	public void clear(){		
+
+	public void clear(){
 		localVars.clear();
 	}
 

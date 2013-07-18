@@ -2,8 +2,8 @@ package com.gannon.asm.components;
 
 /**
  * This class is a part of data structure created to organize the information
- * about the class being visited.
- * This Class will have the information of method local variables.
+ * about the class being visited. This Class will have the information of method
+ * local variables.
  *
  *
  * @param name
@@ -15,15 +15,16 @@ package com.gannon.asm.components;
  * @param index
  *            Index of the local variable,
  *
+ *            e.g., triangleType(int a,int b,int c)
+ *
  * **/
 public class BLocalVariable {
-	private String name;
-    private String desc;
-    private String signature;
-    private int index;
+	private String name; //a, b, c
+	private String desc; // int, int, int
+	private String signature;
+	private int index; //0,1,2
 
-
-    public BLocalVariable() {
+	public BLocalVariable() {
 		super();
 	}
 
@@ -51,9 +52,10 @@ public class BLocalVariable {
 		return index;
 	}
 
-	/**Display the Local Varible Details**/
-	public void display(){
-		System.out.println("LOCAL VARIABLE "+name + " " +desc+" "+ signature+" "+ index);
+	/** Display the Local Varible Details **/
+	public void display() {
+		System.out.println("LOCAL VARIABLE " + name + " " + desc + " "
+				+ signature + " " + index);
 	}
 
 }

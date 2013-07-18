@@ -3,10 +3,10 @@ package com.gannon.treeStructure;
 import java.util.ArrayList;
 
 public class Path {
-	private int pathId;	
-	private ArrayList<Node> nodes = new ArrayList<Node>();;
+	private int pathId;
+	private ArrayList<Node> nodes = new ArrayList<Node>();
+	private ArrayList<Object> inputs = new ArrayList<Object>();
 
-	
 	public Path() {
 		super();
 	}
@@ -31,8 +31,24 @@ public class Path {
 	public void setListofNodes(ArrayList<Node> listofNodes) {
 		this.nodes = listofNodes;
 	}
-	
+
 	public void add(Node node){
 		this.nodes.add(node);
+	}
+
+	public ArrayList<Object> getInputs() {
+		return inputs;
+	}
+
+	public void setInputs(ArrayList<Object> inputs) {
+		this.inputs = inputs;
+	}
+
+	public ArrayList<Integer> getExecutedInsIDs() {
+		ArrayList<Integer> ids=new ArrayList<Integer>();
+		for(Node node: nodes){
+			ids.add(node.getInstructionLineNumber());
+		}
+		return ids;
 	}
 }

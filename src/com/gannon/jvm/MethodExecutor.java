@@ -11,8 +11,8 @@ import com.gannon.treeStructure.Path;
 import com.gannon.treeStructure.PredicateNode;
 
 public class MethodExecutor {
-	//save execution path a
-	private Path path=new Path();
+	//save execution path
+	private Path executedPath=new Path();
 
 	public MethodExecutor() {
 		super();
@@ -20,7 +20,7 @@ public class MethodExecutor {
 
 	// assume activeFrame is saved in JVM stack
 	public Object execute(JVMStackSingleton jvmStack) {
-		Object result = null;
+		Object runTimePredicateResult = null;
 		BFrame activeFrame = jvmStack.peekActiveFrame();
 		BMethod method = activeFrame.getMethod();
 		ArrayList<BInstruction> instructions = method.getInstructions();
@@ -28,17 +28,11 @@ public class MethodExecutor {
 		// flag pc =-1 points to next executing instruction
 		// the flag is set in return instruction
 		while (activeFrame.getPC() != -1) {
-
-
 			BInstruction bInstruction = instructions.get(activeFrame.getPC());
-			result = bInstruction.execute(activeFrame);
+			runTimePredicateResult = bInstruction.execute(activeFrame);
 
-			//save path with predicate results if the instruction is predicateInstruction
-			if(bInstruction instanceof BPredicateInstruction){
-				path.add(new PredicateNode(bInstruction, (Boolean)result));
-			}else{
-				path.add(new NonPredicateNode(bInstruction));
-			}
+			//save runtime execution results for predicate statements to node
+			saveRuntimePredicateResult(runTimePredicateResult, bInstruction);
 
 			// In case of Bytecode return, we will unload the method frame
 			// from JVMStack in bytecode execute() method it self, so check the
@@ -52,12 +46,24 @@ public class MethodExecutor {
 
 		}
 
-		//post execution job, need to method to method calling
+		//post execution job, needed for method to method calling
 		if (activeFrame.getPC() == -1) {
-			postExecution(jvmStack, result);
+			postExecution(jvmStack, runTimePredicateResult);
 		}
+		//ideally, only predicate statements will results, e.g., true or false;
+		return runTimePredicateResult;
+	}
 
-		return result;
+	//save path with predicate results if the instruction is predicateInstruction
+	private void saveRuntimePredicateResult(Object result,
+			BInstruction bInstruction) {
+		if(bInstruction instanceof BPredicateInstruction){
+			PredicateNode pNode = new PredicateNode(bInstruction);
+			executedPath.add(pNode);
+			pNode.setRunTimePredicateValue((Boolean)result);
+		}else{
+			executedPath.add(new NonPredicateNode(bInstruction));
+		}
 	}
 
 	//after execution, be sure to push the result to the caller
@@ -69,11 +75,12 @@ public class MethodExecutor {
 
 	}
 
-	public ArrayList<Integer> getExecutedInsIDs() {
-		ArrayList<Integer> ids=new ArrayList<Integer>();
-		for(Node node: path.getNodes()){
-			ids.add(node.getIns().getLineNumber());
-		}
-		return ids;
+	public Path getExecutedPath() {
+		return executedPath;
+	}
+
+	//don't call this method, it is only used by writing test cases
+	public ArrayList<Integer> getExecutedInsIDs( ){
+		return getExecutedPath().getExecutedInsIDs();
 	}
 }

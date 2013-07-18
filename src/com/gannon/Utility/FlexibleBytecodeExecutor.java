@@ -32,7 +32,7 @@ public class FlexibleBytecodeExecutor {
 			operandStack.push(5);
 					
 			Integer pc = new Integer(4);
-			System.out.println(localVarTable.getLocalVar());
+			System.out.println(localVarTable.getLocalVars());
 			System.out.println(operandStack);
 			BFrame activeFrame = new BFrame(pc, localVarTable, operandStack);
 			activeFrame.setMethod(actualMethod);

@@ -1,12 +1,9 @@
 package com.gannon.jvm;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Stack;
-
 import org.junit.Test;
-
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;

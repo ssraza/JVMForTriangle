@@ -89,7 +89,7 @@ public class BInvokeVirtual extends BInstruction {
 		while (!callerOperandStack.empty()) {
 			calleeLocalTable.add(callerOperandStack.pop());
 		}
-		System.out.println("final Stack  " + calleeLocalTable.getLocalVar());
+		System.out.println("final Stack  " + calleeLocalTable.getLocalVars());
 		return calleeLocalTable;
 	}
 
