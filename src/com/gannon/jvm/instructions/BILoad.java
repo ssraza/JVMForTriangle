@@ -5,8 +5,6 @@ import java.util.Stack;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 
-import files.HardBytecode;
-
 public class BILoad extends BInstruction {
 	private int operand1;
 
@@ -44,10 +42,5 @@ public class BILoad extends BInstruction {
 
 	public Integer getOperand() {
 		return operand1;
-	}
-
-	@Override
-	public String getOpcodeCommand() {
-		return "iload";
 	}
 }

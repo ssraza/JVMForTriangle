@@ -39,10 +39,4 @@ public class BALoad extends BInstruction {
 	public Object getOperand() {
 		return operand1;
 	}
-
-	@Override
-	public String getOpcodeCommand() {
-		return "baload";
-	}
-
 }

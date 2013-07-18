@@ -37,10 +37,6 @@ public class BBipush extends BInstruction {
 		return 16;
 	}
 
-	public String getOpcodeCommand() {
-		return "bipush" + " " + operand1;
-	}
-
 	public String toString() {
 		return super.toString() + " " + operand1;
 	}

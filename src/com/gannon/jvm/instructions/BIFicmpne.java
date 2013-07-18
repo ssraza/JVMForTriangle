@@ -57,15 +57,11 @@ public class BIFicmpne extends BPredicateInstruction {
 	}
 
 	public String toString() {
-		return super.toString() + " " + label.toString();
+		return super.toString()+" "+getOperand();
 	}
 
 	public int getOpcode() {
 		return 160;
-	}
-
-	public String getOpcodeCommand() {
-		return "if_cmpne" ;
 	}
 
 	public Label getOperand() {

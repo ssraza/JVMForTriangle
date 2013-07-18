@@ -40,10 +40,6 @@ public class BAStore extends BInstruction {
 		return 58;
 	}
 
-	public String getOpcodeCommand() {
-		return "astore" + " " + operand1;
-	}
-
 	public String toString() {
 		return super.toString() + " " + operand1;
 	}

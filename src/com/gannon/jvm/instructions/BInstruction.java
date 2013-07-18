@@ -1,8 +1,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
-
-import files.HardBytecode;
+import com.gannon.jvm.utilities.Utility;
 
 /**
  * This class is a part of data structure created to organize the information
@@ -22,13 +21,20 @@ import files.HardBytecode;
  *            Signature of the instruction, Method Signature
  * @param desc
  *            Parameter description of the instruction
+ *
+ * opCode: 21
+ * opCodeCommand : iload
+ *
  * **/
 public abstract class BInstruction {
 	private int lineNumber; // ID of the instruction
 
 	public abstract Object execute(BFrame activeFrame);
 	public abstract int getOpcode();
-	public abstract String getOpcodeCommand();//readable opcode
+
+	public String getOpCodeCommand(){
+		return Utility.getOpCodeCommand(getOpcode());
+	}
 
 	public int getLineNumber() {
 		return lineNumber;
@@ -39,7 +45,7 @@ public abstract class BInstruction {
 	}
 
 	public String toString(){
-		return String.valueOf(lineNumber) + " "+getOpcodeCommand();
+		return String.valueOf(lineNumber) + " "+getOpCodeCommand();
 	}
 
 }

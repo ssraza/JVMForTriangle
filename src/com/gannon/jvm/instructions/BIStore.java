@@ -37,10 +37,6 @@ public class BIStore extends BInstruction {
 		return 54;
 	}
 
-	public String getOpcodeCommand() {
-		return "istore";
-	}
-
 	public Integer getOperand() {
 		return operand1;
 	}

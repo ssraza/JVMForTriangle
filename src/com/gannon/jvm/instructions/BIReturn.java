@@ -32,9 +32,4 @@ public class BIReturn extends BInstruction {
 	public int getOpcode() {
 		return 172;
 	}
-
-	public String getOpcodeCommand() {
-		return "ireturn";
-	}
-
 }

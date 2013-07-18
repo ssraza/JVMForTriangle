@@ -53,7 +53,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 	}
 
 	public String toString() {
-		return super.toString() + " " + label.toString();
+		return super.toString()+" "+getOperand();
 	}
 
 	public int getOpcode() {
@@ -62,10 +62,5 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 	public Label getOperand() {
 		return this.label;
-	}
-
-	@Override
-	public String getOpcodeCommand() {
-		return "if_cmpeq";
 	}
 }

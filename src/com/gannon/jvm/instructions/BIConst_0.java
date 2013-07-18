@@ -10,10 +10,6 @@ public class BIConst_0 extends BInstruction {
 		setLineNumber(lineNumber);
 	}
 
-	public String toString() {
-		return super.toString();
-	}
-
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		Integer pc = activeFrame.getPC();
@@ -25,10 +21,6 @@ public class BIConst_0 extends BInstruction {
 
 	public int getOpcode() {
 		return 3;
-	}
-
-	public String getOpcodeCommand() {
-		return "iconst_0";
 	}
 
 	public Integer getOperand() {
