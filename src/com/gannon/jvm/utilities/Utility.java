@@ -5,6 +5,8 @@
 package com.gannon.jvm.utilities;
 
 public class Utility {
+	public static int nextVariableID = 100;
+
 	public static String getOpCodeCommand(int Opcode) {
 		String opCode = null;
 		switch (Opcode) {
@@ -629,5 +631,9 @@ public class Utility {
 		}
 		return opCode;
 
+	}
+
+	public static int getNextID() {
+		return nextVariableID++;
 	}
 }

@@ -2,18 +2,18 @@ package com.gannon.jvm.data.dependency;
 
 //binary tree node
 public class BinNode {
-	private int id;// use id as temp variable names
+	private String id;// use id as temp variable names
 	private BinNode leftBNode, rightBNode; // the nodes
 	private String arithmaticOperation;
 
-	public BinNode(int id) {
+	public BinNode(String id) {
 		super();
 		this.id = id;
 		this.leftBNode = null;
 		this.rightBNode = null;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -43,7 +43,7 @@ public class BinNode {
 
 	public void show() {
 		// calls the show method of the AnyClass
-		System.out.print("i"+id);
+		System.out.print("i"+id+"\n");
 	}
 
 }

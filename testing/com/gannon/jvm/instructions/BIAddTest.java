@@ -12,7 +12,8 @@ import org.junit.Test;
 
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.instructions.BIAdd;
+import com.gannon.jvm.data.dependency.BinTree;
+import com.gannon.jvm.data.dependency.DependencyDataHolder;
 
 public class BIAddTest {
 
@@ -33,12 +34,12 @@ public class BIAddTest {
 
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		BIAdd bIAdd = new BIAdd();
-		
+
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position.
 		// operand stack will have 5 and 9,where 9 is top of the stack.
 		// Expectation is, operand stack should load he summation of two values on top of the stack,
 		// Should be copied to TOP of the stack of operand. the later two values must be removed from the operand stack
-		
+
 		bIAdd.execute(activeFrame);
 
 		Stack<Integer> afterExe = activeFrame.getOperandStack();
@@ -68,8 +69,39 @@ public class BIAddTest {
 		System.out.println("getOpcodeCommand");
 		BIAdd instance = new BIAdd();
 		String expResult = "iadd";
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 
+	@Test
+	public void testDependcy(){
+		Stack<String> operandStack = new Stack<String>();
+		operandStack.add("5");
+		operandStack.add("9");
+
+		DependencyDataHolder dependency=new DependencyDataHolder();
+		dependency.setTempVarialbeStack(operandStack);
+
+		BIAdd iadd=new BIAdd();
+		iadd.analyzing(dependency);
+		BinTree tree=dependency.getListOfTrees().get(0);
+		tree.inorderBST();
+
+
+	}
+
+	@Test
+	public void testDependcy2(){
+		Stack<String> operandStack = new Stack<String>();
+		operandStack.add("15");
+		operandStack.add("9");
+
+		DependencyDataHolder dependency=new DependencyDataHolder();
+		dependency.setTempVarialbeStack(operandStack);
+
+		BIAdd iadd=new BIAdd();
+		iadd.analyzing(dependency);
+		BinTree tree=dependency.getListOfTrees().get(0);
+		tree.inorderBST();
+	}
 }

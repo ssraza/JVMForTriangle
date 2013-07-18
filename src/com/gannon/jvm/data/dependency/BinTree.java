@@ -1,25 +1,25 @@
 package com.gannon.jvm.data.dependency;
 
 public class BinTree {
-	BinNode theBTRootNode;
+	private BinNode theBTRootNode;
 
 	public BinTree(BinNode theBTRootNode) // constructor
 	{
 		this.theBTRootNode = theBTRootNode;
 	}
 
-	protected BinNode insertToLeft(BinNode theRootNode, BinNode myLeftNewNode) {
-		if (theRootNode != null) {
-			theRootNode.setLeftBNode(myLeftNewNode);
+	public BinNode insertToLeft(BinNode myLeftNewNode) {
+		if (theBTRootNode != null) {
+			theBTRootNode.setLeftBNode(myLeftNewNode);
 		}
-		return theRootNode;
+		return theBTRootNode;
 	}
 
-	protected BinNode insertToRight(BinNode theRootNode, BinNode myRightNewNode) {
-		if (theRootNode != null) {
-			theRootNode.setRightBNode(myRightNewNode);
+	public BinNode insertToRight(BinNode myRightNewNode) {
+		if (theBTRootNode != null) {
+			theBTRootNode.setRightBNode(myRightNewNode);
 		}
-		return theRootNode;
+		return theBTRootNode;
 	}
 
 	// ------------------ InOrder traversal-------------------
