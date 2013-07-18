@@ -14,9 +14,9 @@ import com.gannon.jvm.Instructions_.BIAdd;
 import com.gannon.jvm.Instructions_.BILoad;
 import com.gannon.jvm.Instructions_.BIReturn;
 import com.gannon.jvm.Instructions_.BIStore;
-import com.gannon.treeStructure.Node;
-import com.gannon.treeStructure.Tree;
-import com.gannon.treeStructure.TreeStructure;
+import com.gannon.jvm.data.dependency.PNode;
+import com.gannon.jvm.data.dependency.Tree;
+import com.gannon.jvm.data.dependency.TreeStructure;
 
 public class TreeStructureTest {
 
@@ -39,7 +39,7 @@ public class TreeStructureTest {
 		
 		TreeStructure tStructure = new TreeStructure();
 		
-		Node retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
+		PNode retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
 		
 		assertEquals("iload 2", retrivedNode.getNodeName());
 		
@@ -65,7 +65,7 @@ public class TreeStructureTest {
 		
 		TreeStructure tStructure = new TreeStructure();
 		
-		Node retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
+		PNode retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
 		
 		assertEquals("iload 1", retrivedNode.getNodeName());
 		
@@ -93,7 +93,7 @@ public class TreeStructureTest {
 		
 		TreeStructure tStructure = new TreeStructure();
 		
-		Node retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
+		PNode retrivedNode = tStructure.getSecondParameter(instructionList, index, tempVarCounter, dependencyDataCollector);
 		
 		assertEquals("temp1", retrivedNode.getNodeName());
 		

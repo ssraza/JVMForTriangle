@@ -1,7 +1,5 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
-import com.gannon.Utility.HardBytecode;
-import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BIConst_0;
 import com.gannon.jvm.instructions.BIConst_1;
@@ -10,8 +8,10 @@ import com.gannon.jvm.instructions.BIConst_3;
 import com.gannon.jvm.instructions.BIConst_4;
 import com.gannon.jvm.instructions.BIConst_5;
 import com.gannon.jvm.instructions.BIReturn;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPop;
 import com.gannon.jvm.instructions.BReturn;
+import com.gannon.jvm.utilities.Utility;
 
 public class VisitInstructionFactory {
 	BInstruction instr;
@@ -25,43 +25,43 @@ public class VisitInstructionFactory {
 	}
 
 	public BInstruction createInst(int opCode, int linNumber) {
-		if (HardBytecode.getStringByteCode(opCode).equals("ireturn")) {
+		if (Utility.getOpCodeCommand(opCode).equals("ireturn")) {
 			//System.out.println("In VisitInstructionFactory ireturn ");
 			instr = new BIReturn(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("return")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("return")) {
 			//System.out.println("In VisitInstructionFactory return ");
 			instr = new BReturn(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("pop")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("pop")) {
 			//System.out.println("In VisitInstructionFactory pop ");
 			instr = new BPop(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iadd")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iadd")) {
 			//System.out.println("In VisitInstructionFactory pop ");
 			instr = new BIAdd(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_0")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_0")) {
 			//System.out.println("In VisitInstructionFactory iconst_0 ");
 			instr = new BIConst_0(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_1")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_1")) {
 			//System.out.println("In VisitInstructionFactory iconst_1 ");
 			instr = new BIConst_1(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_2")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_2")) {
 			//System.out.println("In VisitInstructionFactory iconst_2 ");
 			instr = new BIConst_2(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_3")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_3")) {
 			//System.out.println("In VisitInstructionFactory iconst_3 ");
 			instr = new BIConst_3(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_4")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_4")) {
 			//System.out.println("In VisitInstructionFactory iconst_4 ");
 			instr = new BIConst_4(linNumber);
 		}
-		else if (HardBytecode.getStringByteCode(opCode).equals("iconst_5")) {
+		else if (Utility.getOpCodeCommand(opCode).equals("iconst_5")) {
 			//System.out.println("In VisitInstructionFactory iconst_5 ");
 			instr = new BIConst_5(linNumber);
 		}

@@ -1,7 +1,8 @@
 package com.gannon.jvm.instructions;
 
-import com.gannon.Utility.HardBytecode;
 import com.gannon.jvm.BFrame;
+
+import files.HardBytecode;
 
 /**
  * This class is a part of data structure created to organize the information

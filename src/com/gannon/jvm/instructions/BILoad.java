@@ -2,9 +2,10 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.Utility.HardBytecode;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
+
+import files.HardBytecode;
 
 public class BILoad extends BInstruction {
 	private int operand1;
