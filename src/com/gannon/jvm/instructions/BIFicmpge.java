@@ -3,7 +3,6 @@
  */
 package com.gannon.jvm.instructions;
 
-import java.util.HashMap;
 import java.util.Stack;
 import org.objectweb.asm.Label;
 
@@ -15,7 +14,7 @@ import com.gannon.jvm.BLocalVarTable;
  * @author Pratik
  *
  */
-public class BIFicmpge extends BInstruction {
+public class BIFicmpge extends BPredicateInstruction {
 	private Label label;
 
 	public BIFicmpge() {
@@ -41,23 +40,20 @@ public class BIFicmpge extends BInstruction {
 		Integer secondValue = (Integer)myOperandStack.pop();
 		Integer firstValue = (Integer)myOperandStack.pop();
 
-
-		if(firstValue >= secondValue){
-			System.out.println(firstValue+" >= " + secondValue);
+		boolean predicateResult = firstValue >= secondValue;
+		if(predicateResult){
 			BBlock b = activeFrame.getMethod().findBBlock(label);
 			pc = b.getbLable().getLineNumber();
-
 			activeFrame.setPC(pc);
 		}
 		else{
-			System.out.println(firstValue+" < " + secondValue);
 			myOperandStack.clear();
 			activeFrame.setPC(++pc);
 		}
 
 		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setVarTable(myLocalVariableTable);
-		return activeFrame;
+		return predicateResult;
 	}
 
 	public String toString() {

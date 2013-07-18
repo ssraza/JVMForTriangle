@@ -1,18 +1,13 @@
 package com.gannon.jvm.instructions;
 
-import java.util.HashMap;
 import java.util.Stack;
-
-import javax.swing.JOptionPane;
-
-import com.gannon.Utility.HardBytecode;
 import com.gannon.asm.components.BBlock;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 
 import org.objectweb.asm.Label;
 
-public class BIFicmpeq extends BInstruction {
+public class BIFicmpeq extends BPredicateInstruction {
 	private Label label;
 
 	public BIFicmpeq() {
@@ -34,29 +29,27 @@ public class BIFicmpeq extends BInstruction {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 
-		Integer programCounter = activeFrame.getPC();// next instruction will
-														// fetched for execution
+		// next instruction will fetched for execution
+		Integer programCounter = activeFrame.getPC();
 
 		Integer firstValue = (Integer) myOperandStack.pop();
 		Integer secondValue = (Integer) myOperandStack.pop();
 
-		if (firstValue.equals(secondValue)) {
+		boolean predicateResult=firstValue.equals(secondValue);
+		if (predicateResult) {
 			BBlock b = activeFrame.getMethod().findBBlock(label);
 			programCounter = b.getbLable().getLineNumber();
 			activeFrame.setPC(programCounter);
 		} else {
-			System.out
-					.println("Condition is not satisfied, first value is not equal to second value "
-							+ firstValue + "  " + secondValue);
 			myOperandStack.clear();
-			activeFrame.setPC(++programCounter);// set next instruction to
-												// executed
+			// set next instruction to executed
+			activeFrame.setPC(++programCounter);
 		}
 
 		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setVarTable(myLocalVariableTable);
 
-		return activeFrame;
+		return predicateResult;
 	}
 
 	public String toString() {

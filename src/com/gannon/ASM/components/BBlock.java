@@ -2,8 +2,6 @@ package com.gannon.asm.components;
 
 import java.util.ArrayList;
 
-import org.objectweb.asm.Label;
-
 import com.gannon.jvm.instructions.BInstruction;
 
 /**

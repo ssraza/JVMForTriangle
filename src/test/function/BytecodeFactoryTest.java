@@ -11,13 +11,13 @@ import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.component.BBlock;
 import com.gannon.asm.component.BClass;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.instructions.BALoad;
-import com.gannon.jvm.instructions.BBipush;
-import com.gannon.jvm.instructions.BILoad;
-import com.gannon.jvm.instructions.BIReturn;
-import com.gannon.jvm.instructions.BIStore;
-import com.gannon.jvm.instructions.BInstruction;
-import com.gannon.jvm.instructions.BInvokeVirtual;
+import com.gannon.jvm.Instructions.BInstruction;
+import com.gannon.jvm.Instructions_.BALoad;
+import com.gannon.jvm.Instructions_.BBipush;
+import com.gannon.jvm.Instructions_.BILoad;
+import com.gannon.jvm.Instructions_.BIReturn;
+import com.gannon.jvm.Instructions_.BIStore;
+import com.gannon.jvm.Instructions_.BInvokeVirtual;
 
 public class BytecodeFactoryTest {
 

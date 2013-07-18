@@ -3,49 +3,39 @@ package com.gannon.treeStructure;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gannon.Main.InterfaceAPISingleton;
-import com.gannon.asm.classgenerator.BClassGenerator;
-import com.gannon.asm.component.BBlock;
-import com.gannon.asm.component.BClass;
-import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.instructions.BInstruction;
-
 public class TreeStructure {
 		
 	public static void main(String[] arg) {
 		System.out.println("Start of Execution");
-		BClassGenerator clasGen = new BClassGenerator(
-				"Hello.class");
-		clasGen.getBClass();
-		BClass loadedClass = clasGen.getbFactory().getBClass();
-		InterfaceAPISingleton.getInstance().setbClass(loadedClass);
+//		ByteCodeClassGenerator clasGen = new ByteCodeClassGenerator(
+//				"Hello.class");
+//		clasGen.cparser();
+//		BClass loadedClass = clasGen.getbFactory().getBClass();
+//		InterfaceAPISingleton.getInstance().setbClass(loadedClass);
+		GeneratePathUtility utilityForPath = new GeneratePathUtility();
 		
-		ArrayList<Tree> treeStructure = dependencyGenerator(loadedClass.getMethods().get(3));
+		
+		ArrayList<Tree> treeStructure = dependencyGenerator(utilityForPath.getPath2());
 
 		for(Tree treeStructre : treeStructure){
 			System.out.println("=======================");
-		System.out.println(treeStructre.getRootNode().getNodeName());
-		System.out.println(treeStructre.getLeftLeaf().getNodeName());
+		System.out.println(treeStructre.getRootNode().getIns().getOpcodeCommand());
+		System.out.println(treeStructre.getLeftLeaf().getIns().getOpcodeCommand());
 		System.out.println(treeStructre.getArithmaticOperation());
-		System.out.println(treeStructre.getRightLeaf().getNodeName());
+		System.out.println(treeStructre.getRightLeaf().getIns().getOpcodeCommand());
 		}
 	}
 
-	public static ArrayList<Tree> dependencyGenerator(BMethod bMethod) {
-		
-		ArrayList<BBlock> blockList = bMethod.getBlockList();
-		blockList.remove(blockList.size() - 1);
-		//dependencyDataCollector = new DependencyDataCollector();
-		ArrayList<Tree> treeStructure = new ArrayList<Tree>();
+	public static ArrayList<Tree> dependencyGenerator(Path path) {
 		
 		Tree tree;
+		ArrayList<Tree> treeStructure = new ArrayList<Tree>();
 		int tempVarCounter = 0; 
-		// Iterate the blocks
-		for (BBlock blocks : blockList) {
-			// for(BInstruction instr: blocks.getInstructions()){
-			ArrayList<BInstruction> instrutionList = blocks.getInstructions();
-			// Iterate the instructions for a block
-			for (int index = 0; index < instrutionList.size(); index++) {
+		int index = 0;
+		int nodeId = 0;
+		ArrayList<Node> nodeList = path.getListofNodes();
+		
+		for(Node node: nodeList){
 				
 				// check if opcode is iadd or ladd, if true then create a Tree object,
 				// create a temp variable node for that iadd or ladd.
@@ -61,14 +51,13 @@ public class TreeStructure {
 				// the temp variable at index = 3
 				// else if instruction at index = 2 is other than iadd then, take what ever instruction available 
 				// at index = 0  
-				if (instrutionList.get(index).getOpcode() == 96
-						|| instrutionList.get(index).getOpcode() == 97) {
+				if (node.getIns().getOpcodeCommand() == "iadd") {
 					
 					String tempVar = "temp" + tempVarCounter;
 					
-					Node rootNode = new Node();
-					Node leftLeaf = new Node();
-					Node rightLeaf = new Node();
+					Node rootNode = new NonPredicateNode(nodeId++, node.getIns());
+					Node leftLeaf = new NonPredicateNode(nodeId++, node.getIns());
+					Node rightLeaf = new NonPredicateNode(nodeId++, node.getIns());
 					
 					rootNode.setNodeName(tempVar);
 					
@@ -76,21 +65,20 @@ public class TreeStructure {
 
 					tempVarAndPCMapping.put(index, tempVar);
 					
-					if (instrutionList.get(index - 1).getOpcodeCommand() == "iadd") {
+					if (nodeList.get(index - 1).getNodeName() == "iadd") {
 						leftLeaf.setNodeName("temp"+ (tempVarCounter - 1));
 					} else {
-						leftLeaf.setNodeName(instrutionList.get(index - 1)
-								.getOpcodeCommand());
+						leftLeaf.setNodeName(nodeList.get(index - 1).getNodeName());
 					}
-					rightLeaf = getSecondParameter(instrutionList,
+					rightLeaf = getSecondParameter(nodeList,
 							index, tempVarCounter, tempVarAndPCMapping);
 
-					tree = new Tree(rootNode,leftLeaf,rightLeaf, instrutionList.get(index).getOpcodeCommand());
+					tree = new Tree(rootNode,leftLeaf,rightLeaf, nodeList.get(index - 1).getNodeName());
 
 					treeStructure.add(tree);
 					tempVarCounter++;
 				}
-			}
+					index++;				
 		}	
 		return treeStructure;
 	}
@@ -101,26 +89,24 @@ public class TreeStructure {
 	// the temp variable at index = 3
 	// else if instruction at index = 2 is other than iadd then, take what ever instruction available 
 	// at index = 0  
-	public static Node getSecondParameter(ArrayList<BInstruction> instrutionList,
+	public static Node getSecondParameter(ArrayList<Node> nodeList,
 			int index, int tempVarCounter, HashMap<Integer, String> dependencyDataCollector) {
-		Node rightLeaf = new Node();
+		Node rightLeaf = new NonPredicateNode();
 		HashMap<Integer, String> tempVarAndPC = dependencyDataCollector;
-		if (instrutionList.get(index - 1).getOpcode() == 96) {
-			if (instrutionList.get(index - 2).getOpcode() == 96) {
+
+		if (nodeList.get(index - 1).getNodeName() == "iadd") {
+			if (nodeList.get(index - 2).getNodeName() == "iadd") {
 				rightLeaf.setNodeName("temp"+ (tempVarCounter - 2));
 			} else {
-				rightLeaf.setNodeName(instrutionList.get(index - 4)
-						.getOpcodeCommand());
+				rightLeaf.setNodeName(nodeList.get(index - 4).getNodeName());
 			}
 		} else {
-			if (instrutionList.get(index - 2).getOpcode() == 96) {
+			if (nodeList.get(index - 2).getNodeName() == "iadd") {
 				rightLeaf.setNodeName("temp"+ (tempVarCounter - 1));
 			} else {
-				rightLeaf.setNodeName(instrutionList.get(index - 2)
-						.getOpcodeCommand());
+				rightLeaf.setNodeName(nodeList.get(index - 2).getNodeName());
 			}
 		}
-
 		return rightLeaf;
 	}
 

@@ -1,6 +1,7 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
 import com.gannon.Utility.HardBytecode;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BIConst_0;
 import com.gannon.jvm.instructions.BIConst_1;
@@ -9,7 +10,6 @@ import com.gannon.jvm.instructions.BIConst_3;
 import com.gannon.jvm.instructions.BIConst_4;
 import com.gannon.jvm.instructions.BIConst_5;
 import com.gannon.jvm.instructions.BIReturn;
-import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPop;
 import com.gannon.jvm.instructions.BReturn;
 

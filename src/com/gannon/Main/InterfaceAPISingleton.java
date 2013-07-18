@@ -2,8 +2,7 @@ package com.gannon.Main;
 
 import java.util.Vector;
 
-import com.gannon.asm.classgenerator.BClassGenerator;
-import com.gannon.asm.component.BClass;
+import com.gannon.ASM.components.BClass;
 
 /*
  * This class will pass the .class file name to ClassParser 

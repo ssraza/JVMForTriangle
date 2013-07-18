@@ -2,7 +2,6 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.Utility.HardBytecode;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 

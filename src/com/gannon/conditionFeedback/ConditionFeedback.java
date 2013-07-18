@@ -2,12 +2,12 @@ package com.gannon.conditionFeedback;
 
 import java.util.ArrayList;
 
+import com.gannon.ASM.classgenerator.BClassGenerator;
+import com.gannon.ASM.components.BBlock;
+import com.gannon.ASM.components.BClass;
+import com.gannon.ASM.components.BMethod;
 import com.gannon.Main.InterfaceAPISingleton;
-import com.gannon.asm.classgenerator.BClassGenerator;
-import com.gannon.asm.component.BBlock;
-import com.gannon.asm.component.BClass;
-import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class ConditionFeedback {
 	

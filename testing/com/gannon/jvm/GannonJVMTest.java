@@ -16,12 +16,12 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.GannonJVM;
 import com.gannon.jvm.JVMStackSingleton;
 import com.gannon.jvm.MethodExecutor;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BALoad;
 import com.gannon.jvm.instructions.BBipush;
 import com.gannon.jvm.instructions.BILoad;
 import com.gannon.jvm.instructions.BIReturn;
 import com.gannon.jvm.instructions.BIStore;
-import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class GannonJVMTest {

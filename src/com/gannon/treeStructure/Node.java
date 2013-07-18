@@ -1,15 +1,20 @@
 package com.gannon.treeStructure;
 
+import com.gannon.jvm.instructions.BInstruction;
+
 public class Node {
+	private BInstruction ins;
 
-	private String nodeName;
-
-	public String getNodeName() {
-		return nodeName;
+	public Node(BInstruction ins) {
+		super();
+		this.ins = ins;
 	}
 
-	public void setNodeName(String nodeName) {
-		this.nodeName = nodeName;
+	public BInstruction getIns() {
+		return ins;
 	}
-	
+
+	public void setIns(BInstruction ins) {
+		this.ins = ins;
+	}
 }

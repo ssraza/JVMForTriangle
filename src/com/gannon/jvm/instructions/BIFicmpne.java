@@ -11,8 +11,7 @@ import com.gannon.jvm.BLocalVarTable;
 
 import org.objectweb.asm.Label;
 
-public class BIFicmpne extends BInstruction {
-
+public class BIFicmpne extends BPredicateInstruction {
 	private Label label;
 
 	public BIFicmpne() {
@@ -38,8 +37,8 @@ public class BIFicmpne extends BInstruction {
 		Integer secondValue = (Integer) myOperandStack.pop();
 		Integer firstValue = (Integer) myOperandStack.pop();
 
-
-		if (!firstValue.equals(secondValue)) {
+		boolean predicateResult = !firstValue.equals(secondValue);
+		if (predicateResult) {
 			BBlock b = activeFrame.getMethod().findBBlock(label);
 			programCounter = b.getbLable().getLineNumber();
 
@@ -54,7 +53,7 @@ public class BIFicmpne extends BInstruction {
 		activeFrame.setPC(programCounter);
 		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setVarTable(myLocalVariableTable);
-		return activeFrame;
+		return predicateResult;
 	}
 
 	public String toString() {

@@ -2,10 +2,10 @@ package com.gannon.asm.components;
 
 /**
  * This class is a part of data structure created to organize the information
- * about the class being visited. 
+ * about the class being visited.
  * This Class will have the information of method local variables.
- * 
- * 
+ *
+ *
  * @param name
  *            Name of the Local Variable
  * @param desc

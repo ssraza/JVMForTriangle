@@ -1,13 +1,9 @@
 package com.gannon.asm.components;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.objectweb.asm.Label;
 
-import com.gannon.Utility.ByteCodeUtility;
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.JVMStackSingleton;
 import com.gannon.jvm.instructions.BInstruction;
 
 /**

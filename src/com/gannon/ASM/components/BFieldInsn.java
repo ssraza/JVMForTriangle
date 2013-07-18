@@ -11,6 +11,6 @@ import com.gannon.jvm.instructions.BInstruction;
  * @author Pratik
  */
 public abstract class BFieldInsn extends BInstruction{
-   
+
       public abstract void execute();
 }

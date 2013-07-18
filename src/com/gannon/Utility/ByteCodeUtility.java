@@ -3,10 +3,10 @@ package com.gannon.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gannon.asm.component.BBlock;
-import com.gannon.asm.component.BMethod;
+import com.gannon.ASM.components.BBlock;
+import com.gannon.ASM.components.BMethod;
 import com.gannon.jvm.BFrame;
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class ByteCodeUtility {
 	private BFrame activeFrame;

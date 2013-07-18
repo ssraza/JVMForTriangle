@@ -31,7 +31,7 @@ public class BIAdd extends BInstruction {
 	public int getOpcode() {
 		return 96;
 	}
-	
+
 	@Override
 	public String getOpcodeCommand() {
 		return "iadd";

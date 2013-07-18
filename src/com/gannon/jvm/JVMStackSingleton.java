@@ -18,7 +18,7 @@ public class JVMStackSingleton {
 		return singletonJVMStack;
 	}
 
-	public BFrame peekActivekFrame() {
+	public BFrame peekActiveFrame() {
 		return javaStack.peek();
 	}
 

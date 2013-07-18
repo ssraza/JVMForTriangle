@@ -2,7 +2,7 @@ package com.gannon.Graph.GraphObjects;
 
 import java.util.ArrayList;
 
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class Block {
 

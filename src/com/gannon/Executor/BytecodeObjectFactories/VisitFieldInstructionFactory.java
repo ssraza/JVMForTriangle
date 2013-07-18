@@ -16,26 +16,26 @@ import com.gannon.jvm.instructions.BPutStatic;
  * @author Pratik
  */
 public class VisitFieldInstructionFactory {
-    BInstruction instr; 
-    
+    BInstruction instr;
+
     public BInstruction createInst(int opCode, String owner, String name, String desc, int linNumber){
         if(HardBytecode.getStringByteCode(opCode).equals("getfield")){
         	//System.out.println("In VisitFieldInstructionFactory getfield "+ owner+ "  " + name + "  " + desc);
-            instr= new BGetField(owner, name, desc, linNumber);     
+            instr= new BGetField(owner, name, desc, linNumber);
         }
         else if(HardBytecode.getStringByteCode(opCode).equals("putfield")){
         	//System.out.println("In VisitFieldInstructionFactory putfield "+ owner+ "  " + name + "  " + desc);
-            instr= new BPutField(owner, name, desc, linNumber);     
+            instr= new BPutField(owner, name, desc, linNumber);
         }
         else if(HardBytecode.getStringByteCode(opCode).equals("getstatic")){
         	//System.out.println("In VisitFieldInstructionFactory getstatic "+ owner+ "  " + name + "  " + desc);
-            instr= new BGetStatic(owner, name, desc, linNumber);     
+            instr= new BGetStatic(owner, name, desc, linNumber);
         }
         else if(HardBytecode.getStringByteCode(opCode).equals("putstatic")){
         	//System.out.println("In VisitFieldInstructionFactory putstatic "+ owner+ "  " + name + "  " + desc);
-            instr= new BPutStatic(owner, name, desc, linNumber);     
+            instr= new BPutStatic(owner, name, desc, linNumber);
         }
         return instr;
     }
-    
+
 }

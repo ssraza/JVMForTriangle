@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.gannon.Graph.GraphObjects.Graph.Edge;
 import com.gannon.asm.component.BBlock;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class GraphObjectBuilder {
 	private ArrayList<Block> blockList = new ArrayList<Block>();

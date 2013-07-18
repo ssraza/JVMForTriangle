@@ -5,17 +5,17 @@ import org.objectweb.asm.Label;
  * This class is a part of data structure created to organize the information
  * about the class being visited.
  * This Class will have the line information of instructions.
- * 
- * 
+ *
+ *
  * @param lineNumber    lineNumber in class file for the instruction
  * @param startLable
- * 
+ *
  * **/
 public class BLineNumber {
 	private int pc;
 	private Label startLable;
 	private int lineNumber;
-	
+
 	public BLineNumber() {
 		super();
 	}
@@ -25,7 +25,7 @@ public class BLineNumber {
 		this.startLable = startLable;
 		this.lineNumber = lineNumber;
 	}
-	
+
 	public Label getStartLable() {
 		return startLable;
 	}
@@ -55,11 +55,11 @@ public class BLineNumber {
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
 	}
-	
+
 	/**Display line numbers and start labels**/
 	public void display(){
 		System.out.println("Line "+lineNumber + ": " +startLable);
 	}
 
-	
+
 }

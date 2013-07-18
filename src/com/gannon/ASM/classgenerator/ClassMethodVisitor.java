@@ -3,18 +3,18 @@ package com.gannon.asm.classgenerator;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
-import com.gannon.Executor.BytecodeObjectFactories.VisitFieldInstructionFactory;
-import com.gannon.Executor.BytecodeObjectFactories.VisitInstructionFactory;
-import com.gannon.Executor.BytecodeObjectFactories.VisitIntegerInstructionFactory;
-import com.gannon.Executor.BytecodeObjectFactories.VisitJumpInstructionFactory;
-import com.gannon.Executor.BytecodeObjectFactories.VisitMethodInstructionFactory;
-import com.gannon.Executor.BytecodeObjectFactories.VisitVariableInstructionFactory;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BLineNumber;
 import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.asm.components.BStackMaxLocals;
+import com.gannon.Executor.BytecodeObjectFactories.VisitFieldInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitIntegerInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitJumpInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitMethodInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitVariableInstructionFactory;
 
 public class ClassMethodVisitor extends MethodVisitor {
 	/**

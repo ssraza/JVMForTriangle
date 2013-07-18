@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.instructions.BALoad;
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BALoad;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class BALoadTest {
 

@@ -44,7 +44,7 @@ public class BIStore extends BInstruction {
 	public Integer getOperand() {
 		return operand1;
 	}
-	 
+
 	public String toString() {
 		return super.toString() + " " + Integer.toString(getOperand());
 	}

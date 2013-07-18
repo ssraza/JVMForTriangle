@@ -26,9 +26,7 @@ public abstract class BInstruction {
 	private int lineNumber; // ID of the instruction
 
 	public abstract Object execute(BFrame activeFrame);
-
 	public abstract int getOpcode();
-	
 	public abstract String getOpcodeCommand();//readable opcode
 
 	public int getLineNumber() {

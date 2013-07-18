@@ -3,7 +3,7 @@ package com.gannon.Utility;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.Instructions.BInstruction;
 
 public class Constant {
 	// private Stack myStack;
