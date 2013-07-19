@@ -3,12 +3,11 @@ package com.gannon.jvm;
 import java.util.ArrayList;
 
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.data.dependency.PNode;
-import com.gannon.jvm.data.dependency.NonPredicateNode;
-import com.gannon.jvm.data.dependency.Path;
-import com.gannon.jvm.data.dependency.PredicateNode;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.progam.path.NonPredicateNode;
+import com.gannon.jvm.progam.path.Path;
+import com.gannon.jvm.progam.path.PredicateNode;
 
 public class MethodExecutor {
 	//save execution path

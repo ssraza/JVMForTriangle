@@ -1,6 +1,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BPop extends BInstruction {
 	public BPop() {
@@ -31,6 +32,12 @@ public class BPop extends BInstruction {
 
 	public String getOperand() {
 		return "-1";
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

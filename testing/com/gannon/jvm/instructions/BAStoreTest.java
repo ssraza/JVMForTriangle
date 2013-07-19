@@ -15,7 +15,7 @@ public class BAStoreTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		BAStore instance = new BAStore(1);
+		BAStore instance = new BAStore(0,1);
 		int expResult = 58;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -24,17 +24,17 @@ public class BAStoreTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BAStore instance = new BAStore(1);
+		BAStore instance = new BAStore(0,1);
 		
-		String expResult = "astore 1";
-		String result = instance.getOpcodeCommand();
+		String expResult = "astore";
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 
 	@Test
 	public void testExecuteBFramePostion0() {
 		System.out.println("execute");
-		BAStore bAStore = new BAStore(0);// Initialize BIStore, pass 2 as operand value
+		BAStore bAStore = new BAStore(0,0);// Initialize BIStore, pass 2 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -65,7 +65,7 @@ public class BAStoreTest {
 	@Test
 	public void testExecuteBFramePostion2() {
 		System.out.println("execute");
-		BAStore bAStore = new BAStore(2);// Initialize BIStore, pass 2 as operand value
+		BAStore bAStore = new BAStore(2,0);// Initialize BIStore, pass 2 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();

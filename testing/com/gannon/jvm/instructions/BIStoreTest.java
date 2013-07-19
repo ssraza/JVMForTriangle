@@ -103,9 +103,9 @@ public class BIStoreTest {
 		System.out.println("getOpcodeCommand");
 		BIStore instance = new BIStore(1);
 				
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 
-		String expResult = "istore 1";
+		String expResult = "istore";
 		System.out.println(expResult);
 		assertEquals(expResult, result);
 		

@@ -14,7 +14,7 @@ public class BIConst_5Test {
 
 	@Test
 	public void testExecute() {
-		BIConst_5 iconst5 = new BIConst_5();
+		BIConst_5 iconst5 = new BIConst_5(7);
 		Stack<Integer> operandStack = new  Stack<Integer>();
 		BLocalVarTable varTable = new BLocalVarTable();
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
@@ -36,17 +36,17 @@ public class BIConst_5Test {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BIConst_5 instance = new BIConst_5();
+		BIConst_5 instance = new BIConst_5(8);
 
 		String expResult = "iconst_5";
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 
 	@Test
 	public void testExecuteBFrame() {
 		System.out.println("getOpcode");
-		BIConst_5 instance = new BIConst_5();
+		BIConst_5 instance = new BIConst_5(9);
 		int expResult = 8;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);

@@ -1,6 +1,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BPutStatic extends BInstruction {
 
@@ -41,6 +42,12 @@ public class BPutStatic extends BInstruction {
 
 	public String getOperand() {
 		return name;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

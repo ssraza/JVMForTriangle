@@ -39,7 +39,7 @@ public class BIConst_0Test {
 		BIConst_0 instance = new BIConst_0(7);
 
 		String expResult = "iconst_0";
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 

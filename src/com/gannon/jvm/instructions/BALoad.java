@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BALoad extends BInstruction {
 	private int operand1;
@@ -11,10 +12,6 @@ public class BALoad extends BInstruction {
 
 	public BALoad(int operand1, int linNumber) {
 		setLineNumber(linNumber);
-		this.operand1 = operand1;
-	}
-
-	public BALoad(int operand1) {
 		this.operand1 = operand1;
 	}
 
@@ -36,7 +33,14 @@ public class BALoad extends BInstruction {
 		return 25;
 	}
 
-	public Object getOperand() {
+	public int getOperand() {
 		return operand1;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		Stack<String> myOperandStack =dependency.getTempVariableStack();
+		myOperandStack.add(new Integer(getOperand()).toString());
+		dependency.setTempVariableStack(myOperandStack);
 	}
 }

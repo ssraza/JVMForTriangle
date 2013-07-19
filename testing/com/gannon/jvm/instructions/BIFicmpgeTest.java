@@ -93,7 +93,7 @@ public class BIFicmpgeTest {
 		
 		BIFicmpge instance = new BIFicmpge(label);
 		String expResult = "if_cmpge "+label.toString();
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 }

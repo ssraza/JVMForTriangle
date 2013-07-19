@@ -5,6 +5,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 /**
  *
@@ -18,13 +19,6 @@ public class BGetField extends BInstruction{
 
 	public BGetField(String owner, String name, String desc, int lineNumber) {
 		setLineNumber(lineNumber);
-		this.owner = owner;
-		this.name = name;
-		this.desc = desc;
-	}
-
-	public BGetField(String owner, String name, String desc) {
-		super();
 		this.owner = owner;
 		this.name = name;
 		this.desc = desc;
@@ -50,6 +44,12 @@ public class BGetField extends BInstruction{
 
 	public String getOperand() {
 		return name;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

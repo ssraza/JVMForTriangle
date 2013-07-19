@@ -1,27 +1,16 @@
 package com.gannon.jvm.instructions;
 
-import java.util.HashMap;
 import java.util.Stack;
 
-import javax.swing.JOptionPane;
+import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
-
-import org.objectweb.asm.Label;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BIFicmpne extends BPredicateInstruction {
 	private Label label;
-
-	public BIFicmpne() {
-		super();
-	}
-
-	public BIFicmpne(Label label) {
-		super();
-		this.label = label;
-	}
 
 	public BIFicmpne(Label label, int lineNumber) {
 		setLineNumber(lineNumber);
@@ -42,10 +31,11 @@ public class BIFicmpne extends BPredicateInstruction {
 			BBlock b = activeFrame.getMethod().findBBlock(label);
 			programCounter = b.getbLable().getLineNumber();
 
-			System.out.println("line nubmer "+programCounter);
-		}
-		else{
-			System.out.println("Condition is not satisfied, first value is equal to second value "+firstValue+"  "+secondValue);
+			System.out.println("line nubmer " + programCounter);
+		} else {
+			System.out
+					.println("Condition is not satisfied, first value is equal to second value "
+							+ firstValue + "  " + secondValue);
 			myOperandStack.clear();
 			++programCounter;
 		}
@@ -57,7 +47,7 @@ public class BIFicmpne extends BPredicateInstruction {
 	}
 
 	public String toString() {
-		return super.toString()+" "+getOperand();
+		return super.toString() + " " + getOperand();
 	}
 
 	public int getOpcode() {
@@ -66,6 +56,12 @@ public class BIFicmpne extends BPredicateInstruction {
 
 	public Label getOperand() {
 		return this.label;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -16,7 +16,7 @@ public class BILoadTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		BAStore instance = new BAStore(1);
+		BAStore instance = new BAStore(1,10);
 		int expResult = 58;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -25,17 +25,17 @@ public class BILoadTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BAStore instance = new BAStore(1);
+		BAStore instance = new BAStore(1,12);
 
-		String expResult = "astore 1";
-		String result = instance.getOpcodeCommand();
+		String expResult = "astore";
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 
 	@Test
 	public void testExecuteBFramePostion2() {
 		System.out.println("execute");
-		BILoad bILoad = new BILoad(2);// Initialize BILoad, pass 0 as operand value
+		BILoad bILoad = new BILoad(2,5);// Initialize BILoad, pass 0 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -64,7 +64,7 @@ public class BILoadTest {
 	@Test
 	public void testExecuteBFramePostion1() {
 		System.out.println("execute");
-		BILoad bILoad = new BILoad(1);// Initialize BILoad, pass 0 as operand value
+		BILoad bILoad = new BILoad(1,5);// Initialize BILoad, pass 0 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -107,7 +107,7 @@ public class BILoadTest {
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 
 		//invoke iload 3
-		BILoad bILoad = new BILoad(3);
+		BILoad bILoad = new BILoad(3,6);
 		bILoad.execute(activeFrame);
 
 		//check the stack after exeuction

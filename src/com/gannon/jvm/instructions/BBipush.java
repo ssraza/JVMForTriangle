@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 //push one-byte signed integer
 //http://www.vmth.ucdavis.edu/incoming/Jasmin/ref-_bipush.html
@@ -13,11 +14,6 @@ public class BBipush extends BInstruction {
 
 	public BBipush(int operand1, int lineNumber) {
 		setLineNumber(lineNumber);
-		this.operand1 = operand1;
-	}
-
-	public BBipush(int operand1) {
-		super();
 		this.operand1 = operand1;
 	}
 
@@ -43,6 +39,14 @@ public class BBipush extends BInstruction {
 
 	public Integer getOperand() {
 		return operand1;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		Stack<String> myOperandStack = dependency.getTempVariableStack();
+		myOperandStack.add(new Integer(getOperand()).toString());
+		dependency.setTempVariableStack(myOperandStack);
+
 	}
 
 }

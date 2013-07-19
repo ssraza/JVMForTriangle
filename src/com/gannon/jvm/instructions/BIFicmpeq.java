@@ -1,23 +1,16 @@
 package com.gannon.jvm.instructions;
 
 import java.util.Stack;
-import com.gannon.asm.components.BBlock;
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
 
 import org.objectweb.asm.Label;
 
+import com.gannon.asm.components.BBlock;
+import com.gannon.jvm.BFrame;
+import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.data.dependency.RelationCollector;
+
 public class BIFicmpeq extends BPredicateInstruction {
 	private Label label;
-
-	public BIFicmpeq() {
-		super();
-	}
-
-	public BIFicmpeq(Label label) {
-		super();
-		this.label = label;
-	}
 
 	public BIFicmpeq(Label label, int lineNumber) {
 		setLineNumber(lineNumber);
@@ -62,5 +55,11 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 	public Label getOperand() {
 		return this.label;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+
 	}
 }

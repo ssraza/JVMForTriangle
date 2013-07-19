@@ -2,9 +2,9 @@ package com.gannon.Main;
 
 import java.util.ArrayList;
 
-import com.gannon.ASM.classgenerator.BClassGenerator;
-import com.gannon.ASM.components.BClass;
-import com.gannon.ASM.components.BMethod;
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
 
 public class InterfaceDisplay {
 

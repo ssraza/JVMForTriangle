@@ -4,15 +4,11 @@ import java.util.Stack;
 
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BIStore extends BInstruction {
 
 	private int operand1;
-
-	public BIStore(int operand1) {
-		super();
-		this.operand1 = operand1;
-	}
 
 	public BIStore(int operand1, int lineNumber) {
 		setLineNumber(lineNumber);
@@ -45,4 +41,10 @@ public class BIStore extends BInstruction {
 		return super.toString() + " " + Integer.toString(getOperand());
 	}
 
+	@Override
+	public void analyzing(RelationCollector dependency) {
+//		Stack<String> myOperandStack = dependency.getTempVariableStack();
+//		myOperandStack.pop();
+//		dependency.setTempVariableStack(myOperandStack);
+	}
 }

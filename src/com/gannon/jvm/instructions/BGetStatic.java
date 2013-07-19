@@ -1,6 +1,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BGetStatic extends BInstruction {
 
@@ -11,13 +12,6 @@ public class BGetStatic extends BInstruction {
 
 	public BGetStatic(String owner, String name, String desc, int lineNumber) {
 		setLineNumber(lineNumber);
-		this.owner = owner;
-		this.name = name;
-		this.desc = desc;
-	}
-
-	public BGetStatic(String owner, String name, String desc) {
-		super();
 		this.owner = owner;
 		this.name = name;
 		this.desc = desc;
@@ -42,6 +36,12 @@ public class BGetStatic extends BInstruction {
 
 	public String getOperand() {
 		return name;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

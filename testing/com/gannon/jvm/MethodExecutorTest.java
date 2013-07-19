@@ -258,7 +258,6 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(7);
 	    expectedExeIDs.add(8);
 	    expectedExeIDs.add(9);
-	    expectedExeIDs.add(10);
 	    expectedExeIDs.add(36);
 	    expectedExeIDs.add(37);
 
@@ -312,7 +311,6 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(12);
 	    expectedExeIDs.add(13);
 	    expectedExeIDs.add(14);
-	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(36);
 	    expectedExeIDs.add(37);
 
@@ -392,8 +390,8 @@ public class MethodExecutorTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		varTable.add(0);
 		varTable.add(7);
-		varTable.add(7);
-		varTable.add(7);
+		varTable.add(5);
+		varTable.add(3);
 
 		// create a stack
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -428,7 +426,7 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(23);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -457,8 +455,8 @@ public class MethodExecutorTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		varTable.add(0);
 		varTable.add(7);
-		varTable.add(7);
-		varTable.add(7);
+		varTable.add(10);
+		varTable.add(5);
 
 		// create a stack
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -492,11 +490,8 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(14);
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
-	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(18);
-	    expectedExeIDs.add(19);
-	    expectedExeIDs.add(20);
-	    expectedExeIDs.add(21);
+	    expectedExeIDs.add(17);	 
+	    expectedExeIDs.add(23);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -561,10 +556,7 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(18);
-	    expectedExeIDs.add(19);
-	    expectedExeIDs.add(20);
-	    expectedExeIDs.add(21);
+	    expectedExeIDs.add(23);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);

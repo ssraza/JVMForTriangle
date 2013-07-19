@@ -5,12 +5,9 @@ import java.util.Stack;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.BLocalVarTable;
 import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BReturn extends BInstruction {
-
-	public BReturn() {
-		super();
-	}
 
 	public BReturn(int lineNumber) {
 		setLineNumber(lineNumber);
@@ -41,6 +38,13 @@ public class BReturn extends BInstruction {
 
 	public String getOperand() {
 		return "-1";
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		Stack<String> myOperandStack = dependency.getTempVariableStack();
+		myOperandStack.pop();
+		dependency.setTempVariableStack(myOperandStack);
 	}
 
 }

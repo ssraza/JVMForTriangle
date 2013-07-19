@@ -90,7 +90,7 @@ public class BIFicmpneTest {
 		Label label = new Label();
 		BIFicmpne instance = new BIFicmpne(label);
 		String expResult = "if_cmpne "+label.toString();
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 

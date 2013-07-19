@@ -3,13 +3,9 @@ package com.gannon.jvm.instructions;
 import java.util.Stack;
 
 import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BIReturn extends BInstruction {
-	public BIReturn() {
-		super();
-	}
 
 	public BIReturn(int lineNumber) {
 		setLineNumber(lineNumber);
@@ -31,5 +27,11 @@ public class BIReturn extends BInstruction {
 
 	public int getOpcode() {
 		return 172;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+
 	}
 }

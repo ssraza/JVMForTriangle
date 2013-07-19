@@ -1,19 +1,13 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 
 public class BInvokeStatic extends BInstruction{
 
 	private String owner;
 	private String name;
 	private String desc;
-
-	public BInvokeStatic(String owner, String name, String desc) {
-		super();
-		this.owner = owner;
-		this.name = name;
-		this.desc = desc;
-	}
 
 	public BInvokeStatic(String owner, String name, String desc, int lineNumber) {
 		setLineNumber(lineNumber);
@@ -40,6 +34,12 @@ public class BInvokeStatic extends BInstruction{
 
 	public String getOperand() {
 		return name;
+	}
+
+	@Override
+	public void analyzing(RelationCollector dependency) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

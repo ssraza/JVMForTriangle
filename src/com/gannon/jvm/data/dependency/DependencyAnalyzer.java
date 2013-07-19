@@ -7,41 +7,28 @@ import com.gannon.jvm.BFrame;
 import com.gannon.jvm.JVMStackSingleton;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.progam.path.NonPredicateNode;
+import com.gannon.jvm.progam.path.Path;
+import com.gannon.jvm.progam.path.PredicateNode;
 
 public class DependencyAnalyzer {
+	private RelationCollector dependency;
+	private ArrayList<Relation> listOfDependencies;
 	public DependencyAnalyzer(Path path) {
 		super();
 	}
 
 	// assume activeFrame is saved in JVM stack
-	public Object execute(JVMStackSingleton jvmStack) {
+	public ArrayList<Relation> execute(JVMStackSingleton jvmStack) {
 		BFrame activeFrame = jvmStack.peekActiveFrame();
 		BMethod method = activeFrame.getMethod();
 		ArrayList<BInstruction> instructions = method.getInstructions();
+		dependency = new RelationCollector();
 		for (BInstruction bInstruction : instructions) {
-			runTimePredicateResult = bInstruction.an(activeFrame);
-
-			// save runtime execution results for predicate statements to node
-			saveRuntimePredicateResult(runTimePredicateResult, bInstruction);
-
-			// In case of Bytecode return, we will unload the method frame
-			// from JVMStack in bytecode execute() method it self, so check the
-			// JVMStack size before getting new instruction for execute.
-			/*
-			 * if (JVMStackSingleton.getInstance().size() != 0) { activeFrame =
-			 * JVMStackSingleton.getInstance() .getActiveBFrame(); method =
-			 * activeFrame.getMethod(); instructions = method.getInstructions();
-			 * } else { break; }
-			 */
-
+			bInstruction.analyzing(dependency);
 		}
-
-		// post execution job, needed for method to method calling
-		if (activeFrame.getPC() == -1) {
-			postExecution(jvmStack, runTimePredicateResult);
-		}
-		// ideally, only predicate statements will results, e.g., true or false;
-		return runTimePredicateResult;
+		listOfDependencies = dependency.getListOfTrees();
+		return listOfDependencies;
 	}
 
 	// save path with predicate results if the instruction is

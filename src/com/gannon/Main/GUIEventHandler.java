@@ -7,8 +7,8 @@ package com.gannon.Main;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.gannon.ASM.components.BClass;
-import com.gannon.ASM.components.BMethod;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.BFrame;
 import com.gannon.jvm.JVMStackSingleton;
 import com.gannon.jvm.MethodExecutor;

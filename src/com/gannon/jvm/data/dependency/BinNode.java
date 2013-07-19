@@ -4,7 +4,6 @@ package com.gannon.jvm.data.dependency;
 public class BinNode {
 	private String id;// use id as temp variable names
 	private BinNode leftBNode, rightBNode; // the nodes
-	private String arithmaticOperation;
 
 	public BinNode(String id) {
 		super();
@@ -33,17 +32,17 @@ public class BinNode {
 		this.rightBNode = rightBNode;
 	}
 
-	public String getArithmaticOperation() {
-		return arithmaticOperation;
-	}
-
-	public void setArithmaticOperation(String arithmaticOperation) {
-		this.arithmaticOperation = arithmaticOperation;
-	}
-
 	public void show() {
 		// calls the show method of the AnyClass
-		System.out.print("i"+id+"\n");
+		System.out.print("i" + id + "\n");
+	}
+
+	public boolean equals(Object node) {
+		return (node instanceof BinNode) && id.equals(((BinNode) node).id);
+	}
+
+	public int hashCode() {
+		return id.hashCode();
 	}
 
 }

@@ -16,7 +16,7 @@ public class BALoadTest {
 	@Test
 	public void testPoistion0() {
 		// load variable form local temp variable table at index of 0
-		BInstruction bload = new BALoad(0);
+		BInstruction bload = new BALoad(0,0);
 
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
@@ -44,7 +44,7 @@ public class BALoadTest {
 	@Test
 	public void testPoistion1() {
 		// load variable form local temp variable table at index of 0
-		BInstruction bload = new BALoad(1);
+		BInstruction bload = new BALoad(0,1);
 
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();

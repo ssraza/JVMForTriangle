@@ -1,6 +1,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.BFrame;
+import com.gannon.jvm.data.dependency.RelationCollector;
 import com.gannon.jvm.utilities.Utility;
 
 /**
@@ -31,6 +32,7 @@ public abstract class BInstruction {
 
 	public abstract Object execute(BFrame activeFrame);
 	public abstract int getOpcode();
+	public abstract void analyzing(RelationCollector dependency);
 
 	public String getOpCodeCommand(){
 		return Utility.getOpCodeCommand(getOpcode());

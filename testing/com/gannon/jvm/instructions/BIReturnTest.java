@@ -72,7 +72,7 @@ public class BIReturnTest {
 		BIReturn instance = new BIReturn();
 
 		String expResult = "ireturn";
-		String result = instance.getOpcodeCommand();
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 

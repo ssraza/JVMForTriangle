@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.data.dependency.Path;
+import com.gannon.jvm.progam.path.Path;
 
 public class GannonJVM {
 	private JVMStackSingleton jvmStack;

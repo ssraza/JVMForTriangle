@@ -15,7 +15,7 @@ public class BBipushTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		BBipush instance = new BBipush(10);
+		BBipush instance = new BBipush(10,16);
 		int expResult = 16;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -24,17 +24,17 @@ public class BBipushTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BBipush instance = new BBipush(10);
+		BBipush instance = new BBipush(10,10);
 		
-		String expResult = "bipush 10";
-		String result = instance.getOpcodeCommand();
+		String expResult = "bipush";
+		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
 
 	@Test
 	public void testExecuteBFramePosition1() {
 		System.out.println("execute");
-		BBipush biPush = new BBipush(16);
+		BBipush biPush = new BBipush(16,10);
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.add(10); // add value 10 to index 0 of operand stack
@@ -57,7 +57,7 @@ public class BBipushTest {
 	@Test
 	public void testExecuteBFramePosition0() {
 		System.out.println("execute");
-		BBipush biPush = new BBipush(8);
+		BBipush biPush = new BBipush(8,10);
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 
