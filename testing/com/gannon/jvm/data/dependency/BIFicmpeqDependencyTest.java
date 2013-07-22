@@ -10,6 +10,7 @@ import org.objectweb.asm.Label;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BIFicmpeq;
 import com.gannon.jvm.instructions.BIFicmpge;
+import com.gannon.jvm.instructions.BPredicateInstruction;
 
 public class BIFicmpeqDependencyTest {
 	@Test
@@ -22,7 +23,7 @@ public class BIFicmpeqDependencyTest {
 		RelationFrame dependency=new RelationFrame();
 		dependency.setTempVariableStack(operandStack);
 
-		BIFicmpeq ifEqual=new BIFicmpeq(newLabel, 2);
+		BPredicateInstruction ifEqual=new BIFicmpeq(newLabel, 2);
 		ifEqual.analyzing(dependency);
 		Relation actualTree=dependency.getRelations().get(0);
 		actualTree.inorderBST();

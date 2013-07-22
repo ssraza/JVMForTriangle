@@ -11,8 +11,8 @@ import org.objectweb.asm.Label;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 
 public class BIFicmpeqTest {
 
@@ -25,12 +25,12 @@ public class BIFicmpeqTest {
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
 		ArrayList<BBlock> blockList = new ArrayList<BBlock>();
-		
+
 		method.setName("<init>");
 		BLabel label1 = new BLabel(newLabel1, 1);
-		label1.setLineNumber(8);//block start from line number 8, So when if_icmpeq executes and 
+		label1.setGoToLineNumber(8);//block start from line number 8, So when if_icmpeq executes and
 								// based on the label value(newLabel1) it will jump to this label
-								// and it should update the PC to 8. 
+								// and it should update the PC to 8.
 		BBlock block1 = new BBlock(label1);
 		ArrayList<BInstruction> Instr1 = new ArrayList<BInstruction>();
 		Instr1.add(new BALoad(0, 0));
@@ -43,7 +43,7 @@ public class BIFicmpeqTest {
 		ArrayList<BInstruction> Instr2 = new ArrayList<BInstruction>();
 		Instr2.add(new BALoad(0, 2));
 		Instr2.add(new BIConst_1(3));
-		Instr2.add(new BIFicmpeq(newLabel1, 4));// set Label for jump
+		Instr2.add(new BIFicmpeq(label1, 4));// set Label for jump
 		block2.setInstructions(Instr2);
 		blockList.add(block2);
 
@@ -59,7 +59,7 @@ public class BIFicmpeqTest {
 
 		method.setBlockList(blockList);
 
-		BIFicmpeq ifEqual = new BIFicmpeq(newLabel1, 4);
+		BPredicateInstruction ifEqual = new BIFicmpeq(label1, 4);
 
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.push(5);
@@ -87,12 +87,12 @@ public class BIFicmpeqTest {
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
 		ArrayList<BBlock> blockList = new ArrayList<BBlock>();
-		
+
 		method.setName("<init>");
 		BLabel label1 = new BLabel(newLabel1, 1);
-		label1.setLineNumber(8);//block start from line number 8, So when if_icmpeq executes and 
+		label1.setGoToLineNumber(8);//block start from line number 8, So when if_icmpeq executes and
 								// based on the label value(newLabel1) it will jump to this label
-								// and it should update the PC to 8. 
+								// and it should update the PC to 8.
 		BBlock block1 = new BBlock(label1);
 		ArrayList<BInstruction> Instr1 = new ArrayList<BInstruction>();
 		Instr1.add(new BALoad(0, 0));
@@ -105,7 +105,7 @@ public class BIFicmpeqTest {
 		ArrayList<BInstruction> Instr2 = new ArrayList<BInstruction>();
 		Instr2.add(new BALoad(0, 2));
 		Instr2.add(new BIConst_1(3));
-		Instr2.add(new BIFicmpeq(newLabel1, 4));// set Label for jump
+		Instr2.add(new BIFicmpeq(label1, 4));// set Label for jump
 		block2.setInstructions(Instr2);
 		blockList.add(block2);
 
@@ -121,7 +121,7 @@ public class BIFicmpeqTest {
 
 		method.setBlockList(blockList);
 
-		
+
 
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.push(5);
@@ -133,17 +133,17 @@ public class BIFicmpeqTest {
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 4
 		// Expectation is, BIFicmpge will update program counter to 5.
-		BIFicmpeq ifEqual = new BIFicmpeq(newLabel1, 4);
+		BPredicateInstruction ifEqual = new BIFicmpeq(label1, 4);
 		ifEqual.execute(activeFrame);
 
 		Integer resultedPC = activeFrame.getPC();
-		assertEquals((Integer) 5, resultedPC);
+		assertEquals((Integer) 8, resultedPC);
 	}
-	
+
 	@Test
 	public void testExecuteNotEqual() {
-		Label label2 = new Label();
-		BIFicmpeq ifEqual = new BIFicmpeq(label2, 10);
+		BLabel label2 = new BLabel(new Label());
+		BPredicateInstruction ifEqual = new BIFicmpeq(label2, 10);
 
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.push(5);
@@ -165,8 +165,8 @@ public class BIFicmpeqTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		Label label = new Label();
-		BIFicmpeq instance = new BIFicmpeq(label, 12);
+		BLabel label = new BLabel(new Label());
+		BPredicateInstruction instance = new BIFicmpeq(label, 12);
 		int expResult = 159;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -175,8 +175,8 @@ public class BIFicmpeqTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		Label label = new Label();
-		BIFicmpeq instance = new BIFicmpeq(label, 10);
+		BLabel label = new BLabel(new Label());
+		BPredicateInstruction instance = new BIFicmpeq(label, 10);
 		String expResult = "if_icmpeq";
 		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);

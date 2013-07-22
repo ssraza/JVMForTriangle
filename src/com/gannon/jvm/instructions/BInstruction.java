@@ -1,7 +1,8 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.utilities.Utility;
 
 /**
@@ -31,18 +32,19 @@ public abstract class BInstruction {
 	private int lineNumber; // ID of the instruction
 
 	public abstract Object execute(BFrame activeFrame);
+	public abstract Object execute(PathFrame pathFrame);
 	public abstract int getOpcode();
 	public abstract void analyzing(RelationFrame rFrame);
 
 	public String getOpCodeCommand(){
 		return Utility.getOpCodeCommand(getOpcode());
 	}
-	
+
 	public BInstruction(int lineNumber) {
 		super();
 		this.lineNumber = lineNumber;
 	}
-	
+
 	public int getLineNumber() {
 		return lineNumber;
 	}

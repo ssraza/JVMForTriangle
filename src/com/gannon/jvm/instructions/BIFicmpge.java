@@ -8,11 +8,12 @@ import java.util.Stack;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Relation;
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.utilities.Utility;
 
 /**
@@ -20,11 +21,8 @@ import com.gannon.jvm.utilities.Utility;
  *
  */
 public class BIFicmpge extends BPredicateInstruction {
-	private Label label;
-
-	public BIFicmpge(Label label, int lineNumber) {
-		super(lineNumber);
-		this.label = label;
+	public BIFicmpge(BLabel label, int lineNumber) {
+		super(label, lineNumber);
 	}
 
 	@Override
@@ -38,8 +36,7 @@ public class BIFicmpge extends BPredicateInstruction {
 
 		boolean predicateResult = firstValue >= secondValue;
 		if(predicateResult){
-			BBlock b = activeFrame.getMethod().findBBlock(label);
-			pc = b.getbLable().getLineNumber();
+			pc = getOperand().getGoToLineNumber();
 			activeFrame.setPC(pc);
 		}
 		else{
@@ -60,18 +57,14 @@ public class BIFicmpge extends BPredicateInstruction {
 		return 162;
 	}
 
-	public Label getOperand() {
-		return this.label;
-	}
-
 	@Override
 	public void analyzing(RelationFrame rFrame) {
-		Stack<String> myOperandStack =rFrame.getTempVariableStack(); 
+		Stack<String> myOperandStack =rFrame.getTempVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
 		BinNode rootNode=new BinNode(Integer.toString(Utility.getNextID()));
 		Relation relation=new Relation(rootNode, this);
-		relation.insertToLeft(leftNode); 
+		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
 
 		myOperandStack.push(rootNode.getId());

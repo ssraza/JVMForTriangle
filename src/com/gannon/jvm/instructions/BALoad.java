@@ -3,8 +3,8 @@ package com.gannon.jvm.instructions;
 import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 
 public class BALoad extends BInstruction {
 	private int operand1;

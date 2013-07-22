@@ -74,11 +74,12 @@ public class ClassMethodVisitor extends MethodVisitor {
 	// or IFNONNULL
 	@Override
 	public void visitJumpInsn(int opcode, Label label) {
+		super.visitJumpInsn(opcode, label); // To change body of generated
+		// methods, choose Tools |
+		// Templates.
 		currentBlock.addInstruction(new VisitJumpInstructionFactory()
 				.createInst(opcode, label, linNumber));
-		super.visitJumpInsn(opcode, label); // To change body of generated
-											// methods, choose Tools |
-											// Templates.
+
 		linNumber++;
 	}
 
@@ -145,6 +146,8 @@ public class ClassMethodVisitor extends MethodVisitor {
 	@Override
 	public void visitLabel(Label label) {
 		BLabel bLabel=new BLabel(label,lableID);
+		//The label contains the instruction ID/line number the execution jumps to
+		bLabel.setGoToLineNumber(linNumber);
 		currentBlock = new BBlock(bLabel);
 		currentMethod.addBlock(currentBlock);
 		lableID++;

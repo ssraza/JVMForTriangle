@@ -13,8 +13,8 @@ import org.objectweb.asm.Label;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.instructions.BIConst_1;
 import com.gannon.jvm.instructions.BIFicmpge;
 
@@ -23,17 +23,13 @@ public class BIFicmpgeTest {
 	@Test
 	public void testExecuteGraterAndEqualPositive() {
 
-		Label newLabel1 = new Label();
-		Label newLabel2 = new Label();
-		Label newLabel3 = new Label();
-
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
 		ArrayList<BBlock> blockList = new ArrayList<BBlock>();
 
 		method.setName("<init>");
-		BLabel label1 = new BLabel(newLabel1, 1);
-		label1.setLineNumber(8);// block will start from line number 8, So when
+		BLabel label1 = new BLabel(new Label(), 1);
+		label1.setGoToLineNumber(8);// block will start from line number 8, So when
 								// if_icmpeq executes and
 								// based on the label value(newLabel1) it will
 								// jump to this label
@@ -45,17 +41,17 @@ public class BIFicmpgeTest {
 		block1.setInstructions(Instr1);
 		blockList.add(block1);
 
-		BLabel label2 = new BLabel(newLabel2, 2);
+		BLabel label2 = new BLabel(new Label(), 2);
 		BBlock block2 = new BBlock(label2);
 		ArrayList<BInstruction> Instr2 = new ArrayList<BInstruction>();
-		Instr2.add(new BIFicmpge(newLabel3, 2));// set Label for jump
+		Instr2.add(new BIFicmpge(label1, 2));// set Label for jump
 		Instr2.add(new BIConst_1(3));
 		Instr2.add(new BIConst_5(4));
 		block2.setInstructions(Instr2);
 		blockList.add(block2);
 
-		BLabel label3 = new BLabel(newLabel3, 3);
-		label3.setLineNumber(5);
+		BLabel label3 = new BLabel(new Label(), 3);
+		label3.setGoToLineNumber(5);
 		BBlock block3 = new BBlock(label3);	// block start from line number 8, So
 											// when if_icmpeq executes and
 											// based on the label value(newLabel1) it will jump to this label
@@ -78,7 +74,7 @@ public class BIFicmpgeTest {
 
 		BFrame activeFrame = new BFrame(method, 0, varTable, operandStack);
 
-		BIFicmpge ifGreaterNequal = new BIFicmpge(newLabel3, 2);
+		BIFicmpge ifGreaterNequal = new BIFicmpge(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 5.
@@ -86,10 +82,10 @@ public class BIFicmpgeTest {
 		ifGreaterNequal.execute(activeFrame);
 
 		Integer resultedPC = activeFrame.getPC();
-		assertEquals((Integer) 5, resultedPC);
+		assertEquals((Integer) 8, resultedPC);
 	}
 
-	
+
 	@Test
 	public void testExecuteGraterAndEqualNegative() {
 
@@ -103,7 +99,7 @@ public class BIFicmpgeTest {
 
 		method.setName("<init>");
 		BLabel label1 = new BLabel(newLabel1, 1);
-		label1.setLineNumber(8);// block will start from line number 8, So when
+		label1.setGoToLineNumber(8);// block will start from line number 8, So when
 								// if_icmpeq executes and
 								// based on the label value(newLabel1) it will
 								// jump to this label
@@ -118,14 +114,14 @@ public class BIFicmpgeTest {
 		BLabel label2 = new BLabel(newLabel2, 2);
 		BBlock block2 = new BBlock(label2);
 		ArrayList<BInstruction> Instr2 = new ArrayList<BInstruction>();
-		Instr2.add(new BIFicmpge(newLabel3, 2));// set Label for jump
+		Instr2.add(new BIFicmpge(new BLabel(newLabel3), 2));// set Label for jump
 		Instr2.add(new BIConst_1(3));
 		Instr2.add(new BIConst_5(4));
 		block2.setInstructions(Instr2);
 		blockList.add(block2);
 
 		BLabel label3 = new BLabel(newLabel3, 3);
-		label3.setLineNumber(5);
+		label3.setGoToLineNumber(5);
 		BBlock block3 = new BBlock(label3);	// block start from line number 8, So
 											// when if_icmpeq executes and
 											// based on the label value(newLabel1) it will jump to this label
@@ -148,7 +144,7 @@ public class BIFicmpgeTest {
 
 		BFrame activeFrame = new BFrame(method, 2, varTable, operandStack);
 
-		BIFicmpge ifGreaterNequal = new BIFicmpge(newLabel3, 2);
+		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(newLabel3), 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program Counter is set at 2.
 		// Expectation is, BIFicmpge will update program counter to 3.
@@ -159,14 +155,14 @@ public class BIFicmpgeTest {
 		assertEquals((Integer) 3, resultedPC);
 	}
 
-	
+
 	@Test
 	public void testExecuteNotGreaterThanNEqual() {
 		Label label1 = new Label();
 		Label label2 = new Label();
 		Label label3 = new Label();
 
-		
+
 
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.push(3);
@@ -180,7 +176,7 @@ public class BIFicmpgeTest {
 		labelMapping.put(label3.toString(), 12);
 
 		BFrame activeFrame = new BFrame(5, varTable, operandStack);
-		BIFicmpge ifGreaterNequal = new BIFicmpge(label1, 5);
+		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(label1), 5);
 	//	activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 5
@@ -196,7 +192,7 @@ public class BIFicmpgeTest {
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
 		Label label = new Label();
-		BIFicmpge instance = new BIFicmpge(label, 0);
+		BIFicmpge instance = new BIFicmpge(new BLabel(label), 0);
 		int expResult = 162;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -206,7 +202,7 @@ public class BIFicmpgeTest {
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
 		Label label = new Label();
-		BIFicmpge instance = new BIFicmpge(label, 0);
+		BIFicmpge instance = new BIFicmpge(new BLabel(label), 0);
 		String expResult = "if_icmpge";
 		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);

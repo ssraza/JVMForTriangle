@@ -3,7 +3,7 @@ package com.gannon.jvm.instructions;
 import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.method.BFrame;
 
 public class BIConst_4 extends BInstruction {
 	public BIConst_4(int lineNumber) {

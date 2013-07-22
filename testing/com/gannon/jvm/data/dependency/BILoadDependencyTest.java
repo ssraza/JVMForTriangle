@@ -6,7 +6,7 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.instructions.BILoad;
 
 public class BILoadDependencyTest {

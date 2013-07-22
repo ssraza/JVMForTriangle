@@ -6,8 +6,8 @@ import java.util.Stack;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 
 public class BInvokeVirtual extends BInstruction {
 

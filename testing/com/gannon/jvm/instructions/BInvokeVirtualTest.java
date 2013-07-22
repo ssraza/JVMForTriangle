@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.gannon.Main.InterfaceAPISingleton;
 import com.gannon.asm.component.BClass;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
-import com.gannon.jvm.execution.execution.RelationFrame;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.method.method.execution.RelationFrame;
 import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class BInvokeVirtualTest {

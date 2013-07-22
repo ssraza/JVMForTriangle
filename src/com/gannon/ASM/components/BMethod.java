@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.objectweb.asm.Label;
 
 import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BPredicateInstruction;
 
 /**
  * This class is a part of data structure created to organize the information
@@ -98,15 +99,6 @@ public class BMethod {
 		return instructionList;
 	}
 
-	public BBlock findBBlock(Label label) {
-		for (BBlock block : blockList) {
-			if (block.getbLable().getLabel().equals(label)) {
-				return block;
-			}
-		}
-		return null;
-	}
-
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (BBlock block : blockList) {
@@ -115,16 +107,25 @@ public class BMethod {
 		return sb.toString();
 	}
 
-	// not use now
-	public BLabel findbLabels(Label l) {
-		for (BBlock block : blockList) {
-			if (block.getbLable().getLabel().equals(l)) {
+	public BLabel findBLabel(Label label){
+		for(BBlock block: blockList){
+			if(block.getbLable().getLabel().equals(label)){
 				return block.getbLable();
 			}
 		}
 		return null;
 	}
-	
 
+	public void updateJumpLabel(){
+		for(BBlock block: blockList){
+			for(BInstruction instruction: block.getInstructions()){
+				if(instruction instanceof BPredicateInstruction){
+					BLabel bLabel= findBLabel(((BPredicateInstruction) instruction).getOperand().getLabel());
+					((BPredicateInstruction) instruction).setOperand(bLabel);
+				}
+			}
+		}
+
+	}
 
 }

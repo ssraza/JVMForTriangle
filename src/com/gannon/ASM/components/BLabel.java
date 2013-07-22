@@ -5,16 +5,21 @@ import org.objectweb.asm.Label;
 // e.g, L0, L1
 public class BLabel {
 	private Label lb;// L234343
-	private char ch;
-	private int ID;
-	private int lineNumber;
+	private char ch;// L
+	private int sequenceID;//L1, l2, L is ch
+	private int goToLineNumber;// real instruction iD jump to, go lineNumber
 
-	public BLabel(Label lb, int ID) {
+	public BLabel(Label lb) {
+		super();
+		this.lb = lb;
+	}
+
+	public BLabel(Label lb, int sequenceID) {
 		super();
 		this.lb = lb;
 		this.ch = 'L';
-		this.ID = ID;
-		this.lineNumber=0;
+		this.sequenceID = sequenceID;
+		this.goToLineNumber=-1;
 	}
 
 	public Label getLabel() {
@@ -26,21 +31,23 @@ public class BLabel {
 	}
 
 	public int getID() {
-		return ID;
+		return sequenceID;
 	}
 
-	public int getLineNumber() {
-		return lineNumber;
+
+	public int getGoToLineNumber() {
+		return goToLineNumber;
 	}
 
-	public void setLineNumber(int lineNumber) {
-		this.lineNumber = lineNumber;
+	public void setGoToLineNumber(int goToLineNumber) {
+		System.out.println("line number "+goToLineNumber);
+		this.goToLineNumber = goToLineNumber;
 	}
 
 	public String toString() {
 		StringBuilder s=new StringBuilder();
 		s.append("================");
-		s.append("" + ch + ID + "("+lb.toString()+ ") Jump Line Number "+ lineNumber+" \n");
+		s.append("" + ch + sequenceID + "("+lb.toString()+ ") Jump Line Number "+ goToLineNumber+" \n");
 		return s.toString();
 	}
 }

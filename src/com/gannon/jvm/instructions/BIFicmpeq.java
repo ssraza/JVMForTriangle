@@ -5,16 +5,14 @@ import java.util.Stack;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 
 public class BIFicmpeq extends BPredicateInstruction {
-	private Label label;
-
-	public BIFicmpeq(Label label, int lineNumber) {
-		super(lineNumber);
-		this.label = label;
+	public BIFicmpeq(BLabel label, int lineNumber) {
+		super(label, lineNumber);
 	}
 
 	@Override
@@ -30,8 +28,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 		boolean predicateResult=firstValue.equals(secondValue);
 		if (predicateResult) {
-			BBlock b = activeFrame.getMethod().findBBlock(label);
-			programCounter = b.getbLable().getLineNumber();
+			programCounter = getOperand().getGoToLineNumber();
 			activeFrame.setPC(programCounter);
 		} else {
 			myOperandStack.clear();
@@ -51,10 +48,6 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 	public int getOpcode() {
 		return 159;
-	}
-
-	public Label getOperand() {
-		return this.label;
 	}
 
 	@Override

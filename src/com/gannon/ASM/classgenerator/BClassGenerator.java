@@ -24,4 +24,5 @@ public class BClassGenerator {
 
 		return cp.getMyClass();
 	}
+
 }

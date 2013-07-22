@@ -5,16 +5,14 @@ import java.util.Stack;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
 
 public class BIFicmpne extends BPredicateInstruction {
-	private Label label;
-
-	public BIFicmpne(Label label, int lineNumber) {
-		super(lineNumber);
-		this.label = label;
+	public BIFicmpne(BLabel label, int lineNumber) {
+		super(label, lineNumber);
 	}
 
 	@Override
@@ -28,10 +26,8 @@ public class BIFicmpne extends BPredicateInstruction {
 
 		boolean predicateResult = !firstValue.equals(secondValue);
 		if (predicateResult) {
-			BBlock b = activeFrame.getMethod().findBBlock(label);
-			programCounter = b.getbLable().getLineNumber();
-
-			System.out.println("line nubmer " + programCounter);
+			programCounter = getOperand().getGoToLineNumber();
+			activeFrame.setPC(programCounter);
 		} else {
 			System.out
 					.println("Condition is not satisfied, first value is equal to second value "
@@ -52,10 +48,6 @@ public class BIFicmpne extends BPredicateInstruction {
 
 	public int getOpcode() {
 		return 160;
-	}
-
-	public Label getOperand() {
-		return this.label;
 	}
 
 	@Override

@@ -5,7 +5,7 @@
 package com.gannon.jvm.instructions;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.method.BFrame;
 
 /**
  *

@@ -9,12 +9,12 @@ import org.junit.Test;
 
 import com.gannon.asm.component.BBlock;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.execution.execution.data.dependency.Tree;
-import com.gannon.jvm.execution.execution.data.dependency.TreeStructure;
-import com.gannon.jvm.execution.execution.instructions_.BIAdd;
-import com.gannon.jvm.execution.execution.instructions_.BILoad;
-import com.gannon.jvm.execution.execution.instructions_.BIReturn;
-import com.gannon.jvm.execution.execution.instructions_.BIStore;
+import com.gannon.jvm.execution.method.method.execution.data.dependency.Tree;
+import com.gannon.jvm.execution.method.method.execution.data.dependency.TreeStructure;
+import com.gannon.jvm.execution.method.method.execution.instructions_.BIAdd;
+import com.gannon.jvm.execution.method.method.execution.instructions_.BILoad;
+import com.gannon.jvm.execution.method.method.execution.instructions_.BIReturn;
+import com.gannon.jvm.execution.method.method.execution.instructions_.BIStore;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.progam.path.Node;
 

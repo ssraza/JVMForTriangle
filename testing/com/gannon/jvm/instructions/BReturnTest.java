@@ -6,9 +6,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.execution.BFrame;
-import com.gannon.jvm.execution.BLocalVarTable;
-import com.gannon.jvm.execution.execution.RelationFrame;
+import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.method.method.execution.RelationFrame;
 import com.gannon.jvm.instructions.BIReturn;
 import com.gannon.jvm.instructions.BReturn;
 

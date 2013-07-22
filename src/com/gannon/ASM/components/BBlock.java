@@ -29,10 +29,6 @@ public class BBlock {
 
 	public void addInstruction(BInstruction instruction) {
 		instructions.add(instruction);
-		//labels such L0, L1 always point to the first instruction in the block
-		if(instructions.size()==1){
-			bLable.setLineNumber(instruction.getLineNumber());
-		}
 	}
 
 	public ArrayList<BInstruction> getInstructions() {

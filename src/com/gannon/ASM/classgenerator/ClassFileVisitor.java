@@ -62,7 +62,9 @@ public class ClassFileVisitor extends ClassVisitor {
 	}
 
 	public void visitEnd() {
-		//System.out.println("}");
+		for(BMethod method: myClass.getMethods()){
+			method.updateJumpLabel();
+		}
 	}
 
 	public BClass getMyClass() {
