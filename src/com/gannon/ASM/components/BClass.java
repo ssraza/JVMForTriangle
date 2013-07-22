@@ -1,5 +1,6 @@
 package com.gannon.asm.components;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * about the class being visited. This Class will have the information of class.
  *
  *
- * @param className
+ * @param fullClassName
  *            Name of the class visited
  * @param superClass
  *            Name of the super class of the class visited
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  *            understand if file is executable on it or not.
  * **/
 public class BClass {
-	private String className;
+	private String fullClassName;
 	private String superClass;
 	private String sourceFile;
 	private int classAccess;
@@ -36,13 +37,13 @@ public class BClass {
 		super();
 	}
 
-	// public BClass(String name) {
-	// super();
-	// this.className = name;
-	// }
+	public BClass(String className) {
+		super();
+		this.fullClassName = className;
+	}
 
 	public String getClassName() {
-		return className;
+		return fullClassName;
 	}
 
 	public String getSuperClass() {
@@ -84,7 +85,7 @@ public class BClass {
 	}
 
 	public void setClassName(String className) {
-		this.className = className;
+		this.fullClassName = className;
 	}
 
 	public void setSuperClass(String superClass) {
@@ -118,7 +119,31 @@ public class BClass {
 	}
 
 	public String getShortClassName() {
-		int index=className.lastIndexOf('/');
-		return className.substring(index+1);
+		int index=fullClassName.lastIndexOf('/');
+		return fullClassName.substring(index+1);
+	}
+
+	
+	public int retriveNumberOfParameters(String methodName){
+		Class c = null; 
+		try {
+			c = Class.forName(fullClassName);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		Method[] methods=c.getMethods(); 
+		Method m=findMethodByName(methods, methodName);
+		return m.getParameterTypes().length;
+		
+	}
+	
+	public Method findMethodByName(Method[] methods, String targetMethod){
+		for (Method m: methods){
+			if(m.getName().equals(targetMethod)){
+				return m;
+			}
+		}
+		return null;
 	}
 }

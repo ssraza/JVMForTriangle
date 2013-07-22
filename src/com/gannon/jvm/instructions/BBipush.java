@@ -2,9 +2,9 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 //push one-byte signed integer
 //http://www.vmth.ucdavis.edu/incoming/Jasmin/ref-_bipush.html
@@ -13,7 +13,7 @@ public class BBipush extends BInstruction {
 	private int operand1;
 
 	public BBipush(int operand1, int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 		this.operand1 = operand1;
 	}
 
@@ -42,7 +42,7 @@ public class BBipush extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
 		dependency.setTempVariableStack(myOperandStack);

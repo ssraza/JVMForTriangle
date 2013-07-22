@@ -4,9 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.gannon.ASM.components.BClass;
-import com.gannon.ASM.components.BMethod;
-import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
 
 public class BClassGeneratorTest {
 

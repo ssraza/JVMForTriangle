@@ -2,13 +2,14 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.utilities.Utility;
 
 public class BIReturn extends BInstruction {
 
 	public BIReturn(int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 	}
 
 	public String toString() {
@@ -17,12 +18,10 @@ public class BIReturn extends BInstruction {
 
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		Integer pc = activeFrame.getPC();
 		//-1 means the end of the instructions??
-		activeFrame.setPC(-1);
+		activeFrame.setPC(Utility.END_INSTRUCTION_FLAG);
 
 		return (Integer) myOperandStack.pop();
-
 	}
 
 	public int getOpcode() {
@@ -30,7 +29,7 @@ public class BIReturn extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame rFrame) {
 		// TODO Auto-generated method stub
 
 	}

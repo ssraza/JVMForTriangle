@@ -3,24 +3,22 @@ package com.gannon.jvm.progam.path;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class Node {
-	private BInstruction ins;
+	private BInstruction instruction;
 
 	public Node(BInstruction ins) {
 		super();
-		this.ins = ins;
+		this.instruction = ins;
 	}
 
-	public BInstruction getIns() {
-		return ins;
+	public BInstruction getInstruction() {
+		return instruction;
 	}
 
-	public void setIns(BInstruction ins) {
-		this.ins = ins;
+	public void setInstruction(BInstruction instruction) {
+		this.instruction = instruction;
 	}
 
 	public Integer getInstructionLineNumber(){
-		return ins.getLineNumber();
+		return instruction.getLineNumber();
 	}
-
-
 }

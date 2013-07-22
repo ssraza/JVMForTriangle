@@ -12,8 +12,8 @@ public class BALoadDependencyTest {
 
 	@Test
 	public void testDependency() {
-		RelationCollector dependency = new RelationCollector();
-		BALoad aLoad = new BALoad(4);
+		RelationFrame dependency = new RelationFrame();
+		BALoad aLoad = new BALoad(4,0);
 		aLoad.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		Stack<String> expectedStack = new Stack<String>();

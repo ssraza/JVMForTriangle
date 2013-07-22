@@ -1,15 +1,11 @@
 package com.gannon.jvm.instructions;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
 
 public class BPop extends BInstruction {
-	public BPop() {
-		super();
-	}
-
 	public BPop(int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 	}
 
 	public String toString() {
@@ -35,9 +31,9 @@ public class BPop extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

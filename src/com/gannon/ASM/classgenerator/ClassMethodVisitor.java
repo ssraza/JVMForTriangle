@@ -5,7 +5,6 @@ import org.objectweb.asm.MethodVisitor;
 
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
-import com.gannon.asm.components.BLineNumber;
 import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.asm.components.BStackMaxLocals;
@@ -60,13 +59,15 @@ public class ClassMethodVisitor extends MethodVisitor {
 	}
 
 	// GOTO or THROW
-	// @Override
-	// public void visitFrame(int i, int i1, Object[] os, int i2, Object[] os1)
-	// {
-	// super.visitFrame(i, i1, os, i2, os1); //To change body of generated
-	// methods,
-	// //choose Tools | Templates.
-	// }
+//	 @Override
+//	 public void visitFrame(int i, int i1, Object[] os, int i2, Object[] os1)
+//	 {
+//	 super.visitFrame(i, i1, os, i2, os1); //To change body of generated methods,
+//	 //choose Tools | Templates.
+//	 System.out.println("visit frame "+i +" "+i1);
+//	 System.out.println(os);
+//	 System.out.println(os1);
+//	 }
 
 	// IFEQ, IFNE, IFLT, IFGE, IFGT, IFLE, IF_ICMPEQ, IF_ICMPNE, IF_ICMPLT,
 	// IF_ICMPGE, IF_ICMPGT, IF_ICMPLE, IF_ACMPEQ, IF_ACMPNE, GOTO, JSR, IFNULL
@@ -152,8 +153,9 @@ public class ClassMethodVisitor extends MethodVisitor {
 
 	@Override
 	public void visitLineNumber(int line, Label start) {
-		currentMethod.addLine(new BLineNumber(line, start));
+		//line is the line number of source code
 		super.visitLineNumber(line, start);
+		//System.out.println("visit line Number"+ line+"  "+start.toString());
 	}
 
 	@Override
@@ -169,5 +171,6 @@ public class ClassMethodVisitor extends MethodVisitor {
 		BLocalVariable aLocalVariable = new BLocalVariable(name, desc,
 				signature, index);
 		currentMethod.addLocalVariableTable(aLocalVariable);
+		//System.out.println("local variables: " +name+ " " +desc +" "+signature+ " "  + start.toString()+" "+ end.toString()+ " "+ index);
 	}
 }

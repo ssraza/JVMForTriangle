@@ -6,8 +6,7 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.execution.BFrame;
 import com.gannon.jvm.instructions.BILoad;
 
 public class BILoadDependencyTest {
@@ -15,8 +14,8 @@ public class BILoadDependencyTest {
 	@Test
 	public void testDependency() {
 		
-		RelationCollector dependency = new RelationCollector();
-		BILoad iLoad = new BILoad(4);
+		RelationFrame dependency = new RelationFrame();
+		BILoad iLoad = new BILoad(4,0); 
 		iLoad.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		Stack<String> expectedStack = new Stack<String>();

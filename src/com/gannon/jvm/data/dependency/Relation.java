@@ -27,6 +27,33 @@ public class Relation {
 		}
 		return theBTRootNode;
 	}
+	
+	public BinNode getLeftNode(){
+		if (theBTRootNode != null) {
+			return theBTRootNode.getLeftBNode();
+		}
+		return null;
+	}
+	
+	public BinNode getRightNode(){
+		if (theBTRootNode != null) {
+			return theBTRootNode.getRightBNode();
+		}
+		return null;
+	}
+	
+	public void join(Relation aNewRelation){
+		if(this!=null && aNewRelation!=null){
+			if(this.getLeftNode().getLeftBNode()==null && this.getLeftNode().equals(aNewRelation) ){
+				this.insertToLeft(aNewRelation.getTheBTRootNode());
+			}
+			if(this.getRightNode().getRightBNode()==null && this.getRightNode().equals(aNewRelation) ){
+				this.insertToRight(aNewRelation.getTheBTRootNode());
+			}
+	
+		}
+	}
+	
 
 	// ------------------ InOrder traversal-------------------
 	protected void inorder(BinNode theRootNode) {

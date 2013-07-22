@@ -2,15 +2,14 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.JVMStackSingleton;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 public class BReturn extends BInstruction {
 
 	public BReturn(int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 	}
 
 	public String toString() {
@@ -23,7 +22,6 @@ public class BReturn extends BInstruction {
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 		Integer pc = activeFrame.getPC();
 		activeFrame.setPC(++pc);
-		JVMStackSingleton.getInstance().popActivekFrame();
 		return null;// return a null letting main know to execute next method
 
 	}
@@ -41,7 +39,7 @@ public class BReturn extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.pop();
 		dependency.setTempVariableStack(myOperandStack);

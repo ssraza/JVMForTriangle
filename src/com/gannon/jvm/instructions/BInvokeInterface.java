@@ -1,7 +1,7 @@
 package com.gannon.jvm.instructions;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
 
 public class BInvokeInterface extends BInstruction {
 
@@ -11,7 +11,7 @@ public class BInvokeInterface extends BInstruction {
 
 	public BInvokeInterface(String owner, String name, String desc,
 			int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 		this.owner = owner;
 		this.name = name;
 		this.desc = desc;
@@ -38,7 +38,7 @@ public class BInvokeInterface extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -12,8 +12,8 @@ public class BBiPushDependencyTest {
 
 	@Test
 	public void testDependency() {
-		RelationCollector dependency = new RelationCollector();
-		BBipush bipush = new BBipush(10);
+		RelationFrame dependency = new RelationFrame();
+		BBipush bipush = new BBipush(10,0);
 		bipush.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		Stack<String> expectedStack = new Stack<String>();

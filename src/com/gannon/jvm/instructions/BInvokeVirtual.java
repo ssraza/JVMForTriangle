@@ -5,10 +5,9 @@ import java.util.Stack;
 
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.JVMStackSingleton;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 public class BInvokeVirtual extends BInstruction {
 
@@ -17,7 +16,7 @@ public class BInvokeVirtual extends BInstruction {
 	private String desc;
 
 	public BInvokeVirtual(String owner, String name, String desc, int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 		this.owner = owner;
 		this.name = name;
 		this.desc = desc;
@@ -30,7 +29,7 @@ public class BInvokeVirtual extends BInstruction {
 		activeFrame.setPC(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
 
-		BClass bClass = JVMStackSingleton.getInstance().getbClass();
+		BClass bClass = activeFrame.getInstance().getbClass();
 
 		BMethod nextMethod = getNextMethod(owner, name, bClass);
 
@@ -43,7 +42,7 @@ public class BInvokeVirtual extends BInstruction {
 		System.out.println("newFrame method name "
 				+ newFrame.getMethod().getName());
 
-		JVMStackSingleton.getInstance().addMethodFrame(newFrame);
+		RelationFrame.getInstance().addMethodFrame(newFrame);
 
 		return null;// return a 1 letting the main know to execute next method
 
@@ -114,7 +113,7 @@ public class BInvokeVirtual extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 		// TODO Auto-generated method stub
 		
 	}

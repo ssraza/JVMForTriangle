@@ -2,16 +2,16 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 public class BIStore extends BInstruction {
 
 	private int operand1;
 
 	public BIStore(int operand1, int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 		this.operand1 = operand1;
 	}
 
@@ -42,7 +42,7 @@ public class BIStore extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
+	public void analyzing(RelationFrame dependency) {
 //		Stack<String> myOperandStack = dependency.getTempVariableStack();
 //		myOperandStack.pop();
 //		dependency.setTempVariableStack(myOperandStack);

@@ -10,8 +10,8 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 import com.gannon.jvm.instructions.BIStore;
 
 public class BIStoreTest {
@@ -25,7 +25,7 @@ public class BIStoreTest {
 	@Test
 	public void testExecutePosition2() {
 		System.out.println("execute");
-		BIStore bIStore = new BIStore(2);// Initialize BIStore, pass 02 as operand value
+		BIStore bIStore = new BIStore(2,0);// Initialize BIStore, pass 02 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -55,7 +55,7 @@ public class BIStoreTest {
 	@Test
 	public void testExecutePosition1() {
 		System.out.println("execute");
-		BIStore bIStore = new BIStore(1);// Initialize BIStore, pass 1 as operand value
+		BIStore bIStore = new BIStore(1,0);// Initialize BIStore, pass 1 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -88,7 +88,7 @@ public class BIStoreTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		BIStore instance = new BIStore(1);
+		BIStore instance = new BIStore(1,0);
 		int expResult = 54;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -101,7 +101,7 @@ public class BIStoreTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BIStore instance = new BIStore(1);
+		BIStore instance = new BIStore(1,0);
 				
 		String result = instance.getOpCodeCommand();
 

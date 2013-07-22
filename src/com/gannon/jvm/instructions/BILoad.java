@@ -2,15 +2,15 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 public class BILoad extends BInstruction {
 	private int operand1;
 
 	public BILoad(int operand1, int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 		this.operand1 = operand1;
 	}
 
@@ -42,9 +42,9 @@ public class BILoad extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
-		Stack<String> tempVariableStack = dependency.getTempVariableStack();
+	public void analyzing(RelationFrame rFrame) {
+		Stack<String> tempVariableStack = rFrame.getTempVariableStack();
 		tempVariableStack.push(getOperand().toString());
-		dependency.setTempVariableStack(tempVariableStack);
+		rFrame.setTempVariableStack(tempVariableStack);
 	}
 }

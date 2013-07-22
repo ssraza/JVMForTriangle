@@ -9,13 +9,13 @@ import org.junit.Test;
 
 import com.gannon.asm.component.BBlock;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.data.dependency.Tree;
-import com.gannon.jvm.data.dependency.TreeStructure;
+import com.gannon.jvm.execution.execution.data.dependency.Tree;
+import com.gannon.jvm.execution.execution.data.dependency.TreeStructure;
+import com.gannon.jvm.execution.execution.instructions_.BIAdd;
+import com.gannon.jvm.execution.execution.instructions_.BILoad;
+import com.gannon.jvm.execution.execution.instructions_.BIReturn;
+import com.gannon.jvm.execution.execution.instructions_.BIStore;
 import com.gannon.jvm.instructions.BInstruction;
-import com.gannon.jvm.instructions_.BIAdd;
-import com.gannon.jvm.instructions_.BILoad;
-import com.gannon.jvm.instructions_.BIReturn;
-import com.gannon.jvm.instructions_.BIStore;
 import com.gannon.jvm.progam.path.Node;
 
 public class TreeStructureTest {

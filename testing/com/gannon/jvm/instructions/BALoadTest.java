@@ -6,8 +6,8 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 import com.gannon.jvm.instructions.BALoad;
 import com.gannon.jvm.instructions.BInstruction;
 
@@ -44,7 +44,7 @@ public class BALoadTest {
 	@Test
 	public void testPoistion1() {
 		// load variable form local temp variable table at index of 0
-		BInstruction bload = new BALoad(0,1);
+		BInstruction bload = new BALoad(1,0);
 
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();

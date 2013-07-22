@@ -2,13 +2,13 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
 
 public class BIConst_0 extends BInstruction {
 	
 	public BIConst_0(int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 	}
 
 	public Object execute(BFrame activeFrame) {
@@ -29,10 +29,10 @@ public class BIConst_0 extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
-		Stack<String> myOperandStack = dependency.getTempVariableStack();
+	public void analyzing(RelationFrame fFrame) {
+		Stack<String> myOperandStack = fFrame.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
-		dependency.setTempVariableStack(myOperandStack);
+		fFrame.setTempVariableStack(myOperandStack);
 
 	}
 

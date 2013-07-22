@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.gannon.Main.InterfaceAPISingleton;
 import com.gannon.asm.component.BClass;
 import com.gannon.asm.component.BMethod;
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.execution.RelationFrame;
 import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class BInvokeVirtualTest {
@@ -64,7 +64,7 @@ public class BInvokeVirtualTest {
 		
 		virtualCallTest.execute(activeFrame);
 		
-		assertEquals((Integer)JVMStackSingleton.getInstance().size(), new Integer(2));
+		assertEquals((Integer)RelationFrame.getInstance().size(), new Integer(2));
 	}
 
 	@Test

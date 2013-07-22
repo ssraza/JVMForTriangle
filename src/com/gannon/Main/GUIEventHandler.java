@@ -9,9 +9,9 @@ import java.util.Vector;
 
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.JVMStackSingleton;
-import com.gannon.jvm.MethodExecutor;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.execution.DependencyAnalyzer;
+import com.gannon.jvm.execution.execution.RelationFrame;
 
 /**
  *
@@ -40,16 +40,16 @@ public class GUIEventHandler {
                   //  ArrayList<BLocalVariable> BI = bMethod.getLocalVariables();
                     MethodDataCollector MDataCollector = new MethodDataCollector(bClass,
                             bClass.getIndexOf(interfaceAPI.getSelectedMethod()),overridesList);
-                    JVMStackSingleton.getInstance().addMethodFrame((BFrame) MDataCollector.getActiveFrame());//add caller's methodFrame
+                    RelationFrame.getInstance().addMethodFrame((BFrame) MDataCollector.getActiveFrame());//add caller's methodFrame
 //                    System.out.println("Size of JVM Stack: "+JVMStackSingleton.getInstance().size());
                     Integer displayValue = null;
 
-                    MethodExecutor executeMethod = new MethodExecutor(JVMStackSingleton.getInstance().getActiveBFrame());
+                    DependencyAnalyzer executeMethod = new DependencyAnalyzer(RelationFrame.getInstance().getActiveBFrame());
                     executeMethod.execute();
                     displayValue = executeMethod.getReturnValue();
                     interfaceAPI.setDisplayValue(displayValue);
 
-                    JVMStackSingleton.getInstance().Erase();
+                    RelationFrame.getInstance().Erase();
     }
     
 }

@@ -6,9 +6,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
-import com.gannon.jvm.JVMStackSingleton;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
+import com.gannon.jvm.execution.execution.RelationFrame;
 import com.gannon.jvm.instructions.BIReturn;
 import com.gannon.jvm.instructions.BReturn;
 
@@ -43,14 +43,14 @@ public class BReturnTest {
 
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
-		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+		RelationFrame.getInstance().pushFrame(activeFrame);
 		
 		// Before calling the execute method,  operand stack of active frame has 1 on its TOS. JVMStack has only one method.
 		// Expectation is, BIReturn should return null
 		// and unload(POP) that active method frame form JVMStack.
 		
 		bIReturn.execute(activeFrame);
-		Integer resultedJVMStack = (Integer)JVMStackSingleton.getInstance().size();
+		Integer resultedJVMStack = (Integer)RelationFrame.getInstance().size();
 		assertEquals(resultedJVMStack, new Integer(0));
 	}
 	
@@ -64,7 +64,7 @@ public class BReturnTest {
 
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
-		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+		RelationFrame.getInstance().pushFrame(activeFrame);
 		
 		BLocalVarTable secondVarTable = new BLocalVarTable();
 		Stack<Integer> secondOperandStack = new Stack<Integer>();
@@ -72,7 +72,7 @@ public class BReturnTest {
 
 		BFrame secondActiveFrame = new BFrame(0, varTable, operandStack);
 		
-		JVMStackSingleton.getInstance().pushFrame(secondActiveFrame);
+		RelationFrame.getInstance().pushFrame(secondActiveFrame);
 		
 		// Before calling the execute method,  operand stack of active frame has 7 on its TOS. JVMStack has only two method frame on its stack.
 		// the Method frame on TOP of the JVM stack will be called Active Method Frame.
@@ -80,7 +80,7 @@ public class BReturnTest {
 		// and unload(POP) that active method frame form JVMStack. JVMStack will then consider the TOS Method Frame as active method Frame.
 
 		bIReturn.execute(activeFrame);
-		assertEquals((Integer)JVMStackSingleton.getInstance().size(),new Integer(1));
+		assertEquals((Integer)RelationFrame.getInstance().size(),new Integer(1));
 
 	}
 

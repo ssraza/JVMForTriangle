@@ -6,8 +6,8 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 import com.gannon.jvm.instructions.BAStore;
 import com.gannon.jvm.instructions.BILoad;
 

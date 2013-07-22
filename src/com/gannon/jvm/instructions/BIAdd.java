@@ -2,16 +2,16 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.BFrame;
 import com.gannon.jvm.data.dependency.BinNode;
-import com.gannon.jvm.data.dependency.RelationCollector;
+import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.data.dependency.Relation;
+import com.gannon.jvm.execution.BFrame;
 import com.gannon.jvm.utilities.Utility;
 
 public class BIAdd extends BInstruction  {
 
 	public BIAdd(int lineNumber) {
-		setLineNumber(lineNumber);
+		super(lineNumber);
 	}
 
 	public Object execute(BFrame activeFrame) {
@@ -32,17 +32,17 @@ public class BIAdd extends BInstruction  {
 	}
 
 	@Override
-	public void analyzing(RelationCollector dependency) {
-		Stack<String> myOperandStack =dependency.getTempVariableStack();
+	public void analyzing(RelationFrame rFrame) {
+		Stack<String> myOperandStack =rFrame.getTempVariableStack(); 
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
 		BinNode rootNode=new BinNode(Integer.toString(Utility.getNextID()));
-		Relation tree=new Relation(rootNode);
-		tree.insertToLeft(leftNode);
-		tree.insertToRight(rightNode);
+		Relation relation=new Relation(rootNode, this);
+		relation.insertToLeft(leftNode); 
+		relation.insertToRight(rightNode);
 
 		myOperandStack.push(rootNode.getId());
-		dependency.getListOfTrees().add(tree);
-		dependency.setTempVariableStack(myOperandStack);
+		rFrame.getRelations().add(relation);
+		rFrame.setTempVariableStack(myOperandStack);
 	}
 }

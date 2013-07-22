@@ -12,13 +12,13 @@ public class BIReturnDependencyTest {
 
 	@Test
 	public void testDependency() {
-		RelationCollector dependency = new RelationCollector();
+		RelationFrame dependency = new RelationFrame();
 		dependency.getTempVariableStack().push("6");
-		BBipush bipush = new BBipush(10);
+		BBipush bipush = new BBipush(10,0);
 		bipush.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		String result = resultStack.peek();
-		assertEquals(null, result);
+		assertEquals("10", result);
 	}
 
 }

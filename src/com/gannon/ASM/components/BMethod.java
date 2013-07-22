@@ -1,5 +1,6 @@
 package com.gannon.asm.components;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.objectweb.asm.Label;
@@ -35,7 +36,6 @@ public class BMethod {
 	private int methodAccess;
 	private String methodDesc;
 	private ArrayList<BLocalVariable> localVariables = new ArrayList<BLocalVariable>();
-	private ArrayList<BLineNumber> lineDetails = new ArrayList<BLineNumber>();
 	private ArrayList<BBlock> blockList = new ArrayList<BBlock>();
 	private ArrayList<BStackMaxLocals> stackDetails = new ArrayList<BStackMaxLocals>();
 
@@ -61,9 +61,6 @@ public class BMethod {
 		stackDetails.add(aStackVariable);
 	}
 
-	public void addLine(BLineNumber aLine) {
-		lineDetails.add(aLine);
-	}
 
 	public void addBlock(BBlock aBlock) {
 		blockList.add(aBlock);
@@ -127,5 +124,7 @@ public class BMethod {
 		}
 		return null;
 	}
+	
+
 
 }

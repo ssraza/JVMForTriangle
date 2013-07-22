@@ -57,6 +57,7 @@ public class ClassFileVisitor extends ClassVisitor {
 		myClass.addMethod(currentMethod);
 		MethodVisitor oriMv = new ClassMethodVisitor(Opcodes.ASM4,
 				currentMethod);
+		//System.out.println("method signature "+signature);
 		return oriMv;
 	}
 

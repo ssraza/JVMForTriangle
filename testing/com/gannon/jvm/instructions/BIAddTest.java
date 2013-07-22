@@ -10,12 +10,11 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.BFrame;
-import com.gannon.jvm.BLocalVarTable;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Relation;
-import com.gannon.jvm.data.dependency.RelationCollector;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.execution.BFrame;
+import com.gannon.jvm.execution.BLocalVarTable;
 
 public class BIAddTest {
 
@@ -75,56 +74,4 @@ public class BIAddTest {
 		assertEquals(expResult, result);
 	}
 
-	@Test
-	public void testDependcy(){
-		Stack<String> operandStack = new Stack<String>();
-		operandStack.add("5");
-		operandStack.add("9");
-
-		RelationCollector dependency=new RelationCollector();
-		dependency.setTempVariableStack(operandStack);
-
-		BIAdd iadd=new BIAdd(2);
-		iadd.analyzing(dependency);
-		Relation actualTree=dependency.getListOfTrees().get(0);
-		actualTree.inorderBST();
-
-
-		BinNode rightNode= new BinNode("9");
-		BinNode leftNode= new BinNode("5");
-		BinNode rootNode=new BinNode("100");
-		Relation expectedTree=new Relation(rootNode);
-		expectedTree.insertToLeft(leftNode);
-		expectedTree.insertToRight(rightNode);
-		expectedTree.inorderBST();
-
-		assertEquals(expectedTree, actualTree);
-
-
-	}
-
-	@Test
-	public void testDependcy2(){
-		Stack<String> operandStack = new Stack<String>();
-		operandStack.add("15");
-		operandStack.add("9");
-
-		RelationCollector dependency=new RelationCollector();
-		dependency.setTempVariableStack(operandStack);
-
-		BIAdd iadd=new BIAdd(2);
-		iadd.analyzing(dependency);
-		Relation actualTree=dependency.getListOfTrees().get(0);
-		//tree.inorderBST();
-
-
-		BinNode rightNode= new BinNode("9");
-		BinNode leftNode= new BinNode("15");
-		BinNode rootNode=new BinNode("101");
-		Relation expectedTree=new Relation(rootNode);
-		expectedTree.insertToLeft(leftNode);
-		expectedTree.insertToRight(rightNode);
-
-		assertEquals(expectedTree, actualTree);
-	}
 }
