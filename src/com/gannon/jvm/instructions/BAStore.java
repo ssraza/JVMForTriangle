@@ -5,6 +5,7 @@ import java.util.Stack;
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathFrame;
 
 public class BAStore extends BInstruction {
 	private int operand1;
@@ -29,7 +30,6 @@ public class BAStore extends BInstruction {
 		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setPC(++pc);
 		return null;
-
 	}
 
 	public int getOpcode() {
@@ -49,6 +49,22 @@ public class BAStore extends BInstruction {
 //		Stack<String> myOperandStack = dependency.getTempVarialbeStack();
 //		myOperandStack.pop();
 //		dependency.setTempVarialbeStack(myOperandStack);	
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
+		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
+
+		Integer value = myOperandStack.pop(); // get the top of the operand
+												// stack
+		myLocalVariableTable.add(operand1, value);// add the value on
+													// localVariableTable
+													// at the position defined
+													// by operand1.
+		pathFrame.setLocalVariableTable(myLocalVariableTable);
+		pathFrame.setOperandStack(myOperandStack);
+		return null;
 	}
 
 }

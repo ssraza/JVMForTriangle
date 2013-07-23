@@ -14,7 +14,7 @@ public class BILoadDependencyTest {
 	@Test
 	public void testDependency() {
 		
-		RelationFrame dependency = new RelationFrame();
+		RelationFrame dependency=new RelationFrame("com.gannon.asm.classgenerator.Triangle", "triangleType");
 		BILoad iLoad = new BILoad(4,0); 
 		iLoad.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();

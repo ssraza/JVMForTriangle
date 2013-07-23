@@ -122,28 +122,4 @@ public class BClass {
 		int index=fullClassName.lastIndexOf('/');
 		return fullClassName.substring(index+1);
 	}
-
-	
-	public int retriveNumberOfParameters(String methodName){
-		Class c = null; 
-		try {
-			c = Class.forName(fullClassName);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		Method[] methods=c.getMethods(); 
-		Method m=findMethodByName(methods, methodName);
-		return m.getParameterTypes().length;
-		
-	}
-	
-	public Method findMethodByName(Method[] methods, String targetMethod){
-		for (Method m: methods){
-			if(m.getName().equals(targetMethod)){
-				return m;
-			}
-		}
-		return null;
-	}
 }

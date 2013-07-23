@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.path.PathFrame;
 
 public class BIConst_4 extends BInstruction {
 	public BIConst_4(int lineNumber) {
@@ -33,6 +34,15 @@ public class BIConst_4 extends BInstruction {
 		Stack<String> myOperandStack = fFrame.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
 		fFrame.setTempVariableStack(myOperandStack);
+	}
+	
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
+		myOperandStack.push(4);
+
+		pathFrame.setOperandStack(myOperandStack);
+		return null;
 	}
 
 }

@@ -6,9 +6,14 @@ import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
+import com.gannon.jvm.data.dependency.BinNode;
+import com.gannon.jvm.data.dependency.BinPredicateNode;
+import com.gannon.jvm.data.dependency.Relation;
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathFrame;
+import com.gannon.jvm.utilities.Utility;
 
 public class BIFicmpne extends BPredicateInstruction {
 	public BIFicmpne(BLabel label, int lineNumber) {
@@ -52,8 +57,37 @@ public class BIFicmpne extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(RelationFrame rFrame) {
-		// TODO Auto-generated method stub
+		Stack<String> myOperandStack = rFrame.getTempVariableStack(); 
+		BinNode rightNode= new BinNode(myOperandStack.pop());
+		BinNode leftNode= new BinNode(myOperandStack.pop());
+		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(Utility.getNextID()));
+		Relation relation=new Relation(rootNode, this);
+		relation.insertToLeft(leftNode); 
+		relation.insertToRight(rightNode);
 
+		myOperandStack.push(rootNode.getLocalVariableName());
+		rFrame.getRelations().add(relation);
+		rFrame.setTempVariableStack(myOperandStack);
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Object> myOperandStack = pathFrame.getOperandStack();
+		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
+
+		Integer secondValue = (Integer) myOperandStack.pop();
+		Integer firstValue = (Integer) myOperandStack.pop();
+
+		boolean predicateResult = !firstValue.equals(secondValue);
+		if (predicateResult) {
+			
+		} else {
+			
+		}
+
+		pathFrame.setOperandStack(myOperandStack);
+		pathFrame.setLocalVariableTable(myLocalVariableTable);
+		return predicateResult;
 	}
 
 }

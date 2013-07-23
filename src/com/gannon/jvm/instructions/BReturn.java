@@ -5,6 +5,7 @@ import java.util.Stack;
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathFrame;
 
 public class BReturn extends BInstruction {
 
@@ -23,7 +24,6 @@ public class BReturn extends BInstruction {
 		Integer pc = activeFrame.getPC();
 		activeFrame.setPC(++pc);
 		return null;// return a null letting main know to execute next method
-
 	}
 
 	public int getOpcode() {
@@ -43,6 +43,14 @@ public class BReturn extends BInstruction {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.pop();
 		dependency.setTempVariableStack(myOperandStack);
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		String opCodeString = getOpcodeCommand();
+		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
+		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
+		return null;// return a null letting main know to execute next method
 	}
 
 }

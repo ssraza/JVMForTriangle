@@ -1,10 +1,12 @@
 package com.gannon.jvm.instructions;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathFrame;
 
 public class BALoad extends BInstruction {
 	private int operand1;
@@ -42,5 +44,14 @@ public class BALoad extends BInstruction {
 		Stack<String> myOperandStack =dependency.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
 		dependency.setTempVariableStack(myOperandStack);
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Object> myOperandStack = pathFrame.getOperandStack();
+		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
+
+		myOperandStack.push(myLocalVariableTable.getLocalVariable(operand1));
+		return null;
 	}
 }

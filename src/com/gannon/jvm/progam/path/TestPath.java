@@ -7,7 +7,7 @@ import com.gannon.jvm.instructions.BInstruction;
 
 public class TestPath {
 	private int pathId;
-	private BMethod bMethod;// the method where the path belongs 
+	private BMethod bMethod;// the method to where the path belongs
 	private ArrayList<Node> nodes = new ArrayList<Node>();
 	private ArrayList<Object> inputs = new ArrayList<Object>();
 
@@ -27,7 +27,7 @@ public class TestPath {
 	public void setPathId(int pathId) {
 		this.pathId = pathId;
 	}
-	
+
 	public BMethod getbMethod() {
 		return bMethod;
 	}
@@ -63,13 +63,13 @@ public class TestPath {
 		}
 		return ids;
 	}
-	
+
 	public ArrayList<BInstruction> getInstrucitons(){
 		ArrayList<BInstruction> instructions=new ArrayList<BInstruction>();
 		for(Node node: nodes){
-			instructions.add(node.getInstruction());  
+			instructions.add(node.getInstruction());
 		}
 		return instructions;
-		
+
 	}
 }

@@ -25,4 +25,8 @@ public class PredicateNode extends Node{
 	public void setExpectedPredicateValue(Boolean expectedPredicateValue) {
 		this.expectedPredicateValue = expectedPredicateValue;
 	}
+	
+	public boolean isNodePass(){
+		return runTimePredicateValue==expectedPredicateValue;
+	}
 }

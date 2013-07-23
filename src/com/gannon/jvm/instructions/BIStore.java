@@ -5,6 +5,7 @@ import java.util.Stack;
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathFrame;
 
 public class BIStore extends BInstruction {
 
@@ -46,5 +47,18 @@ public class BIStore extends BInstruction {
 //		Stack<String> myOperandStack = dependency.getTempVariableStack();
 //		myOperandStack.pop();
 //		dependency.setTempVariableStack(myOperandStack);
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
+		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
+
+		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
+		// TOS and store in frame at operand1 location
+		myLocalVariableTable.setElementAt(this.operand1, myOperandStack.pop());
+		pathFrame.setLocalVariableTable(myLocalVariableTable);
+		pathFrame.setOperandStack(myOperandStack);
+		return null;
 	}
 }

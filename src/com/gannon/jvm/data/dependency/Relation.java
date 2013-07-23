@@ -1,12 +1,22 @@
 package com.gannon.jvm.data.dependency;
 
 //i1>i2 or i1+i2=i3
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.utilities.Utility;
 
 public class Relation {
 	private BinNode theBTRootNode;
 	private BInstruction inst;
+
+	public Relation(BinNode theBTRootNode) {
+		super();
+		this.theBTRootNode = theBTRootNode;
+	}
 
 	public Relation(BinNode theBTRootNode, BInstruction inst) {
 		super();
@@ -27,33 +37,43 @@ public class Relation {
 		}
 		return theBTRootNode;
 	}
-	
-	public BinNode getLeftNode(){
+
+	public BinNode getLeftNode() {
 		if (theBTRootNode != null) {
 			return theBTRootNode.getLeftBNode();
 		}
 		return null;
 	}
-	
-	public BinNode getRightNode(){
+
+	public BinNode getRightNode() {
 		if (theBTRootNode != null) {
 			return theBTRootNode.getRightBNode();
 		}
 		return null;
 	}
-	
-	public void join(Relation aNewRelation){
-		if(this!=null && aNewRelation!=null){
-			if(this.getLeftNode().getLeftBNode()==null && this.getLeftNode().equals(aNewRelation) ){
+
+	public Relation join(Relation aNewRelation) {
+		if (this == null) {
+			return aNewRelation;
+		}
+		if (this != null && aNewRelation != null) {
+			if (this.getLeftNode() != null && this.getLeftNode().equals(aNewRelation.getTheBTRootNode())) {
 				this.insertToLeft(aNewRelation.getTheBTRootNode());
 			}
-			if(this.getRightNode().getRightBNode()==null && this.getRightNode().equals(aNewRelation) ){
+			if (this.getRightNode() != null && this.getRightNode().equals(aNewRelation.getTheBTRootNode())) {
 				this.insertToRight(aNewRelation.getTheBTRootNode());
 			}
-	
 		}
+		return this;
 	}
-	
+
+	public boolean isPredicateRelation() {
+		return (inst instanceof BPredicateInstruction);
+	}
+
+	public boolean isParamterRelation() {
+		return Integer.parseInt(theBTRootNode.getLocalVariableName()) < Utility.MAX_PARAMETER_ID_ALLOWED;
+	}
 
 	// ------------------ InOrder traversal-------------------
 	protected void inorder(BinNode theRootNode) {
@@ -69,66 +89,57 @@ public class Relation {
 		inorder(theBTRootNode);
 	}
 
+	public void inorderRoot(BinNode theRootNode) {
+		inorder(theRootNode);
+	}
+
+	// --------------------------------------------------------------
+
+	// ------------------display nicely---------------------------
+	public void niceDisplay() {
+		traverse(0, theBTRootNode);
+	}
+
+	// level is a recursion level, 0 for root
+	public void traverse(int level, BinNode theRootNode) {
+		// build indent according to the recursion level
+		char[] indent = new char[level];
+		Arrays.fill(indent, ' ');
+
+		if (theRootNode != null) {
+			theRootNode.showIndent(new String(indent));
+			traverse(level + 1, theRootNode.getLeftBNode());
+			traverse(level + 1, theRootNode.getRightBNode());
+		}
+	}
+
+	// -------------------------------------------------------------------
+
 	public BinNode getTheBTRootNode() {
 		return theBTRootNode;
 	}
 
-	public BinNode search(BinNode keyNode) {
+	// ----- Search for key name and returns ref.
+	// to BNode or null if not found--------
+	protected void search(BinNode theRootNode, BinNode keyNode, ArrayList<BinNode> results) {
 		// if the root is null returns null
-		if (theBTRootNode == null || keyNode == null) {
-			return null;
-		} else {
-			String varId = keyNode.getId();
-			// checks if they are equal
-			if (varId.equals(theBTRootNode.getId())) {
-				return theBTRootNode;
-			} else if (varId.equals(theBTRootNode.getLeftBNode().getId())) {
-				return theBTRootNode.getLeftBNode();
-			} else if (varId.equals(theBTRootNode.getRightBNode().getId())) {
-				return theBTRootNode.getRightBNode();
-			} else {
-				return null;
-			}
-		}
-	}
-
-	public BinNode search(String varId) {
-		// if the root is null returns null
-		if (theBTRootNode == null) {
-			return null;
+		if (theRootNode == null) {
+			return;
 		} else {
 			// checks if they are equal
-			if (varId.equals(theBTRootNode.getId())) {
-				return theBTRootNode;
-			} else if (varId.equals(theBTRootNode.getLeftBNode().getId())) {
-				return theBTRootNode.getLeftBNode();
-			} else if (varId.equals(theBTRootNode.getRightBNode().getId())) {
-				return theBTRootNode.getRightBNode();
+			if (theRootNode.equals(keyNode)) {
+				results.add(theRootNode);
 			} else {
-				return null;
-			}
-		}
-	}
-
-	public BinNode searchLeafNode(String varId) {
-		// if the root is null returns null
-		if (theBTRootNode == null) {
-			return null;
-		} else {
-			if (varId.equals(theBTRootNode.getLeftBNode().getId())) {
-				return theBTRootNode.getLeftBNode();
-			} else if (varId.equals(theBTRootNode.getRightBNode().getId())) {
-				return theBTRootNode.getRightBNode();
-			} else {
-				return null;
+				search(theRootNode.getLeftBNode(), keyNode, results);
+				search(theRootNode.getRightBNode(), keyNode, results);
 			}
 		}
 	}
 
 	// check if the children of the relation are parameters
 	public boolean isEndRelation() {
-		return Integer.parseInt(theBTRootNode.getLeftBNode().getId()) < Utility.MAX_PARAMETER_ID_ALLOWED
-				&& Integer.parseInt(theBTRootNode.getRightBNode().getId()) < Utility.MAX_PARAMETER_ID_ALLOWED;
+		return Integer.parseInt(theBTRootNode.getLeftBNode().getLocalVariableName()) < Utility.MAX_PARAMETER_ID_ALLOWED
+				&& Integer.parseInt(theBTRootNode.getRightBNode().getLocalVariableName()) < Utility.MAX_PARAMETER_ID_ALLOWED;
 	}
 
 	public BInstruction getInst() {
@@ -140,15 +151,9 @@ public class Relation {
 	}
 
 	public boolean equals(Object relation) {
-		return relation instanceof Relation
-				&& theBTRootNode.equals(((Relation) relation)
-						.getTheBTRootNode())
-				&& theBTRootNode.getLeftBNode().equals(
-						((Relation) relation).getTheBTRootNode()
-								.getLeftBNode())
-				&& theBTRootNode.getRightBNode().equals(
-						((Relation) relation).getTheBTRootNode()
-								.getRightBNode());
+		return relation instanceof Relation && theBTRootNode.equals(((Relation) relation).getTheBTRootNode())
+				&& theBTRootNode.getLeftBNode().equals(((Relation) relation).getTheBTRootNode().getLeftBNode())
+				&& theBTRootNode.getRightBNode().equals(((Relation) relation).getTheBTRootNode().getRightBNode());
 	}
 
 	public int hashCode() {

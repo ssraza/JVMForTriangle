@@ -128,4 +128,10 @@ public class BMethod {
 
 	}
 
+	//for triangle desc=(III)I,e.g., three inputs and one output
+	public int getNumberOfParameter(){
+		int start=methodDesc.indexOf("(");
+		int end=methodDesc.lastIndexOf(")");
+		return end-start-1;
+	}
 }

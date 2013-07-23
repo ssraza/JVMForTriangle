@@ -22,13 +22,11 @@ public class GannonJVMPath {
 	}
 
 	public Object run(TestPath targetPath, ArrayList<Object> inputs) {
-		// be sure to push the active frame to stack
 		preExecution( targetPath, inputs);
 		Object result = executor.execute(pathFrame);
 		return result;
 	}
 
-	// before executing the path, push active frame to stack
 	private void preExecution(TestPath targetPath, ArrayList<Object> inputs) {
 		// crate active frame
 		BLocalVarTable localVariableTable = new BLocalVarTable(inputs);

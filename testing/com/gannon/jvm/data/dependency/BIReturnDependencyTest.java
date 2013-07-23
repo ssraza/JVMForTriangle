@@ -12,7 +12,7 @@ public class BIReturnDependencyTest {
 
 	@Test
 	public void testDependency() {
-		RelationFrame dependency = new RelationFrame();
+		RelationFrame dependency=new RelationFrame("com.gannon.asm.classgenerator.Triangle", "triangleType");
 		dependency.getTempVariableStack().push("6");
 		BBipush bipush = new BBipush(10,0);
 		bipush.analyzing(dependency);

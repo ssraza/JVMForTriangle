@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.RelationFrame;
 import com.gannon.jvm.execution.method.BFrame;
+import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.utilities.Utility;
 
 public class BIReturn extends BInstruction {
@@ -32,5 +33,12 @@ public class BIReturn extends BInstruction {
 	public void analyzing(RelationFrame rFrame) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Object execute(PathFrame pathFrame) {
+		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
+
+		return (Integer) myOperandStack.pop();
 	}
 }

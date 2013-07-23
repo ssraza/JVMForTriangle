@@ -1,19 +1,21 @@
 package com.gannon.jvm.data.dependency;
 
+import com.gannon.jvm.utilities.Utility;
+
 //binary tree node
 public class BinNode {
-	private String id;// use id as temp variable names
-	private BinNode leftBNode, rightBNode; // the nodes
+	private String localVariableName;
+	private BinNode leftBNode, rightBNode;
 
 	public BinNode(String id) {
 		super();
-		this.id = id;
+		this.localVariableName = id;
 		this.leftBNode = null;
 		this.rightBNode = null;
 	}
 
-	public String getId() {
-		return id;
+	public String getLocalVariableName() {
+		return localVariableName;
 	}
 
 	public BinNode getLeftBNode() {
@@ -34,15 +36,23 @@ public class BinNode {
 
 	public void show() {
 		// calls the show method of the AnyClass
-		System.out.print("i" + id + "\n");
+		System.out.print("i" + localVariableName + "\n");
+	}
+
+	public void showIndent(String indent) {
+		System.out.print(indent + "i" + localVariableName + "\n");
 	}
 
 	public boolean equals(Object node) {
-		return (node instanceof BinNode) && id.equals(((BinNode) node).id);
+		return (node instanceof BinNode) && localVariableName.equals(((BinNode) node).localVariableName);
 	}
 
 	public int hashCode() {
-		return id.hashCode();
+		return localVariableName.hashCode();
+	}
+
+	public boolean isParamter() {
+		return Integer.parseInt(localVariableName) < Utility.MAX_PARAMETER_ID_ALLOWED;
 	}
 
 }
