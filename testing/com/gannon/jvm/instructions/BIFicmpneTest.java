@@ -84,7 +84,7 @@ public class BIFicmpneTest {
 
 		ifNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 8, resultedPC);
 	}
 
@@ -154,7 +154,7 @@ public class BIFicmpneTest {
 
 		ifNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 3, resultedPC);
 	}
 
@@ -187,7 +187,7 @@ public class BIFicmpneTest {
 
 		ifGreaterNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 6, resultedPC);
 	}
 

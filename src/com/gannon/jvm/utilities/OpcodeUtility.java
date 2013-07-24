@@ -5,7 +5,7 @@
 package com.gannon.jvm.utilities;
 
 public class OpcodeUtility {
-	public static int nextVariableID = 100;
+	public static int nextVariableID = 1000;
 	public final static int MAX_PARAMETER_ID_ALLOWED = nextVariableID-1;
 	public static final int END_INSTRUCTION_FLAG = -1;
 

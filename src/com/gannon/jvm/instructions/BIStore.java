@@ -20,13 +20,13 @@ public class BIStore extends BInstruction {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
 		// TOS and store in frame at operand1 location
 		myLocalVariableTable.setElementAt(this.operand1, myOperandStack.pop());
 		activeFrame.setVarTable(myLocalVariableTable);
 		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setPC(++pc);
+		activeFrame.setLineNumber(++pc);
 		return null;
 	}
 

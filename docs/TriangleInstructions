@@ -1,0 +1,54 @@
+ L0(L3753442)  1
+1 iload 1
+2 iload 2
+3 iload 3
+4 iadd
+5 if_icmpge  L6(L1772552)  37
+
+6 iload 2
+7 iload 1
+8 iload 3
+9 iadd
+10 if_icmpge  L6(L1772552)  37
+
+11 iload 3
+12 iload 1
+13 iload 2
+14 iadd
+15 if_icmpge  L6(L1772552)  37
+
+ L1(L28516313)  16
+16 iload 1
+17 iload 2
+18 if_icmpne  L3(L15721083)  24
+
+19 iload 2
+20 iload 3
+21 if_icmpne  L3(L15721083)  24
+
+ L2(L16651101)  22
+22 iconst_1
+23 ireturn
+ L3(L15721083)  24
+24 iload 1
+25 iload 2
+26 if_icmpeq  L5(L11096221)  35
+
+27 iload 1
+28 iload 3
+29 if_icmpeq  L5(L11096221)  35
+
+30 iload 2
+31 iload 3
+32 if_icmpeq  L5(L11096221)  35
+
+ L4(L32219102)  33
+33 iconst_2
+34 ireturn
+ L5(L11096221)  35
+35 iconst_3
+36 ireturn
+ L6(L1772552)  37
+37 iconst_4
+38 ireturn
+ L7(L5024475)  39

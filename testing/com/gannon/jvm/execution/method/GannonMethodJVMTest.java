@@ -75,7 +75,7 @@ public class GannonMethodJVMTest {
 
 		//create input
 		ArrayList<Object> inputs=new ArrayList<Object>();
-		inputs.add(0);
+		inputs.add(0);//reference
 		inputs.add(8);
 		inputs.add(8);
 		inputs.add(9);
@@ -96,7 +96,7 @@ public class GannonMethodJVMTest {
 
 		//create input
 		ArrayList<Object> inputs=new ArrayList<Object>();
-		inputs.add(0);
+		inputs.add(0);//reference
 		inputs.add(8);
 		inputs.add(78);
 		inputs.add(9);

@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Stack;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
@@ -12,10 +16,15 @@ import com.gannon.jvm.instructions.BAStore;
 import com.gannon.jvm.instructions.BILoad;
 
 public class BILoadTest {
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		protected void starting(Description description) {
+			System.out.println("Starting test: " + description.getMethodName());
+		}
+	};
 
 	@Test
 	public void testGetOpcode() {
-		System.out.println("getOpcode");
 		BAStore instance = new BAStore(1,10);
 		int expResult = 58;
 		int result = instance.getOpcode();
@@ -24,7 +33,6 @@ public class BILoadTest {
 
 	@Test
 	public void testGetOpcodeCommand() {
-		System.out.println("getOpcodeCommand");
 		BAStore instance = new BAStore(1,12);
 
 		String expResult = "astore";
@@ -34,7 +42,6 @@ public class BILoadTest {
 
 	@Test
 	public void testExecuteBFramePostion2() {
-		System.out.println("execute");
 		BILoad bILoad = new BILoad(2,5);// Initialize BILoad, pass 0 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();
@@ -63,7 +70,6 @@ public class BILoadTest {
 
 	@Test
 	public void testExecuteBFramePostion1() {
-		System.out.println("execute");
 		BILoad bILoad = new BILoad(1,5);// Initialize BILoad, pass 0 as operand value
 		// init local Variable table
 		BLocalVarTable varTable = new BLocalVarTable();

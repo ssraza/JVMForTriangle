@@ -14,24 +14,25 @@ import com.gannon.jvm.progam.path.TestPath;
 
 public class GannonPathJVM {
 	private PathFrame pathFrame;
-	private PathExecutor executor;
+	private PathExecutor executor=new PathExecutor();
 
 	public GannonPathJVM() {
 		super();
-		this.executor = new PathExecutor();
 	}
 
 	public Object run(TestPath targetPath, ArrayList<Object> inputs) {
-		preExecution( targetPath, inputs);
+		init( targetPath, inputs);
 		Object result = executor.execute(pathFrame);
 		return result;
 	}
 
-	private void preExecution(TestPath targetPath, ArrayList<Object> inputs) {
+	private void init(TestPath targetPath, ArrayList<Object> inputs) {
 		// crate active frame
 		BLocalVarTable localVariableTable = new BLocalVarTable(inputs);
 		pathFrame = new PathFrame(targetPath, localVariableTable);
 
 	}
+
+
 
 }

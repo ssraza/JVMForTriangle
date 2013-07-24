@@ -32,7 +32,7 @@ public class BIFicmpge extends BPredicateInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 
 		Integer secondValue = (Integer)myOperandStack.pop();
 		Integer firstValue = (Integer)myOperandStack.pop();
@@ -40,11 +40,11 @@ public class BIFicmpge extends BPredicateInstruction {
 		boolean predicateResult = firstValue >= secondValue;
 		if(predicateResult){
 			pc = getOperand().getGoToLineNumber();
-			activeFrame.setPC(pc);
+			activeFrame.setLineNumber(pc);
 		}
 		else{
 			myOperandStack.clear();
-			activeFrame.setPC(++pc);
+			activeFrame.setLineNumber(++pc);
 		}
 
 		activeFrame.setOperandStack(myOperandStack);
@@ -89,12 +89,6 @@ public class BIFicmpge extends BPredicateInstruction {
 		Integer firstValue = (Integer)myOperandStack.pop();
 
 		boolean predicateResult = firstValue >= secondValue;
-		if(predicateResult){
-			
-		}
-		else{
-			
-		}
 
 		pathFrame.setOperandStack(myOperandStack);
 		pathFrame.setLocalVariableTable(myLocalVariableTable);

@@ -40,14 +40,12 @@ public class BLabel {
 	}
 
 	public void setGoToLineNumber(int goToLineNumber) {
-		System.out.println("line number "+goToLineNumber);
 		this.goToLineNumber = goToLineNumber;
 	}
 
 	public String toString() {
 		StringBuilder s=new StringBuilder();
-		s.append("================");
-		s.append("" + ch + sequenceID + "("+lb.toString()+ ") Jump Line Number "+ goToLineNumber+" \n");
+		s.append(" " + ch + sequenceID + "("+lb.toString()+ ")  "+ goToLineNumber+" \n");
 		return s.toString();
 	}
 }

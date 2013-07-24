@@ -19,13 +19,13 @@ public class BIAdd extends BInstruction  {
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 
 		myOperandStack.push((Integer) myOperandStack.pop()
 				+ (Integer) myOperandStack.pop());
 
 		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setPC(++pc);
+		activeFrame.setLineNumber(++pc);
 		return null;
 	}
 

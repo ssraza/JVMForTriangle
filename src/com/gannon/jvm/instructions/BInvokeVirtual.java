@@ -26,8 +26,8 @@ public class BInvokeVirtual extends BInstruction {
 	public Integer execute(BFrame activeFrame) {
 		Stack<Object> myCurrentOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myCurrentLocalVariableTable = activeFrame.getVarTable();
-		Integer pc = activeFrame.getPC();
-		activeFrame.setPC(++pc);// increment pc before invoking virtual, so as
+		Integer pc = activeFrame.getLineNumber();
+		activeFrame.setLineNumber(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
 
 		BClass bClass = activeFrame.getInstance().getbClass();

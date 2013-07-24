@@ -43,21 +43,9 @@ public class GannonPredicateTreeBuilderJVMTest {
 	 *    2 3
 	 */
 	@Test
-	public void testBuildPathNotTriangle1() {
-		// // assume we have 3 parameters
-		// Relation r0 = new Relation(new BinNode("0"), null);// not using
-		// Relation r1 = new Relation(new BinNode("1"), null);
-		// Relation r2 = new Relation(new BinNode("2"), null);
-		// Relation r3 = new Relation(new BinNode("3"), null);
-		//
-		// Relation r101 = new Relation(new BinNode("103"), null);
-		// r101.insertToLeft(new BinNode("102"));
-		// r101.insertToRight(new BinNode("101"));
-		// r101.niceDisplay();
-		//
-
+	public void testBuildPathNotTriangle() {
 		GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
-		jvm.execute(TrianglePathBuilderUtility.createPathNotTriangle1());
+		jvm.run(TrianglePathBuilderUtility.createPathID10());
 		System.out.println(jvm.getRelationFrame().getRelations());
 
 	}
@@ -65,7 +53,23 @@ public class GannonPredicateTreeBuilderJVMTest {
 	@Test
 	public void testBuildPathEquilateral() {
 		GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
-		jvm.execute(TrianglePathBuilderUtility.createPathEquilateralTriangle());
+		jvm.run(TrianglePathBuilderUtility.createPathID1());
+		System.out.println(jvm.getRelationFrame().getRelations());
+
+	}
+	
+	@Test
+	public void testBuildPathScalene() {
+		GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
+		jvm.run(TrianglePathBuilderUtility.createPathID8());
+		System.out.println(jvm.getRelationFrame().getRelations());
+
+	}
+	
+	@Test
+	public void testBuildPathISOScale() {
+		GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
+		jvm.run(TrianglePathBuilderUtility.createPathID2());
 		System.out.println(jvm.getRelationFrame().getRelations());
 
 	}

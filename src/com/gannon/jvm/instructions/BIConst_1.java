@@ -14,10 +14,10 @@ public class BIConst_1 extends BInstruction {
 
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 		myOperandStack.push(1);
 		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setPC(++pc);
+		activeFrame.setLineNumber(++pc);
 		return null;
 	}
 

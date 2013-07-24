@@ -3,25 +3,26 @@ package com.gannon.jvm.execution.method;
 import java.util.Stack;
 
 import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class BFrame {
 	private BMethod method;
 	private BLocalVarTable localVariableTable;
-	private int PC = 0;
+	private int lineNumber = ConstantsUtility.INIT_PROGRAM_LINE_NUMBER;
 	private Stack operandStack = new Stack();
 
-	public BFrame(int PC, BLocalVarTable localVariableTable, Stack operandStack) {
+	public BFrame(int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
-		this.PC = PC;
+		this.lineNumber = lineNumber;
 		this.localVariableTable = localVariableTable;
 		this.operandStack=operandStack;
 	}
 
 
-	public BFrame(BMethod method, int PC, BLocalVarTable localVariableTable, Stack operandStack) {
+	public BFrame(BMethod method, int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
 		this.method = method;
-		this.PC = PC;
+		this.lineNumber = lineNumber;
 		this.localVariableTable = localVariableTable;
 		this.operandStack=operandStack;
 
@@ -43,12 +44,12 @@ public class BFrame {
 		this.localVariableTable = varTable;
 	}
 
-	public int getPC() {
-		return this.PC;
+	public int getLineNumber() {
+		return this.lineNumber;
 	}
 
-	public void setPC(int pC) {
-		this.PC = pC;
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	public Stack getOperandStack() {

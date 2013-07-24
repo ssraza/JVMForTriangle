@@ -81,7 +81,7 @@ public class BIFicmpgeTest {
 
 		ifGreaterNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 8, resultedPC);
 	}
 
@@ -151,7 +151,7 @@ public class BIFicmpgeTest {
 
 		ifGreaterNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 3, resultedPC);
 	}
 
@@ -184,7 +184,7 @@ public class BIFicmpgeTest {
 
 		ifGreaterNequal.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 6, resultedPC);
 	}
 

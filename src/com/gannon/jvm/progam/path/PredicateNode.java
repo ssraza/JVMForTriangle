@@ -2,31 +2,45 @@ package com.gannon.jvm.progam.path;
 
 import com.gannon.jvm.instructions.BInstruction;
 
-public class PredicateNode extends Node{
-	private Boolean runTimePredicateValue;
-	private Boolean expectedPredicateValue;
+public class PredicateNode extends Node {
+	private Boolean actualPredicateResult;
+	private Boolean expectedPredicateResult;
+	//ignore executing instruction if the flag is set to true
+	private boolean isIgnore=false;
 
 	public PredicateNode(BInstruction ins) {
 		super(ins);
 	}
 
-	public Boolean getRunTimePredicateValue() {
-		return runTimePredicateValue;
+	public Boolean getAcutalPredicateResult() {
+		return actualPredicateResult;
 	}
 
-	public void setRunTimePredicateValue(Boolean runTimePredicateValue) {
-		this.runTimePredicateValue = runTimePredicateValue;
+	public void setActualPredicateResult(Boolean acutalPredicateResult) {
+		this.actualPredicateResult = acutalPredicateResult;
 	}
 
-	public Boolean getExpectedPredicateValue() {
-		return expectedPredicateValue;
+	public Boolean getExpectedPredicateResult() {
+		return expectedPredicateResult;
 	}
 
-	public void setExpectedPredicateValue(Boolean expectedPredicateValue) {
-		this.expectedPredicateValue = expectedPredicateValue;
+	public void setExpectedPredicateResult(Boolean expectedPredicateResult) {
+		this.expectedPredicateResult = expectedPredicateResult;
 	}
-	
-	public boolean isNodePass(){
-		return runTimePredicateValue==expectedPredicateValue;
+
+	public boolean hasPassed() {
+		return actualPredicateResult.equals(expectedPredicateResult);
+	}
+
+	public boolean isIgnore() {
+		return isIgnore;
+	}
+
+	public void setIgnore(boolean isIgnore) {
+		this.isIgnore = isIgnore;
+	}
+
+	public String toString() {
+		return getInstruction()+"ActualPredicateResult= " + actualPredicateResult + ";ExpectedPredicateResult= " + expectedPredicateResult;
 	}
 }

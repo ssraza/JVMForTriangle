@@ -7,7 +7,7 @@ import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
 
-public class BReturn extends BInstruction {
+public class BReturn extends Return {
 
 	public BReturn(int lineNumber) {
 		super(lineNumber);
@@ -21,8 +21,8 @@ public class BReturn extends BInstruction {
 		String opCodeString = getOpcodeCommand();
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-		Integer pc = activeFrame.getPC();
-		activeFrame.setPC(++pc);
+		Integer pc = activeFrame.getLineNumber();
+		activeFrame.setLineNumber(++pc);
 		return null;// return a null letting main know to execute next method
 	}
 

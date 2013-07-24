@@ -28,8 +28,8 @@ public class MethodExecutor {
 
 		// flag pc =-1 points to next executing instruction
 		// the flag is set in return instruction
-		while (activeFrame.getPC() != -1) {
-			BInstruction bInstruction = instructions.get(activeFrame.getPC());
+		while (activeFrame.getLineNumber() != -1) {
+			BInstruction bInstruction = instructions.get(activeFrame.getLineNumber()-1);
 			runTimePredicateResult = bInstruction.execute(activeFrame);
 
 			//save runtime execution results for predicate statements to node
@@ -48,7 +48,7 @@ public class MethodExecutor {
 		}
 
 		//post execution job, needed for method to method calling
-		if (activeFrame.getPC() == -1) {
+		if (activeFrame.getLineNumber() == -1) {
 			postExecution(jvmStack, runTimePredicateResult);
 		}
 		//ideally, only predicate statements will results, e.g., true or false;
@@ -61,7 +61,7 @@ public class MethodExecutor {
 		if(bInstruction instanceof BPredicateInstruction){
 			PredicateNode pNode = new PredicateNode(bInstruction);
 			executedPath.add(pNode);
-			pNode.setRunTimePredicateValue((Boolean)result);
+			pNode.setActualPredicateResult((Boolean)result);
 		}else{
 			executedPath.add(new NonPredicateNode(bInstruction));
 		}

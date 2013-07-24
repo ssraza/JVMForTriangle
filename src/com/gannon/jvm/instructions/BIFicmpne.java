@@ -24,7 +24,7 @@ public class BIFicmpne extends BPredicateInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-		Integer programCounter = activeFrame.getPC();
+		Integer programCounter = activeFrame.getLineNumber();
 
 		Integer secondValue = (Integer) myOperandStack.pop();
 		Integer firstValue = (Integer) myOperandStack.pop();
@@ -32,7 +32,7 @@ public class BIFicmpne extends BPredicateInstruction {
 		boolean predicateResult = !firstValue.equals(secondValue);
 		if (predicateResult) {
 			programCounter = getOperand().getGoToLineNumber();
-			activeFrame.setPC(programCounter);
+			activeFrame.setLineNumber(programCounter);
 		} else {
 			System.out
 					.println("Condition is not satisfied, first value is equal to second value "
@@ -41,7 +41,7 @@ public class BIFicmpne extends BPredicateInstruction {
 			++programCounter;
 		}
 
-		activeFrame.setPC(programCounter);
+		activeFrame.setLineNumber(programCounter);
 		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setVarTable(myLocalVariableTable);
 		return predicateResult;
@@ -79,11 +79,6 @@ public class BIFicmpne extends BPredicateInstruction {
 		Integer firstValue = (Integer) myOperandStack.pop();
 
 		boolean predicateResult = !firstValue.equals(secondValue);
-		if (predicateResult) {
-
-		} else {
-
-		}
 
 		pathFrame.setOperandStack(myOperandStack);
 		pathFrame.setLocalVariableTable(myLocalVariableTable);

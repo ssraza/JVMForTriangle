@@ -7,7 +7,7 @@ import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.utilities.OpcodeUtility;
 
-public class BIReturn extends BInstruction {
+public class BIReturn extends Return {
 
 	public BIReturn(int lineNumber) {
 		super(lineNumber);
@@ -20,7 +20,7 @@ public class BIReturn extends BInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		//-1 means the end of the instructions??
-		activeFrame.setPC(OpcodeUtility.END_INSTRUCTION_FLAG);
+		activeFrame.setLineNumber(OpcodeUtility.END_INSTRUCTION_FLAG);
 
 		return (Integer) myOperandStack.pop();
 	}

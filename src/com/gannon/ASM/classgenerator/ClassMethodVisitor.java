@@ -8,6 +8,7 @@ import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.asm.components.BStackMaxLocals;
+import com.gannon.jvm.utilities.ConstantsUtility;
 import com.gannon.Executor.BytecodeObjectFactories.VisitFieldInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitIntegerInstructionFactory;
@@ -21,7 +22,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	 */
 	private BMethod currentMethod;
 	private BBlock currentBlock;
-	private int linNumber = 0;
+	private int linNumber = ConstantsUtility.INIT_PROGRAM_LINE_NUMBER;
 	private int lableID=0;
 
 	/**

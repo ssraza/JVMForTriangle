@@ -10,15 +10,19 @@ public class GannonPredicateTreeBuilderJVM {
 		super();
 	}
 
-	public void execute(TestPath targetPath) {
+	public void run(TestPath targetPath) {
 		// The analyzer only reads the path in a frame, here we use a rFrame
 		// Therefore we need to add the path to rFrame before we start analyzing
 		// dependency
 		// it is similar to BFrame for method execution
 		// relationFrame will collect all relations
+		init(targetPath);
+		analyzer.execute(relationFrame);
+	}
+
+	private void init(TestPath targetPath) {
 		relationFrame.setTargetPath(targetPath);
 		relationFrame.initParameterRelation();
-		analyzer.execute(relationFrame);
 	}
 
 	public DependencyFrame getRelationFrame() {

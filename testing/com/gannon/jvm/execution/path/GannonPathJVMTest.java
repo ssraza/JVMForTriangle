@@ -4,7 +4,11 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
@@ -21,94 +25,140 @@ import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.NonPredicateNode;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
+import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
 public class GannonPathJVMTest {
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		protected void starting(Description description) {
+			System.out.println("Starting test: " + description.getMethodName());
+		}
+	};
 
 	@Test
-	public void testMethodTriangleTypeNotATriangle() {
-		GannonPathJVM jvm=new GannonPathJVM();
-
-		//create input
-		TestPath path = new TestPath();
-		path.setPathId(1);
-
-		Node node0 = new NonPredicateNode(new BILoad(1,0));
-		path.add(node0);
-
-		Node node1 = new NonPredicateNode(new BILoad(2,1));
-		path.add(node1);
-
-		Node node2 = new NonPredicateNode( new BILoad(3,3));
-		path.add(node2);
-
-		Node node7 = new NonPredicateNode(new BIAdd(6));
-		path.add(node7);
-
-		BLabel lable = new BLabel(new Label());
-		PredicateNode node8 = new PredicateNode(new BIFicmpge(lable,7));
-		node8.setExpectedPredicateValue(false);
-		path.add(node8);
-
-		Node node24 = new NonPredicateNode(new BIConst_4(9));
-		path.add(node24);
-
-		Node node25 = new NonPredicateNode( new BIReturn(10));
-		path.add(node25);
-
-		//get Method instructions
-		BClass myclass = BClassGenerator.getBClass("Triangle.class");
-		BMethod m = myclass.getMethod("triangleType");
-		System.out.print(m);
-
+	public void testMethodTriangleTypePathID_1() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID1();
 		ArrayList<Object> input = new ArrayList<>();
-		input.add(4);
+		input.add(-1);//store reference, not using it now
 		input.add(6);
-		input.add(1);
-		//assertion
-		assertEquals(new Integer(4), jvm.run(path,input));
+		input.add(6);
+		input.add(6);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(1), jvm.run(path, input));
 	}
 
 	@Test
-	public void testMethodTriangleTypeBreak() {
-		GannonPathJVM jvm=new GannonPathJVM();
+	public void testMethodTriangleTypePathID_2() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID2();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(4);
+		input.add(5);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		//create input
-		TestPath path = new TestPath();
-		path.setPathId(1);
+	@Test
+	public void testMethodTriangleTypePathID_3() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID3();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(4);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		Node node0 = new NonPredicateNode(new BILoad(1,0));
-		path.add(node0);
+	@Test
+	public void testMethodTriangleTypePathID_4() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID4();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		Node node1 = new NonPredicateNode(new BILoad(2,1));
-		path.add(node1);
+	@Test
+	public void testMethodTriangleTypePathID_5() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID5();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		Node node2 = new NonPredicateNode( new BILoad(3,3));
-		path.add(node2);
+	@Test
+	public void testMethodTriangleTypePathID_6() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID6();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		Node node7 = new NonPredicateNode(new BIAdd(6));
-		path.add(node7);
+	@Test
+	public void testMethodTriangleTypePathID_7() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID7();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(3), jvm.run(path, input));
+	}
 
-		BLabel lable = new BLabel(new Label());
-		PredicateNode node8 = new PredicateNode(new BIFicmpge(lable,7));
-		node8.setExpectedPredicateValue(false);
-		path.add(node8);
+	@Test
+	public void testMethodTriangleTypePathID_8() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID8();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(2);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(2), jvm.run(path, input));
+	}
 
-		Node node24 = new NonPredicateNode(new BIConst_4(9));
-		path.add(node24);
-
-		Node node25 = new NonPredicateNode( new BIReturn(10));
-		path.add(node25);
-
-		//get Method instructions
-		BClass myclass = BClassGenerator.getBClass("Triangle.class");
-		BMethod m = myclass.getMethod("triangleType");
-		System.out.print(m);
+	@Test
+	public void testMethodTrianglePathID_10() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID10();
 
 		ArrayList<Object> input = new ArrayList<>();
-		input.add(4);
+		input.add(-1);//store reference, not using it now
+		input.add(14);
 		input.add(6);
 		input.add(1);
-		//assertion
-		assertEquals(new Integer(4), jvm.run(path,input));
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(4), jvm.run(path, input));
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Stack;
 
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.progam.path.TestPath;
-
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class GannonMethodJVM {
 	private JVMStackSingleton jvmStack;
@@ -21,9 +21,9 @@ public class GannonMethodJVM {
 
 	public Object run(BMethod method, ArrayList<Object> inputs) {
 		// be sure to push the active frame to stack
-		preExecution(method,inputs);
-		Object result=executor.execute(jvmStack);
-		executedPath= collectingExecutedPath(inputs);
+		preExecution(method, inputs);
+		Object result = executor.execute(jvmStack);
+		executedPath = collectingExecutedPath(inputs);
 		return result;
 	}
 
@@ -43,14 +43,15 @@ public class GannonMethodJVM {
 		this.executor = executor;
 	}
 
-	//before executing push active frame to stack
-	private void preExecution(BMethod method,ArrayList<Object> inputs) {
-		//crate active frame
-		BLocalVarTable localVariableTable=new BLocalVarTable(inputs);
-		int PC = 0;
+	// before executing push active frame to stack
+	private void preExecution(BMethod method, ArrayList<Object> inputs) {
+		// crate active frame
+		BLocalVarTable localVariableTable = new BLocalVarTable(inputs);
+		int lineNumber = ConstantsUtility.INIT_PROGRAM_LINE_NUMBER;
+		// the first instruction is 1
 		Stack operandStack = new Stack();
-		BFrame activeFrame = new BFrame(method, PC, localVariableTable, operandStack);
-		//push the frame to JVM stack
+		BFrame activeFrame = new BFrame(method, lineNumber, localVariableTable, operandStack);
+		// push the frame to JVM stack
 		jvmStack.pushFrame(activeFrame);
 	}
 

@@ -74,7 +74,7 @@ public class BIFicmpeqTest {
 		// Expectation is, BIFicmpge will update program counter to 8.
 		ifEqual.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 8, resultedPC);
 	}
 
@@ -136,7 +136,7 @@ public class BIFicmpeqTest {
 		BPredicateInstruction ifEqual = new BIFicmpeq(label1, 4);
 		ifEqual.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 8, resultedPC);
 	}
 
@@ -158,7 +158,7 @@ public class BIFicmpeqTest {
 
 		ifEqual.execute(activeFrame);
 
-		Integer resultedPC = activeFrame.getPC();
+		Integer resultedPC = activeFrame.getLineNumber();
 		assertEquals((Integer) 11, resultedPC);
 	}
 

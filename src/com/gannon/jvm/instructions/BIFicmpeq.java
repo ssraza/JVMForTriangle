@@ -26,7 +26,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 
 		// next instruction will fetched for execution
-		Integer programCounter = activeFrame.getPC();
+		Integer programCounter = activeFrame.getLineNumber();
 
 		Integer firstValue = (Integer) myOperandStack.pop();
 		Integer secondValue = (Integer) myOperandStack.pop();
@@ -34,11 +34,11 @@ public class BIFicmpeq extends BPredicateInstruction {
 		boolean predicateResult=firstValue.equals(secondValue);
 		if (predicateResult) {
 			programCounter = getOperand().getGoToLineNumber();
-			activeFrame.setPC(programCounter);
+			activeFrame.setLineNumber(programCounter);
 		} else {
 			myOperandStack.clear();
 			// set next instruction to executed
-			activeFrame.setPC(++programCounter);
+			activeFrame.setLineNumber(++programCounter);
 		}
 
 		activeFrame.setOperandStack(myOperandStack);
@@ -79,13 +79,6 @@ public class BIFicmpeq extends BPredicateInstruction {
 		Integer secondValue = (Integer) myOperandStack.pop();
 
 		boolean predicateResult=firstValue.equals(secondValue);
-		if (predicateResult) {
-
-
-		} else {
-			myOperandStack.clear();
-
-		}
 
 		pathFrame.setOperandStack(myOperandStack);
 		pathFrame.setLocalVariableTable(myLocalVariableTable);

@@ -18,7 +18,7 @@ public class BAStore extends BInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 
 		Integer value = myOperandStack.pop(); // get the top of the operand
 												// stack
@@ -28,7 +28,7 @@ public class BAStore extends BInstruction {
 													// by operand1.
 		activeFrame.setVarTable(myLocalVariableTable);
 		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setPC(++pc);
+		activeFrame.setLineNumber(++pc);
 		return null;
 	}
 

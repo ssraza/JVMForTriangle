@@ -31,9 +31,6 @@ public class BLocalVarTable {
 	}
 
 	public Object getLocalVariable(int index) {
-		if (index < 0 || index >= localVars.size()) {
-			return new Integer(100000000);
-		}
 		return localVars.get(index);
 	}
 

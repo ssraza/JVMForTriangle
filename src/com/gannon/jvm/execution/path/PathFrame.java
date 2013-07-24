@@ -9,13 +9,13 @@ import com.sun.org.apache.bcel.internal.classfile.LocalVariableTable;
 public class PathFrame {
 	private TestPath testPath;
 	private BLocalVarTable localVariableTable;
-	private Stack operandStack ;
+	private Stack operandStack;
 
 	public PathFrame(TestPath testPath, BLocalVarTable localVariableTable) {
 		super();
 		this.testPath = testPath;
 		this.operandStack = new Stack();
-		this.localVariableTable= localVariableTable;
+		this.localVariableTable = localVariableTable;
 	}
 
 	public TestPath getTestPath() {
@@ -41,8 +41,5 @@ public class PathFrame {
 	public void setOperandStack(Stack operandStack) {
 		this.operandStack = operandStack;
 	}
-
-
-
 
 }

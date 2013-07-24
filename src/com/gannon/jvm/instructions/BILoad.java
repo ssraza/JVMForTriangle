@@ -24,13 +24,13 @@ public class BILoad extends BInstruction {
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 		Stack<Integer> operandStack = activeFrame.getOperandStack();
 
-		Integer pc = activeFrame.getPC();
+		Integer pc = activeFrame.getLineNumber();
 		// push local value to top of stack
 		operandStack.push((Integer) myLocalVariableTable
 				.getLocalVariable(operand1));
 
 		// point to next instruction
-		activeFrame.setPC((++pc));
+		activeFrame.setLineNumber((++pc));
 		activeFrame.setOperandStack(operandStack);
 		return null;
 	}
@@ -51,6 +51,8 @@ public class BILoad extends BInstruction {
 	}
 
 	@Override
+	//iload 1, must start from 1
+	//remember to add additional number to index 0
 	public Object execute(PathFrame pathFrame) {
 		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
 		Stack<Integer> operandStack = pathFrame.getOperandStack();

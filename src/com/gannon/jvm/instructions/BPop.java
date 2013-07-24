@@ -14,7 +14,7 @@ public class BPop extends BInstruction {
 	}
 
 	public Object execute(BFrame activeFrame) {
-		activeFrame.setPC(1 + activeFrame.getPC());
+		activeFrame.setLineNumber(1 + activeFrame.getLineNumber());
 		return null;
 
 	}
