@@ -1,15 +1,14 @@
 package com.gannon.jvm.instructions;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.BinNode;
-import com.gannon.jvm.data.dependency.Relation;
-import com.gannon.jvm.data.dependency.RelationFrame;
-import com.gannon.jvm.data.dependency.Relations;
+import com.gannon.jvm.data.dependency.Dependency;
+import com.gannon.jvm.data.dependency.DependencyFrame;
+import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 public class BIAdd extends BInstruction  {
 
@@ -35,18 +34,18 @@ public class BIAdd extends BInstruction  {
 	}
 
 	@Override
-	public void analyzing(RelationFrame rFrame) {
+	public void analyzing(DependencyFrame rFrame) {
 		Stack<String> myOperandStack =rFrame.getTempVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
-		BinNode rootNode=new BinNode(Integer.toString(Utility.getNextID()));
-		Relation relation=new Relation(rootNode, this);
+		BinNode rootNode=new BinNode(Integer.toString(OpcodeUtility.getNextID()));
+		Dependency relation=new Dependency(rootNode, this);
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
-		Relations relations=rFrame.getRelations();
+		Dependencies relations=rFrame.getRelations();
 
-		relations.combinRelations(relation);
-		relations.addRelation(relation);
+		relations.expendTheRelations(relation);
+		relations.add(relation);
 
 		myOperandStack.push(rootNode.getLocalVariableName());
 

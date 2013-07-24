@@ -1,17 +1,21 @@
 package com.gannon.jvm.data.dependency;
 
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 //binary tree node
 public class BinNode {
 	private String localVariableName;
 	private BinNode leftBNode, rightBNode;
 
-	public BinNode(String id) {
+	public BinNode(String localVariableName) {
 		super();
-		this.localVariableName = id;
+		this.localVariableName = localVariableName;
 		this.leftBNode = null;
 		this.rightBNode = null;
+	}
+	
+	public void setLocalVariableName(String localVariableName) {
+		this.localVariableName = localVariableName;
 	}
 
 	public String getLocalVariableName() {
@@ -34,15 +38,6 @@ public class BinNode {
 		this.rightBNode = rightBNode;
 	}
 
-	public void show() {
-		// calls the show method of the AnyClass
-		System.out.print("i" + localVariableName + "\n");
-	}
-
-	public void showIndent(String indent) {
-		System.out.print(indent + "i" + localVariableName + "\n");
-	}
-
 	public boolean equals(Object node) {
 		return (node instanceof BinNode) && localVariableName.equals(((BinNode) node).localVariableName);
 	}
@@ -52,7 +47,20 @@ public class BinNode {
 	}
 
 	public boolean isParamter() {
-		return Integer.parseInt(localVariableName) < Utility.MAX_PARAMETER_ID_ALLOWED;
+		return Integer.parseInt(localVariableName) <OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
+	}
+	
+	public void show() {
+		// calls the show method of the AnyClass
+		System.out.print("i" + localVariableName + "\n");
+	}
+
+	public void showIndent(String indent) {
+		System.out.print(indent + "i" + localVariableName + "\n");
+	}
+	
+	public String showIndentString(String indent) {
+		return indent + "i" + localVariableName + "\n";
 	}
 
 }

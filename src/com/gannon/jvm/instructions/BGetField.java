@@ -4,7 +4,7 @@
  */
 package com.gannon.jvm.instructions;
 
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
 
@@ -48,7 +48,7 @@ public class BGetField extends BInstruction{
 	}
 
 	@Override
-	public void analyzing(RelationFrame dependency) {
+	public void analyzing(DependencyFrame dependency) {
 		// TODO Auto-generated method stub
 		
 	}

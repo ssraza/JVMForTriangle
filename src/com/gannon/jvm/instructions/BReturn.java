@@ -2,7 +2,7 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
@@ -39,7 +39,7 @@ public class BReturn extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationFrame dependency) {
+	public void analyzing(DependencyFrame dependency) {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.pop();
 		dependency.setTempVariableStack(myOperandStack);

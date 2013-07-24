@@ -11,7 +11,7 @@ public class DependencyAnalyzer {
 	}
 
 	// assume activeFrame is saved in JVM stack
-	public Object execute(RelationFrame rFrame) {
+	public Object execute(DependencyFrame rFrame) {
 		TestPath targetPath = rFrame.getTargetPath();
 
 		for (BInstruction bInstruction : targetPath.getInstrucitons()) {

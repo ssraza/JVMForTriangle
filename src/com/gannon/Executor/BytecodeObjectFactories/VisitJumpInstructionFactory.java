@@ -7,7 +7,7 @@ import com.gannon.jvm.instructions.BIFicmpeq;
 import com.gannon.jvm.instructions.BIFicmpge;
 import com.gannon.jvm.instructions.BIFicmpne;
 import com.gannon.jvm.instructions.BInstruction;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 public class VisitJumpInstructionFactory {
 
@@ -16,15 +16,15 @@ public class VisitJumpInstructionFactory {
 	 public BInstruction createInst(int opCode, Label goToLabel, int linNumber){
 		 //IF_ICMPEQ, IF_ICMPNE, IF_ICMPGE
 		 BLabel bLabel=new BLabel(goToLabel);
-		 if(Utility.getOpCodeCommand(opCode).equals("if_icmpeq")){
+		 if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpeq")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPEQ "+ opCode+ "  " + label + "  " + linNumber);
 	            instr= new BIFicmpeq(bLabel, linNumber);
 	        }
-	        else if(Utility.getOpCodeCommand(opCode).equals("if_icmpne")){
+	        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpne")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPNE "+ opCode+ "  " + label + "  " + linNumber);
 	            instr= new BIFicmpne(bLabel, linNumber);
 	        }
-	        else if(Utility.getOpCodeCommand(opCode).equals("if_icmpge")){
+	        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpge")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
 	            instr= new BIFicmpge(bLabel, linNumber);
 	        }

@@ -40,16 +40,16 @@ public class GUIEventHandler {
                   //  ArrayList<BLocalVariable> BI = bMethod.getLocalVariables();
                     MethodDataCollector MDataCollector = new MethodDataCollector(bClass,
                             bClass.getIndexOf(interfaceAPI.getSelectedMethod()),overridesList);
-                    RelationFrame.getInstance().addMethodFrame((BFrame) MDataCollector.getActiveFrame());//add caller's methodFrame
+                    DependencyFrame.getInstance().addMethodFrame((BFrame) MDataCollector.getActiveFrame());//add caller's methodFrame
 //                    System.out.println("Size of JVM Stack: "+JVMStackSingleton.getInstance().size());
                     Integer displayValue = null;
 
-                    DependencyAnalyzer executeMethod = new DependencyAnalyzer(RelationFrame.getInstance().getActiveBFrame());
+                    DependencyAnalyzer executeMethod = new DependencyAnalyzer(DependencyFrame.getInstance().getActiveBFrame());
                     executeMethod.execute();
                     displayValue = executeMethod.getReturnValue();
                     interfaceAPI.setDisplayValue(displayValue);
 
-                    RelationFrame.getInstance().Erase();
+                    DependencyFrame.getInstance().Erase();
     }
     
 }

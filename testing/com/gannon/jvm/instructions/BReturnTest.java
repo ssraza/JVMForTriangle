@@ -17,7 +17,7 @@ public class BReturnTest {
 	@Test
 	public void testGetOpcode() {
 		System.out.println("getOpcode");
-		BReturn instance = new BReturn();
+		BReturn instance = new BReturn(10);
 		int expResult = 177;
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
@@ -26,7 +26,7 @@ public class BReturnTest {
 	@Test
 	public void testGetOpcodeCommand() {
 		System.out.println("getOpcodeCommand");
-		BReturn instance = new BReturn();
+		BReturn instance = new BReturn(10);
 
 		String expResult = "return";
 		String result = instance.getOpcodeCommand();
@@ -35,7 +35,7 @@ public class BReturnTest {
 
 	@Test
 	public void testExecuteOneMethodOnStack() {
-		BIReturn bIReturn = new BIReturn();
+		BIReturn bIReturn = new BIReturn(10);
 
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -43,20 +43,20 @@ public class BReturnTest {
 
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
-		RelationFrame.getInstance().pushFrame(activeFrame);
+	//	RelationFrame.getInstance().pushFrame(activeFrame);
 		
 		// Before calling the execute method,  operand stack of active frame has 1 on its TOS. JVMStack has only one method.
 		// Expectation is, BIReturn should return null
 		// and unload(POP) that active method frame form JVMStack.
 		
 		bIReturn.execute(activeFrame);
-		Integer resultedJVMStack = (Integer)RelationFrame.getInstance().size();
+	//	Integer resultedJVMStack = (Integer)RelationFrame.getInstance().size();
 		assertEquals(resultedJVMStack, new Integer(0));
 	}
 	
 	@Test
 	public void testExecuteTwoMethodsOnStack() {
-		BIReturn bIReturn = new BIReturn();
+		BIReturn bIReturn = new BIReturn(10);
 
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -64,7 +64,7 @@ public class BReturnTest {
 
 		BFrame activeFrame = new BFrame(0, varTable, operandStack);
 		
-		RelationFrame.getInstance().pushFrame(activeFrame);
+	//	RelationFrame.getInstance().pushFrame(activeFrame);
 		
 		BLocalVarTable secondVarTable = new BLocalVarTable();
 		Stack<Integer> secondOperandStack = new Stack<Integer>();
@@ -72,7 +72,7 @@ public class BReturnTest {
 
 		BFrame secondActiveFrame = new BFrame(0, varTable, operandStack);
 		
-		RelationFrame.getInstance().pushFrame(secondActiveFrame);
+	//	RelationFrame.getInstance().pushFrame(secondActiveFrame);
 		
 		// Before calling the execute method,  operand stack of active frame has 7 on its TOS. JVMStack has only two method frame on its stack.
 		// the Method frame on TOP of the JVM stack will be called Active Method Frame.
@@ -80,7 +80,7 @@ public class BReturnTest {
 		// and unload(POP) that active method frame form JVMStack. JVMStack will then consider the TOS Method Frame as active method Frame.
 
 		bIReturn.execute(activeFrame);
-		assertEquals((Integer)RelationFrame.getInstance().size(),new Integer(1));
+		assertEquals((Integer)DependencyFrame.getInstance().size(),new Integer(1));
 
 	}
 

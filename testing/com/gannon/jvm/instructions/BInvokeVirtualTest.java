@@ -64,7 +64,7 @@ public class BInvokeVirtualTest {
 		
 		virtualCallTest.execute(activeFrame);
 		
-		assertEquals((Integer)RelationFrame.getInstance().size(), new Integer(2));
+		assertEquals((Integer)DependencyFrame.getInstance().size(), new Integer(2));
 	}
 
 	@Test

@@ -5,7 +5,7 @@ import java.util.Stack;
 
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
@@ -43,7 +43,7 @@ public class BInvokeVirtual extends BInstruction {
 		System.out.println("newFrame method name "
 				+ newFrame.getMethod().getName());
 
-		RelationFrame.getInstance().addMethodFrame(newFrame);
+		DependencyFrame.getInstance().addMethodFrame(newFrame);
 
 		return null;// return a 1 letting the main know to execute next method
 
@@ -114,7 +114,7 @@ public class BInvokeVirtual extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationFrame dependency) {
+	public void analyzing(DependencyFrame dependency) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,9 +1,9 @@
 package com.gannon.jvm.instructions;
 
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 /**
  * This class is a part of data structure created to organize the information
@@ -34,10 +34,10 @@ public abstract class BInstruction {
 	public abstract Object execute(BFrame activeFrame);
 	public abstract Object execute(PathFrame pathFrame);
 	public abstract int getOpcode();
-	public abstract void analyzing(RelationFrame rFrame);
+	public abstract void analyzing(DependencyFrame rFrame);
 
 	public String getOpCodeCommand(){
-		return Utility.getOpCodeCommand(getOpcode());
+		return OpcodeUtility.getOpCodeCommand(getOpcode());
 	}
 
 	public BInstruction(int lineNumber) {

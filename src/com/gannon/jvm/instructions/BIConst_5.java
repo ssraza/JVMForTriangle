@@ -2,7 +2,7 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
 
@@ -32,7 +32,7 @@ public class BIConst_5 extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationFrame fFrame) {
+	public void analyzing(DependencyFrame fFrame) {
 		Stack<String> myOperandStack = fFrame.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
 		fFrame.setTempVariableStack(myOperandStack);

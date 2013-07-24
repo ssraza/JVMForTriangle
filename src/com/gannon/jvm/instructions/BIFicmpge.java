@@ -11,12 +11,13 @@ import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.BinPredicateNode;
-import com.gannon.jvm.data.dependency.Relation;
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.Dependency;
+import com.gannon.jvm.data.dependency.DependencyFrame;
+import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 /**
  * @author Pratik
@@ -60,17 +61,22 @@ public class BIFicmpge extends BPredicateInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationFrame rFrame) {
+	public void analyzing(DependencyFrame rFrame) {
 		Stack<String> myOperandStack = rFrame.getTempVariableStack(); 
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
-		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(Utility.getNextID()));
-		Relation relation=new Relation(rootNode, this);
+		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
+		Dependency relation=new Dependency(rootNode, this);
 		relation.insertToLeft(leftNode); 
 		relation.insertToRight(rightNode);
 
+		//Dr. Xu: expend the relation to a complete VDT
+		Dependencies relations=rFrame.getRelations();
+		relations.expendTheRelations(relation);
+		//after expending, add the VDT to the relations
+		relations.add(relation);
+		
 		myOperandStack.push(rootNode.getLocalVariableName());
-		rFrame.getRelations().add(relation);
 		rFrame.setTempVariableStack(myOperandStack);
 	}
 

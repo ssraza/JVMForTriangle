@@ -2,7 +2,7 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
@@ -44,7 +44,7 @@ public class BILoad extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(RelationFrame rFrame) {
+	public void analyzing(DependencyFrame rFrame) {
 		Stack<String> tempVariableStack = rFrame.getTempVariableStack();
 		tempVariableStack.push(getOperand().toString());
 		rFrame.setTempVariableStack(tempVariableStack);

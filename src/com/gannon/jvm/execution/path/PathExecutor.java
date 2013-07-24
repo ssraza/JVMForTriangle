@@ -3,7 +3,7 @@ package com.gannon.jvm.execution.path;
 import java.util.ArrayList;
 
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.data.dependency.RelationFrame;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.method.JVMStackSingleton;

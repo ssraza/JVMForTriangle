@@ -9,7 +9,7 @@ import com.gannon.jvm.instructions.BGetStatic;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPutField;
 import com.gannon.jvm.instructions.BPutStatic;
-import com.gannon.jvm.utilities.Utility;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 
 /**
@@ -20,19 +20,19 @@ public class VisitFieldInstructionFactory {
     private BInstruction instr;
 
     public BInstruction createInst(int opCode, String owner, String name, String desc, int linNumber){
-        if(Utility.getOpCodeCommand(opCode).equals("getfield")){
+        if(OpcodeUtility.getOpCodeCommand(opCode).equals("getfield")){
         	//System.out.println("In VisitFieldInstructionFactory getfield "+ owner+ "  " + name + "  " + desc);
             instr= new BGetField(owner, name, desc, linNumber);
         }
-        else if(Utility.getOpCodeCommand(opCode).equals("putfield")){
+        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("putfield")){
         	//System.out.println("In VisitFieldInstructionFactory putfield "+ owner+ "  " + name + "  " + desc);
             instr= new BPutField(owner, name, desc, linNumber);
         }
-        else if(Utility.getOpCodeCommand(opCode).equals("getstatic")){
+        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("getstatic")){
         	//System.out.println("In VisitFieldInstructionFactory getstatic "+ owner+ "  " + name + "  " + desc);
             instr= new BGetStatic(owner, name, desc, linNumber);
         }
-        else if(Utility.getOpCodeCommand(opCode).equals("putstatic")){
+        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("putstatic")){
         	//System.out.println("In VisitFieldInstructionFactory putstatic "+ owner+ "  " + name + "  " + desc);
             instr= new BPutStatic(owner, name, desc, linNumber);
         }
