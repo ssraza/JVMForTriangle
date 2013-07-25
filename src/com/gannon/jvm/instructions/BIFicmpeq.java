@@ -80,9 +80,6 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 		boolean predicateResult=firstValue.equals(secondValue);
 
-		pathFrame.setOperandStack(myOperandStack);
-		pathFrame.setLocalVariableTable(myLocalVariableTable);
-
 		return predicateResult;
 	}
 }

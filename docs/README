@@ -7,3 +7,15 @@ Installation
 Important:
 
 You need to refresh the project frequently in case of collaboration
+
+Execution: For Dependency,
+We start from GannonPredictaeTreeBuilder.jvm.
+We execute run(TestPath targetPath) in there.
+We intialize elationFrame.
+
+Setting the Eclipse Editor Screen Size:
+Windows- preference-JAVA-Formatter-Create New Profile-Give name and click OK- LineWrapping TAB-
+enter Max line width 120 and set preview line width as 120 - click OK.
+ 
+
+

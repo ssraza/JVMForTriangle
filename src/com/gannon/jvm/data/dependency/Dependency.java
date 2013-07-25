@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
-import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.utilities.OpcodeUtility;
 
 public class Dependency {
@@ -97,9 +96,9 @@ public class Dependency {
 			traverse(level + 1, theRootNode.getRightBNode());
 		}
 	}
-	
-	
-	
+
+
+
 	// ------------------display nicely to string---------------------------
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -122,7 +121,7 @@ public class Dependency {
 
 	// -------------------------------------------------------------------
 
-	
+
 
 	// -------------------------------------------------------------------
 
@@ -138,6 +137,24 @@ public class Dependency {
 		this.inst = inst;
 	}
 
+	public void visitNode(BinNode node, ArrayList<BinNode> result) {
+	    if(node.getLeftBNode() != null) {
+	        visitNode(node.getLeftBNode(),result);
+	    }
+	    if(node.getRightBNode() != null) {
+	        visitNode(node.getRightBNode(),result);
+	    }
+	    if(node.getLeftBNode() == null && node.getRightBNode() == null) {
+	    	result.add(node);
+	    }
+	}
+
+	public ArrayList<BinNode> getAllLeaves(){
+		ArrayList<BinNode> result=new ArrayList<BinNode>();
+		visitNode(theBTRootNode,result);
+		return result;
+	}
+
 	public boolean equals(Object relation){
 		if(!(relation instanceof Dependency)){
 			return false;
@@ -146,7 +163,7 @@ public class Dependency {
 				&&theBTRootNode.getLeftBNode().equals(((Dependency) relation).getTheBTRootNode().getLeftBNode())
 			&& theBTRootNode.getRightBNode().equals(((Dependency) relation).getTheBTRootNode().getRightBNode());
 	}
-	
+
 	public int hashCode() {
 		return theBTRootNode.hashCode();
 	}

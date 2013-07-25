@@ -3,7 +3,13 @@ package com.gannon.jvm.execution.method;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Stack;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
@@ -14,6 +20,13 @@ import com.gannon.jvm.execution.method.MethodExecutor;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class MethodExecutorTest {
+
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		protected void starting(Description description) {
+			System.out.println("Starting test: " + description.getMethodName());
+		}
+	};
 
 	@Test
 	public void testEquilateral () {
@@ -253,7 +266,6 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -263,8 +275,9 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(7);
 	    expectedExeIDs.add(8);
 	    expectedExeIDs.add(9);
-	    expectedExeIDs.add(36);
+	    expectedExeIDs.add(10);
 	    expectedExeIDs.add(37);
+	    expectedExeIDs.add(38);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());

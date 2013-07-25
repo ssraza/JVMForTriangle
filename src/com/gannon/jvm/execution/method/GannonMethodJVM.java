@@ -61,7 +61,7 @@ public class GannonMethodJVM {
 		return executedPath;
 	}
 
-	private TestPath getExecutedPath() {
+	public TestPath getExecutedPath() {
 		return executedPath;
 	}
 

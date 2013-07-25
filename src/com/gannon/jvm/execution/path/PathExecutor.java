@@ -15,6 +15,8 @@ public class PathExecutor {
 		super();
 	}
 
+
+
 	public Object execute(PathFrame pathFrame) {
 		boolean endOfPath = false;
 		Object result = null;
@@ -37,7 +39,7 @@ public class PathExecutor {
 					// results and the predicate is not a set as ignored
 					// we need to generate a new value
 					if (!((PredicateNode) node).hasPassed() && !((PredicateNode) node).isIgnore()) {
-						System.out.println((PredicateNode) node);
+						//System.out.println((PredicateNode) node);
 						// apply rules to get new input newA, newB, newC
 						int newA = 7, newB = 7, newC = 7;
 						ArrayList<Object> newInput = new ArrayList<Object>();
@@ -45,6 +47,7 @@ public class PathExecutor {
 						newInput.add(newA);
 						newInput.add(newB);
 						newInput.add(newC);
+					//	queye.add();
 
 						// set ignore flag in the node so next time to skip RE-Evaluate the
 						// predicate instruction

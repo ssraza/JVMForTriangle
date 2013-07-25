@@ -30,7 +30,9 @@ public class GannonMethodJVMTest {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
 		protected void starting(Description description) {
+			System.out.println("===========================================");
 			System.out.println("Starting test: " + description.getMethodName());
+
 		}
 	};
 
@@ -63,6 +65,9 @@ public class GannonMethodJVMTest {
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID1_input();
 		// assertion
 		assertEquals(new Integer(1), jvm.run(m, input));
+		System.out.println(jvm.getExecutedPath());
+
+
 	}
 
 	@Test

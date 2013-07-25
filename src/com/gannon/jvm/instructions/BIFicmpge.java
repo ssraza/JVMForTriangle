@@ -62,12 +62,12 @@ public class BIFicmpge extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> myOperandStack = rFrame.getTempVariableStack(); 
+		Stack<String> myOperandStack = rFrame.getTempVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
 		Dependency relation=new Dependency(rootNode, this);
-		relation.insertToLeft(leftNode); 
+		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
 
 		//Dr. Xu: expend the relation to a complete VDT
@@ -75,7 +75,7 @@ public class BIFicmpge extends BPredicateInstruction {
 		relations.expendTheRelations(relation);
 		//after expending, add the VDT to the relations
 		relations.add(relation);
-		
+
 		myOperandStack.push(rootNode.getLocalVariableName());
 		rFrame.setTempVariableStack(myOperandStack);
 	}
@@ -84,14 +84,12 @@ public class BIFicmpge extends BPredicateInstruction {
 	public Object execute(PathFrame pathFrame) {
 		Stack<Object> myOperandStack = pathFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
-		
+
 		Integer secondValue = (Integer)myOperandStack.pop();
 		Integer firstValue = (Integer)myOperandStack.pop();
 
 		boolean predicateResult = firstValue >= secondValue;
 
-		pathFrame.setOperandStack(myOperandStack);
-		pathFrame.setLocalVariableTable(myLocalVariableTable);
 		return predicateResult;
 	}
 }

@@ -467,29 +467,29 @@ public class TrianglePathBuilderUtility {
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
 		path.add(node27);
 
-		Node node28 = new NonPredicateNode(new BILoad(3, 22));
+		Node node28 = new NonPredicateNode(new BILoad(3, 28));
 		path.add(node28);
 
 		BLabel lable6 = new BLabel(new Label());
-		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 23));
+		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
 		node29.setExpectedPredicateResult(false);
 		path.add(node29);
 
-		Node node30 = new NonPredicateNode(new BILoad(2, 24));
+		Node node30 = new NonPredicateNode(new BILoad(2, 30));
 		path.add(node30);
 
-		Node node31 = new NonPredicateNode(new BILoad(3, 25));
+		Node node31 = new NonPredicateNode(new BILoad(3, 31));
 		path.add(node31);
 
 		BLabel lable7 = new BLabel(new Label());
-		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 26));
+		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 32));
 		node32.setExpectedPredicateResult(false);
 		path.add(node32);
 
-		Node node33 = new NonPredicateNode(new BIConst_2(27));
+		Node node33 = new NonPredicateNode(new BIConst_2(33));
 		path.add(node33);
 
-		Node node34 = new NonPredicateNode(new BIReturn(28));
+		Node node34 = new NonPredicateNode(new BIReturn(34));
 		path.add(node34);
 
 		// get Method instructions

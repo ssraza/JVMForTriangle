@@ -100,4 +100,14 @@ public class TestPath {
 	public int hashCode() {
 		return bMethod.hashCode();
 	}
+
+	public String toString(){
+		StringBuffer sb=new StringBuffer();
+		for(Node node: nodes){
+			sb.append(node);
+			sb.append(" ->");
+		}
+		return sb.toString();
+
+	}
 }
