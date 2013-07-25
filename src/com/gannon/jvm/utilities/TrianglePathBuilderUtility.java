@@ -1,5 +1,7 @@
 package com.gannon.jvm.utilities;
 
+import java.util.ArrayList;
+
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
@@ -22,12 +24,119 @@ import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
 
 public class TrianglePathBuilderUtility {
+	public static ArrayList<Object> createPathID1_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(6);
+		input.add(6);
+		input.add(6);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID2_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(5);
+		input.add(6);
+		input.add(6);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID3_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(4);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID4_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID5_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID6_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID7_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(5);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID8_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(4);
+		input.add(5);
+		input.add(2);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID9_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(14);
+		input.add(11);
+		input.add(20);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID10_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(14);
+		input.add(6);
+		input.add(1);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID11_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(14);
+		input.add(60);
+		input.add(1);
+		return input;
+	}
+
+	public static ArrayList<Object> createPathID12_input() {
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);// store reference, not using it now
+		input.add(14);
+		input.add(6);
+		input.add(100);
+		return input;
+	}
 
 	public static TestPath createPathID10() {
 		TestPath path = new TestPath();
 		path.setPathId(10);
 
-		Node node1= new NonPredicateNode(new BILoad(1, 1));
+		Node node1 = new NonPredicateNode(new BILoad(1, 1));
 		path.add(node1);
 
 		Node node2 = new NonPredicateNode(new BILoad(2, 2));
@@ -596,16 +705,16 @@ public class TrianglePathBuilderUtility {
 		node26.setExpectedPredicateResult(true);
 		path.add(node26);
 
-//		Node node30 = new NonPredicateNode(new BILoad(2, 21));
-//		path.add(node30);
-//
-//		Node node31 = new NonPredicateNode(new BILoad(3, 22));
-//		path.add(node31);
-//
-//		BLabel lable7 = new BLabel(new Label());
-//		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 23));
-//		node32.setExpectedPredicateResult(true);
-//		path.add(node32);
+		// Node node30 = new NonPredicateNode(new BILoad(2, 21));
+		// path.add(node30);
+		//
+		// Node node31 = new NonPredicateNode(new BILoad(3, 22));
+		// path.add(node31);
+		//
+		// BLabel lable7 = new BLabel(new Label());
+		// PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 23));
+		// node32.setExpectedPredicateResult(true);
+		// path.add(node32);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
 		path.add(node35);

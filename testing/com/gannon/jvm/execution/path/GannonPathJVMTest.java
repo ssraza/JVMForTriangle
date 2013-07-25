@@ -41,11 +41,7 @@ public class GannonPathJVMTest {
 	public void testMethodTriangleTypePathID_1() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID1();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(6);
-		input.add(6);
-		input.add(6);
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID1_input();
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(1), jvm.run(path, input));
@@ -59,15 +55,12 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_2() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID1();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(5);
-		input.add(6);
-		input.add(6);
+		TestPath path = TrianglePathBuilderUtility.createPathID2();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID2_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
-		assertEquals(new Integer(1), jvm.run(path, input));
+		assertEquals(new Integer(3), jvm.run(path, input));
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
@@ -79,11 +72,8 @@ public class GannonPathJVMTest {
 	public void testMethodTriangleTypePathID_3() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID3();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(4);
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID3_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
@@ -99,11 +89,8 @@ public class GannonPathJVMTest {
 	public void testMethodTriangleTypePathID_4() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID4();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(5);
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID4_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
@@ -119,12 +106,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_5() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID4();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(5);
+		TestPath path = TrianglePathBuilderUtility.createPathID5();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID5_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
@@ -139,12 +123,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_6() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID4();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(5);
+		TestPath path = TrianglePathBuilderUtility.createPathID6();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID6_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
@@ -161,12 +142,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_7() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID4();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(5);
+		TestPath path = TrianglePathBuilderUtility.createPathID7();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID7_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
@@ -184,11 +162,8 @@ public class GannonPathJVMTest {
 	public void testMethodTriangleTypePathID_8() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID8();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(5);
-		input.add(2);
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID8_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(2), jvm.run(path, input));
@@ -204,12 +179,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_9() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID8();
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(14);
-		input.add(11);
-		input.add(20);
+		TestPath path = TrianglePathBuilderUtility.createPathID9();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID9_input();
+
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(2), jvm.run(path, input));
@@ -227,12 +199,8 @@ public class GannonPathJVMTest {
 	public void testMethodTriangleTypePathID_10() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID10();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID10_input();
 
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(14);
-		input.add(6);
-		input.add(1);
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(4), jvm.run(path, input));
@@ -242,13 +210,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_11() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID10();
+		TestPath path = TrianglePathBuilderUtility.createPathID11();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID11_input();
 
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(14);
-		input.add(60);
-		input.add(1);
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(4), jvm.run(path, input));
@@ -259,13 +223,9 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_12() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID10();
+		TestPath path = TrianglePathBuilderUtility.createPathID12();
+		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID12_input();
 
-		ArrayList<Object> input = new ArrayList<>();
-		input.add(-1);//store reference, not using it now
-		input.add(14);
-		input.add(6);
-		input.add(100);
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(4), jvm.run(path, input));
