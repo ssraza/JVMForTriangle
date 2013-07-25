@@ -64,12 +64,40 @@ public class TestPath {
 		return ids;
 	}
 
+	public Node getNode(int lineNumber){
+		for(Node node: nodes){
+			if(node.getInstruction().getLineNumber()==lineNumber){
+				return node;
+			}
+		}
+		return null;
+	}
+
 	public ArrayList<BInstruction> getInstrucitons(){
 		ArrayList<BInstruction> instructions=new ArrayList<BInstruction>();
 		for(Node node: nodes){
 			instructions.add(node.getInstruction());
 		}
 		return instructions;
+	}
 
+	public boolean equals(Object obj) {
+		boolean result=true;
+		if(!(obj instanceof TestPath)){
+			return false;
+		}
+		if(nodes.size()!=((TestPath)obj).getNodes().size()){
+			return false;
+		}
+		for(int i=0;i<nodes.size();i++){
+			if(!nodes.get(i).equals(((TestPath)obj).getNodes().get(i))){
+				return false;
+			}
+		}
+		return result;
+	}
+
+	public int hashCode() {
+		return bMethod.hashCode();
 	}
 }

@@ -27,6 +27,8 @@ import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
+//testing predicates in each path match the expected predicate results
+//assert hasPassed ==true
 public class GannonPathJVMTest {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
@@ -47,6 +49,11 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(1), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
 	}
 
 	@Test

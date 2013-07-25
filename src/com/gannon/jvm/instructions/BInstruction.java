@@ -1,5 +1,6 @@
 package com.gannon.jvm.instructions;
 
+import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
@@ -57,4 +58,11 @@ public abstract class BInstruction {
 		return String.valueOf(lineNumber) + " "+getOpCodeCommand();
 	}
 
+	public boolean equals(Object obj) {
+		return (obj instanceof BInstruction) && lineNumber == ((BInstruction)obj).getLineNumber();
+	}
+
+	public int hashCode() {
+		return Integer.toString(lineNumber).hashCode();
+	}
 }

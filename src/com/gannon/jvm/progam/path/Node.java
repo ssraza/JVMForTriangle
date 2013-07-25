@@ -21,4 +21,12 @@ public class Node {
 	public Integer getInstructionLineNumber(){
 		return instruction.getLineNumber();
 	}
+	
+	public boolean equals(Object obj) {
+		return (obj instanceof Node) && instruction.equals(((Node)obj).getInstruction());
+	}
+
+	public int hashCode() {
+		return instruction.hashCode();
+	}
 }

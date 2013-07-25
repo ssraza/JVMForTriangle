@@ -38,8 +38,8 @@ public class BinNode {
 		this.rightBNode = rightBNode;
 	}
 
-	public boolean equals(Object node) {
-		return (node instanceof BinNode) && localVariableName.equals(((BinNode) node).localVariableName);
+	public boolean equals(Object obj) {
+		return (obj instanceof BinNode) && localVariableName.equals(((BinNode) obj).localVariableName);
 	}
 
 	public int hashCode() {

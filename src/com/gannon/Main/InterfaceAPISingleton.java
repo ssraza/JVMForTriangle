@@ -1,4 +1,4 @@
-package com.gannon.Main;
+package com.gannon.main;
 
 import java.util.Vector;
 

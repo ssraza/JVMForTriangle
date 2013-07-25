@@ -41,12 +41,13 @@ public class PathExecutor {
 						// apply rules to get new input newA, newB, newC
 						int newA = 7, newB = 7, newC = 7;
 						ArrayList<Object> newInput = new ArrayList<Object>();
+						newInput.add(0);//reference
 						newInput.add(newA);
 						newInput.add(newB);
 						newInput.add(newC);
 
-						// set ignore flat in the node so next time to skip the
-						// instruction
+						// set ignore flag in the node so next time to skip RE-Evaluate the
+						// predicate instruction
 						((PredicateNode) node).setIgnore(true);
 						pathFrame.setLocalVariableTable(new BLocalVarTable(newInput));
 

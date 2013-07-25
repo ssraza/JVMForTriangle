@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gannon.Main;
+package com.gannon.main;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
