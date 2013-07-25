@@ -59,15 +59,20 @@ public class GannonPathJVMTest {
 	@Test
 	public void testMethodTriangleTypePathID_2() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID2();
+		TestPath path = TrianglePathBuilderUtility.createPathID1();
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);//store reference, not using it now
-		input.add(4);
-		input.add(4);
 		input.add(5);
+		input.add(6);
+		input.add(6);
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
-		assertEquals(new Integer(3), jvm.run(path, input));
+		assertEquals(new Integer(1), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
 	}
 
 	@Test
@@ -82,6 +87,12 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
 	}
 
 	@Test
@@ -96,12 +107,19 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(32)).hasPassed());
 	}
 
 	@Test
 	public void testMethodTriangleTypePathID_5() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID5();
+		TestPath path = TrianglePathBuilderUtility.createPathID4();
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);//store reference, not using it now
 		input.add(4);
@@ -110,12 +128,18 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
 	}
 
 	@Test
 	public void testMethodTriangleTypePathID_6() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID6();
+		TestPath path = TrianglePathBuilderUtility.createPathID4();
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);//store reference, not using it now
 		input.add(4);
@@ -124,12 +148,20 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
 	}
+
 
 	@Test
 	public void testMethodTriangleTypePathID_7() {
 		// create input
-		TestPath path = TrianglePathBuilderUtility.createPathID7();
+		TestPath path = TrianglePathBuilderUtility.createPathID4();
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);//store reference, not using it now
 		input.add(4);
@@ -138,6 +170,14 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(3), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(31)).hasPassed());
 	}
 
 	@Test
@@ -152,10 +192,39 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(2), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(32)).hasPassed());
 	}
 
 	@Test
-	public void testMethodTrianglePathID_10() {
+	public void testMethodTriangleTypePathID_9() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID8();
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(14);
+		input.add(11);
+		input.add(20);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(2), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(32)).hasPassed());
+	}
+
+	@Test
+	public void testMethodTriangleTypePathID_10() {
 		// create input
 		TestPath path = TrianglePathBuilderUtility.createPathID10();
 
@@ -167,5 +236,41 @@ public class GannonPathJVMTest {
 		// assertion
 		GannonPathJVM jvm = new GannonPathJVM();
 		assertEquals(new Integer(4), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+	}
+
+	@Test
+	public void testMethodTriangleTypePathID_11() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID10();
+
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(14);
+		input.add(60);
+		input.add(1);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(4), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+	}
+
+	@Test
+	public void testMethodTriangleTypePathID_12() {
+		// create input
+		TestPath path = TrianglePathBuilderUtility.createPathID10();
+
+		ArrayList<Object> input = new ArrayList<>();
+		input.add(-1);//store reference, not using it now
+		input.add(14);
+		input.add(6);
+		input.add(100);
+		// assertion
+		GannonPathJVM jvm = new GannonPathJVM();
+		assertEquals(new Integer(4), jvm.run(path, input));
+		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
+		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
 	}
 }

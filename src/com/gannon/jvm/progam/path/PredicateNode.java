@@ -3,8 +3,8 @@ package com.gannon.jvm.progam.path;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class PredicateNode extends Node {
-	private Boolean actualPredicateResult;
-	private Boolean expectedPredicateResult;
+	private Boolean actualPredicateResult=null;
+	private Boolean expectedPredicateResult=null;
 	//ignore executing instruction if the flag is set to true
 	private boolean isIgnore=false;
 
