@@ -93,7 +93,7 @@ public class MethodExecutorTest {
 	}
 
 	@Test
-	public void testIsosceles1() {
+	public void testIsoscale1() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -139,14 +139,14 @@ public class MethodExecutorTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		varTable.add(0);
 		varTable.add(7);
-		varTable.add(7);
 		varTable.add(6);
+		varTable.add(7);
 
 		// create a stack
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, 0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -159,6 +159,40 @@ public class MethodExecutorTest {
 		assertEquals(new Integer(3), new MethodExecutor().execute(JVMStackSingleton.getInstance()));
 	}
 
+	@Test
+	public void testIsosceles3() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(7);
+		varTable.add(7);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		//assertion
+		assertEquals(new Integer(3), new MethodExecutor().execute(JVMStackSingleton.getInstance()));
+	}
+	
+	
 	@Test
 	public void testInotATriangle() {
 		//get Method instructions
@@ -193,7 +227,7 @@ public class MethodExecutorTest {
 	}
 
 	@Test
-	public void testInotATriangleExePath() {
+	public void testInotATriangleExePathID10() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -223,20 +257,20 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
 	    expectedExeIDs.add(4);
-	    expectedExeIDs.add(36);
+	    expectedExeIDs.add(5);
 	    expectedExeIDs.add(37);
+	    expectedExeIDs.add(38);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
 	@Test
-	public void testInotATriangleExePath2() {
+	public void testInotATriangleExePathID11() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -284,7 +318,7 @@ public class MethodExecutorTest {
 	}
 
 	@Test
-	public void testInotATriangleExePath3() {
+	public void testInotATriangleExePathID12() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -314,7 +348,6 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -329,15 +362,16 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(12);
 	    expectedExeIDs.add(13);
 	    expectedExeIDs.add(14);
-	    expectedExeIDs.add(36);
+	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(37);
+	    expectedExeIDs.add(38);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
 	@Test
-	public void testEquilateralTriangleExePath3() {
+	public void testEquilateralTriangleExePathID1() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -367,7 +401,6 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -390,13 +423,14 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(20);
 	    expectedExeIDs.add(21);
 	    expectedExeIDs.add(22);
-
+	    expectedExeIDs.add(23);
+	    
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
 	@Test
-	public void testScaleneTriangleExePath1() {
+	public void testScaleneTriangleExePathID8() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -426,7 +460,7 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
+	  
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -444,7 +478,7 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(23);
+	    expectedExeIDs.add(18);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -455,13 +489,14 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(31);
 	    expectedExeIDs.add(32);
 	    expectedExeIDs.add(33);
+	    expectedExeIDs.add(34);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
 	@Test
-	public void testScaleneTriangleExePath2() {
+	public void testScaleneTriangleExePathID9() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -491,7 +526,6 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -509,7 +543,7 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(23);
+	    expectedExeIDs.add(18);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -520,13 +554,14 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(31);
 	    expectedExeIDs.add(32);
 	    expectedExeIDs.add(33);
+	    expectedExeIDs.add(34);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
 	@Test
-	public void testIsoScaleTriangleExePath1() {
+	public void testInvisibleExePath() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -556,7 +591,6 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -574,16 +608,13 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(15);
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
-	    expectedExeIDs.add(23);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(19);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
-	    expectedExeIDs.add(27);
-	    expectedExeIDs.add(28);
-	    expectedExeIDs.add(29);
-	    expectedExeIDs.add(30);
-	    expectedExeIDs.add(31);
-	    expectedExeIDs.add(32);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
@@ -620,7 +651,320 @@ public class MethodExecutorTest {
 
 		methodExecutor.execute(JVMStackSingleton.getInstance());
 	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
-	    expectedExeIDs.add(0);
+	    expectedExeIDs.add(1);
+	    expectedExeIDs.add(2);
+	    expectedExeIDs.add(3);
+	    expectedExeIDs.add(4);
+	    expectedExeIDs.add(5);
+	    expectedExeIDs.add(6);
+	    expectedExeIDs.add(7);
+	    expectedExeIDs.add(8);
+	    expectedExeIDs.add(9);
+	    expectedExeIDs.add(10);
+	    expectedExeIDs.add(11);
+	    expectedExeIDs.add(12);
+	    expectedExeIDs.add(13);
+	    expectedExeIDs.add(14);
+	    expectedExeIDs.add(15);
+	    expectedExeIDs.add(16);
+	    expectedExeIDs.add(17);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(24);
+	    expectedExeIDs.add(25);
+	    expectedExeIDs.add(26);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
+
+		//assertion
+		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
+	}
+	
+	@Test
+	public void testIsoscaleTriangleExePath3() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(5);
+		varTable.add(7);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		methodExecutor.execute(JVMStackSingleton.getInstance());
+	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
+	    expectedExeIDs.add(1);
+	    expectedExeIDs.add(2);
+	    expectedExeIDs.add(3);
+	    expectedExeIDs.add(4);
+	    expectedExeIDs.add(5);
+	    expectedExeIDs.add(6);
+	    expectedExeIDs.add(7);
+	    expectedExeIDs.add(8);
+	    expectedExeIDs.add(9);
+	    expectedExeIDs.add(10);
+	    expectedExeIDs.add(11);
+	    expectedExeIDs.add(12);
+	    expectedExeIDs.add(13);
+	    expectedExeIDs.add(14);
+	    expectedExeIDs.add(15);
+	    expectedExeIDs.add(16);
+	    expectedExeIDs.add(17);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(24);
+	    expectedExeIDs.add(25);
+	    expectedExeIDs.add(26);
+	    expectedExeIDs.add(27);
+	    expectedExeIDs.add(28);
+	    expectedExeIDs.add(29);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
+
+		//assertion
+		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
+	}
+	
+	@Test
+	public void testIsoscaleTriangleExePath4() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(4);
+		varTable.add(5);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		methodExecutor.execute(JVMStackSingleton.getInstance());
+	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
+	    expectedExeIDs.add(1);
+	    expectedExeIDs.add(2);
+	    expectedExeIDs.add(3);
+	    expectedExeIDs.add(4);
+	    expectedExeIDs.add(5);
+	    expectedExeIDs.add(6);
+	    expectedExeIDs.add(7);
+	    expectedExeIDs.add(8);
+	    expectedExeIDs.add(9);
+	    expectedExeIDs.add(10);
+	    expectedExeIDs.add(11);
+	    expectedExeIDs.add(12);
+	    expectedExeIDs.add(13);
+	    expectedExeIDs.add(14);
+	    expectedExeIDs.add(15);
+	    expectedExeIDs.add(16);
+	    expectedExeIDs.add(17);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(24);
+	    expectedExeIDs.add(25);
+	    expectedExeIDs.add(26);
+	    expectedExeIDs.add(27);
+	    expectedExeIDs.add(28);
+	    expectedExeIDs.add(29);
+	    expectedExeIDs.add(30);
+	    expectedExeIDs.add(31);
+	    expectedExeIDs.add(32);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
+
+		//assertion
+		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
+	}
+	
+	@Test
+	public void testIsoscaleTriangleExePath5() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(4);
+		varTable.add(4);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		methodExecutor.execute(JVMStackSingleton.getInstance());
+	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
+	    expectedExeIDs.add(1);
+	    expectedExeIDs.add(2);
+	    expectedExeIDs.add(3);
+	    expectedExeIDs.add(4);
+	    expectedExeIDs.add(5);
+	    expectedExeIDs.add(6);
+	    expectedExeIDs.add(7);
+	    expectedExeIDs.add(8);
+	    expectedExeIDs.add(9);
+	    expectedExeIDs.add(10);
+	    expectedExeIDs.add(11);
+	    expectedExeIDs.add(12);
+	    expectedExeIDs.add(13);
+	    expectedExeIDs.add(14);
+	    expectedExeIDs.add(15);
+	    expectedExeIDs.add(16);
+	    expectedExeIDs.add(17);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(19);
+	    expectedExeIDs.add(20);
+	    expectedExeIDs.add(21);
+	    expectedExeIDs.add(24);
+	    expectedExeIDs.add(25);
+	    expectedExeIDs.add(26);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
+
+		//assertion
+		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
+	}
+	
+	
+	@Test
+	public void testIsoscaleTriangleExePath6() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(5);
+		varTable.add(4);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		methodExecutor.execute(JVMStackSingleton.getInstance());
+	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
+	    expectedExeIDs.add(1);
+	    expectedExeIDs.add(2);
+	    expectedExeIDs.add(3);
+	    expectedExeIDs.add(4);
+	    expectedExeIDs.add(5);
+	    expectedExeIDs.add(6);
+	    expectedExeIDs.add(7);
+	    expectedExeIDs.add(8);
+	    expectedExeIDs.add(9);
+	    expectedExeIDs.add(10);
+	    expectedExeIDs.add(11);
+	    expectedExeIDs.add(12);
+	    expectedExeIDs.add(13);
+	    expectedExeIDs.add(14);
+	    expectedExeIDs.add(15);
+	    expectedExeIDs.add(16);
+	    expectedExeIDs.add(17);
+	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(19);
+	    expectedExeIDs.add(20);
+	    expectedExeIDs.add(21);
+	    expectedExeIDs.add(24);
+	    expectedExeIDs.add(25);
+	    expectedExeIDs.add(26);
+	    expectedExeIDs.add(27);
+	    expectedExeIDs.add(28);
+	    expectedExeIDs.add(29);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
+
+		//assertion
+		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
+	}
+	
+	@Test
+	public void testIsoscaleTriangleExePath7() {
+		//get Method instructions
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		System.out.print(m);
+
+		// create local variable table
+		// varTable index starts from 0
+		// three sides
+		BLocalVarTable varTable = new BLocalVarTable();
+		varTable.add(0);
+		varTable.add(4);
+		varTable.add(5);
+		varTable.add(5);
+
+		// create a stack
+		Stack<Integer> operandStack = new Stack<Integer>();
+
+		// create a frame
+		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+
+		// create an executor
+		MethodExecutor methodExecutor = new MethodExecutor();
+
+		//push active frame to JVM stack
+		JVMStackSingleton.getInstance().clear();
+		JVMStackSingleton.getInstance().pushFrame(activeFrame);
+
+		methodExecutor.execute(JVMStackSingleton.getInstance());
+	    ArrayList<Integer> expectedExeIDs=new ArrayList<Integer>();
 	    expectedExeIDs.add(1);
 	    expectedExeIDs.add(2);
 	    expectedExeIDs.add(3);
@@ -651,7 +995,8 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(30);
 	    expectedExeIDs.add(31);
 	    expectedExeIDs.add(32);
-	    expectedExeIDs.add(33);
+	    expectedExeIDs.add(35);
+	    expectedExeIDs.add(36);
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());

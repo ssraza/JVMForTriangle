@@ -6,11 +6,9 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.execution.method.method.execution.RelationFrame;
-import com.gannon.jvm.instructions.BIReturn;
-import com.gannon.jvm.instructions.BReturn;
 
 public class BReturnTest {
 
@@ -35,7 +33,7 @@ public class BReturnTest {
 
 	@Test
 	public void testExecuteOneMethodOnStack() {
-		BIReturn bIReturn = new BIReturn(10);
+		BReturn bReturn = new BReturn(10);
 
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -49,14 +47,14 @@ public class BReturnTest {
 		// Expectation is, BIReturn should return null
 		// and unload(POP) that active method frame form JVMStack.
 		
-		bIReturn.execute(activeFrame);
+		Object returnedObject = bReturn.execute(activeFrame);
 	//	Integer resultedJVMStack = (Integer)RelationFrame.getInstance().size();
-		assertEquals(resultedJVMStack, new Integer(0));
+		assertEquals(returnedObject, null);
 	}
 	
 	@Test
 	public void testExecuteTwoMethodsOnStack() {
-		BIReturn bIReturn = new BIReturn(10);
+		BReturn bReturn = new BReturn(10);
 
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
@@ -79,8 +77,8 @@ public class BReturnTest {
 		// Expectation is, BIReturn should return null
 		// and unload(POP) that active method frame form JVMStack. JVMStack will then consider the TOS Method Frame as active method Frame.
 
-		bIReturn.execute(activeFrame);
-		assertEquals((Integer)DependencyFrame.getInstance().size(),new Integer(1));
+		Object returnedObject = bReturn.execute(activeFrame);
+		assertEquals(returnedObject, null);
 
 	}
 

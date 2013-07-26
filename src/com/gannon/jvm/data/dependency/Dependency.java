@@ -137,6 +137,7 @@ public class Dependency {
 		this.inst = inst;
 	}
 
+	// ------------------get all leaves ---------------------------
 	public void visitNode(BinNode node, ArrayList<BinNode> result) {
 	    if(node.getLeftBNode() != null) {
 	        visitNode(node.getLeftBNode(),result);
@@ -154,6 +155,7 @@ public class Dependency {
 		visitNode(theBTRootNode,result);
 		return result;
 	}
+	// ------------------------------------------------------------------
 
 	public boolean equals(Object relation){
 		if(!(relation instanceof Dependency)){

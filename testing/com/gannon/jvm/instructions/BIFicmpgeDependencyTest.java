@@ -42,7 +42,7 @@ public class BIFicmpgeDependencyTest {
 
 		BinNode rightNode= new BinNode("5");
 		BinNode leftNode= new BinNode("5");
-		BinPredicateNode rootNode=new BinPredicateNode("100");
+		BinPredicateNode rootNode=new BinPredicateNode("1000");
 		Dependency expectedTree=new Dependency(rootNode, ifGreater);
 		
 		expectedTree.insertToLeft(leftNode);

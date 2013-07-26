@@ -42,7 +42,7 @@ public class BIFicmpneDependencyTest {
 
 		BinNode rightNode= new BinNode("8");
 		BinNode leftNode= new BinNode("5");
-		BinPredicateNode rootNode=new BinPredicateNode("100");
+		BinPredicateNode rootNode=new BinPredicateNode("1000");
 		Dependency expectedTree=new Dependency(rootNode, ifNEqual);
 		
 		expectedTree.insertToLeft(leftNode);

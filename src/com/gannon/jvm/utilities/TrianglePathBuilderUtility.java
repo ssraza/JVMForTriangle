@@ -37,7 +37,7 @@ public class TrianglePathBuilderUtility {
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);// store reference, not using it now
 		input.add(5);
-		input.add(6);
+		input.add(5);
 		input.add(6);
 		return input;
 	}
@@ -64,7 +64,7 @@ public class TrianglePathBuilderUtility {
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
-		input.add(5);
+		input.add(4);
 		input.add(5);
 		return input;
 	}
@@ -72,8 +72,8 @@ public class TrianglePathBuilderUtility {
 	public static ArrayList<Object> createPathID6_input() {
 		ArrayList<Object> input = new ArrayList<>();
 		input.add(-1);// store reference, not using it now
-		input.add(4);
 		input.add(5);
+		input.add(4);
 		input.add(5);
 		return input;
 	}
@@ -1028,14 +1028,14 @@ public class TrianglePathBuilderUtility {
 		node21.setExpectedPredicateResult(true);
 		path.add(node21);
 
-		Node node24 = new NonPredicateNode(new BILoad(1, 21));
+		Node node24 = new NonPredicateNode(new BILoad(1, 24));
 		path.add(node24);
 
-		Node node25 = new NonPredicateNode(new BILoad(2, 22));
+		Node node25 = new NonPredicateNode(new BILoad(2, 25));
 		path.add(node25);
 
 		BLabel lable5 = new BLabel(new Label());
-		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 23));
+		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
 		node26.setExpectedPredicateResult(true);
 		path.add(node26);
 

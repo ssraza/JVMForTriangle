@@ -1,6 +1,8 @@
 package com.gannon.jvm.progam.path;
 
 import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.instructions.Return;
 
 public class Node {
 	private BInstruction instruction;
@@ -18,19 +20,28 @@ public class Node {
 		this.instruction = instruction;
 	}
 
-	public Integer getInstructionLineNumber(){
+	public Integer getInstructionLineNumber() {
 		return instruction.getLineNumber();
 	}
 
+	public boolean hasReturnInstruction() {
+		return instruction instanceof Return;
+	}
+	
+	public boolean isBPredicateNode() {
+		return instruction instanceof BPredicateInstruction;
+	}
+
+	
 	public boolean equals(Object obj) {
-		return (obj instanceof Node) && instruction.equals(((Node)obj).getInstruction());
+		return (obj instanceof Node) && instruction.equals(((Node) obj).getInstruction());
 	}
 
 	public int hashCode() {
 		return instruction.hashCode();
 	}
 
-	public String toString(){
+	public String toString() {
 		return Integer.toString(instruction.getLineNumber());
 	}
 }

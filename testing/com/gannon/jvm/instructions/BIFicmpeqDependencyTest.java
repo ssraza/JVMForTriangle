@@ -44,7 +44,7 @@ public class BIFicmpeqDependencyTest {
 
 		BinNode rightNode= new BinNode("5");
 		BinNode leftNode= new BinNode("5");
-		BinPredicateNode rootNode=new BinPredicateNode("100");
+		BinPredicateNode rootNode=new BinPredicateNode("1000");
 		Dependency expectedTree=new Dependency(rootNode, ifEqual);
 		
 		expectedTree.insertToLeft(leftNode);

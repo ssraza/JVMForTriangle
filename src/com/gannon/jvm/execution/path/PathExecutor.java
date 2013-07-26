@@ -1,6 +1,8 @@
 package com.gannon.jvm.execution.path;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.instructions.BPredicateInstruction;
@@ -9,50 +11,61 @@ import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
 
-public class PathExecutor {
+public class PathExecutor<T> {
+	private Queue potentialGoodReusltQueue=new LinkedList<Object>();
 
 	public PathExecutor() {
 		super();
 	}
 
-
-
 	public Object execute(PathFrame pathFrame) {
-		boolean endOfPath = false;
+	
 		Object result = null;
 		TestPath path = pathFrame.getTestPath();
-		for (;;) {
+		//random generate input
+		//potentialGoodReusltQueue.add(randomInput);
+		//while (potentialGoodReusltQueue!=empty){
+		boolean endOfPathFlag = false;
+		//clear all ignore flag
+		while (!endOfPathFlag) {
+			//pathFrame.setLocalVariableTable(new BLocalVarTable(newInputfrom queue));
+			// for each predicate node, i.e., the node contains a predicate
+			// instruction (a>b), if the run-time predicate result does not
+			// equal to the expected results, the program re-executes the
+			// program, however, the predicate will be skipped to avoid
+			// localized search
 			for (Node node : path.getNodes()) {
 				result = node.getInstruction().execute(pathFrame);
 
-				// stop if reach end of the program
-				if (node.getInstruction() instanceof Return) {
-					endOfPath = true;
-					break;
-				}
-
-				// we only concern of predicate node, e.g., a>b
-				if (node.getInstruction() instanceof BPredicateInstruction) {
+				// if reaching the end of the program, we have a potential good
+				// input, the program stops and push the input to a
+				// "potential good" input queue
+				if (node.hasReturnInstruction()) {
+					endOfPathFlag = true;
+				} else if (node.isBPredicateNode()&& !((PredicateNode) node).isIgnore()) {
 					((PredicateNode) node).setActualPredicateResult((Boolean) result);
 
 					// if the actual predicate result is not equal to expected
-					// results and the predicate is not a set as ignored
-					// we need to generate a new value
-					if (!((PredicateNode) node).hasPassed() && !((PredicateNode) node).isIgnore()) {
-						//System.out.println((PredicateNode) node);
+					// results , we need to generate a new value to pass the
+					// node and the predicate as ignored for next time execution
+					if (!((PredicateNode) node).hasPassed() ) {
+						// System.out.println((PredicateNode) node);
 						// apply rules to get new input newA, newB, newC
 						int newA = 7, newB = 7, newC = 7;
 						ArrayList<Object> newInput = new ArrayList<Object>();
-						newInput.add(0);//reference
+						newInput.add(0);// reference
 						newInput.add(newA);
 						newInput.add(newB);
 						newInput.add(newC);
-					//	queye.add();
+						//potentialGoodReusltQueue.add(e);
 
-						// set ignore flag in the node so next time to skip RE-Evaluate the
-						// predicate instruction
+						// set ignore flag in the node so next time to skip
+						// RE-Evaluate the predicate instruction
 						((PredicateNode) node).setIgnore(true);
-						pathFrame.setLocalVariableTable(new BLocalVarTable(newInput));
+						
+						//remove one item from the queue and set the new input
+						//newInput=potentialGoodReusltQueue.remove();
+				
 
 						// quit the current execution and re-run the path with
 						// new inputs
@@ -61,10 +74,11 @@ public class PathExecutor {
 
 				}
 			}
-			if (endOfPath) {
-				break;
-			}
 		}
+		
+		//execute the methodJVM to see if get the same path, if so save the result
+		
+	   //}
 		return result;
 	}
 }
