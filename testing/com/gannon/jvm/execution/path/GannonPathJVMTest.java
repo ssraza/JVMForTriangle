@@ -64,7 +64,7 @@ public class GannonPathJVMTest {
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertFalse(((PredicateNode)path.getNode(18)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
 	}
 
@@ -132,7 +132,7 @@ public class GannonPathJVMTest {
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
+		assertFalse(((PredicateNode)path.getNode(18)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
@@ -151,11 +151,8 @@ public class GannonPathJVMTest {
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(31)).hasPassed());
+		assertFalse(((PredicateNode)path.getNode(18)).hasPassed());
+
 	}
 
 	@Test
@@ -188,11 +185,8 @@ public class GannonPathJVMTest {
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(15)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(18)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(21)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(26)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(29)).hasPassed());
-		assertTrue(((PredicateNode)path.getNode(32)).hasPassed());
+		assertFalse(((PredicateNode)path.getNode(18)).hasPassed());
+
 	}
 
 	@Test

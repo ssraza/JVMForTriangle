@@ -51,7 +51,7 @@ public class BIFicmpeqDependencyTest {
 		expectedTree.insertToRight(rightNode);
 		expectedTree.inorderBST();
 
-		assertEquals(expectedTree, actualTree);
+		assertEquals(expectedTree.getAllLeaves(), actualTree.getAllLeaves());
 	}
 
 	

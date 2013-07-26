@@ -1,21 +1,34 @@
-Installation
+============Installationv
 
 1: copy \XU-research-group\JVM\Code\Jars to your root c:\Jars
 2: import \XU-research-group\JVM\Code\codebase\07-01\JVMForTriangle folder to Eclipse
 
+============GUI Design============
 
-Important:
+Use: Eclipse 3.7 (Indigo)
+You need to download windowBuilder Pro at http://dl.google.com/eclipse/inst/d2wbpro/beta/3.7
+More information, please read https://developers.google.com/java-dev-tools/download-wbpro-beta
+Tutorial link: http://www.youtube.com/watch?v=TUL3qEoZkR4
 
-You need to refresh the project frequently in case of collaboration
 
-Execution: For Dependency,
-We start from GannonPredictaeTreeBuilder.jvm.
-We execute run(TestPath targetPath) in there.
-We intialize elationFrame.
+============Environment setting============
 
 Setting the Eclipse Editor Screen Size:
 Windows- preference-JAVA-Formatter-Create New Profile-Give name and click OK- LineWrapping TAB-
 enter Max line width 120 and set preview line width as 120 - click OK.
- 
 
+
+
+============Development============
+
+You need to refresh the project frequently in case of collaboration
+
+=============Execution============
+
+For Dependency,
+We start from GannonPredictaeTreeBuilder.jvm.
+We execute run(TestPath targetPath) in there.
+We initialize relationFrame.
+
+ 
 
