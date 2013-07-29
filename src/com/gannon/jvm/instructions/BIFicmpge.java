@@ -47,8 +47,6 @@ public class BIFicmpge extends BPredicateInstruction {
 			activeFrame.setLineNumber(++pc);
 		}
 
-		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setVarTable(myLocalVariableTable);
 		return predicateResult;
 	}
 
@@ -77,7 +75,6 @@ public class BIFicmpge extends BPredicateInstruction {
 		relations.add(relation);
 
 		myOperandStack.push(rootNode.getLocalVariableName());
-		rFrame.setTempVariableStack(myOperandStack);
 	}
 
 	@Override

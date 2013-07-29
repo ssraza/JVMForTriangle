@@ -42,8 +42,6 @@ public class BIFicmpne extends BPredicateInstruction {
 		}
 
 		activeFrame.setLineNumber(programCounter);
-		activeFrame.setOperandStack(myOperandStack);
-		activeFrame.setVarTable(myLocalVariableTable);
 		return predicateResult;
 	}
 
@@ -67,13 +65,11 @@ public class BIFicmpne extends BPredicateInstruction {
 
 		myOperandStack.push(rootNode.getLocalVariableName());
 		rFrame.getRelations().add(relation);
-		rFrame.setTempVariableStack(myOperandStack);
 	}
 
 	@Override
 	public Object execute(PathFrame pathFrame) {
 		Stack<Object> myOperandStack = pathFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
 
 		Integer secondValue = (Integer) myOperandStack.pop();
 		Integer firstValue = (Integer) myOperandStack.pop();

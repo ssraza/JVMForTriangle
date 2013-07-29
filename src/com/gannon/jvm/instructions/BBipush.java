@@ -20,12 +20,9 @@ public class BBipush extends BInstruction {
 
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 		Integer pc = activeFrame.getLineNumber();
 
 		myOperandStack.push(this.operand1);
-		activeFrame.setVarTable(myLocalVariableTable);
-		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setLineNumber(++pc);
 		return null;
 	}
@@ -46,18 +43,12 @@ public class BBipush extends BInstruction {
 	public void analyzing(DependencyFrame dependency) {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
-		dependency.setTempVariableStack(myOperandStack);
-
-	}
+}
 
 	@Override
 	public Object execute(PathFrame pathFrame) {
 		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
-
 		myOperandStack.push(this.operand1);
-		pathFrame.setLocalVariableTable(myLocalVariableTable);
-		pathFrame.setOperandStack(myOperandStack);
 		return null;
 	}
 

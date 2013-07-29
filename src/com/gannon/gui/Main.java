@@ -1,6 +1,9 @@
 package com.gannon.gui;
 
+import gui.tutorial.jtree.DynamicTree;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -26,12 +29,30 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JSplitPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.progam.path.TestPath;
+import com.gannon.jvm.progam.path.TestPathGenerator;
+
+import java.awt.Frame;
+import java.awt.Rectangle;
+import java.awt.Font;
+import java.awt.Component;
+import java.util.ArrayList;
 
 public class Main extends JFrame {
 
+	private static final String TestPathGenerator  = null;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtCfgHere;
 
 	/**
 	 * Launch the application.
@@ -58,12 +79,112 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/com/gannon/images/camera_test.png")));
-		setTitle("Gannon JVM 1.0");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1054, 521);
+		initFrame();
 		
+		initMenu();
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JToolBar northToolBar = new JToolBar();
+		contentPane.add(northToolBar, BorderLayout.NORTH);
+		
+		JButton btnOpen = new JButton("");
+		btnOpen.setIcon(new ImageIcon(Main.class.getResource("/com/ganon/images24x24/folder_green.png")));
+		northToolBar.add(btnOpen);
+		
+		JDesktopPane centerDesktopPane = new JDesktopPane();
+		centerDesktopPane.setBorder(null);
+		centerDesktopPane.setBackground(Color.WHITE);
+		contentPane.add(centerDesktopPane, BorderLayout.CENTER);
+		centerDesktopPane.setLayout(new BorderLayout(0, 0));
+		
+		JSplitPane splitPaneRoot = new JSplitPane();
+		splitPaneRoot.setResizeWeight(0.2);
+		centerDesktopPane.add(splitPaneRoot, BorderLayout.CENTER);
+		
+		//show tree
+		MethodTree scrollPaneTree = new  MethodTree("Triangle.class"); 
+		populateTree(scrollPaneTree);
+		
+		scrollPaneTree.setMinimumSize(new Dimension(100, 23));
+		splitPaneRoot.setLeftComponent(scrollPaneTree);
+		
+		JLabel lblTestPaths = new JLabel("====Test Paths====");
+		lblTestPaths.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPaneTree.setColumnHeaderView(lblTestPaths);
+		
+		JSplitPane splitPaneMainAndOutputAndConsole = new JSplitPane();
+		splitPaneMainAndOutputAndConsole.setResizeWeight(0.8);
+		splitPaneMainAndOutputAndConsole.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPaneRoot.setRightComponent(splitPaneMainAndOutputAndConsole);
+		
+		JSplitPane splitPaneMainAndOutput = new JSplitPane();
+		splitPaneMainAndOutput.setResizeWeight(0.8);
+		splitPaneMainAndOutputAndConsole.setLeftComponent(splitPaneMainAndOutput);
+		
+		JScrollPane scrollPaneOutoutWindow = new JScrollPane();
+		splitPaneMainAndOutput.setRightComponent(scrollPaneOutoutWindow);
+		
+		JPanel panel = new JPanel();
+		scrollPaneOutoutWindow.setViewportView(panel);
+		
+		JLabel lblInput = new JLabel("input1");
+		panel.add(lblInput);
+		
+		textField = new JTextField();
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnRun = new JButton("Run");
+		panel.add(btnRun);
+		
+		JButton btnStep = new JButton("Step");
+		panel.add(btnStep);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
+		
+		JScrollPane scrollPaneInstruction = new JScrollPane();
+		tabbedPane.addTab("Instructions", null, scrollPaneInstruction, null);
+		
+		JTextArea txtrInstructionarea = new JTextArea();
+		txtrInstructionarea.setText("InstructionArea");
+		scrollPaneInstruction.setViewportView(txtrInstructionarea);
+		
+		JScrollPane scrollPaneCFG = new JScrollPane();
+		tabbedPane.addTab("CFG", null, scrollPaneCFG, null);
+		
+		JPanel panelCFG = new JPanel();
+		scrollPaneCFG.setViewportView(panelCFG);
+		
+		txtCfgHere = new JTextField();
+		txtCfgHere.setText("CFG here");
+		panelCFG.add(txtCfgHere);
+		txtCfgHere.setColumns(10);
+		
+		JScrollPane scrollPaneConsole = new JScrollPane();
+		splitPaneMainAndOutputAndConsole.setRightComponent(scrollPaneConsole);
+		
+		JTextArea txtrConsole = new JTextArea();
+		txtrConsole.setText("console");
+		scrollPaneConsole.setViewportView(txtrConsole);
+		
+		JPanel westPanel = new JPanel();
+		contentPane.add(westPanel, BorderLayout.WEST);
+		
+		JPanel southStatusPanel = new JPanel();
+		contentPane.add(southStatusPanel, BorderLayout.SOUTH);
+		
+		JPanel eastPanel = new JPanel();
+		contentPane.add(eastPanel, BorderLayout.EAST);
+	}
+
+	private void initMenu() {
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setAlignmentX(Component.LEFT_ALIGNMENT);
 		setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
@@ -72,95 +193,47 @@ public class Main extends JFrame {
 		JMenuItem mntmOpenClass = new JMenuItem("Open Class");
 		mntmOpenClass.setIcon(new ImageIcon(Main.class.getResource("/com/gannon/images16x16/folder_open.png")));
 		mnFile.add(mntmOpenClass);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JToolBar toolBar = new JToolBar();
-		contentPane.add(toolBar, BorderLayout.NORTH);
+		JMenu mnRun = new JMenu("Run");
+		menuBar.add(mnRun);
 		
-		JButton btnOpen = new JButton("");
-		btnOpen.setIcon(new ImageIcon(Main.class.getResource("/com/ganon/images24x24/folder_green.png")));
-		toolBar.add(btnOpen);
+		JMenuItem mntmRun = new JMenuItem("Run");
+		mnRun.add(mntmRun);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.WHITE);
-		contentPane.add(desktopPane, BorderLayout.CENTER);
-		desktopPane.setLayout(new BorderLayout(0, 0));
-		
-		JPanel classPanel = new JPanel();
-		desktopPane.add(classPanel, BorderLayout.WEST);
-		
-		JTree tree = new JTree();
-		classPanel.add(tree);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		desktopPane.setLayer(tabbedPane, 0);
-		desktopPane.add(tabbedPane, BorderLayout.CENTER);
-		
-		JTextArea instructionsTxtArea = new JTextArea();
-		tabbedPane.addTab("Instructions", null, instructionsTxtArea, null);
-		
-		JTextArea cfdTxtArea = new JTextArea();
-		tabbedPane.addTab("CFD", null, cfdTxtArea, null);
-		
-		JPanel panel = new JPanel();
-		desktopPane.add(panel, BorderLayout.EAST);
-		
-		JLabel lblNewLabel = new JLabel("Input1");
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Run");
-		
-		JButton btnStep = new JButton("Step");
-		
-		JLabel lblNewLabel_1 = new JLabel("Results");
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnNewButton)
-							.addGap(18)
-							.addComponent(btnStep))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(19)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_1)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel)
-									.addGap(18)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(36, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(28)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnStep)
-						.addComponent(btnNewButton))
-					.addGap(52)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(255, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
+		JMenuItem mntmStepRun = new JMenuItem("Step Run");
+		mnRun.add(mntmStepRun);
 	}
+
+	private void initFrame() {
+		setResizable(false);
+		setName("jvmFrame");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/com/gannon/images/camera_test.png")));
+		setTitle("Gannon JVM 1.0");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+	    //Make the big window be indented 50 pixels from each edge
+        //of the screen.
+        int inset = 50;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds(inset, inset,
+                  screenSize.width  - inset*2,
+                  screenSize.height - inset*2);
+	}
+	
+    private void populateTree(MethodTree methodScollPane) {
+    	String className=methodScollPane.getClassName();
+    	BClass myclass=BClassGenerator.getBClass(className);
+    	ArrayList<BMethod> methods=myclass.getMethods();
+    	
+//hard-coded need to fix
+        DefaultMutableTreeNode p1;
+        for(BMethod m:methods){
+        	p1=methodScollPane.addObject(null, m.getName());
+        	if(m.getName().equalsIgnoreCase("TriangleType")){
+        		TestPathGenerator g=new TestPathGenerator(className, m.getName());
+        		for(TestPath p: g.deriveTestPaths().getPaths() ){
+        		methodScollPane.addObject(p1, p.getPathId());
+        		}
+        	}
+        }
+    }
 }

@@ -16,7 +16,6 @@ public class BIConst_0 extends BInstruction {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		Integer pc = activeFrame.getLineNumber();
 		myOperandStack.push(0);
-		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setLineNumber(++pc);
 		return null;
 	}
@@ -33,15 +32,12 @@ public class BIConst_0 extends BInstruction {
 	public void analyzing(DependencyFrame fFrame) {
 		Stack<String> myOperandStack = fFrame.getTempVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
-		fFrame.setTempVariableStack(myOperandStack);
-
 	}
 
 	@Override
 	public Object execute(PathFrame pathFrame) {
 		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
 		myOperandStack.push(0);
-		pathFrame.setOperandStack(myOperandStack);
 		return null;
 	}
 

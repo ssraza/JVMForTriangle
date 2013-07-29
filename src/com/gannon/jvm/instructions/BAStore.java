@@ -60,8 +60,6 @@ public class BAStore extends BInstruction {
 													// localVariableTable
 													// at the position defined
 													// by operand1.
-		pathFrame.setLocalVariableTable(myLocalVariableTable);
-		pathFrame.setOperandStack(myOperandStack);
 		return null;
 	}
 

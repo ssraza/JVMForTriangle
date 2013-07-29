@@ -1,6 +1,5 @@
 package com.gannon.jvm.instructions;
 
-import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;

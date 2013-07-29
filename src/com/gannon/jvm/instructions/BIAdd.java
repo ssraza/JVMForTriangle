@@ -24,7 +24,6 @@ public class BIAdd extends BInstruction  {
 		myOperandStack.push((Integer) myOperandStack.pop()
 				+ (Integer) myOperandStack.pop());
 
-		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setLineNumber(++pc);
 		return null;
 	}
@@ -48,8 +47,6 @@ public class BIAdd extends BInstruction  {
 		relations.add(relation);
 
 		myOperandStack.push(rootNode.getLocalVariableName());
-
-		rFrame.setTempVariableStack(myOperandStack);
 	}
 
 

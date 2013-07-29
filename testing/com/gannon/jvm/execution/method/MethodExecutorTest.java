@@ -621,7 +621,7 @@ public class MethodExecutorTest {
 	}
 
 	@Test
-	public void testIsoscaleTriangleExePath2_infeasible() {
+	public void testIsoscaleTriangleExePath2_invisible() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");

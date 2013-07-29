@@ -18,9 +18,6 @@ public class BReturn extends Return {
 	}
 
 	public Object execute(BFrame activeFrame) {
-		String opCodeString = getOpcodeCommand();
-		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
 		Integer pc = activeFrame.getLineNumber();
 		activeFrame.setLineNumber(++pc);
 		return null;// return a null letting main know to execute next method
@@ -42,14 +39,10 @@ public class BReturn extends Return {
 	public void analyzing(DependencyFrame dependency) {
 		Stack<String> myOperandStack = dependency.getTempVariableStack();
 		myOperandStack.pop();
-		dependency.setTempVariableStack(myOperandStack);
 	}
 
 	@Override
 	public Object execute(PathFrame pathFrame) {
-		String opCodeString = getOpcodeCommand();
-		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = pathFrame.getLocalVariableTable();
 		return null;// return a null letting main know to execute next method
 	}
 

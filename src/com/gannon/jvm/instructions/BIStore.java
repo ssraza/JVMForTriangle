@@ -24,8 +24,6 @@ public class BIStore extends BInstruction {
 		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
 		// TOS and store in frame at operand1 location
 		myLocalVariableTable.setElementAt(this.operand1, myOperandStack.pop());
-		activeFrame.setVarTable(myLocalVariableTable);
-		activeFrame.setOperandStack(myOperandStack);
 		activeFrame.setLineNumber(++pc);
 		return null;
 	}
@@ -57,8 +55,6 @@ public class BIStore extends BInstruction {
 		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
 		// TOS and store in frame at operand1 location
 		myLocalVariableTable.setElementAt(this.operand1, myOperandStack.pop());
-		pathFrame.setLocalVariableTable(myLocalVariableTable);
-		pathFrame.setOperandStack(myOperandStack);
 		return null;
 	}
 }
