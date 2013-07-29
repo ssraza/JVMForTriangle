@@ -1,38 +1,30 @@
 package com.gannon.gui;
 
-import gui.tutorial.jtree.DynamicTree;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.UIManager;
+import java.awt.Font;
 import java.awt.Toolkit;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
-import javax.swing.JToolBar;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
-import java.awt.Color;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.FlowLayout;
-import javax.swing.JTree;
-import javax.swing.JTabbedPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
@@ -40,12 +32,7 @@ import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.progam.path.TestPathGenerator;
-
-import java.awt.Frame;
-import java.awt.Rectangle;
-import java.awt.Font;
-import java.awt.Component;
-import java.util.ArrayList;
+import com.gannon.program.cfg.CFGPanel;
 
 public class Main extends JFrame {
 
@@ -160,10 +147,14 @@ public class Main extends JFrame {
 		JPanel panelCFG = new JPanel();
 		scrollPaneCFG.setViewportView(panelCFG);
 		
-		txtCfgHere = new JTextField();
-		txtCfgHere.setText("CFG here");
-		panelCFG.add(txtCfgHere);
-		txtCfgHere.setColumns(10);
+		// creating CFG Panel ( width x height)
+		CFGPanel cfgPanel = new CFGPanel(500,600);		
+		panelCFG.add(cfgPanel);
+		
+		//txtCfgHere = new JTextField();
+		//txtCfgHere.setText("CFG here2");
+		//panelCFG.add(txtCfgHere);
+		//txtCfgHere.setColumns(10);
 		
 		JScrollPane scrollPaneConsole = new JScrollPane();
 		splitPaneMainAndOutputAndConsole.setRightComponent(scrollPaneConsole);

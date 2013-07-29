@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.instructions.BPredicateInstruction;
-import com.gannon.jvm.instructions.Return;
 import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;

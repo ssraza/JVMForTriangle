@@ -1,13 +1,10 @@
 package com.gannon.jvm.utilities;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Method;
 
 import org.junit.Test;
-
-import com.gannon.jvm.utilities.ClassUtility;
-import com.gannon.jvm.utilities.Triangle;
 
 
 public class ClassUtilityTest {

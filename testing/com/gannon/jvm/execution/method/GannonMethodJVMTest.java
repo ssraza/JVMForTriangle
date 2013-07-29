@@ -1,11 +1,9 @@
 package com.gannon.jvm.execution.method;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,11 +14,6 @@ import org.junit.runner.Description;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.execution.method.GannonMethodJVM;
-import com.gannon.jvm.execution.method.JVMStackSingleton;
-import com.gannon.jvm.execution.path.GannonPathJVM;
-import com.gannon.jvm.progam.path.PredicateNode;
-import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
 public class GannonMethodJVMTest {
@@ -64,7 +57,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID1_input();
 		// assertion
-		assertEquals(new Integer(1), jvm.run(m, input));
+		assertEquals(new Integer(1), jvm.run(myclass, m, input));
 		System.out.println(jvm.getExecutedPath());
 
 
@@ -75,7 +68,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID2_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -83,7 +76,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID3_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -91,7 +84,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID4_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -99,7 +92,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID5_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -107,7 +100,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID6_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -115,7 +108,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID7_input();
 		// assertion
-		assertEquals(new Integer(3), jvm.run(m, input));
+		assertEquals(new Integer(3), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -123,7 +116,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID8_input();
 		// assertion
-		assertEquals(new Integer(2), jvm.run(m, input));
+		assertEquals(new Integer(2), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -131,7 +124,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID9_input();
 		// assertion
-		assertEquals(new Integer(2), jvm.run(m, input));
+		assertEquals(new Integer(2), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -139,7 +132,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID10_input();
 		// assertion
-		assertEquals(new Integer(4), jvm.run(m, input));
+		assertEquals(new Integer(4), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -147,7 +140,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID11_input();
 		// assertion
-		assertEquals(new Integer(4), jvm.run(m, input));
+		assertEquals(new Integer(4), jvm.run(myclass, m, input));
 	}
 
 	@Test
@@ -155,7 +148,7 @@ public class GannonMethodJVMTest {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID12_input();
 		// assertion
-		assertEquals(new Integer(4), jvm.run(m, input));
+		assertEquals(new Integer(4), jvm.run(myclass, m, input));
 	}
 
 }

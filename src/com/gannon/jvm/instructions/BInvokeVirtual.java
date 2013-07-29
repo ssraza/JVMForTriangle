@@ -30,7 +30,7 @@ public class BInvokeVirtual extends BInstruction {
 		activeFrame.setLineNumber(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
 
-		BClass bClass = activeFrame.getInstance().getbClass();
+		BClass bClass = activeFrame.getbClass();
 
 		BMethod nextMethod = getNextMethod(owner, name, bClass);
 
@@ -38,7 +38,9 @@ public class BInvokeVirtual extends BInstruction {
 
 		BLocalVarTable newActiveFrameVariableTable = copyCallerOpstackToCalleeLocal(myCurrentOperandStack);
 
-		BFrame newFrame = new BFrame(nextMethod, 0, newActiveFrameVariableTable);
+		Stack<Integer> newOperandStack = new Stack<Integer>();
+		
+		BFrame newFrame = new BFrame(bClass, nextMethod, 0, newActiveFrameVariableTable, newOperandStack);
 
 		System.out.println("newFrame method name "
 				+ newFrame.getMethod().getName());

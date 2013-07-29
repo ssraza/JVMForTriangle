@@ -3,9 +3,9 @@ package com.gannon.jvm.instructions;
 import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.BinNode;
+import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.data.dependency.DependencyFrame;
-import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.utilities.OpcodeUtility;

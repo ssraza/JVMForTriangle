@@ -10,9 +10,6 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.gannon.jvm.data.dependency.BinNode;
-import com.gannon.jvm.data.dependency.Dependency;
-import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 

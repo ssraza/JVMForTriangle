@@ -72,6 +72,6 @@ public class Block {
 
 	public boolean hasInvoke() {
 		return instructions.size() == 1
-				&& instructions.get(0).getOpcodeCommand().contains("invoke");
+				&& instructions.get(0).getOpCodeCommand().contains("invoke");
 	}
 }

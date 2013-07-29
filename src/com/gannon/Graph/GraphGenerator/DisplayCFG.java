@@ -8,6 +8,8 @@ import javax.swing.text.Position;
 
 import com.gannon.Graph.GraphObjects.Graph;
 
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+
 public class DisplayCFG {
     
     public DisplayCFG(){       

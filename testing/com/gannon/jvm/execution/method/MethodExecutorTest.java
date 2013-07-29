@@ -1,6 +1,7 @@
 package com.gannon.jvm.execution.method;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -13,10 +14,6 @@ import org.junit.runner.Description;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.execution.method.BFrame;
-import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.execution.method.JVMStackSingleton;
-import com.gannon.jvm.execution.method.MethodExecutor;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class MethodExecutorTest {
@@ -48,7 +45,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -80,7 +77,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -112,7 +109,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -146,7 +143,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -179,7 +176,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -213,7 +210,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -246,7 +243,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -289,7 +286,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -337,7 +334,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -390,7 +387,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -449,7 +446,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -515,7 +512,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -560,7 +557,7 @@ public class MethodExecutorTest {
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
 	}
 
-	@Test
+	/*@Test
 	public void testInvisibleExePath() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
@@ -618,7 +615,7 @@ public class MethodExecutorTest {
 
 		//assertion
 		assertEquals(expectedExeIDs, methodExecutor.getExecutedInsIDs());
-	}
+	}*/
 
 	@Test
 	public void testIsoscaleTriangleExePath2_invisible() {
@@ -632,15 +629,15 @@ public class MethodExecutorTest {
 		// three sides
 		BLocalVarTable varTable = new BLocalVarTable();
 		varTable.add(0);
+		varTable.add(7);
+		varTable.add(7);
 		varTable.add(3);
-		varTable.add(7);
-		varTable.add(7);
 
 		// create a stack
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -669,6 +666,9 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
 	    expectedExeIDs.add(18);
+	    expectedExeIDs.add(19);
+	    expectedExeIDs.add(20);
+	    expectedExeIDs.add(21);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -699,7 +699,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -761,7 +761,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -826,7 +826,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -870,7 +870,7 @@ public class MethodExecutorTest {
 	
 	
 	@Test
-	public void testIsoscaleTriangleExePath6() {
+	public void testIsoscaleTriangleExePath6_InvisiblePath() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -889,7 +889,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -918,9 +918,6 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
 	    expectedExeIDs.add(18);
-	    expectedExeIDs.add(19);
-	    expectedExeIDs.add(20);
-	    expectedExeIDs.add(21);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);
@@ -935,7 +932,7 @@ public class MethodExecutorTest {
 	}
 	
 	@Test
-	public void testIsoscaleTriangleExePath7() {
+	public void testIsoscaleTriangleExePath7_InvisiblePath() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
@@ -954,7 +951,7 @@ public class MethodExecutorTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		// create a frame
-		BFrame activeFrame = new BFrame(m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
+		BFrame activeFrame = new BFrame(myclass, m, ConstantsUtility.INIT_PROGRAM_LINE_NUMBER, varTable, operandStack);
 
 		// create an executor
 		MethodExecutor methodExecutor = new MethodExecutor();
@@ -983,9 +980,6 @@ public class MethodExecutorTest {
 	    expectedExeIDs.add(16);
 	    expectedExeIDs.add(17);
 	    expectedExeIDs.add(18);
-	    expectedExeIDs.add(19);
-	    expectedExeIDs.add(20);
-	    expectedExeIDs.add(21);
 	    expectedExeIDs.add(24);
 	    expectedExeIDs.add(25);
 	    expectedExeIDs.add(26);

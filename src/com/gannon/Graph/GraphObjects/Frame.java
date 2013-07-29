@@ -1,6 +1,6 @@
 package com.gannon.Graph.GraphObjects;
 
-import com.gannon.asm.component.BMethod;
+import com.gannon.asm.components.BMethod;
 
 public class Frame {
 	private BMethod method;

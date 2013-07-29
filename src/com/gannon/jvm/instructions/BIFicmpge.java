@@ -5,15 +5,12 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import org.objectweb.asm.Label;
-
-import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.BinPredicateNode;
+import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.data.dependency.DependencyFrame;
-import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;

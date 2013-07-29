@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.execution.method.BFrame;
@@ -21,6 +22,9 @@ public class BIFicmpeqTest {
 		Label newLabel1 = new Label();
 		Label newLabel2 = new Label();
 		Label newLabel3 = new Label();
+		
+		//Create a Class to hold the method
+		BClass bClass = new BClass("TestClass");
 
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
@@ -67,7 +71,11 @@ public class BIFicmpeqTest {
 
 		BLocalVarTable varTable = new BLocalVarTable();
 
-		BFrame activeFrame = new BFrame(method, 0, varTable, operandStack);
+		ArrayList<BMethod> methods = new ArrayList<BMethod>();
+		methods.add(method);
+		bClass.setMethods(methods);
+		
+		BFrame activeFrame = new BFrame(bClass, method, 0, varTable, operandStack);
 
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 4
@@ -83,6 +91,9 @@ public class BIFicmpeqTest {
 		Label newLabel1 = new Label();
 		Label newLabel2 = new Label();
 		Label newLabel3 = new Label();
+		
+		//Create a Class to hold the method
+		BClass bClass = new BClass("TestClass");
 
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
@@ -129,7 +140,11 @@ public class BIFicmpeqTest {
 
 		BLocalVarTable varTable = new BLocalVarTable();
 
-		BFrame activeFrame = new BFrame(method, 4, varTable, operandStack);
+		ArrayList<BMethod> methods = new ArrayList<BMethod>();
+		methods.add(method);
+		bClass.setMethods(methods);
+		
+		BFrame activeFrame = new BFrame(bClass,method, 4, varTable, operandStack);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 4
 		// Expectation is, BIFicmpge will update program counter to 5.

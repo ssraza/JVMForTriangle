@@ -1,6 +1,6 @@
 package com.gannon.jvm.execution.method;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class BLocalVarTable {
 	ArrayList<Object> localVars = new ArrayList<Object>();

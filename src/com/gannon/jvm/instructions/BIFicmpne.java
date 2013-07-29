@@ -2,9 +2,6 @@ package com.gannon.jvm.instructions;
 
 import java.util.Stack;
 
-import org.objectweb.asm.Label;
-
-import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.BinPredicateNode;

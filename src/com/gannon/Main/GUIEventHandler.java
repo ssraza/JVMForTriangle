@@ -9,9 +9,9 @@ import java.util.Vector;
 
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.data.dependency.DependencyAnalyzer;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
-import com.gannon.jvm.execution.method.method.execution.DependencyAnalyzer;
-import com.gannon.jvm.execution.method.method.execution.RelationFrame;
 
 /**
  *

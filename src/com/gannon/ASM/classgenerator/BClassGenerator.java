@@ -2,7 +2,9 @@ package com.gannon.asm.classgenerator;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.objectweb.asm.ClassReader;
+
 import com.gannon.asm.components.BClass;
 
 public class BClassGenerator {

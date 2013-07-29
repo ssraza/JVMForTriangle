@@ -1,6 +1,8 @@
 package com.gannon.jvm.execution.path;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -9,20 +11,7 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.objectweb.asm.Label;
 
-import com.gannon.asm.classgenerator.BClassGenerator;
-import com.gannon.asm.components.BClass;
-import com.gannon.asm.components.BLabel;
-import com.gannon.asm.components.BMethod;
-import com.gannon.jvm.execution.method.GannonMethodJVM;
-import com.gannon.jvm.instructions.BIAdd;
-import com.gannon.jvm.instructions.BIConst_4;
-import com.gannon.jvm.instructions.BIFicmpge;
-import com.gannon.jvm.instructions.BILoad;
-import com.gannon.jvm.instructions.BIReturn;
-import com.gannon.jvm.progam.path.Node;
-import com.gannon.jvm.progam.path.NonPredicateNode;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;

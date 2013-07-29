@@ -2,9 +2,6 @@ package com.gannon.jvm.data.dependency;
 
 import java.util.ArrayList;
 
-import com.gannon.jvm.data.dependency.BinNode;
-import com.gannon.jvm.data.dependency.Dependency;
-
 public class Dependencies {
 	private ArrayList<Dependency> relations = new ArrayList<Dependency>();
 

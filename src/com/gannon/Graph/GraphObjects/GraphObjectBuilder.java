@@ -3,8 +3,8 @@ package com.gannon.Graph.GraphObjects;
 import java.util.ArrayList;
 
 import com.gannon.Graph.GraphObjects.Graph.Edge;
-import com.gannon.asm.component.BBlock;
-import com.gannon.asm.component.BMethod;
+import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class GraphObjectBuilder {
@@ -70,7 +70,7 @@ public class GraphObjectBuilder {
 
 		int leaders[] = new int[instrList.size()];
 		for (int i = 0; i < instrList.size(); i++) {
-			String opcode = instrList.get(i).getOpcodeCommand();
+			String opcode = instrList.get(i).getOpCodeCommand();
 			if (opcode.contains("if") || opcode.contains("goto")) {
 				leaders[i + 1] = 1;
 				int ponitLineNumber = Integer.parseInt((String) instrList.get(i).getOperand());
@@ -95,8 +95,8 @@ public class GraphObjectBuilder {
 		ArrayList<Edge> edges = new ArrayList<Edge>();
 		for (int i = 0; i < listOfBlock.size(); i++) {
 			BInstruction instr = listOfBlock.get(i).getLastLineInstruction();
-			String lastLineOpcode = instr.getOpcodeCommand();
-			String lastLineOperand = (String) instr.getOperand();
+			String lastLineOpcode = instr.getOpCodeCommand();
+			String lastLineOperand = (String) instr.getOpCodeCommand();
 			if (lastLineOpcode.toLowerCase().contains("if")) {
 				edges.add(new Edge(listOfBlock.get(i), listOfBlock.get(i + 1)));
 				int operandLineNumber = Integer.parseInt(lastLineOperand);

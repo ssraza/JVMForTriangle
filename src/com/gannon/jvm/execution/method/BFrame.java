@@ -2,6 +2,7 @@ package com.gannon.jvm.execution.method;
 
 import java.util.Stack;
 
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
@@ -10,6 +11,7 @@ public class BFrame {
 	private BLocalVarTable localVariableTable;
 	private int lineNumber = ConstantsUtility.INIT_PROGRAM_LINE_NUMBER;
 	private Stack operandStack = new Stack();
+	private BClass bClass;
 
 	public BFrame(int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
@@ -19,14 +21,25 @@ public class BFrame {
 	}
 
 
-	public BFrame(BMethod method, int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
+	public BFrame(BClass bClass, BMethod method, int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
+		this.bClass = bClass;
 		this.method = method;
 		this.lineNumber = lineNumber;
 		this.localVariableTable = localVariableTable;
 		this.operandStack=operandStack;
 
 	}
+	
+
+	public BClass getbClass() {
+		return bClass;
+	}
+
+	public void setbClass(BClass bClass) {
+		this.bClass = bClass;
+	}
+
 
 	public BMethod getMethod() {
 		return method;

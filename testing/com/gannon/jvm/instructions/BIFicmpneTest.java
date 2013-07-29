@@ -1,6 +1,6 @@
 package com.gannon.jvm.instructions;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,12 +10,11 @@ import org.junit.Test;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.instructions.BIFicmpne;
-import com.gannon.jvm.instructions.BInvokeVirtual;
 
 public class BIFicmpneTest {
 
@@ -25,6 +24,9 @@ public class BIFicmpneTest {
 		Label newLabel1 = new Label();
 		Label newLabel2 = new Label();
 		Label newLabel3 = new Label();
+		
+		//Create a Class to hold the method
+		BClass bClass = new BClass("TestClass");
 
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
@@ -75,7 +77,11 @@ public class BIFicmpneTest {
 
 		BLocalVarTable varTable = new BLocalVarTable();
 
-		BFrame activeFrame = new BFrame(method, 2, varTable, operandStack);
+		ArrayList<BMethod> methods = new ArrayList<BMethod>();
+		methods.add(method);
+		bClass.setMethods(methods);
+		
+		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
 
 		BIFicmpne ifNequal = new BIFicmpne(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -95,6 +101,9 @@ public class BIFicmpneTest {
 		Label newLabel1 = new Label();
 		Label newLabel2 = new Label();
 		Label newLabel3 = new Label();
+		
+		//Create a Class to hold the method
+		BClass bClass = new BClass("TestClass");
 
 		///  Create Method with blocks and instructions
 		BMethod method = new BMethod();
@@ -145,7 +154,11 @@ public class BIFicmpneTest {
 
 		BLocalVarTable varTable = new BLocalVarTable();
 
-		BFrame activeFrame = new BFrame(method, 2, varTable, operandStack);
+		ArrayList<BMethod> methods = new ArrayList<BMethod>();
+		methods.add(method);
+		bClass.setMethods(methods);
+		
+		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
 
 		BIFicmpne ifNequal = new BIFicmpne(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th

@@ -12,8 +12,6 @@ import org.junit.runner.Description;
 
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.instructions.BAStore;
-import com.gannon.jvm.instructions.BILoad;
 
 public class BILoadTest {
 	@Rule

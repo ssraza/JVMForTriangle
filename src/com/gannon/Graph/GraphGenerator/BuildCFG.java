@@ -7,7 +7,7 @@ import com.gannon.Graph.GraphObjects.Block;
 import com.gannon.Graph.GraphObjects.Frame;
 import com.gannon.Graph.GraphObjects.Graph;
 import com.gannon.Graph.GraphObjects.GraphObjectBuilder;
-import com.gannon.asm.component.BMethod;
+import com.gannon.asm.components.BMethod;
 
 public class BuildCFG {
 	ArrayList<BMethod> methods = new ArrayList<BMethod>();
@@ -43,9 +43,9 @@ public class BuildCFG {
 				// always point to next block
 				Block b = currentBlocks.get(i);
 				if (b.hasInvoke()) {
-					String methodName = (String) b.getLastLineInstruction().getOperand();
+					String methodName = (String) b.getLastLineInstruction().getOpCodeCommand();// It will give the name including MethodNAme, Desc etc.
 					System.out.println("---------------");
-					System.out.println(b.getLastLineInstruction().getOperand());
+					System.out.println(b.getLastLineInstruction().getOpcode());
 
 					BMethod calleeMethod = getCurrentMethod(methodName);
 					if (calleeMethod != null) {

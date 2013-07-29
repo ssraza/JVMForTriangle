@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
-import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
 
 //push one-byte signed integer
