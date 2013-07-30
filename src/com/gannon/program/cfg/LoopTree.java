@@ -5,373 +5,389 @@ import java.util.ArrayList;
 
 public class LoopTree {
 
-    ArrayList<TNode> listOfTNodes = new ArrayList<TNode>();
-    ArrayList<TEdge> listOfEdges = new ArrayList<TEdge>();
-    ArrayList<String> nodeNameList = new ArrayList<String>();
-    ArrayList<TNode> listOfTraversedTNodes = new ArrayList<TNode>();
-    ArrayList<TNode> listOfSearchedTNode = new ArrayList<TNode>();
-    ArrayList<TNode> listOfTwoWayTNodes = new ArrayList<TNode>();
-    ArrayList<TNode> listOfTNodesToBeTraversed = new ArrayList<TNode>();
-    private int totalPaths;
+	ArrayList<TNode> listOfTNodes = new ArrayList<TNode>();
+	ArrayList<TEdge> listOfEdges = new ArrayList<TEdge>();
+	ArrayList<String> nodeNameList = new ArrayList<String>();
+	ArrayList<TNode> listOfTraversedTNodes = new ArrayList<TNode>();
+	ArrayList<TNode> listOfSearchedTNode = new ArrayList<TNode>();
+	ArrayList<TNode> listOfTwoWayTNodes = new ArrayList<TNode>();
+	ArrayList<TNode> listOfTNodesToBeTraversed = new ArrayList<TNode>();
+	private int totalPaths;
 
-    public LoopTree(String inputText) {
+	public LoopTree(String inputText) {
 
-        try {
-            String[] listOfLines; // Array of strings
-            listOfLines = inputText.split("\n"); // splitting the input text to get the list of lines 
+		try {
+			String[] listOfLines; // Array of strings
+			listOfLines = inputText.split("\n"); // splitting the input text to
+													// get the list of lines
 
-            int index = 1; // starting from 1 to skip first line
+			int index = 1; // starting from 1 to skip first line
 
-            // Processing all input lines
-            while (index < listOfLines.length) {
-            	String currentLine = listOfLines[index];
-                String[] listOfStrings; // Array of strings
-                listOfStrings = currentLine.split(" "); // splitting the string to get the list of nodes 
+			// Processing all input lines
+			while (index < listOfLines.length) {
+				String currentLine = listOfLines[index];
+				String[] listOfStrings; // Array of strings
+				listOfStrings = currentLine.split(" "); // splitting the string
+														// to get the list of
+														// nodes
 
-                // adding first string to nodeNameList
-                nodeNameList.add(listOfStrings[0]);
+				// adding first string to nodeNameList
+				nodeNameList.add(listOfStrings[0]);
 
-                // creating new tnode
-                TNode newTNode = findTNode(listOfStrings[0]);
-                if (newTNode == null) {
-                    newTNode = new TNode(listOfStrings[0]);
-                    listOfTNodes.add(newTNode);
-                }
+				// creating new tnode
+				TNode newTNode = findTNode(listOfStrings[0]);
+				if (newTNode == null) {
+					newTNode = new TNode(listOfStrings[0]);
+					listOfTNodes.add(newTNode);
+				}
 
-                // Processing all nodes in the current line
-                for (int j = 1; j < listOfStrings.length; j++) {
-                    nodeNameList.add(listOfStrings[j]);
+				// Processing all nodes in the current line
+				for (int j = 1; j < listOfStrings.length; j++) {
+					nodeNameList.add(listOfStrings[j]);
 
-                    TNode childTNode = findTNode(listOfStrings[j]);
-                    if (childTNode == null) {
-                        childTNode = new TNode(listOfStrings[j]);
-                        listOfTNodes.add(childTNode);
-                    }
+					TNode childTNode = findTNode(listOfStrings[j]);
+					if (childTNode == null) {
+						childTNode = new TNode(listOfStrings[j]);
+						listOfTNodes.add(childTNode);
+					}
 
-                    // creating new TEdge
-                    TEdge newTEdge = new TEdge(newTNode, childTNode);
-                    // adding new TEdge to list of edges
-                    listOfEdges.add(newTEdge);
-                }
-                
-                index++;
+					// creating new TEdge
+					TEdge newTEdge = new TEdge(newTNode, childTNode);
+					// adding new TEdge to list of edges
+					listOfEdges.add(newTEdge);
+				}
 
-            }
+				index++;
 
-       
+			}
 
-        } catch (Exception e) {
-        }
-    }
+		} catch (Exception e) {
+		}
+	}
 
-    // function to search for the root node
-    public TNode getRootTNode() {
-        boolean isChildTNode;
-        for (int i = 0; i < nodeNameList.size(); i++) {
-            isChildTNode = false;
-            for (int k = 0; k < listOfTNodes.size() && !isChildTNode; k++) {
-                TNode leftTNode = listOfTNodes.get(k).getLeft();
-                TNode rightTNode = listOfTNodes.get(k).getRight();
-                if (leftTNode != null) {
-                    if (leftTNode.getName().equals(nodeNameList.get(i))) {
-                        isChildTNode = true;
-                    }
-                }
-                if (rightTNode != null) {
-                    if (rightTNode.getName().equals(nodeNameList.get(i))) {
-                        isChildTNode = true;
-                    }
+	// function to search for the root node
+	public TNode getRootTNode() {
+		boolean isTargetTNode;
+		// processing all nodes
+		for (int i = 0; i < listOfTNodes.size(); i++) {
+			// setting current tnode
+			TNode currentTNode = listOfTNodes.get(i);
+			// setting target node flag
+			isTargetTNode = false;
+			// processing all edges
+			for (int k = 0; k < listOfEdges.size() && !isTargetTNode; k++) {
+				// checking if current node is a target node for current edge
+				if (listOfEdges.get(k).getTargetTNode() == currentTNode) {
+					isTargetTNode = true;
+				}
+			}
+			if (isTargetTNode == false) {
+				return currentTNode;
+			}
+		}
 
-                }
-            }
-            if (isChildTNode == false) {
-                TNode rootTNode = findTNode(nodeNameList.get(i));
-                LoopTree(0, rootTNode, false);
-                rootTNode.setColor(Color.GRAY);
-                return rootTNode;
-            }
-        }
+		return null;
+	}
 
-        return null;
+	public TNode findTNode(String nodeName) {
+		for (int i = 0; i < listOfTNodes.size(); i++) {
+			if (listOfTNodes.get(i).getName().equals(nodeName)) {
+				return listOfTNodes.get(i);
+			}
+		}
+		return null;
+	}
 
-    }
+	public void initLoopTree() {
+		listOfTraversedTNodes.clear();
+	}
 
-    public TNode findTNode(String nodeName) {
-        for (int i = 0; i < listOfTNodes.size(); i++) {
-            if (listOfTNodes.get(i).getName().equals(nodeName)) {
-                return listOfTNodes.get(i);
-            }
-        }
-        return null;
-    }
+	public boolean isLeafTNode(TNode node) {
+		// processing all edges
+		for (int i = 0; i < listOfEdges.size(); i++) {
+			// checking if node is a source node for current edge
+			if (listOfEdges.get(i).getSourceTNode() == node) {
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public void initLoopTree() {
-        listOfTraversedTNodes.clear();
-        xLevel = 0;
-    }
+	public Boolean isAlreadyTraversed(TNode node) {
+		if (listOfTraversedTNodes.indexOf(node) >= 0) {
+			return true;
+		}
+		return false;
 
-    public boolean isLeafTNode(TNode node) {
-        if (node.getLeft() == null && node.getRight() == null) {
-            return true;
-        }
-        return false;
+	}
 
-    }
+	public boolean isChildOfTraversedTNode(TNode node) {
+		for (int i = 0; i < listOfTraversedTNodes.size(); i++) {
+			TNode parentTNode = listOfTraversedTNodes.get(i);
+			if (parentTNode.getLeft() == node) {
+				return true;
+			} else if (parentTNode.getRight() == node) {
+				return true;
 
-    public Boolean isAlreadyTraversed(TNode node) {
-        if (listOfTraversedTNodes.indexOf(node) >= 0) {
-            return true;
-        }
-        return false;
+			}
+		}
+		return false;
 
-    }
+	}
 
-    public boolean isChildOfTraversedTNode(TNode node) {
-        for (int i = 0; i < listOfTraversedTNodes.size(); i++) {
-            TNode parentTNode = listOfTraversedTNodes.get(i);
-            if (parentTNode.getLeft() == node) {
-                return true;
-            } else if (parentTNode.getRight() == node) {
-                return true;
+	public void LoopTree(int yLevel, TNode currentTNode, boolean isInsideLoop) {
 
-            }
-        }
-        return false;
+		if (isAlreadyTraversed(currentTNode)
+				|| isGoingToBeTraversedByParentTNode(currentTNode)) {
+			currentTNode.setColor(Color.RED);
+			return;
+		} else {
+			listOfTraversedTNodes.add(currentTNode);
+		}
 
-    }
+		if (isLeafTNode(currentTNode)) {
+			currentTNode.setColor(Color.GREEN);
+		}
 
-    public void LoopTree(int yLevel, TNode currentTNode, boolean isInsideLoop) {
+		// checking if current node is a child of one of the two way points
+		if (listOfTwoWayTNodes.indexOf(currentTNode) >= 0) {
+			listOfTwoWayTNodes.remove(currentTNode);
+			isInsideLoop = false;
+		}
 
-        if (isAlreadyTraversed(currentTNode)
-                || isGoingToBeTraversedByParentTNode(currentTNode)) {
-            currentTNode.setColor(Color.RED);
-            return;
-        } else {
-            listOfTraversedTNodes.add(currentTNode);
-        }
+		currentTNode.setLevel(xLevel, yLevel);
 
-        if (isLeafTNode(currentTNode)) {
-            currentTNode.setColor(Color.GREEN);
-        }
+		if ((currentTNode.getLeft() != null)
+				&& (currentTNode.getRight() != null)
+				&& !isGoingToBeTraversedByParentTNode(currentTNode.getRight())
+				&& !isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
+			// if right node is child of left node
+			if (isChildOfTNode(currentTNode, currentTNode.getLeft(),
+					currentTNode.getRight().getName()) && !isInsideLoop) {
+				++xLevel;
+				// adding node to list of two way nodes
+				listOfTwoWayTNodes.add(currentTNode.getRight());
 
-        // checking if current node is a child of one of the two way points
-        if (listOfTwoWayTNodes.indexOf(currentTNode) >= 0) {
-            listOfTwoWayTNodes.remove(currentTNode);
-            isInsideLoop = false;
-        }
+				if (isInsideLoop) {
+					LoopTree(++yLevel, currentTNode.getLeft(), false);
+				} else {
+					LoopTree(yLevel, currentTNode.getLeft(), true);
+				}
+			} else // if left node is child of right node
+			if (isChildOfTNode(currentTNode, currentTNode.getRight(),
+					currentTNode.getLeft().getName()) && !isInsideLoop) {
+				++xLevel;
+				// adding node to list of two way nodes
+				listOfTwoWayTNodes.add(currentTNode.getLeft());
 
-        currentTNode.setLevel(xLevel, yLevel);
+				if (isInsideLoop) {
+					LoopTree(++yLevel, currentTNode.getRight(), false);
+				} else {
+					LoopTree(yLevel, currentTNode.getRight(), true);
+				}
+			} else {
+				++xLevel;
+				if (isLeafTNode(currentTNode.getRight())) {
+					listOfTNodesToBeTraversed.add(currentTNode.getRight());
+					LoopTree(yLevel + 1, currentTNode.getLeft(), isInsideLoop);
+					listOfTNodesToBeTraversed.remove(currentTNode.getRight());
+					LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
 
-        if ((currentTNode.getLeft() != null) && (currentTNode.getRight() != null)
-                && !isGoingToBeTraversedByParentTNode(currentTNode.getRight())
-                && !isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
-            // if right node is child of left node
-            if (isChildOfTNode(currentTNode, currentTNode.getLeft(), currentTNode
-                    .getRight().getName())
-                    && !isInsideLoop) {
-                ++xLevel;
-                // adding node to list of two way nodes
-                listOfTwoWayTNodes.add(currentTNode.getRight());
+				} else {
+					// ---
+					listOfTNodesToBeTraversed.add(currentTNode.getLeft());
+					LoopTree(yLevel + 1, currentTNode.getRight(), false);
+					listOfTNodesToBeTraversed.remove(currentTNode.getLeft());
+					LoopTree(yLevel, currentTNode.getLeft(), false);
 
-                if (isInsideLoop) {
-                    LoopTree(++yLevel, currentTNode.getLeft(), false);
-                } else {
-                    LoopTree(yLevel, currentTNode.getLeft(), true);
-                }
-            } else // if left node is child of right node
-            if (isChildOfTNode(currentTNode, currentTNode.getRight(), currentTNode
-                    .getLeft().getName())
-                    && !isInsideLoop) {
-                ++xLevel;
-                // adding node to list of two way nodes
-                listOfTwoWayTNodes.add(currentTNode.getLeft());
+				}
 
-                if (isInsideLoop) {
-                    LoopTree(++yLevel, currentTNode.getRight(), false);
-                } else {
-                    LoopTree(yLevel, currentTNode.getRight(), true);
-                }
-            } else {
-                ++xLevel;
-                if (isLeafTNode(currentTNode.getRight())) {
-                    listOfTNodesToBeTraversed.add(currentTNode.getRight());
-                    LoopTree(yLevel + 1, currentTNode.getLeft(), isInsideLoop);
-                    listOfTNodesToBeTraversed.remove(currentTNode.getRight());
-                    LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
+			}
 
-                } else {
-                    // ---
-                    listOfTNodesToBeTraversed.add(currentTNode.getLeft());
-                    LoopTree(yLevel + 1, currentTNode.getRight(), false);
-                    listOfTNodesToBeTraversed.remove(currentTNode.getLeft());
-                    LoopTree(yLevel, currentTNode.getLeft(), false);
+		} else if (currentTNode.getLeft() != null) {
+			if (isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
+				++xLevel;
+				LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
+			} else {
+				++xLevel;
+				LoopTree(yLevel, currentTNode.getLeft(), isInsideLoop);
+			}
 
-                }
+		}
 
-            }
+	}
 
-        } else if (currentTNode.getLeft() != null) {
-            if (isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
-                ++xLevel;
-                LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
-            } else {
-                ++xLevel;
-                LoopTree(yLevel, currentTNode.getLeft(), isInsideLoop);
-            }
+	public boolean searchTNode(TNode parentTNode, String nodeName) {
+		if (listOfSearchedTNode.indexOf(parentTNode) >= 0
+				|| parentTNode == null) {
+			return false;
+		} else {
+			listOfSearchedTNode.add(parentTNode);
 
-        }
+			if (parentTNode.getName().equals(nodeName)) {
+				return true;
+			} else {
+				if (parentTNode.getLeft() != null
+						&& parentTNode.getRight() != null) {
+					return searchTNode(parentTNode.getLeft(), nodeName)
+							|| searchTNode(parentTNode.getRight(), nodeName);
+				} else if (parentTNode.getLeft() != null) {
+					return searchTNode(parentTNode.getLeft(), nodeName);
+				}
 
-    }
+			}
+			return false;
+		}
+	}
 
-    public boolean searchTNode(TNode parentTNode, String nodeName) {
-        if (listOfSearchedTNode.indexOf(parentTNode) >= 0 || parentTNode == null) {
-            return false;
-        } else {
-            listOfSearchedTNode.add(parentTNode);
+	public boolean isGoingToBeTraversedByParentTNode(TNode node) {
+		return listOfTNodesToBeTraversed.indexOf(node) >= 0;
+	}
 
-            if (parentTNode.getName().equals(nodeName)) {
-                return true;
-            } else {
-                if (parentTNode.getLeft() != null
-                        && parentTNode.getRight() != null) {
-                    return searchTNode(parentTNode.getLeft(), nodeName)
-                            || searchTNode(parentTNode.getRight(), nodeName);
-                } else if (parentTNode.getLeft() != null) {
-                    return searchTNode(parentTNode.getLeft(), nodeName);
-                }
+	public boolean isChildOfTNode(TNode parentTNode, TNode startTNode,
+			String nodeName) {
+		listOfSearchedTNode.clear();
+		listOfSearchedTNode.add(parentTNode);
+		return searchTNode(startTNode, nodeName);
+	}
 
-            }
-            return false;
-        }
-    }
+	public ArrayList<TNode> getListOfTNodes() {
+		return listOfTNodes;
+	}
 
-    public boolean isGoingToBeTraversedByParentTNode(TNode node) {
-        return listOfTNodesToBeTraversed.indexOf(node) >= 0;
-    }
+	public void processDominatorNodes() {
+		TNode rootNode = getRootTNode();
+		ArrayList<String> dominatorNodesList = new ArrayList<String>();
 
-    public boolean isChildOfTNode(TNode parentTNode, TNode startTNode,
-            String nodeName) {
-        listOfSearchedTNode.clear();
-        listOfSearchedTNode.add(parentTNode);
-        return searchTNode(startTNode, nodeName);
-    }
+		setDominatorNodes(rootNode, dominatorNodesList);
+	}
 
-    public ArrayList<TNode> getListOfTNodes() {
-        return listOfTNodes;
-    }
+	public void setDominatorNodes(TNode currentNode,
+			ArrayList<String> parentDominatorNodeList) {
+		if (currentNode.getIsSetOfDominatorNodesAdded()) {
+			currentNode.getSetOfDominatorNodes().retainAll(
+					parentDominatorNodeList);
+			currentNode.getSetOfDominatorNodes().add(currentNode.getName());
+			if (currentNode.getLeft() != null
+					&& !currentNode.getSetOfDominatorNodes().contains(
+							currentNode.getLeft().getName())) {
+				setDominatorNodes(currentNode.getLeft(),
+						currentNode.getSetOfDominatorNodes());
+			}
+			if (currentNode.getRight() != null
+					&& !currentNode.getSetOfDominatorNodes().contains(
+							currentNode.getRight().getName())) {
+				setDominatorNodes(currentNode.getRight(),
+						currentNode.getSetOfDominatorNodes());
+			}
+		} else {
+			currentNode.setIsSetOfDominatorNodesAdded(true);
+			currentNode.getSetOfDominatorNodes().add(currentNode.getName());
+			currentNode.getSetOfDominatorNodes()
+					.addAll(parentDominatorNodeList);
+			if (currentNode.getLeft() != null
+					&& !currentNode.getSetOfDominatorNodes().contains(
+							currentNode.getLeft().getName())) {
+				setDominatorNodes(currentNode.getLeft(),
+						currentNode.getSetOfDominatorNodes());
+			}
+			if (currentNode.getRight() != null
+					&& !currentNode.getSetOfDominatorNodes().contains(
+							currentNode.getRight().getName())) {
+				setDominatorNodes(currentNode.getRight(),
+						currentNode.getSetOfDominatorNodes());
+			}
+		}
 
-    public void processDominatorNodes() {
-        TNode rootNode = getRootTNode();
-        ArrayList<String> dominatorNodesList = new ArrayList<String>();
+	}
 
-        setDominatorNodes(rootNode, dominatorNodesList);
-    }
+	private void processGetNumberOfNodes(TNode endNode, TNode currentNode,
+			ArrayList<TNode> currentPath) {
+		// processing left child node
+		if (currentNode.getLeft() != null) {
+			if (currentNode.getLeft() == endNode) {
+				totalPaths += 1;
+			} else if (!currentPath.contains(currentNode.getLeft())) {
+				currentPath.add(currentNode);
+				processGetNumberOfNodes(endNode, currentNode.getLeft(),
+						currentPath);
+				currentPath.remove(currentNode);
+			}
+		}
+		// processing right child node
+		if (currentNode.getRight() != null) {
+			if (currentNode.getRight() == endNode) {
+				totalPaths += 1;
+			} else if (!currentPath.contains(currentNode.getRight())) {
+				currentPath.add(currentNode);
+				processGetNumberOfNodes(endNode, currentNode.getRight(),
+						currentPath);
+				currentPath.remove(currentNode);
+			}
+		}
 
-    public void setDominatorNodes(TNode currentNode, ArrayList<String> parentDominatorNodeList) {
-        if (currentNode.getIsSetOfDominatorNodesAdded()) {
-            currentNode.getSetOfDominatorNodes().retainAll(parentDominatorNodeList);
-            currentNode.getSetOfDominatorNodes().add(currentNode.getName());
-            if (currentNode.getLeft() != null && !currentNode.getSetOfDominatorNodes().contains(currentNode.getLeft().getName())) {
-                setDominatorNodes(currentNode.getLeft(), currentNode.getSetOfDominatorNodes());
-            }
-            if (currentNode.getRight() != null && !currentNode.getSetOfDominatorNodes().contains(currentNode.getRight().getName())) {
-                setDominatorNodes(currentNode.getRight(), currentNode.getSetOfDominatorNodes());
-            }
-        } else {
-            currentNode.setIsSetOfDominatorNodesAdded(true);
-            currentNode.getSetOfDominatorNodes().add(currentNode.getName());
-            currentNode.getSetOfDominatorNodes().addAll(parentDominatorNodeList);
-            if (currentNode.getLeft() != null && !currentNode.getSetOfDominatorNodes().contains(currentNode.getLeft().getName())) {
-                setDominatorNodes(currentNode.getLeft(), currentNode.getSetOfDominatorNodes());
-            }
-            if (currentNode.getRight() != null && !currentNode.getSetOfDominatorNodes().contains(currentNode.getRight().getName())) {
-                setDominatorNodes(currentNode.getRight(), currentNode.getSetOfDominatorNodes());
-            }
-        }
+		return;
+	}
 
-    }
+	public int getNumberOfPathsBetweenTwoNodes(TNode node1, TNode node2) {
+		// creating list of visited nodes
+		ArrayList<TNode> currentPath = new ArrayList<TNode>();
+		totalPaths = 0;
+		processGetNumberOfNodes(node2, node1, currentPath);
+		return totalPaths;
 
-    private void processGetNumberOfNodes(TNode endNode,TNode currentNode,ArrayList<TNode> currentPath){
-         // processing left child node
-        if(currentNode.getLeft() != null){
-            if(currentNode.getLeft() == endNode){
-                totalPaths += 1;
-            }else if(!currentPath.contains(currentNode.getLeft())){
-                currentPath.add(currentNode);
-                processGetNumberOfNodes(endNode, currentNode.getLeft(), currentPath);
-                currentPath.remove(currentNode);        
-            }
-        }
-        // processing right child node
-        if(currentNode.getRight()!= null){
-            if(currentNode.getRight() == endNode){
-                totalPaths += 1;
-            }else if(!currentPath.contains(currentNode.getRight())){
-                currentPath.add(currentNode);
-                processGetNumberOfNodes(endNode, currentNode.getRight(), currentPath);
-                currentPath.remove(currentNode);        
-            }
-        }
-         
-        return ;
-    }
-    
-    public int getNumberOfPathsBetweenTwoNodes(TNode node1, TNode node2) {
-        // creating list of visited nodes
-        ArrayList<TNode> currentPath = new ArrayList<TNode>();
-       totalPaths =0;
-       processGetNumberOfNodes(node2,node1,currentPath);
-       return totalPaths;
-        
-    }
-    
-      private int processGetLongestPath(TNode endNode,TNode currentNode,ArrayList<TNode> currentPath, int longestPath){
-         int newLongestPath = 0;
-         
-         // processing left child node
-        if(currentNode.getLeft() != null){
-            if(currentNode.getLeft() == endNode){
-                // checking if current path count is bigger than longestPath
-                if(currentPath.size() > longestPath){
-                    longestPath = currentPath.size();
-                }
-                
-            }else if(!currentPath.contains(currentNode.getLeft())){
-                currentPath.add(currentNode);
-                newLongestPath = processGetLongestPath(endNode, currentNode.getLeft(), currentPath,longestPath);
-                currentPath.remove(currentNode);        
-            }
-        }
-        
-        if(newLongestPath > longestPath){
-            longestPath = newLongestPath;
-        }
-         
-        // processing right child node
-        if(currentNode.getRight()!= null){
-            if(currentNode.getRight() == endNode){
-                // checking if current path count is bigger than longestPath
-                if(currentPath.size() > longestPath){
-                    longestPath = currentPath.size();
-                }
-            }else if(!currentPath.contains(currentNode.getRight())){
-                currentPath.add(currentNode);
-                newLongestPath = processGetLongestPath(endNode, currentNode.getRight(), currentPath,longestPath);
-                currentPath.remove(currentNode);        
-            }
-        }
-         
-        if(newLongestPath > longestPath){
-            longestPath = newLongestPath;
-        }
-        
-        return longestPath;
-    }
-      
-    public int findLongestBetweenTwoNodes(TNode node1,TNode node2){
-           // creating list of visited nodes
-        ArrayList<TNode> currentPath = new ArrayList<TNode>();
-       return processGetLongestPath(node2,node1,currentPath,0);
-    }
+	}
+
+	private int processGetLongestPath(TNode endNode, TNode currentNode,
+			ArrayList<TNode> currentPath, int longestPath) {
+		int newLongestPath = 0;
+
+		// processing left child node
+		if (currentNode.getLeft() != null) {
+			if (currentNode.getLeft() == endNode) {
+				// checking if current path count is bigger than longestPath
+				if (currentPath.size() > longestPath) {
+					longestPath = currentPath.size();
+				}
+
+			} else if (!currentPath.contains(currentNode.getLeft())) {
+				currentPath.add(currentNode);
+				newLongestPath = processGetLongestPath(endNode,
+						currentNode.getLeft(), currentPath, longestPath);
+				currentPath.remove(currentNode);
+			}
+		}
+
+		if (newLongestPath > longestPath) {
+			longestPath = newLongestPath;
+		}
+
+		// processing right child node
+		if (currentNode.getRight() != null) {
+			if (currentNode.getRight() == endNode) {
+				// checking if current path count is bigger than longestPath
+				if (currentPath.size() > longestPath) {
+					longestPath = currentPath.size();
+				}
+			} else if (!currentPath.contains(currentNode.getRight())) {
+				currentPath.add(currentNode);
+				newLongestPath = processGetLongestPath(endNode,
+						currentNode.getRight(), currentPath, longestPath);
+				currentPath.remove(currentNode);
+			}
+		}
+
+		if (newLongestPath > longestPath) {
+			longestPath = newLongestPath;
+		}
+
+		return longestPath;
+	}
+
+	public int findLongestBetweenTwoNodes(TNode node1, TNode node2) {
+		// creating list of visited nodes
+		ArrayList<TNode> currentPath = new ArrayList<TNode>();
+		return processGetLongestPath(node2, node1, currentPath, 0);
+	}
 
 }

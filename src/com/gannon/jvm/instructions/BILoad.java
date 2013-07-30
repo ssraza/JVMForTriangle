@@ -49,10 +49,10 @@ public class BILoad extends BInstruction {
 		
 		//same as execution, we need the value as well
 		BLocalVarTable myLocalVariableTable = rFrame.getLocalVariableTable();
-		Stack<Object> operandStack = rFrame.getOperandStack();
+		Stack<Object> valueStack = rFrame.getValueStack();
 
 		// push local value to top of stack
-	    operandStack.push((Integer) myLocalVariableTable.getLocalVariable(operand1));
+	    valueStack.push((Integer) myLocalVariableTable.getLocalVariable(operand1));
 	}
 
 	@Override

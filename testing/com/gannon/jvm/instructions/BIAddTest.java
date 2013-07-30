@@ -110,7 +110,7 @@ public class BIAddTest {
 		iadd.analyzing(dependency);
 		Dependency actualTree = dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
 		//for testing only:void auto-generated ID
-		actualTree.getTheBTRootNode().setLocalVariableName("999999");
+		actualTree.getTheBTRootNode().setVariableName("999999");
 		//actualTree.niceDisplay();
 
 		BinNode rightNode = new BinNode("9");
@@ -127,32 +127,26 @@ public class BIAddTest {
 	@Test
 	public void testDependcyLevel2() {
 		// set a stack
-		Stack<String> operandStack = new Stack<String>();
-		operandStack.add("1");
-		operandStack.add("101");
+		Stack<String> nameStack = new Stack<String>();
+		nameStack.add("1");
+		nameStack.add("101");
+		
+		Stack<Object> variableValueStack = new Stack<Object>();
+		variableValueStack.add(49);
+		variableValueStack.add(50);
 
 		// set a frame
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setIntermediateVariableStack(nameStack);
+		dependency.setOperandStack(variableValueStack);
+		
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
-		
-		BLocalVariable localvar1 = new BLocalVariable("i", "I", null, 0); 
-		method.addLocalVariableTable(localvar1);
-		BLocalVariable localvar2 = new BLocalVariable("j", "I", null, 1); 
-		method.addLocalVariableTable(localvar2);
-		BLocalVariable localvar3 = new BLocalVariable("k", "I", null, 2); 
-		method.addLocalVariableTable(localvar3);
-		BLocalVariable localvar4 = new BLocalVariable("l", "I", null, 3); 
-		method.addLocalVariableTable(localvar4);
-		BLocalVariable localvar5 = new BLocalVariable("m", "I", null, 4); 
-		method.addLocalVariableTable(localvar5);
-		BLocalVariable localvar6 = new BLocalVariable("n", "I", null, 5); 
-		method.addLocalVariableTable(localvar6);
 		
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
+		dependency.initInputs();
 
 		// a new relation
 		BinNode rightNode1 = new BinNode("1");
@@ -167,9 +161,9 @@ public class BIAddTest {
 		BIAdd iadd = new BIAdd(2);
 		iadd.analyzing(dependency);
 		// 0: not used, 1-3:inputs, 4: tree9; 5: contains actual results which combines two relations
-		Dependency actualTree = dependency.getRelations().getRelation(5);
+		Dependency actualTree = dependency.getRelations().getRelation(method.getNumberOfParameter()+2);
 		//for testing only:void auto-generated ID
-		actualTree.getTheBTRootNode().setLocalVariableName("999999");
+		actualTree.getTheBTRootNode().setVariableName("101");
 		
 		//
 		actualTree.niceDisplay();
@@ -182,7 +176,7 @@ public class BIAddTest {
 		expectedTree.insertToRight(rightNode);
 		// expectedTree.niceDisplay();
 
-		// assertEquals(expectedTree, actualTree);
+		assertEquals(expectedTree.getAllLeaves(), actualTree.getAllLeaves());
 	}
 
 }

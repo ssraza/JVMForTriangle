@@ -52,15 +52,22 @@ public class BIFicmpne extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
-		BinNode rightNode= new BinNode(myOperandStack.pop());
-		BinNode leftNode= new BinNode(myOperandStack.pop());
+		Stack<Object>  valueStack= rFrame.getValueStack();
+		Integer secondValue = (Integer) valueStack.pop();
+		Integer firstValue = (Integer) valueStack.pop();
+		boolean predicateResult=!firstValue.equals(secondValue);
+		
+		Stack<String> nameStack = rFrame.getIntermediateVariableStack();
+		BinNode rightNode= new BinNode(nameStack.pop(),secondValue);
+		BinNode leftNode= new BinNode(nameStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
+		rootNode.setVariableValue(predicateResult); 
 		Dependency relation=new Dependency(rootNode, this);
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
 
-		myOperandStack.push(rootNode.getLocalVariableName());
+		nameStack.push(rootNode.getVariableName());
+		valueStack.push(predicateResult);
 		rFrame.getRelations().add(relation);
 	}
 

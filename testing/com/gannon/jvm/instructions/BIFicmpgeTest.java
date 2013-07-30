@@ -26,21 +26,22 @@ public class BIFicmpgeTest {
 
 	@Test
 	public void testExecuteGraterAndEqualPositive() {
-		
-		//Create a Class to hold the method
+
+		// Create a Class to hold the method
 		BClass bClass = new BClass("TestClass");
 
-		///  Create Method with blocks and instructions
+		// / Create Method with blocks and instructions
 		BMethod method = new BMethod();
 		ArrayList<BBlock> blockList = new ArrayList<BBlock>();
 
 		method.setName("<init>");
 		BLabel label1 = new BLabel(new Label(), 1);
-		label1.setGoToLineNumber(8);// block will start from line number 8, So when
-								// if_icmpeq executes and
-								// based on the label value(newLabel1) it will
-								// jump to this label
-								// and it should update the PC to 8.
+		label1.setGoToLineNumber(8);// block will start from line number 8, So
+									// when
+		// if_icmpeq executes and
+		// based on the label value(newLabel1) it will
+		// jump to this label
+		// and it should update the PC to 8.
 		BBlock block1 = new BBlock(label1);
 		ArrayList<BInstruction> Instr1 = new ArrayList<BInstruction>();
 		Instr1.add(new BALoad(0, 0));
@@ -59,9 +60,12 @@ public class BIFicmpgeTest {
 
 		BLabel label3 = new BLabel(new Label(), 3);
 		label3.setGoToLineNumber(5);
-		BBlock block3 = new BBlock(label3);	// block start from line number 8, So
+		BBlock block3 = new BBlock(label3); // block start from line number 8,
+											// So
 											// when if_icmpeq executes and
-											// based on the label value(newLabel1) it will jump to this label
+											// based on the label
+											// value(newLabel1) it will jump to
+											// this label
 											// and it should update the PC to 8.
 		ArrayList<BInstruction> Instr3 = new ArrayList<BInstruction>();
 		Instr3.add(new BALoad(0, 5));
@@ -82,8 +86,9 @@ public class BIFicmpgeTest {
 		ArrayList<BMethod> methods = new ArrayList<BMethod>();
 		methods.add(method);
 		bClass.setMethods(methods);
-		
-		BFrame activeFrame = new BFrame(bClass, method, 0, varTable, operandStack);
+
+		BFrame activeFrame = new BFrame(bClass, method, 0, varTable,
+				operandStack);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -96,28 +101,28 @@ public class BIFicmpgeTest {
 		assertEquals((Integer) 8, resultedPC);
 	}
 
-
 	@Test
 	public void testExecuteGraterAndEqualNegative() {
 
 		Label newLabel1 = new Label();
 		Label newLabel2 = new Label();
 		Label newLabel3 = new Label();
-		
-		//Create a Class to hold the method
-				BClass bClass = new BClass("TestClass");
 
-		///  Create Method with blocks and instructions
+		// Create a Class to hold the method
+		BClass bClass = new BClass("TestClass");
+
+		// / Create Method with blocks and instructions
 		BMethod method = new BMethod();
 		ArrayList<BBlock> blockList = new ArrayList<BBlock>();
 
 		method.setName("<init>");
 		BLabel label1 = new BLabel(newLabel1, 1);
-		label1.setGoToLineNumber(8);// block will start from line number 8, So when
-								// if_icmpeq executes and
-								// based on the label value(newLabel1) it will
-								// jump to this label
-								// and it should update the PC to 8.
+		label1.setGoToLineNumber(8);// block will start from line number 8, So
+									// when
+		// if_icmpeq executes and
+		// based on the label value(newLabel1) it will
+		// jump to this label
+		// and it should update the PC to 8.
 		BBlock block1 = new BBlock(label1);
 		ArrayList<BInstruction> Instr1 = new ArrayList<BInstruction>();
 		Instr1.add(new BALoad(0, 0));
@@ -128,7 +133,8 @@ public class BIFicmpgeTest {
 		BLabel label2 = new BLabel(newLabel2, 2);
 		BBlock block2 = new BBlock(label2);
 		ArrayList<BInstruction> Instr2 = new ArrayList<BInstruction>();
-		Instr2.add(new BIFicmpge(new BLabel(newLabel3), 2));// set Label for jump
+		Instr2.add(new BIFicmpge(new BLabel(newLabel3), 2));// set Label for
+															// jump
 		Instr2.add(new BIConst_1(3));
 		Instr2.add(new BIConst_5(4));
 		block2.setInstructions(Instr2);
@@ -136,9 +142,12 @@ public class BIFicmpgeTest {
 
 		BLabel label3 = new BLabel(newLabel3, 3);
 		label3.setGoToLineNumber(5);
-		BBlock block3 = new BBlock(label3);	// block start from line number 8, So
+		BBlock block3 = new BBlock(label3); // block start from line number 8,
+											// So
 											// when if_icmpeq executes and
-											// based on the label value(newLabel1) it will jump to this label
+											// based on the label
+											// value(newLabel1) it will jump to
+											// this label
 											// and it should update the PC to 8.
 		ArrayList<BInstruction> Instr3 = new ArrayList<BInstruction>();
 		Instr3.add(new BALoad(0, 5));
@@ -159,8 +168,9 @@ public class BIFicmpgeTest {
 		ArrayList<BMethod> methods = new ArrayList<BMethod>();
 		methods.add(method);
 		bClass.setMethods(methods);
-		
-		BFrame activeFrame = new BFrame(bClass,method, 2, varTable, operandStack);
+
+		BFrame activeFrame = new BFrame(bClass, method, 2, varTable,
+				operandStack);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(newLabel3), 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -173,14 +183,11 @@ public class BIFicmpgeTest {
 		assertEquals((Integer) 3, resultedPC);
 	}
 
-
 	@Test
 	public void testExecuteNotGreaterThanNEqual() {
 		Label label1 = new Label();
 		Label label2 = new Label();
 		Label label3 = new Label();
-
-
 
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.push(3);
@@ -195,7 +202,7 @@ public class BIFicmpgeTest {
 
 		BFrame activeFrame = new BFrame(5, varTable, operandStack);
 		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(label1), 5);
-	//	activeFrame.setLabelMap(labelMapping);
+		// activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 5
 		// Expectation is, BIFicmpge will update program counter to 6.
@@ -225,7 +232,7 @@ public class BIFicmpgeTest {
 		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
-	
+
 	@Test
 	public void test() {
 		Label newLabel = new Label();
@@ -234,39 +241,33 @@ public class BIFicmpgeTest {
 		operandStack.add("5");
 		operandStack.add("5");
 
+		Stack<Object> variableValueStack = new Stack<Object>();
+		variableValueStack.add(49);
+		variableValueStack.add(50);
+
 		DependencyFrame dependency = new DependencyFrame();
 		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setOperandStack(variableValueStack);
+
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
-		
-		BLocalVariable localvar1 = new BLocalVariable("i", "I", null, 0); 
-		method.addLocalVariableTable(localvar1);
-		BLocalVariable localvar2 = new BLocalVariable("j", "I", null, 1); 
-		method.addLocalVariableTable(localvar2);
-		BLocalVariable localvar3 = new BLocalVariable("k", "I", null, 2); 
-		method.addLocalVariableTable(localvar3);
-		BLocalVariable localvar4 = new BLocalVariable("l", "I", null, 3); 
-		method.addLocalVariableTable(localvar4);
-		BLocalVariable localvar5 = new BLocalVariable("m", "I", null, 4); 
-		method.addLocalVariableTable(localvar5);
-		BLocalVariable localvar6 = new BLocalVariable("n", "I", null, 5); 
-		method.addLocalVariableTable(localvar6);
-		
+
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
 
-		BPredicateInstruction ifGreater=new BIFicmpge(label, 2);
+		BPredicateInstruction ifGreater = new BIFicmpge(label, 2);
 		ifGreater.analyzing(dependency);
 		System.out.println(dependency.getRelations().getRelations());
-		Dependency actualTree=dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
+		Dependency actualTree = dependency.getRelations().getRelation(
+				method.getNumberOfParameter() + 1);
 		actualTree.inorderBST();
 
-		BinNode rightNode= new BinNode("5");
-		BinNode leftNode= new BinNode("5");
-		BinPredicateNode rootNode=new BinPredicateNode("1000");
-		Dependency expectedTree=new Dependency(rootNode, ifGreater);
-		
+		BinNode rightNode = new BinNode("5");
+		BinNode leftNode = new BinNode("5");
+		BinPredicateNode rootNode = new BinPredicateNode("1000");
+		Dependency expectedTree = new Dependency(rootNode, ifGreater);
+
 		expectedTree.insertToLeft(leftNode);
 		expectedTree.insertToRight(rightNode);
 		expectedTree.inorderBST();

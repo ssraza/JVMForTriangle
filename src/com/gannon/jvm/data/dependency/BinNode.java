@@ -14,20 +14,28 @@ public class BinNode {
 		this.leftBNode = null;
 		this.rightBNode = null;
 	}
-	
-	public void setLocalVariableName(String localVariableName) {
+
+	public BinNode(String localVariableName, Object localVariableValue) {
+		super();
+		this.localVariableName = localVariableName;
+		this.localVariableValue = localVariableValue;
+		this.leftBNode = null;
+		this.rightBNode = null;
+	}
+
+	public void setVariableName(String localVariableName) {
 		this.localVariableName = localVariableName;
 	}
 
-	public String getLocalVariableName() {
+	public String getVariableName() {
 		return localVariableName;
 	}
 
-	public Object getLocalVariableValue() {
+	public Object getVariableValue() {
 		return localVariableValue;
 	}
 
-	public void setLocalVariableValue(Object localVariableValue) {
+	public void setVariableValue(Object localVariableValue) {
 		this.localVariableValue = localVariableValue;
 	}
 
@@ -48,7 +56,8 @@ public class BinNode {
 	}
 
 	public boolean equals(Object obj) {
-		return (obj instanceof BinNode) && localVariableName.equals(((BinNode) obj).localVariableName);
+		return (obj instanceof BinNode)
+				&& localVariableName.equals(((BinNode) obj).localVariableName);
 	}
 
 	public int hashCode() {
@@ -56,9 +65,9 @@ public class BinNode {
 	}
 
 	public boolean isParamter() {
-		return Integer.parseInt(localVariableName) <OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
+		return Integer.parseInt(localVariableName) < OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
 	}
-	
+
 	public void show() {
 		// calls the show method of the AnyClass
 		System.out.print("i" + localVariableName + "\n");
@@ -67,9 +76,9 @@ public class BinNode {
 	public void showIndent(String indent) {
 		System.out.print(indent + "i" + localVariableName + "\n");
 	}
-	
+
 	public String showIndentString(String indent) {
-		return indent + "i" + localVariableName + "\n";
+		return indent + "i" + localVariableName + " value="+ localVariableValue+"\n";
 	}
 
 }

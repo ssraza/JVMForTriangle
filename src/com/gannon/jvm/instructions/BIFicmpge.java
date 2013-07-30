@@ -57,11 +57,17 @@ public class BIFicmpge extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
+		Stack<Object>  valueStack= rFrame.getValueStack();
+		Integer secondValue = (Integer) valueStack.pop();
+		Integer firstValue = (Integer) valueStack.pop();
+		boolean predicateResult=firstValue.equals(secondValue);
+		
 		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
-		BinNode rightNode= new BinNode(myOperandStack.pop());
-		BinNode leftNode= new BinNode(myOperandStack.pop());
+		BinNode rightNode= new BinNode(myOperandStack.pop(),secondValue);
+		BinNode leftNode= new BinNode(myOperandStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
 		Dependency relation=new Dependency(rootNode, this);
+		rootNode.setVariableValue(predicateResult); 
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
 
@@ -71,7 +77,7 @@ public class BIFicmpge extends BPredicateInstruction {
 		//after expending, add the VDT to the relations
 		relations.add(relation);
 
-		myOperandStack.push(rootNode.getLocalVariableName());
+		myOperandStack.push(rootNode.getVariableName());
 	}
 
 	@Override

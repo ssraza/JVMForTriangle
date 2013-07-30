@@ -207,28 +207,22 @@ public class BIFicmpeqTest {
 	public void testDependcy(){
 		Label newLabel = new Label();
 		BLabel label = new BLabel(newLabel);
-		Stack<String> operandStack = new Stack<String>();
-		operandStack.add("5");
-		operandStack.add("5");
+		Stack<String> variableNameStack = new Stack<String>();
+		variableNameStack.add("5");
+		variableNameStack.add("5");
+		
+		Stack<Object> variableValueStack = new Stack<Object>();
+		variableValueStack.add(49);
+		variableValueStack.add(50);
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setIntermediateVariableStack(variableNameStack);
+		dependency.setOperandStack(variableValueStack);
+		
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
 		
-		BLocalVariable localvar1 = new BLocalVariable("i", "I", null, 0); 
-		method.addLocalVariableTable(localvar1);
-		BLocalVariable localvar2 = new BLocalVariable("j", "I", null, 1); 
-		method.addLocalVariableTable(localvar2);
-		BLocalVariable localvar3 = new BLocalVariable("k", "I", null, 2); 
-		method.addLocalVariableTable(localvar3);
-		BLocalVariable localvar4 = new BLocalVariable("l", "I", null, 3); 
-		method.addLocalVariableTable(localvar4);
-		BLocalVariable localvar5 = new BLocalVariable("m", "I", null, 4); 
-		method.addLocalVariableTable(localvar5);
-		BLocalVariable localvar6 = new BLocalVariable("n", "I", null, 5); 
-		method.addLocalVariableTable(localvar6);
-		
+	
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();

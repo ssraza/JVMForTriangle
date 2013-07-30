@@ -56,7 +56,7 @@ public class Dependency {
 	}
 
 	public boolean isParamterRelation() {
-		return Integer.parseInt(theBTRootNode.getLocalVariableName()) < OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
+		return Integer.parseInt(theBTRootNode.getVariableName()) < OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
 	}
 
 	// ------------------ InOrder traversal-------------------

@@ -19,10 +19,10 @@ public class DependencyFrame {
 	private TestPath targetPath;
 	private Dependencies relations = new Dependencies();;
 	// intermediate variables
-	private Stack<String> tempVariableStack = new Stack<String>();
+	private Stack<String> variableNameStack = new Stack<String>();
 
 	// for operand
-	private Stack<Object> operandStack = new Stack<Object>();
+	private Stack<Object> valueStack = new Stack<Object>();
 
 	private BLocalVarTable localVariableTable = new BLocalVarTable();
 
@@ -38,8 +38,6 @@ public class DependencyFrame {
 			System.out
 					.print("Add a target path to the relation frame before analyzing dependency!");
 		} else {
-			// int numberOfPara =
-			// targetPath.getbMethod().getNumberOfParameter();
 			int numberOfPara = targetPath.getbMethod().getNumberOfParameter();
 			System.out.println("numberOfPara " + numberOfPara);
 
@@ -86,19 +84,19 @@ public class DependencyFrame {
 	}
 
 	public Stack<String> getIntermediateVariableStack() {
-		return tempVariableStack;
+		return variableNameStack;
 	}
 
 	public void setIntermediateVariableStack(Stack<String> tempVariableStack) {
-		this.tempVariableStack = tempVariableStack;
+		this.variableNameStack = tempVariableStack;
 	}
 
-	public Stack<Object> getOperandStack() {
-		return operandStack;
+	public Stack<Object> getValueStack() {
+		return valueStack;
 	}
 
 	public void setOperandStack(Stack<Object> operandStack) {
-		this.operandStack = operandStack;
+		this.valueStack = operandStack;
 	}
 
 	public BLocalVarTable getLocalVariableTable() {
