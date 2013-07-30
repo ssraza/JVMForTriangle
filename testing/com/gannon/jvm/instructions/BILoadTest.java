@@ -10,8 +10,11 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
+import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.progam.path.TestPath;
 
 public class BILoadTest {
 	@Rule
@@ -120,5 +123,22 @@ public class BILoadTest {
 
 		//compare results
 		assertEquals(actualResult, new Integer(9));
+	}
+	
+	@Test
+	public void testDependency() {
+		
+		DependencyFrame dependency = new DependencyFrame();
+		TestPath targetPath = new TestPath();
+		BMethod method = new BMethod(1, "", "(III)I");
+		targetPath.setbMethod(method);
+		dependency.setTargetPath(targetPath);
+		dependency.initParameterRelation();
+		BILoad iLoad = new BILoad(4,0); 
+		iLoad.analyzing(dependency);
+		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> expectedStack = new Stack<String>();
+		expectedStack.push("4");
+		assertEquals(expectedStack, resultStack);
 	}
 }

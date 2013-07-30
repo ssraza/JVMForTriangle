@@ -133,4 +133,10 @@ public class BMethod {
 		int end=methodDesc.lastIndexOf(")");
 		return end-start-1;
 	}
+	
+	//It will return total of different variable use in a method.
+		public int getMethodParameter(){
+			System.out.println(getLocalVariables().size());
+			return this.localVariables.size();
+		}
 }

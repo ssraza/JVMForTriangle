@@ -6,8 +6,11 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.progam.path.TestPath;
 
 public class BIConst_0Test {
 
@@ -50,5 +53,20 @@ public class BIConst_0Test {
 		int result = instance.getOpcode();
 		assertEquals(expResult, result);
 	}
-
+	
+	@Test
+	public void testDependencyIConst_0() {
+		DependencyFrame dependency = new DependencyFrame();
+		TestPath targetPath = new TestPath();
+		BMethod method = new BMethod(1, "", "(III)I");
+		targetPath.setbMethod(method);
+		dependency.setTargetPath(targetPath);
+		dependency.initParameterRelation();
+		BIConst_0 iConst0 = new BIConst_0(0);
+		iConst0.analyzing(dependency);
+		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> expectedStack = new Stack<String>();
+		expectedStack.push("0");
+		assertEquals(expectedStack, resultStack);
+	}
 }

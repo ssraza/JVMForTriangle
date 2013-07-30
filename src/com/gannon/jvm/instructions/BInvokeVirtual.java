@@ -8,6 +8,7 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.method.JVMStackSingleton;
 import com.gannon.jvm.execution.path.PathFrame;
 
 public class BInvokeVirtual extends BInstruction {
@@ -40,12 +41,12 @@ public class BInvokeVirtual extends BInstruction {
 
 		Stack<Integer> newOperandStack = new Stack<Integer>();
 		
-		BFrame newFrame = new BFrame(bClass, nextMethod, 0, newActiveFrameVariableTable, newOperandStack);
+		BFrame newFrame = new BFrame(bClass, nextMethod, 1, newActiveFrameVariableTable, newOperandStack);
 
 		System.out.println("newFrame method name "
 				+ newFrame.getMethod().getName());
 
-		DependencyFrame.getInstance().addMethodFrame(newFrame);
+		JVMStackSingleton.getInstance().pushFrame(newFrame);
 
 		return null;// return a 1 letting the main know to execute next method
 

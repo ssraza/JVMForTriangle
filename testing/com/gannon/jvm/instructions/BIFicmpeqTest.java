@@ -11,9 +11,15 @@ import org.objectweb.asm.Label;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLabel;
+import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.data.dependency.BinNode;
+import com.gannon.jvm.data.dependency.BinPredicateNode;
+import com.gannon.jvm.data.dependency.Dependency;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.progam.path.TestPath;
 
 public class BIFicmpeqTest {
 
@@ -196,5 +202,54 @@ public class BIFicmpeqTest {
 		String result = instance.getOpCodeCommand();
 		assertEquals(expResult, result);
 	}
+	
+	@Test
+	public void testDependcy(){
+		Label newLabel = new Label();
+		BLabel label = new BLabel(newLabel);
+		Stack<String> operandStack = new Stack<String>();
+		operandStack.add("5");
+		operandStack.add("5");
+
+		DependencyFrame dependency = new DependencyFrame();
+		dependency.setTempVariableStack(operandStack);
+		TestPath targetPath = new TestPath();
+		BMethod method = new BMethod(1, "", "(III)I");
+		
+		BLocalVariable localvar1 = new BLocalVariable("i", "I", null, 0); 
+		method.addLocalVariableTable(localvar1);
+		BLocalVariable localvar2 = new BLocalVariable("j", "I", null, 1); 
+		method.addLocalVariableTable(localvar2);
+		BLocalVariable localvar3 = new BLocalVariable("k", "I", null, 2); 
+		method.addLocalVariableTable(localvar3);
+		BLocalVariable localvar4 = new BLocalVariable("l", "I", null, 3); 
+		method.addLocalVariableTable(localvar4);
+		BLocalVariable localvar5 = new BLocalVariable("m", "I", null, 4); 
+		method.addLocalVariableTable(localvar5);
+		BLocalVariable localvar6 = new BLocalVariable("n", "I", null, 5); 
+		method.addLocalVariableTable(localvar6);
+		
+		targetPath.setbMethod(method);
+		dependency.setTargetPath(targetPath);
+		dependency.initParameterRelation();
+		
+
+		BPredicateInstruction ifEqual=new BIFicmpeq(label, 2);
+		ifEqual.analyzing(dependency);
+		Dependency actualTree=dependency.getRelations().getRelation(7);
+		actualTree.inorderBST();
+
+		BinNode rightNode= new BinNode("5");
+		BinNode leftNode= new BinNode("5");
+		BinPredicateNode rootNode=new BinPredicateNode("1000");
+		Dependency expectedTree=new Dependency(rootNode, ifEqual);
+		
+		expectedTree.insertToLeft(leftNode);
+		expectedTree.insertToRight(rightNode);
+		expectedTree.inorderBST();
+
+		assertEquals(expectedTree.getAllLeaves(), actualTree.getAllLeaves());
+	}
+
 
 }

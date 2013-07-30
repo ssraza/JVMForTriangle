@@ -25,7 +25,7 @@ import com.gannon.jvm.progam.path.TestPath;
 
 public class TrianglePathBuilderUtility {
 	public static ArrayList<Object> createPathID1_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(6);
 		input.add(6);
@@ -34,7 +34,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID2_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(5);
 		input.add(5);
@@ -43,7 +43,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID3_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
 		input.add(5);
@@ -52,7 +52,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID4_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
 		input.add(5);
@@ -61,7 +61,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID5_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
 		input.add(4);
@@ -70,7 +70,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID6_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(5);
 		input.add(4);
@@ -79,7 +79,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID7_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
 		input.add(5);
@@ -88,7 +88,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID8_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(4);
 		input.add(5);
@@ -97,7 +97,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID9_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(14);
 		input.add(11);
@@ -106,7 +106,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID10_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(14);
 		input.add(6);
@@ -115,7 +115,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID11_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(14);
 		input.add(60);
@@ -124,7 +124,7 @@ public class TrianglePathBuilderUtility {
 	}
 
 	public static ArrayList<Object> createPathID12_input() {
-		ArrayList<Object> input = new ArrayList<>();
+		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
 		input.add(14);
 		input.add(6);

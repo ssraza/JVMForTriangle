@@ -30,7 +30,10 @@ public class DependencyFrame {
 		if (targetPath == null) {
 			System.out.print("Add a target path to the relation frame before analyzing dependency!");
 		} else {
-			int numberOfPara = targetPath.getbMethod().getNumberOfParameter();
+			//int numberOfPara = targetPath.getbMethod().getNumberOfParameter();
+			int numberOfPara = targetPath.getbMethod().getMethodParameter();
+			System.out.println("numberOfPara "+numberOfPara);
+			
 			//0 is never used
 			for (int i = 0; i <= numberOfPara; i++) {
 				relations.add(new Dependency(new BinNode(Integer.toString(i))));

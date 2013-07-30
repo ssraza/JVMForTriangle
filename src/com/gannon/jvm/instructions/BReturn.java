@@ -5,6 +5,7 @@ import java.util.Stack;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
+import com.gannon.jvm.utilities.OpcodeUtility;
 
 public class BReturn extends Return {
 
@@ -18,7 +19,7 @@ public class BReturn extends Return {
 
 	public Object execute(BFrame activeFrame) {
 		Integer pc = activeFrame.getLineNumber();
-		activeFrame.setLineNumber(++pc);
+		activeFrame.setLineNumber(OpcodeUtility.END_INSTRUCTION_FLAG);
 		return null;// return a null letting main know to execute next method
 	}
 

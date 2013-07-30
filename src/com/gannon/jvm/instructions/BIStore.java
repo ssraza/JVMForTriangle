@@ -19,7 +19,7 @@ public class BIStore extends BInstruction {
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
-
+		
 		Integer pc = activeFrame.getLineNumber();
 		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
 		// TOS and store in frame at operand1 location
@@ -42,9 +42,10 @@ public class BIStore extends BInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame dependency) {
-//		Stack<String> myOperandStack = dependency.getTempVariableStack();
-//		myOperandStack.pop();
-//		dependency.setTempVariableStack(myOperandStack);
+		Stack<String> myOperandStack = dependency.getTempVariableStack();
+		
+		//pop TOS
+		myOperandStack.pop();
 	}
 
 	@Override

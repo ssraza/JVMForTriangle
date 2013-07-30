@@ -11,9 +11,9 @@ public class Hello {
 	}
 
 	public int plusFive(int i) {
-		// int k = i + 5;
-		int n = callee(i, 10);
-		return n;
+		 int k = i + 5;
+		//int n = callee(i, 10);
+		return k;
 	}
 
 	public int callee(int i, int j) {
@@ -24,8 +24,8 @@ public class Hello {
 
 	}
 
-	public void callee2(int i, int j) {
-		int n = i + j;
+	public int callee2(int i, int j) {
+		return i + j;
 	}
 
 	public int add1(int i) {

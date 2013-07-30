@@ -6,8 +6,11 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.progam.path.TestPath;
 
 public class BIReturnTest {
 
@@ -83,4 +86,19 @@ public class BIReturnTest {
 		assertEquals(expResult, result);
 	}
 
+	@Test
+	public void testDependency() {
+		DependencyFrame dependency = new DependencyFrame();
+		TestPath targetPath = new TestPath();
+		BMethod method = new BMethod(1, "", "(III)I");
+		targetPath.setbMethod(method);
+		dependency.setTargetPath(targetPath);
+		dependency.initParameterRelation();
+		dependency.getTempVariableStack().push("6");
+		BIReturn iReturn = new BIReturn(10);
+		iReturn.analyzing(dependency);
+		Stack<String> resultStack = dependency.getTempVariableStack();
+		//String result = resultStack.peek();
+		assertEquals(new Stack<>(), resultStack);
+	}
 }
