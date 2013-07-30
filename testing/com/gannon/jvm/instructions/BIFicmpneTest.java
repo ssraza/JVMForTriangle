@@ -262,7 +262,7 @@ public class BIFicmpneTest {
 
 		BPredicateInstruction ifNEqual=new BIFicmpne(label, 2);
 		ifNEqual.analyzing(dependency);
-		Dependency actualTree=dependency.getRelations().getRelation(7);
+		Dependency actualTree=dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
 		actualTree.inorderBST();
 
 		BinNode rightNode= new BinNode("8");

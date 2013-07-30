@@ -232,11 +232,10 @@ public class BIFicmpeqTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
-		
 
 		BPredicateInstruction ifEqual=new BIFicmpeq(label, 2);
 		ifEqual.analyzing(dependency);
-		Dependency actualTree=dependency.getRelations().getRelation(7);
+		Dependency actualTree=dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
 		actualTree.inorderBST();
 
 		BinNode rightNode= new BinNode("5");

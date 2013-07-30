@@ -1,5 +1,10 @@
 package com.gannon.jvm.data.dependency;
 
+import java.util.ArrayList;
+
+import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.path.PathExecutor;
+import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.progam.path.TestPath;
 
 public class GannonPredicateTreeBuilderJVM {
@@ -9,6 +14,22 @@ public class GannonPredicateTreeBuilderJVM {
 	public GannonPredicateTreeBuilderJVM() {
 		super();
 	}
+	
+	
+	public void run(TestPath targetPath, ArrayList<Object> inputs) {
+		init(targetPath, inputs);
+		analyzer.execute(relationFrame);
+	}
+	
+	private void init(TestPath targetPath, ArrayList<Object> inputs) {
+		// crate active frame
+		BLocalVarTable localVariableTable = new BLocalVarTable(inputs);
+		relationFrame.setLocalVariableTable(localVariableTable);
+		
+		relationFrame.setTargetPath(targetPath);
+		relationFrame.initParameterRelation();
+
+	}
 
 	public void run(TestPath targetPath) {
 		// The analyzer only reads the path in a frame, here we use a rFrame
@@ -17,11 +38,13 @@ public class GannonPredicateTreeBuilderJVM {
 		// it is similar to BFrame for method execution
 		// relationFrame will collect all relations
 		init(targetPath);
+		System.out.println("======size==="+relationFrame.getLocalVariableTable().size());;
 		analyzer.execute(relationFrame);
 	}
 
 	private void init(TestPath targetPath) {
 		relationFrame.setTargetPath(targetPath);
+		//relationFrame.initInputs();
 		relationFrame.initParameterRelation();
 	}
 

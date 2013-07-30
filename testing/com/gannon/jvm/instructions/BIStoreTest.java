@@ -125,6 +125,6 @@ public class BIStoreTest {
 		iStore.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		//String result = resultStack.peek();
-		assertEquals(new Stack<>(), resultStack);
+		assertEquals(new Stack(), resultStack);
 	}
 }

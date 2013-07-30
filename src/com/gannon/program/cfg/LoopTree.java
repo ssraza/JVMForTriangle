@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class LoopTree {
 
     ArrayList<TNode> listOfTNodes = new ArrayList<TNode>();
+    ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
     ArrayList<String> nodeNameList = new ArrayList<String>();
     ArrayList<TNode> listOfTraversedTNodes = new ArrayList<TNode>();
     int xLevel;

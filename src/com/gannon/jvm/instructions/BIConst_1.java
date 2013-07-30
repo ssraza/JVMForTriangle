@@ -30,8 +30,12 @@ public class BIConst_1 extends BInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame fFrame) {
-		Stack<String> myOperandStack = fFrame.getTempVariableStack();
-		myOperandStack.add(new Integer(getOperand()).toString());
+		Stack<String> varibleNameStack = fFrame.getTempVariableStack();
+		varibleNameStack.add(new Integer(getOperand()).toString());
+		
+		//copied from  execute(PathFrame pathFrame) 
+//		Stack<Object> myOperandStack = fFrame.getOperandStack();
+//		myOperandStack.push(1);
 
 	}
 

@@ -101,19 +101,6 @@ public class BIAddTest {
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
 		
-		BLocalVariable localvar1 = new BLocalVariable("i", "I", null, 0); 
-		method.addLocalVariableTable(localvar1);
-		BLocalVariable localvar2 = new BLocalVariable("j", "I", null, 1); 
-		method.addLocalVariableTable(localvar2);
-		BLocalVariable localvar3 = new BLocalVariable("k", "I", null, 2); 
-		method.addLocalVariableTable(localvar3);
-		BLocalVariable localvar4 = new BLocalVariable("l", "I", null, 3); 
-		method.addLocalVariableTable(localvar4);
-		BLocalVariable localvar5 = new BLocalVariable("m", "I", null, 4); 
-		method.addLocalVariableTable(localvar5);
-		BLocalVariable localvar6 = new BLocalVariable("n", "I", null, 5); 
-		method.addLocalVariableTable(localvar6);
-		
 		
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
@@ -121,7 +108,7 @@ public class BIAddTest {
 
 		BIAdd iadd = new BIAdd(2);
 		iadd.analyzing(dependency);
-		Dependency actualTree = dependency.getRelations().getRelation(7);
+		Dependency actualTree = dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
 		//for testing only:void auto-generated ID
 		actualTree.getTheBTRootNode().setLocalVariableName("999999");
 		//actualTree.niceDisplay();

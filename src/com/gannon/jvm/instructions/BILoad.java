@@ -31,7 +31,6 @@ public class BILoad extends BInstruction {
 
 		// point to next instruction
 		activeFrame.setLineNumber((++pc));
-		activeFrame.setOperandStack(operandStack);
 		return null;
 	}
 
@@ -47,7 +46,13 @@ public class BILoad extends BInstruction {
 	public void analyzing(DependencyFrame rFrame) {
 		Stack<String> tempVariableStack = rFrame.getTempVariableStack();
 		tempVariableStack.push(getOperand().toString());
-		rFrame.setTempVariableStack(tempVariableStack);
+		
+		//same as execution, we need the value as well
+		BLocalVarTable myLocalVariableTable = rFrame.getLocalVariableTable();
+		Stack<Object> operandStack = rFrame.getOperandStack();
+
+		// push local value to top of stack
+	    //operandStack.push((Integer) myLocalVariableTable.getLocalVariable(operand1));
 	}
 
 	@Override

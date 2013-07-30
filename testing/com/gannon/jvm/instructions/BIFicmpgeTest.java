@@ -259,7 +259,7 @@ public class BIFicmpgeTest {
 		BPredicateInstruction ifGreater=new BIFicmpge(label, 2);
 		ifGreater.analyzing(dependency);
 		System.out.println(dependency.getRelations().getRelations());
-		Dependency actualTree=dependency.getRelations().getRelation(7);
+		Dependency actualTree=dependency.getRelations().getRelation(method.getNumberOfParameter()+1);
 		actualTree.inorderBST();
 
 		BinNode rightNode= new BinNode("5");

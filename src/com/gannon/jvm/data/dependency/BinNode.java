@@ -5,6 +5,7 @@ import com.gannon.jvm.utilities.OpcodeUtility;
 //binary tree node
 public class BinNode {
 	private String localVariableName;
+	private Object localVariableValue;
 	private BinNode leftBNode, rightBNode;
 
 	public BinNode(String localVariableName) {
@@ -20,6 +21,14 @@ public class BinNode {
 
 	public String getLocalVariableName() {
 		return localVariableName;
+	}
+
+	public Object getLocalVariableValue() {
+		return localVariableValue;
+	}
+
+	public void setLocalVariableValue(Object localVariableValue) {
+		this.localVariableValue = localVariableValue;
 	}
 
 	public BinNode getLeftBNode() {

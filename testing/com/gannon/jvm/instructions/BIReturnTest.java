@@ -99,6 +99,6 @@ public class BIReturnTest {
 		iReturn.analyzing(dependency);
 		Stack<String> resultStack = dependency.getTempVariableStack();
 		//String result = resultStack.peek();
-		assertEquals(new Stack<>(), resultStack);
+		assertEquals(new Stack(), resultStack);
 	}
 }
