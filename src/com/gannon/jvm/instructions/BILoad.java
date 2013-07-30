@@ -44,15 +44,15 @@ public class BILoad extends BInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> tempVariableStack = rFrame.getTempVariableStack();
-		tempVariableStack.push(getOperand().toString());
+		Stack<String> intermediateVariableStack = rFrame.getIntermediateVariableStack();
+		intermediateVariableStack.push(getOperand().toString());
 		
 		//same as execution, we need the value as well
 		BLocalVarTable myLocalVariableTable = rFrame.getLocalVariableTable();
 		Stack<Object> operandStack = rFrame.getOperandStack();
 
 		// push local value to top of stack
-	    //operandStack.push((Integer) myLocalVariableTable.getLocalVariable(operand1));
+	    operandStack.push((Integer) myLocalVariableTable.getLocalVariable(operand1));
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class BIReturn extends Return {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> myOperandStack = rFrame.getTempVariableStack();
+		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
 		myOperandStack.pop();
 	}
 

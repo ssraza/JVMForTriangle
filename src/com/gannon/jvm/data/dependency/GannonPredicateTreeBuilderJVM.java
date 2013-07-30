@@ -17,11 +17,11 @@ public class GannonPredicateTreeBuilderJVM {
 	
 	
 	public void run(TestPath targetPath, ArrayList<Object> inputs) {
-		init(targetPath, inputs);
+		initDependencyFrame(targetPath, inputs);
 		analyzer.execute(relationFrame);
 	}
 	
-	private void init(TestPath targetPath, ArrayList<Object> inputs) {
+	private void initDependencyFrame(TestPath targetPath, ArrayList<Object> inputs) {
 		// crate active frame
 		BLocalVarTable localVariableTable = new BLocalVarTable(inputs);
 		relationFrame.setLocalVariableTable(localVariableTable);
@@ -37,14 +37,13 @@ public class GannonPredicateTreeBuilderJVM {
 		// dependency
 		// it is similar to BFrame for method execution
 		// relationFrame will collect all relations
-		init(targetPath);
-		System.out.println("======size==="+relationFrame.getLocalVariableTable().size());;
+		initDependencyFrame(targetPath);
 		analyzer.execute(relationFrame);
 	}
 
-	private void init(TestPath targetPath) {
+	private void initDependencyFrame(TestPath targetPath) {
 		relationFrame.setTargetPath(targetPath);
-		//relationFrame.initInputs();
+		relationFrame.initInputs();
 		relationFrame.initParameterRelation();
 	}
 

@@ -92,10 +92,10 @@ public class BReturnTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
-		dependency.getTempVariableStack().push("6");
+		dependency.getIntermediateVariableStack().push("6");
 		BReturn retrn = new BReturn(10);
 		retrn.analyzing(dependency);
-		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableStack();
 		//String result = resultStack.peek();
 		assertEquals(new Stack(), resultStack);
 	}

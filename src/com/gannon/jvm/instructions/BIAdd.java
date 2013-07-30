@@ -34,7 +34,7 @@ public class BIAdd extends BInstruction  {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> myOperandStack =rFrame.getTempVariableStack();
+		Stack<String> myOperandStack =rFrame.getIntermediateVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
 		BinNode rootNode=new BinNode(Integer.toString(OpcodeUtility.getNextID()));

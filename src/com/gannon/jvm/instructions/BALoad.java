@@ -40,7 +40,7 @@ public class BALoad extends BInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame dependency) {
-		Stack<String> myOperandStack =dependency.getTempVariableStack();
+		Stack<String> myOperandStack =dependency.getIntermediateVariableStack();
 		myOperandStack.add(new Integer(getOperand()).toString());
 	}
 

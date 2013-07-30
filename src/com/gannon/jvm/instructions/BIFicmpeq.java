@@ -51,7 +51,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> myOperandStack = rFrame.getTempVariableStack();
+		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop());
 		BinNode leftNode= new BinNode(myOperandStack.pop());
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));

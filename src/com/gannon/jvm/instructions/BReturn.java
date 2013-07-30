@@ -37,7 +37,7 @@ public class BReturn extends Return {
 
 	@Override
 	public void analyzing(DependencyFrame dependency) {
-		Stack<String> myOperandStack = dependency.getTempVariableStack();
+		Stack<String> myOperandStack = dependency.getIntermediateVariableStack();
 		myOperandStack.pop();
 	}
 

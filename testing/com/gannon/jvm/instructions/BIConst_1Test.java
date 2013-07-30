@@ -64,7 +64,7 @@ public class BIConst_1Test {
 		dependency.initParameterRelation();
 		BIConst_1 iConst1 = new BIConst_1(0);
 		iConst1.analyzing(dependency);
-		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("1");
 		assertEquals(expectedStack, resultStack);

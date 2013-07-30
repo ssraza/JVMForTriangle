@@ -64,7 +64,7 @@ public class BIConst_4Test {
 		dependency.initParameterRelation();
 		BIConst_4 iConst4 = new BIConst_4(0);
 		iConst4.analyzing(dependency);
-		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("4");
 		assertEquals(expectedStack, resultStack);

@@ -120,10 +120,10 @@ public class BIStoreTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
-		dependency.getTempVariableStack().push("6");
+		dependency.getIntermediateVariableStack().push("6");
 		BIStore iStore = new BIStore(10,10);
 		iStore.analyzing(dependency);
-		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableStack();
 		//String result = resultStack.peek();
 		assertEquals(new Stack(), resultStack);
 	}

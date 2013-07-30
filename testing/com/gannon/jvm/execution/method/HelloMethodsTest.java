@@ -14,7 +14,7 @@ import com.gannon.jvm.utilities.ConstantsUtility;
 public class HelloMethodsTest {
 
 	@Test
-	public void testAdditionMethodCallingMethod() {
+	public void testAdditionMethodCallingMethodTwoLevel() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Hello.class");
 		BMethod m = myclass.getMethod("intCaller");

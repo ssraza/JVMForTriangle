@@ -6,10 +6,9 @@ import java.util.ArrayList;
 public class LoopTree {
 
     ArrayList<TNode> listOfTNodes = new ArrayList<TNode>();
-    ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
+    ArrayList<TEdge> listOfEdges = new ArrayList<TEdge>();
     ArrayList<String> nodeNameList = new ArrayList<String>();
     ArrayList<TNode> listOfTraversedTNodes = new ArrayList<TNode>();
-    int xLevel;
     ArrayList<TNode> listOfSearchedTNode = new ArrayList<TNode>();
     ArrayList<TNode> listOfTwoWayTNodes = new ArrayList<TNode>();
     ArrayList<TNode> listOfTNodesToBeTraversed = new ArrayList<TNode>();
@@ -23,6 +22,7 @@ public class LoopTree {
 
             int index = 1; // starting from 1 to skip first line
 
+            // Processing all input lines
             while (index < listOfLines.length) {
             	String currentLine = listOfLines[index];
                 String[] listOfStrings; // Array of strings
@@ -38,6 +38,7 @@ public class LoopTree {
                     listOfTNodes.add(newTNode);
                 }
 
+                // Processing all nodes in the current line
                 for (int j = 1; j < listOfStrings.length; j++) {
                     nodeNameList.add(listOfStrings[j]);
 
@@ -47,11 +48,10 @@ public class LoopTree {
                         listOfTNodes.add(childTNode);
                     }
 
-                    if (newTNode.getLeft() == null) {
-                        newTNode.setLeft(childTNode);
-                    } else {
-                        newTNode.setRight(childTNode);
-                    }
+                    // creating new TEdge
+                    TEdge newTEdge = new TEdge(newTNode, childTNode);
+                    // adding new TEdge to list of edges
+                    listOfEdges.add(newTEdge);
                 }
                 
                 index++;

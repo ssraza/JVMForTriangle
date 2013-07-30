@@ -212,7 +212,7 @@ public class BIFicmpeqTest {
 		operandStack.add("5");
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setTempVariableStack(operandStack);
+		dependency.setIntermediateVariableStack(operandStack);
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
 		

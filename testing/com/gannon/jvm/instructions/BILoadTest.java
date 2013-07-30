@@ -134,11 +134,12 @@ public class BILoadTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
-		BILoad iLoad = new BILoad(4,0); 
+		dependency.initInputs();
+		BILoad iLoad = new BILoad(2,0); 
 		iLoad.analyzing(dependency);
-		Stack<String> resultStack = dependency.getTempVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableStack();
 		Stack<String> expectedStack = new Stack<String>();
-		expectedStack.push("4");
+		expectedStack.push("2");
 		assertEquals(expectedStack, resultStack);
 	}
 }

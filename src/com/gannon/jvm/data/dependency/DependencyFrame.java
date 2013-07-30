@@ -18,7 +18,7 @@ public class DependencyFrame {
 	// a given path for analyzing predicate dependency
 	private TestPath targetPath;
 	private Dependencies relations = new Dependencies();;
-	// This stack works same as operand Stack for generating relations.
+	// intermediate variables
 	private Stack<String> tempVariableStack = new Stack<String>();
 
 	// for operand
@@ -85,11 +85,11 @@ public class DependencyFrame {
 		this.relations = relations;
 	}
 
-	public Stack<String> getTempVariableStack() {
+	public Stack<String> getIntermediateVariableStack() {
 		return tempVariableStack;
 	}
 
-	public void setTempVariableStack(Stack<String> tempVariableStack) {
+	public void setIntermediateVariableStack(Stack<String> tempVariableStack) {
 		this.tempVariableStack = tempVariableStack;
 	}
 
