@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class Block {
-
 	private ArrayList<BInstruction> instructions = new ArrayList<BInstruction>();
-	private String owner;
+	private String owner;// which method?
 	private int id;
 
 	public Block(String owner, int id) {
@@ -22,16 +21,6 @@ public class Block {
 	public BInstruction getFirstLineInstruction() {
 		return instructions.get(0);
 	}
-
-	// public BInstruction getInstrctionBylineNumber(int lineNumber) {
-	// BInstruction result = null;
-	// for (BInstruction instr : instructions) {
-	// if (instr.getLineNumber() == lineNumber) {
-	// result = instr;
-	// }
-	// }
-	// return result;
-	// }
 
 	public boolean isContainLineNumber(int lineNumber) {
 		for (BInstruction instr : instructions) {
@@ -62,16 +51,16 @@ public class Block {
 		return instructions;
 	}
 
-	// public String toString() {
-	// String results = "Blocks info (ID):" + id + "\n";
-	// for (BInstruction instr : instructions) {
-	// results += instr.toStirng();
-	// }
-	// return results;
-	// }
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Blocks info (ID):" + id + "\n");
+		for (BInstruction instr : instructions) {
+			sb.append(instr);
+		}
+		return sb.toString();
+	}
 
 	public boolean hasInvoke() {
-		return instructions.size() == 1
-				&& instructions.get(0).getOpCodeCommand().contains("invoke");
+		return instructions.size() == 1 && instructions.get(0).getOpCodeCommand().contains("invoke");
 	}
 }
