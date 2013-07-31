@@ -3,11 +3,11 @@ package com.gannon.Graph.GraphGenerator;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.gannon.Graph.GraphObjects.Block;
-import com.gannon.Graph.GraphObjects.Frame;
-import com.gannon.Graph.GraphObjects.Graph;
-import com.gannon.Graph.GraphObjects.GraphObjectBuilder;
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.Block;
+import com.gannon.bytecode.controlflowgraph.Frame;
+import com.gannon.bytecode.controlflowgraph.Graph;
+import com.gannon.bytecode.controlflowgraph.GraphObjectBuilder;
 
 public class BuildCFG {
 	ArrayList<BMethod> methods = new ArrayList<BMethod>();

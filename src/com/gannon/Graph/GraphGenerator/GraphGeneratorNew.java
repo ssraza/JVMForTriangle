@@ -2,10 +2,10 @@ package com.gannon.Graph.GraphGenerator;
 
 import java.util.ArrayList;
 
-import com.gannon.Graph.GraphObjects.Graph;
-import com.gannon.Graph.GraphObjects.GraphObjectBuilder;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.Graph;
+import com.gannon.bytecode.controlflowgraph.GraphObjectBuilder;
 import com.gannon.main.InterfaceAPISingleton;
 
 public class GraphGeneratorNew {

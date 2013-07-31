@@ -94,7 +94,9 @@ public class BIReturnTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
+		dependency.initInputs();
 		dependency.getIntermediateVariableStack().push("6");
+		dependency.getValueStack().push("10");
 		BIReturn iReturn = new BIReturn(10);
 		iReturn.analyzing(dependency);
 		Stack<String> resultStack = dependency.getIntermediateVariableStack();

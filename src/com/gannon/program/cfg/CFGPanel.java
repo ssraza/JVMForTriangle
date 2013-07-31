@@ -67,59 +67,37 @@ public class CFGPanel extends GraphPanel {
             // getting node from listOfNodes
             Node node = findNode(tnode.getName());
 
-            // checking left child node
-            if (tnode.getLeft() != null) {
-                // getting node from listOfNodes
-                Node leftNode = findNode(tnode.getLeft().getName());
+            // getting list of child node for tnode
+            ArrayList<TNode> listOfChildNodes = cfgTree.getListOfChildNodes(tnode);
+            
+            // processing child nodes
+            for (int j = 0; j < listOfChildNodes.size(); j++) {
+            	TNode childNode = listOfChildNodes.get(j);
+            	// getting node from listOfNodes
+                Node graphNode = findNode(childNode.getName());
                 
-                int numberOfPaths = cfgTree.findLongestBetweenTwoNodes(tnode,tnode.getLeft());
-                System.out.println("path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + numberOfPaths);
+                int numberOfPaths = cfgTree.findLongestBetweenTwoNodes(tnode,childNode);
+               // System.out.println("path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + numberOfPaths);
                 
-                int longestPath = cfgTree.findLongestBetweenTwoNodes(tnode, tnode.getLeft());
-                System.out.println("Longest path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + longestPath);
+                int longestPath = cfgTree.findLongestBetweenTwoNodes(tnode, childNode);
+                //System.out.println("Longest path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + longestPath);
                 
                
-                if(tnode.getSetOfDominatorNodes().contains(tnode.getLeft().getName())){
+                if(tnode.getSetOfDominatorNodes().contains(childNode.getName())){
                     // Finding max path for loop edge
-                    int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( tnode.getLeft(),tnode);
+                    int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( childNode,tnode);
                      // adding an  invisible edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, leftNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPathForLoop);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPathForLoop);
                 }
                 //  checking if the edge is a branch statement (goto,if-then)
-                else if(tnode.getLeft().getSetOfDominatorNodes().contains(tnode.getName()) && (numberOfPaths > 1))
+                else if(childNode.getSetOfDominatorNodes().contains(tnode.getName()) && (numberOfPaths > 1))
                 {
                     // adding an edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, leftNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPath);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPath);
                     
                 }else{
-                    addEdge(node, leftNode, Color.BLUE, Color.YELLOW, 2.0f, true, "");
-                }
-            }
-            
-            // checking right child node
-            if (tnode.getRight() != null) {
-                // getting node from listOfNodes
-                Node rightNode = findNode(tnode.getRight().getName());
-
-                int numberOfPaths = cfgTree.getNumberOfPathsBetweenTwoNodes(tnode,tnode.getRight());
-                System.out.println("path between " + tnode.getName() + " and " + tnode.getRight().getName() + " is : " + numberOfPaths);
-                    
-                int longestPath = cfgTree.findLongestBetweenTwoNodes(tnode, tnode.getRight());
-                System.out.println("Longest path between " + tnode.getName() + " and " + tnode.getRight().getName() + " is : " + longestPath);
-               
-                
-                // adding an edge between the two nodes
-                if(tnode.getSetOfDominatorNodes().contains(tnode.getRight().getName())){
-                    // Finding max path for loop edge
-                    int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( tnode.getRight(),tnode);
-                    addEdgeWithNumberOfInvisibleNodes(node, rightNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPathForLoop);
-                }
-                else if(tnode.getRight().getSetOfDominatorNodes().contains(tnode.getName()) && (numberOfPaths > 1)){
-                    addEdgeWithNumberOfInvisibleNodes(node, rightNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPath);
-                }
-                else{                
-                  addEdge(node, rightNode, Color.BLUE, Color.YELLOW, 2.0f, true, "");
-                }
+                    addEdge(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "");
+                }   
             }
         }
 

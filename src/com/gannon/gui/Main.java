@@ -145,11 +145,11 @@ public class Main extends JFrame {
 		tabbedPane.addTab("CFG", null, scrollPaneCFG, null);
 		
 		JPanel panelCFG = new JPanel();
-		scrollPaneCFG.setViewportView(panelCFG);
+	//scrollPaneCFG.setViewportView(panelCFG);
 	
 		// creating CFG Panel ( width x height)
-		//CFGPanel cfgPanel = new CFGPanel(scrollPaneCFG.getWidth(),scrollPaneCFG.getHeight());	
-	//	scrollPaneCFG.setViewportView(cfgPanel);
+		CFGPanel cfgPanel = new CFGPanel(600,800);	
+		scrollPaneCFG.setViewportView(cfgPanel);
 		
 		//txtCfgHere = new JTextField();
 		//txtCfgHere.setText("CFG here2");

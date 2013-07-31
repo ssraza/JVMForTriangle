@@ -6,7 +6,7 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JFrame;
 import javax.swing.text.Position;
 
-import com.gannon.Graph.GraphObjects.Graph;
+import com.gannon.bytecode.controlflowgraph.Graph;
 
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 

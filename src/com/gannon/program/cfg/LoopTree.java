@@ -6,11 +6,8 @@ public class LoopTree {
 
 	ArrayList<TNode> listOfTNodes = new ArrayList<TNode>();
 	ArrayList<TEdge> listOfEdges = new ArrayList<TEdge>();
-	ArrayList<String> nodeNameList = new ArrayList<String>();
-	ArrayList<TNode> listOfTraversedTNodes = new ArrayList<TNode>();
+	
 	ArrayList<TNode> listOfSearchedTNode = new ArrayList<TNode>();
-	ArrayList<TNode> listOfTwoWayTNodes = new ArrayList<TNode>();
-	ArrayList<TNode> listOfTNodesToBeTraversed = new ArrayList<TNode>();
 	private int totalPaths;
 
 	public LoopTree(String inputText) {
@@ -30,9 +27,6 @@ public class LoopTree {
 														// to get the list of
 														// nodes
 
-				// adding first string to nodeNameList
-				nodeNameList.add(listOfStrings[0]);
-
 				// creating new tnode
 				TNode newTNode = findTNode(listOfStrings[0]);
 				if (newTNode == null) {
@@ -42,8 +36,6 @@ public class LoopTree {
 
 				// Processing all nodes in the current line
 				for (int j = 1; j < listOfStrings.length; j++) {
-					nodeNameList.add(listOfStrings[j]);
-
 					TNode childTNode = findTNode(listOfStrings[j]);
 					if (childTNode == null) {
 						childTNode = new TNode(listOfStrings[j]);
@@ -97,10 +89,6 @@ public class LoopTree {
 		return null;
 	}
 
-	public void initLoopTree() {
-		listOfTraversedTNodes.clear();
-	}
-
 	public boolean isLeafTNode(TNode node) {
 		// processing all edges
 		for (int i = 0; i < listOfEdges.size(); i++) {
@@ -110,27 +98,6 @@ public class LoopTree {
 			}
 		}
 		return true;
-	}
-
-	public Boolean isAlreadyTraversed(TNode node) {
-		if (listOfTraversedTNodes.indexOf(node) >= 0) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean isChildOfTraversedTNode(TNode node) {
-		for (int i = 0; i < listOfTraversedTNodes.size(); i++) {
-			TNode parentTNode = listOfTraversedTNodes.get(i);
-			for (int j = 0; j < listOfEdges.size(); j++) {
-				TEdge currentEdge = listOfEdges.get(j);
-				if (currentEdge.getSourceTNode() == parentTNode
-						&& currentEdge.getTargetTNode() == node) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	public boolean searchTNode(TNode parentTNode, String nodeName) {
@@ -155,10 +122,6 @@ public class LoopTree {
 				return isFound;
 			}
 		}
-	}
-
-	public boolean isGoingToBeTraversedByParentTNode(TNode node) {
-		return listOfTNodesToBeTraversed.indexOf(node) >= 0;
 	}
 
 	public boolean isChildOfTNode(TNode parentTNode, TNode startTNode,
@@ -272,12 +235,12 @@ public class LoopTree {
 
 				} else if (!currentPath.contains(childNode)) {
 					currentPath.add(currentNode);
-					newLongestPath = processGetLongestPath(endNode,
-							childNode, currentPath, longestPath);
+					newLongestPath = processGetLongestPath(endNode, childNode,
+							currentPath, longestPath);
 					currentPath.remove(currentNode);
 				}
 			}
-			
+
 			if (newLongestPath > longestPath) {
 				longestPath = newLongestPath;
 			}
@@ -291,4 +254,17 @@ public class LoopTree {
 		return processGetLongestPath(node2, node1, currentPath, 0);
 	}
 
+	public ArrayList<TNode> getListOfChildNodes(TNode parentNode) {
+		ArrayList<TNode> listOfChildNodes = new ArrayList<TNode>();
+		// finding and processing child nodes
+		for (int j = 0; j < listOfEdges.size(); j++) {
+			TEdge currentEdge = listOfEdges.get(j);
+			// checking if current node is source node for current edge
+			if (currentEdge.getSourceTNode() == parentNode) {
+				// adding child node to list of nodes
+				listOfChildNodes.add(currentEdge.getTargetTNode());
+			}
+		}
+		return listOfChildNodes;
+	}
 }
