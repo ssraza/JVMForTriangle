@@ -41,7 +41,8 @@ public class PathExecutor<T> {
 					endOfPathFlag = true;
 				} else if (node.isBPredicateNode()&& !((PredicateNode) node).isIgnore()) {
 					((PredicateNode) node).setActualPredicateResult((Boolean) result);
-
+				
+					
 					// if the actual predicate result is not equal to expected
 					// results , we need to generate a new value to pass the
 					// node and the predicate as ignored for next time execution

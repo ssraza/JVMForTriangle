@@ -1,6 +1,5 @@
 package com.gannon.program.cfg;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class LoopTree {
@@ -118,103 +117,20 @@ public class LoopTree {
 			return true;
 		}
 		return false;
-
 	}
 
 	public boolean isChildOfTraversedTNode(TNode node) {
 		for (int i = 0; i < listOfTraversedTNodes.size(); i++) {
 			TNode parentTNode = listOfTraversedTNodes.get(i);
-			if (parentTNode.getLeft() == node) {
-				return true;
-			} else if (parentTNode.getRight() == node) {
-				return true;
-
+			for (int j = 0; j < listOfEdges.size(); j++) {
+				TEdge currentEdge = listOfEdges.get(j);
+				if (currentEdge.getSourceTNode() == parentTNode
+						&& currentEdge.getTargetTNode() == node) {
+					return true;
+				}
 			}
 		}
 		return false;
-
-	}
-
-	public void LoopTree(int yLevel, TNode currentTNode, boolean isInsideLoop) {
-
-		if (isAlreadyTraversed(currentTNode)
-				|| isGoingToBeTraversedByParentTNode(currentTNode)) {
-			currentTNode.setColor(Color.RED);
-			return;
-		} else {
-			listOfTraversedTNodes.add(currentTNode);
-		}
-
-		if (isLeafTNode(currentTNode)) {
-			currentTNode.setColor(Color.GREEN);
-		}
-
-		// checking if current node is a child of one of the two way points
-		if (listOfTwoWayTNodes.indexOf(currentTNode) >= 0) {
-			listOfTwoWayTNodes.remove(currentTNode);
-			isInsideLoop = false;
-		}
-
-		currentTNode.setLevel(xLevel, yLevel);
-
-		if ((currentTNode.getLeft() != null)
-				&& (currentTNode.getRight() != null)
-				&& !isGoingToBeTraversedByParentTNode(currentTNode.getRight())
-				&& !isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
-			// if right node is child of left node
-			if (isChildOfTNode(currentTNode, currentTNode.getLeft(),
-					currentTNode.getRight().getName()) && !isInsideLoop) {
-				++xLevel;
-				// adding node to list of two way nodes
-				listOfTwoWayTNodes.add(currentTNode.getRight());
-
-				if (isInsideLoop) {
-					LoopTree(++yLevel, currentTNode.getLeft(), false);
-				} else {
-					LoopTree(yLevel, currentTNode.getLeft(), true);
-				}
-			} else // if left node is child of right node
-			if (isChildOfTNode(currentTNode, currentTNode.getRight(),
-					currentTNode.getLeft().getName()) && !isInsideLoop) {
-				++xLevel;
-				// adding node to list of two way nodes
-				listOfTwoWayTNodes.add(currentTNode.getLeft());
-
-				if (isInsideLoop) {
-					LoopTree(++yLevel, currentTNode.getRight(), false);
-				} else {
-					LoopTree(yLevel, currentTNode.getRight(), true);
-				}
-			} else {
-				++xLevel;
-				if (isLeafTNode(currentTNode.getRight())) {
-					listOfTNodesToBeTraversed.add(currentTNode.getRight());
-					LoopTree(yLevel + 1, currentTNode.getLeft(), isInsideLoop);
-					listOfTNodesToBeTraversed.remove(currentTNode.getRight());
-					LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
-
-				} else {
-					// ---
-					listOfTNodesToBeTraversed.add(currentTNode.getLeft());
-					LoopTree(yLevel + 1, currentTNode.getRight(), false);
-					listOfTNodesToBeTraversed.remove(currentTNode.getLeft());
-					LoopTree(yLevel, currentTNode.getLeft(), false);
-
-				}
-
-			}
-
-		} else if (currentTNode.getLeft() != null) {
-			if (isGoingToBeTraversedByParentTNode(currentTNode.getLeft())) {
-				++xLevel;
-				LoopTree(yLevel, currentTNode.getRight(), isInsideLoop);
-			} else {
-				++xLevel;
-				LoopTree(yLevel, currentTNode.getLeft(), isInsideLoop);
-			}
-
-		}
-
 	}
 
 	public boolean searchTNode(TNode parentTNode, String nodeName) {
@@ -227,16 +143,17 @@ public class LoopTree {
 			if (parentTNode.getName().equals(nodeName)) {
 				return true;
 			} else {
-				if (parentTNode.getLeft() != null
-						&& parentTNode.getRight() != null) {
-					return searchTNode(parentTNode.getLeft(), nodeName)
-							|| searchTNode(parentTNode.getRight(), nodeName);
-				} else if (parentTNode.getLeft() != null) {
-					return searchTNode(parentTNode.getLeft(), nodeName);
+				boolean isFound = false;
+				for (int j = 0; j < listOfEdges.size(); j++) {
+					TEdge currentEdge = listOfEdges.get(j);
+					if (currentEdge.getSourceTNode() == parentTNode) {
+						isFound |= searchTNode(currentEdge.getTargetTNode(),
+								nodeName);
+					}
 				}
 
+				return isFound;
 			}
-			return false;
 		}
 	}
 
@@ -268,64 +185,61 @@ public class LoopTree {
 			currentNode.getSetOfDominatorNodes().retainAll(
 					parentDominatorNodeList);
 			currentNode.getSetOfDominatorNodes().add(currentNode.getName());
-			if (currentNode.getLeft() != null
-					&& !currentNode.getSetOfDominatorNodes().contains(
-							currentNode.getLeft().getName())) {
-				setDominatorNodes(currentNode.getLeft(),
-						currentNode.getSetOfDominatorNodes());
-			}
-			if (currentNode.getRight() != null
-					&& !currentNode.getSetOfDominatorNodes().contains(
-							currentNode.getRight().getName())) {
-				setDominatorNodes(currentNode.getRight(),
-						currentNode.getSetOfDominatorNodes());
+			// finding and processing child nodes
+			for (int j = 0; j < listOfEdges.size(); j++) {
+				TEdge currentEdge = listOfEdges.get(j);
+				// checking if current node is source node for current edge
+				if (currentEdge.getSourceTNode() == currentNode) {
+					// getting child node
+					TNode childNode = currentEdge.getTargetTNode();
+					if (!currentNode.getSetOfDominatorNodes().contains(
+							childNode.getName())) {
+						setDominatorNodes(childNode,
+								currentNode.getSetOfDominatorNodes());
+					}
+				}
 			}
 		} else {
 			currentNode.setIsSetOfDominatorNodesAdded(true);
 			currentNode.getSetOfDominatorNodes().add(currentNode.getName());
 			currentNode.getSetOfDominatorNodes()
 					.addAll(parentDominatorNodeList);
-			if (currentNode.getLeft() != null
-					&& !currentNode.getSetOfDominatorNodes().contains(
-							currentNode.getLeft().getName())) {
-				setDominatorNodes(currentNode.getLeft(),
-						currentNode.getSetOfDominatorNodes());
-			}
-			if (currentNode.getRight() != null
-					&& !currentNode.getSetOfDominatorNodes().contains(
-							currentNode.getRight().getName())) {
-				setDominatorNodes(currentNode.getRight(),
-						currentNode.getSetOfDominatorNodes());
+
+			// finding and processing child nodes
+			for (int j = 0; j < listOfEdges.size(); j++) {
+				TEdge currentEdge = listOfEdges.get(j);
+				// checking if current node is source node for current edge
+				if (currentEdge.getSourceTNode() == currentNode) {
+					// getting child node
+					TNode childNode = currentEdge.getTargetTNode();
+					if (!currentNode.getSetOfDominatorNodes().contains(
+							childNode.getName())) {
+						setDominatorNodes(childNode,
+								currentNode.getSetOfDominatorNodes());
+					}
+				}
 			}
 		}
-
 	}
 
 	private void processGetNumberOfNodes(TNode endNode, TNode currentNode,
 			ArrayList<TNode> currentPath) {
-		// processing left child node
-		if (currentNode.getLeft() != null) {
-			if (currentNode.getLeft() == endNode) {
-				totalPaths += 1;
-			} else if (!currentPath.contains(currentNode.getLeft())) {
-				currentPath.add(currentNode);
-				processGetNumberOfNodes(endNode, currentNode.getLeft(),
-						currentPath);
-				currentPath.remove(currentNode);
+		// finding and processing child nodes
+		for (int j = 0; j < listOfEdges.size(); j++) {
+			TEdge currentEdge = listOfEdges.get(j);
+			// checking if current node is source node for current edge
+			if (currentEdge.getSourceTNode() == currentNode) {
+				// getting child node
+				TNode childNode = currentEdge.getTargetTNode();
+				if (childNode == endNode) {
+					totalPaths += 1;
+				} else if (!currentPath.contains(childNode)) {
+					currentPath.add(currentNode);
+					processGetNumberOfNodes(endNode, childNode, currentPath);
+					currentPath.remove(currentNode);
+				}
 			}
 		}
-		// processing right child node
-		if (currentNode.getRight() != null) {
-			if (currentNode.getRight() == endNode) {
-				totalPaths += 1;
-			} else if (!currentPath.contains(currentNode.getRight())) {
-				currentPath.add(currentNode);
-				processGetNumberOfNodes(endNode, currentNode.getRight(),
-						currentPath);
-				currentPath.remove(currentNode);
-			}
-		}
-
 		return;
 	}
 
@@ -342,45 +256,32 @@ public class LoopTree {
 			ArrayList<TNode> currentPath, int longestPath) {
 		int newLongestPath = 0;
 
-		// processing left child node
-		if (currentNode.getLeft() != null) {
-			if (currentNode.getLeft() == endNode) {
-				// checking if current path count is bigger than longestPath
-				if (currentPath.size() > longestPath) {
-					longestPath = currentPath.size();
-				}
+		// finding and processing child nodes
+		for (int j = 0; j < listOfEdges.size(); j++) {
+			TEdge currentEdge = listOfEdges.get(j);
+			// checking if current node is source node for current edge
+			if (currentEdge.getSourceTNode() == currentNode) {
+				// getting child node
+				TNode childNode = currentEdge.getTargetTNode();
 
-			} else if (!currentPath.contains(currentNode.getLeft())) {
-				currentPath.add(currentNode);
-				newLongestPath = processGetLongestPath(endNode,
-						currentNode.getLeft(), currentPath, longestPath);
-				currentPath.remove(currentNode);
+				if (childNode == endNode) {
+					// checking if current path count is bigger than longestPath
+					if (currentPath.size() > longestPath) {
+						longestPath = currentPath.size();
+					}
+
+				} else if (!currentPath.contains(childNode)) {
+					currentPath.add(currentNode);
+					newLongestPath = processGetLongestPath(endNode,
+							childNode, currentPath, longestPath);
+					currentPath.remove(currentNode);
+				}
+			}
+			
+			if (newLongestPath > longestPath) {
+				longestPath = newLongestPath;
 			}
 		}
-
-		if (newLongestPath > longestPath) {
-			longestPath = newLongestPath;
-		}
-
-		// processing right child node
-		if (currentNode.getRight() != null) {
-			if (currentNode.getRight() == endNode) {
-				// checking if current path count is bigger than longestPath
-				if (currentPath.size() > longestPath) {
-					longestPath = currentPath.size();
-				}
-			} else if (!currentPath.contains(currentNode.getRight())) {
-				currentPath.add(currentNode);
-				newLongestPath = processGetLongestPath(endNode,
-						currentNode.getRight(), currentPath, longestPath);
-				currentPath.remove(currentNode);
-			}
-		}
-
-		if (newLongestPath > longestPath) {
-			longestPath = newLongestPath;
-		}
-
 		return longestPath;
 	}
 

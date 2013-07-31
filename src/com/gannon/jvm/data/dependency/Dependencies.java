@@ -2,6 +2,8 @@ package com.gannon.jvm.data.dependency;
 
 import java.util.ArrayList;
 
+import com.gannon.jvm.instructions.BInstruction;
+
 public class Dependencies {
 	private ArrayList<Dependency> relations = new ArrayList<Dependency>();
 
@@ -26,6 +28,15 @@ public class Dependencies {
 		for (Dependency r : relations) {
 			if (r.getTheBTRootNode().equals(variableNode)) {
 				return r;
+			}
+		}
+		return null;
+	}
+	
+	public Dependency findRelation(BInstruction instr) {
+		for (Dependency r : relations) {
+			if (r.getInst()!=null && r.getInst().equals(instr)) {
+				return r; 
 			}
 		}
 		return null;

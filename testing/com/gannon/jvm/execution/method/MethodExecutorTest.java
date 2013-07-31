@@ -1030,7 +1030,7 @@ public class MethodExecutorTest {
 		assertEquals(new Integer(9), finalAddtion);
 	}
 	
-	@Test
+	/*@Test
 	public void testAdditionMethodCallingMethod() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Hello.class");
@@ -1061,5 +1061,5 @@ public class MethodExecutorTest {
 		
 		//assertion
 		assertEquals(new Integer(10), finalAddtion);
-	}
+	}*/
 }

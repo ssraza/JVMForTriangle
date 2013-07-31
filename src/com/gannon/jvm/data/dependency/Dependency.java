@@ -58,6 +58,7 @@ public class Dependency {
 	public boolean isParamterRelation() {
 		return Integer.parseInt(theBTRootNode.getVariableName()) < OpcodeUtility.MAX_PARAMETER_ID_ALLOWED;
 	}
+	
 
 	// ------------------ InOrder traversal-------------------
 	protected void inorder(BinNode theRootNode) {
@@ -102,6 +103,7 @@ public class Dependency {
 	// ------------------display nicely to string---------------------------
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
+		sb.append("Instruction in relation: "+inst+"\n");
 		traverse(0, theBTRootNode,sb);
 		return sb.toString();
 	}
