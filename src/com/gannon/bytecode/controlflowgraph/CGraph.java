@@ -29,7 +29,7 @@ public final class CGraph {
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
 	}
-	
+
 	public CGraph(String inputText) {
 		super();
 		try {
@@ -48,34 +48,34 @@ public final class CGraph {
 														// nodes
 
 				// getting block id from string
-				int blockID= Integer.parseInt(listOfLines[0]);
-				
+				int blockID = Integer.parseInt(listOfLines[0]);
+
 				// creating new block
-				Block newNodeBlock = new Block(blockID);
-				
+				CBlock newNodeBlock = new CBlock(blockID);
+
 				// creating new node
 				CNode newNode = newCNode(newNodeBlock);
-				
+
 				index++;
 			}
-			
+
 			index = 1;
 			// adding all edges
-			while (index < listOfLines.length) 
-			{
+			while (index < listOfLines.length) {
 				String currentLine = listOfLines[index];
 				String[] listOfStrings; // Array of strings
 				listOfStrings = currentLine.split(" "); // splitting the string
 														// to get the list of
 														// nodes
 				// getting parent node for current line which is the first node
-				CNode parentNode = getCNode(Integer.parseInt(listOfLines[0]));;
-				
+				CNode parentNode = getCNode(Integer.parseInt(listOfLines[0]));
+				;
+
 				// Processing all nodes in the current line after the first node
 				for (int j = 1; j < listOfStrings.length; j++) {
 					// getting block id from string
-					int newBlockID= Integer.parseInt(listOfLines[j]);
-					//getting child node
+					int newBlockID = Integer.parseInt(listOfLines[j]);
+					// getting child node
 					CNode childNode = getCNode(newBlockID);
 					// creating new edge
 					newCEdge(parentNode, childNode);
@@ -88,15 +88,15 @@ public final class CGraph {
 		}
 	}
 
-	public CNode getCNode(int nodeID){
-		 for (CNode n1 : this.nodes){
-			if(n1.equals(nodeID)){
+	public CNode getCNode(int nodeID) {
+		for (CNode n1 : this.nodes) {
+			if (n1.equals(nodeID)) {
 				return n1;
 			}
 		}
-		 return null;
+		return null;
 	}
-	
+
 	public CEdge addCEdge(final CEdge edge) {
 		if (this.edges.add(edge)) {
 			final CNode src = edge.getSource();
@@ -116,7 +116,9 @@ public final class CGraph {
 
 			} else {
 				this.edges.remove(edge);
-				throw new IllegalArgumentException("CNode/s in the given edge is/are unknown: " + edge.toString());
+				throw new IllegalArgumentException(
+						"CNode/s in the given edge is/are unknown: "
+								+ edge.toString());
 			}
 		}
 		return edge;
@@ -152,9 +154,11 @@ public final class CGraph {
 	}
 
 	public List<CEdge> getCEdges(final CNode srcCNode, final CNode tgtCNode) {
-		final Map<CNode, List<CEdge>> srcAdjacency = this.adjacency.get(srcCNode);
+		final Map<CNode, List<CEdge>> srcAdjacency = this.adjacency
+				.get(srcCNode);
 		final List<CEdge> adjacencyCEdges;
-		if (srcAdjacency != null && (adjacencyCEdges = srcAdjacency.get(tgtCNode)) != null) {
+		if (srcAdjacency != null
+				&& (adjacencyCEdges = srcAdjacency.get(tgtCNode)) != null) {
 			return adjacencyCEdges;
 		}
 		return EMPTY_EDGES;
@@ -176,7 +180,7 @@ public final class CGraph {
 		return addCEdge(new CEdge(this.nextCEdgeId++, source, target));
 	}
 
-	public CNode newCNode(final Block data) {
+	public CNode newCNode(final CBlock data) {
 		return addCNode(new CNode(this.nextCNodeId++, data));
 	}
 
@@ -200,8 +204,6 @@ public final class CGraph {
 		this.nodes.remove(node);
 	}
 
-	
-	
 	public Set<CNode> getNodes() {
 		return nodes;
 	}
@@ -213,71 +215,113 @@ public final class CGraph {
 	public void mergeCallingGraph(CGraph g, CNode invokeCNode) {
 		Set<CNode> gNodes = g.getNodes();
 		Set<CEdge> gEdges = g.getEdges();
-		merge(gNodes,gEdges);
-		addCEdge(newCEdge(invokeCNode, g.getRoot())); 
-	 //	addCEdge(newCEdge( g.getSink(), invokeCNode));
+		merge(gNodes, gEdges);
+		addCEdge(newCEdge(invokeCNode, g.getRoot()));
+		// addCEdge(newCEdge( g.getSink(), invokeCNode));
 	}
-	
-	public Set<CNode> getTargetNodes(){
-		Set<CNode> targetNodes=new HashSet<CNode>();
-		Iterator<CEdge> it = edges.iterator();	 
-		while(it.hasNext()){
-			CEdge edge=(CEdge)it.next();
-			CNode tat=edge.getTarget();
+
+	public Set<CNode> getTargetNodes() {
+		Set<CNode> targetNodes = new HashSet<CNode>();
+		Iterator<CEdge> it = edges.iterator();
+		while (it.hasNext()) {
+			CEdge edge = (CEdge) it.next();
+			CNode tat = edge.getTarget();
 			targetNodes.add(tat);
 		}
 		return targetNodes;
 	}
-	
-	public Set<CNode> getSourceNodes(){
-		Set<CNode> sourceNode=new HashSet<CNode>();
-		Iterator<CEdge> it = edges.iterator();	 
-		while(it.hasNext()){
-			CEdge edge=(CEdge)it.next();
-			CNode tat=edge.getSource();
+
+	public Set<CNode> getSourceNodes() {
+		Set<CNode> sourceNode = new HashSet<CNode>();
+		Iterator<CEdge> it = edges.iterator();
+		while (it.hasNext()) {
+			CEdge edge = (CEdge) it.next();
+			CNode tat = edge.getSource();
 			sourceNode.add(tat);
 		}
 		return sourceNode;
 	}
-	
-	public CNode getRoot(){
-		Set<CNode> set=new HashSet<CNode>(nodes);
+
+	public CNode getRoot() {
+		Set<CNode> set = new HashSet<CNode>(nodes);
 		set.removeAll(getTargetNodes());
-		if(set.size()==1){
-			return (CNode)set.iterator().next();
+		if (set.size() == 1) {
+			return (CNode) set.iterator().next();
 		}
-		return null; 
+		return null;
 	}
-	
-	public CNode getSink(){
-		Set<CNode> set=new HashSet<CNode>(nodes);
+
+	public CNode getSink() {
+		Set<CNode> set = new HashSet<CNode>(nodes);
 		set.removeAll(getSourceNodes());
-		if(set.size()==1){
-			return (CNode)set.iterator().next();
+		if (set.size() == 1) {
+			return (CNode) set.iterator().next();
 		}
-		return null; 
+		return null;
 	}
-	
-	public CPath getLongestPath(){
+
+	private CPath processGetLongestPath(CNode endNode, CNode currentNode,
+			CPath currentPath) {
+		CPath pathFromCurrentNode = new CPath(0);
+		CPaths paths = new CPaths(0);
 		
+		if(currentNode == endNode){
+			return pathFromCurrentNode;
+		}else if(currentPath.getNodes().contains(currentNode)){
+			return pathFromCurrentNode;
+		}
+		else{
+			// finding and processing child nodes
+			for (CEdge currentEdge : edges)  {
+				// checking if current node is source node for current edge
+				if (currentEdge.getSource() == currentNode) {
+					// getting child node
+					CNode childNode = currentEdge.getTarget();
+					currentPath.add(currentNode);
+					CPath childPath = processGetLongestPath(endNode,childNode,currentPath);
+					currentPath.getNodes().remove(currentNode);
+					paths.add(childPath);
+				}				
+			}
+			// finding longest path from child paths
+			CPath longestPath = paths.getPaths().get(0);
+			
+			for(int j =1 ; j < paths.getPaths().size();j++){
+				CPath newPath = paths.getPaths().get(j);
+				if(newPath.getNodes().size() > longestPath.getNodes().size()){
+					longestPath = newPath;					
+				}
+			}
+			
+			return longestPath;
+		}
 	}
-	
-	private Set<CNode> findDominatorNodes(CNode node){
-		
+
+	public CPath getLongestPath(CNode finishNode ,CNode startNode ) {
+		// creating list of visited nodes
+		CPath longestPath = new CPath(1);
+		return processGetLongestPath(startNode, finishNode, longestPath);
 	}
-	
+
+	private Set<CNode> findDominatorNodes(CNode node) {
+
+		return null;
+	}
+
 	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
+
 		
+		return 0;
 	}
-	
+
 	public List<CNode> getListOfChildNodes(CNode parentNode) {
 		Map<CNode, List<CEdge>> srcAdjacency = this.adjacency.get(parentNode);
 		if (srcAdjacency == null) {
 			srcAdjacency = new HashMap<CNode, List<CEdge>>();
 			return (List<CNode>) srcAdjacency.keySet();
-			
+
 		}
 		return null;
-		
+
 	}
 }

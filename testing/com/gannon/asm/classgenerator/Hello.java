@@ -11,15 +11,14 @@ public class Hello {
 	}
 
 	public int plusFive(int i) {
-		 int k = callee(i, 10);
+		int j = i + 10;
+		int k = callee(j, 10);
 		return k;
 	}
 
 	public int callee(int i, int j) {
 		int n = i + j;
-		int k = n + (i + (n + j));
-		int o = n + k;
-		return o;
+		return n;
 	}
 
 	public int callee2(int i, int j) {
@@ -56,10 +55,10 @@ public class Hello {
 				return 2;
 			else
 				return 3;
-		} else{
+		} else {
 			return 4;
 		}
-			
+
 	}
 	// if(a==b){
 	// return 1;}

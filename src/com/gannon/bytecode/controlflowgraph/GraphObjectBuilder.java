@@ -7,7 +7,7 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class GraphObjectBuilder {
-	private ArrayList<Block> blockList = new ArrayList<Block>();
+	private ArrayList<CBlock> blockList = new ArrayList<CBlock>();
 	private BMethod bMethod;
 
 	public GraphObjectBuilder(BMethod bmethod) {
@@ -15,15 +15,15 @@ public class GraphObjectBuilder {
 		this.bMethod = bmethod;
 	}
 
-	public ArrayList<Block> getBlocks() {
+	public ArrayList<CBlock> getBlocks() {
 		return blockList;
 	}
 
-	public ArrayList<Block> buildBlocks() {
-		ArrayList<Block> blocks = new ArrayList<Block>();
+	public ArrayList<CBlock> buildBlocks() {
+		ArrayList<CBlock> blocks = new ArrayList<CBlock>();
 		int blockLeader[] = getSplitLine();
 		int IdCount = 0;
-		Block block = new Block(bMethod.getName(), IdCount);
+		CBlock block = new CBlock(bMethod.getName(), IdCount);
 		IdCount++;
 		for (int j = 0; j < blockLeader.length; j++) {
 			if (blockLeader[j] != 1) {
@@ -35,7 +35,7 @@ public class GraphObjectBuilder {
 			}
 			if (blockLeader[j] == 1) {
 				blocks.add(block);
-				block = new Block(bMethod.getName(), IdCount);
+				block = new CBlock(bMethod.getName(), IdCount);
 				IdCount++;
 				//block.addInstruction(bMethod.getInstructions().get(j));
 				ArrayList<BInstruction> instrList = new ArrayList<BInstruction>();
@@ -51,9 +51,9 @@ public class GraphObjectBuilder {
 	}
 
 	public int getBlockIndexByOperandLineNumber(int operandLineNumber,
-			ArrayList<Block> blocks) {
+			ArrayList<CBlock> blocks) {
 		for (int i = 0; i < blocks.size(); i++) {
-			Block b = blocks.get(i);
+			CBlock b = blocks.get(i);
 			if (b.isContainLineNumber(operandLineNumber)) {
 				return i;
 			}
@@ -90,7 +90,7 @@ public class GraphObjectBuilder {
 		return leaders;
 	}
 
-	public Graph buildGraph(ArrayList<Block> listOfBlock) {
+	public Graph buildGraph(ArrayList<CBlock> listOfBlock) {
 		ArrayList<Edge> edges = new ArrayList<Edge>();
 		for (int i = 0; i < listOfBlock.size(); i++) {
 			BInstruction instr = listOfBlock.get(i).getLastLineInstruction();

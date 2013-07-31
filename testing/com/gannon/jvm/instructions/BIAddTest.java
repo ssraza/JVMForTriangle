@@ -14,7 +14,6 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependency;
@@ -92,12 +91,12 @@ public class BIAddTest {
 
 	@Test
 	public void testDependcy() {
-		Stack<String> operandStack = new Stack<String>();
-		operandStack.add("5");
-		operandStack.add("9");
+		Stack<String> valueStack = new Stack<String>();
+		valueStack.add("5");
+		valueStack.add("9");
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setIntermediateVariableStack(valueStack);
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
 		
@@ -105,6 +104,11 @@ public class BIAddTest {
 		targetPath.setbMethod(method);
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
+		
+		Stack<Object> operandStack = new Stack<Object>();
+		operandStack.add(5);
+		operandStack.add(7);
+		dependency.setOperandStack(operandStack);
 
 		BIAdd iadd = new BIAdd(2);
 		iadd.analyzing(dependency);

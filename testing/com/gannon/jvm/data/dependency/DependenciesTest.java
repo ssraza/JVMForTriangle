@@ -34,18 +34,17 @@ public class DependenciesTest {
 		jvm.run(TrianglePathBuilderUtility.createPathID1());
 
 		ArrayList<BinNode> expectedLeaves23 = new ArrayList<BinNode>();
-		expectedLeaves23.add(new BinNode("2"));
-		expectedLeaves23.add(new BinNode("3"));
+		expectedLeaves23.add(new BinNode("2",0));
+		expectedLeaves23.add(new BinNode("3",0));
 		// 0:first parameter
 		Dependencies relations = jvm.getRelationFrame().getRelations();
 		System.out.print(relations);
-		assertEquals(expectedLeaves23, relations.getRelation(4).getAllLeaves());
+		ArrayList<BinNode> actualLeaves = relations.getRelation(4).getAllLeaves(); 
+		assertEquals(expectedLeaves23, actualLeaves);
 		assertEquals(relations.findRelation(new BIAdd(4)),relations.getRelation(4));
-		Label l=new Label();
-		BLabel blabel=new BLabel(l);
-		assertEquals(relations.getRelation(4),relations.findRelation(new BIFicmpge(blabel,11)));
-		
-
+//		Label l=new Label();
+//		BLabel blabel=new BLabel(l);
+//		assertEquals(relations.getRelation(4),relations.findRelation(new BIFicmpge(blabel,11)));
 	}
 
 }

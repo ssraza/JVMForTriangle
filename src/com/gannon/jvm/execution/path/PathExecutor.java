@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.gannon.jvm.data.dependency.BinNode;
+import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
@@ -17,6 +20,7 @@ public class PathExecutor<T> {
 
 	public Object execute(PathFrame pathFrame) {
 	
+		
 		Object result = null;
 		TestPath path = pathFrame.getTestPath();
 		//random generate input
@@ -49,6 +53,14 @@ public class PathExecutor<T> {
 					if (!((PredicateNode) node).hasPassed() ) {
 						// System.out.println((PredicateNode) node);
 						// apply rules to get new input newA, newB, newC
+						
+						Dependencies ds;
+						Dependency d=ds.findRelation(node.getInstruction());
+						d.getTheBTRootNode();
+						BinNode leftNode=d.getLeftNode();
+						leftNode.g
+						bin.
+						
 						int newA = 7, newB = 7, newC = 7;
 						ArrayList<Object> newInput = new ArrayList<Object>();
 						newInput.add(0);// reference

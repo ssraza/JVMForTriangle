@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import com.gannon.asm.components.BMethod;
-import com.gannon.bytecode.controlflowgraph.Block;
+import com.gannon.bytecode.controlflowgraph.CBlock;
 import com.gannon.bytecode.controlflowgraph.Frame;
 import com.gannon.bytecode.controlflowgraph.Graph;
 import com.gannon.bytecode.controlflowgraph.GraphObjectBuilder;
@@ -21,7 +21,7 @@ public class BuildCFG {
 	public Graph getResultGraph() {
 		GraphObjectBuilder graphGenerator = new GraphObjectBuilder(
 				startMethod);
-		ArrayList<Block> resultantBlocks = graphGenerator.buildBlocks();
+		ArrayList<CBlock> resultantBlocks = graphGenerator.buildBlocks();
 
 		Graph resultGraph = graphGenerator.buildGraph(resultantBlocks);
 
@@ -37,11 +37,11 @@ public class BuildCFG {
 			System.out.println("!!!!!!!!!!!!!!!!!!");
 			GraphObjectBuilder currentMGI = new GraphObjectBuilder(
 					currentFrame.getMethod());
-			ArrayList<Block> currentBlocks = currentMGI.buildBlocks();
+			ArrayList<CBlock> currentBlocks = currentMGI.buildBlocks();
 			int blockId = currentFrame.getBlockId();
 			for (int i = blockId; i < currentBlocks.size(); i++) {
 				// always point to next block
-				Block b = currentBlocks.get(i);
+				CBlock b = currentBlocks.get(i);
 				if (b.hasInvoke()) {
 					String methodName = (String) b.getLastLineInstruction().getOpCodeCommand();// It will give the name including MethodNAme, Desc etc.
 					System.out.println("---------------");
@@ -54,7 +54,7 @@ public class BuildCFG {
 						stack.push(calleeFrame);
 						GraphObjectBuilder newGraph = new GraphObjectBuilder(
 								calleeMethod);
-						ArrayList<Block> calleeBlocks = newGraph.buildBlocks();
+						ArrayList<CBlock> calleeBlocks = newGraph.buildBlocks();
 						Graph calleeMethodGraph = newGraph
 								.buildGraph(calleeBlocks);
 						resultGraph.mergeGraph(calleeMethodGraph, b);

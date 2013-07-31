@@ -1,5 +1,16 @@
 package com.gannon.jvm.execution.method;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Stack;
+
+import org.junit.Test;
+
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.utilities.ConstantsUtility;
+
 
 public class HelloMethodsTest {
 
@@ -34,6 +45,7 @@ public class HelloMethodsTest {
 		
 		//assertion
 		assertEquals(new Integer(10), finalAddtion);
-	}
-*/
+	}*/
+
+	
 }

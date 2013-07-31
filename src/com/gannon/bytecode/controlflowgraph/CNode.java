@@ -2,9 +2,9 @@ package com.gannon.bytecode.controlflowgraph;
 
 public class CNode {
 	private final int id;
-	private Block blcok;
+	private CBlock blcok;
 
-	public CNode(final int id, Block blcok) {
+	public CNode(final int id, CBlock blcok) {
 		super();
 		this.id = id;
 		this.blcok = blcok;
@@ -14,7 +14,7 @@ public class CNode {
 		return id;
 	}
 
-	public Block getBlcok() {
+	public CBlock getBlcok() {
 		return blcok;
 	}
 
@@ -23,7 +23,7 @@ public class CNode {
 		return "CNode [id=" + id + "]";
 	}
 
-	public void setBlcok(Block blcok) {
+	public void setBlcok(CBlock blcok) {
 		this.blcok = blcok;
 	}
 

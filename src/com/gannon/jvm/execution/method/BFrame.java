@@ -13,13 +13,20 @@ public class BFrame {
 	private Stack operandStack = new Stack();
 	private BClass bClass;
 
+	public BFrame(BClass bClass, int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
+		super();
+		this.bClass = bClass;
+		this.lineNumber = lineNumber;
+		this.localVariableTable = localVariableTable;
+		this.operandStack=operandStack;
+	}
+
 	public BFrame(int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();
 		this.lineNumber = lineNumber;
 		this.localVariableTable = localVariableTable;
 		this.operandStack=operandStack;
 	}
-
 
 	public BFrame(BClass bClass, BMethod method, int lineNumber, BLocalVarTable localVariableTable, Stack operandStack) {
 		super();

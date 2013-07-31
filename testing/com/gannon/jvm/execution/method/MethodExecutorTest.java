@@ -1030,7 +1030,7 @@ public class MethodExecutorTest {
 		assertEquals(new Integer(9), finalAddtion);
 	}
 	
-	/*@Test
+	@Test
 	public void testAdditionMethodCallingMethod() {
 		//get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Hello.class");
@@ -1056,10 +1056,9 @@ public class MethodExecutorTest {
 		//push active frame to JVM stack
 		JVMStackSingleton.getInstance().clear();
 		JVMStackSingleton.getInstance().pushFrame(activeFrame);
-		Integer finalAddtion = (Integer)methodExecutor.execute(JVMStackSingleton.getInstance());
-		
+		Integer finalAddtion = (Integer)methodExecutor.execute(JVMStackSingleton.getInstance());	
 		
 		//assertion
-		assertEquals(new Integer(10), finalAddtion);
-	}*/
+		assertEquals(new Integer(25), finalAddtion);
+	}
 }

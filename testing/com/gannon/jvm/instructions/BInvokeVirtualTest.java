@@ -12,6 +12,7 @@ import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
+import com.gannon.jvm.execution.method.JVMStackSingleton;
 import com.gannon.main.InterfaceAPISingleton;
 
 public class BInvokeVirtualTest {
@@ -58,11 +59,11 @@ public class BInvokeVirtualTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 				
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(testBclass, 0, varTable, operandStack);
 		
 		virtualCallTest.execute(activeFrame);
 		
-		//assertEquals((Integer)DependencyFrame.size(), new Integer(2));
+		assertEquals(JVMStackSingleton.getInstance().peekActiveFrame().getMethod().getName(), "Method2");
 	}
 
 	@Test
