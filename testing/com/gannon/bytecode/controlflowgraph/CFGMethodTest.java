@@ -43,5 +43,7 @@ public class CFGMethodTest {
 				false,true,false};
 		assertTrue(Arrays.equals(expectedFlags,actualFlags));
 	}
+	
+	
 
 }

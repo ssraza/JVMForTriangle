@@ -3,6 +3,7 @@ package com.gannon.bytecode.controlflowgraph;
 import java.util.ArrayList;
 
 import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BPredicateInstruction;
 
 public class CBlock {
 	private ArrayList<BInstruction> instructions = new ArrayList<BInstruction>();
@@ -19,14 +20,6 @@ public class CBlock {
 		this.id = id;
 	}
 
-	public BInstruction getLastLineInstruction() {
-		return instructions.get(instructions.size() - 1);
-	}
-
-	public BInstruction getFirstLineInstruction() {
-		return instructions.get(0);
-	}
-
 	public boolean containInstruction(BInstruction instruction) {
 		for (BInstruction instr : instructions) {
 			if (instr.equals(instruction)) {
@@ -35,10 +28,37 @@ public class CBlock {
 		}
 		return false;
 	}
-	
+
+	public BPredicateInstruction findIfInstruction() {
+		for (BInstruction instr : instructions) {
+			if (instr.getOpCodeCommand().toLowerCase().contains("if")) {
+				return (BPredicateInstruction)instr;
+			}
+		}
+		return null;
+	}
+
+	public BInstruction findGotoInstruction() {
+		for (BInstruction instr : instructions) {
+			if (instr.getOpCodeCommand().toLowerCase().contains("goto")) {
+				return instr;
+			}
+		}
+		return null;
+	}
+
+	public BInstruction findReturnInstruction() {
+		for (BInstruction instr : instructions) {
+			if (instr.getOpCodeCommand().toLowerCase().contains("return")) {
+				return instr;
+			}
+		}
+		return null;
+	}
+
 	public boolean containLineNumber(int lineNumber) {
 		for (BInstruction instr : instructions) {
-			if (instr.getLineNumber()==lineNumber) {
+			if (instr.getLineNumber() == lineNumber) {
 				return true;
 			}
 		}

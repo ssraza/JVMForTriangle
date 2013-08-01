@@ -8,6 +8,10 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
+
 public class CGraphTest {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
@@ -60,4 +64,14 @@ public class CGraphTest {
 		return g;
 	}
 
+	@Test
+	public void testBuildTriangleCFG() {
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		assertEquals("triangleType", m.getName());
+
+		CFGMethod cfg = new CFGMethod(m);
+		System.out.print(cfg.buildGraph());
+
+	}
 }

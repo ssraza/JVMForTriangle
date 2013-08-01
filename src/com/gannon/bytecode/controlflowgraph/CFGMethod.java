@@ -1,12 +1,11 @@
 package com.gannon.bytecode.controlflowgraph;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
-
 
 /*
  * A wrapper of BMethod
@@ -20,13 +19,51 @@ public class CFGMethod {
 		this.bMethod = bMethod;
 	}
 
+	public CGraph buildGraph() {
+		CBlocks listOfBlock=buildBlocks();
+		int edgeId = 0;
+		Set<CEdge> edges = new HashSet<CEdge>();
+
+		for (int i = 0; i < listOfBlock.size(); i++) {
+			CBlock block = listOfBlock.get(i);
+			if (block.findIfInstruction() != null) {
+				// first edge is next to next
+				CNode sourceNode = new CNode(i, listOfBlock.get(i));
+				CNode targetNode1 = new CNode(i + 1, listOfBlock.get(i + 1));
+				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
+
+				// second edge connects to a block contains the instruction with
+				// gotolinenumber
+				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
+				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
+				CNode targetNode2 = new CNode(i + 1, listOfBlock.get(destBlockID));
+				edges.add(new CEdge(edgeId++, sourceNode, targetNode2));
+			} else if (block.findGotoInstruction() != null) {
+				int operandLineNumber = block.findIfInstruction().getOperand()
+						.getGoToLineNumber();
+				int destBlockID = listOfBlock
+						.findBlockIndexByLineNumber(operandLineNumber);
+				CNode sourceNode = new CNode(i, listOfBlock.get(i));
+				CNode targetNode = new CNode(i + 1,	listOfBlock.get(destBlockID));
+				edges.add(new CEdge(edgeId++, sourceNode, targetNode));
+			} else if (block.findReturnInstruction() == null) {
+				// connect to next block if this block doesn't have return
+				CNode sourceNode = new CNode(i, listOfBlock.get(i));
+				CNode targetNode1 = new CNode(i + 1, listOfBlock.get(i + 1));
+				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
+			}
+
+		}
+		return new CGraph(listOfBlock.convertToSet(), edges);
+	}
+
 	public CBlocks buildBlocks() {
 		int blockID = 0;
-		CBlocks blocks=new CBlocks(bMethod.getName());
+		CBlocks blocks = new CBlocks(bMethod.getName());
 		boolean blockLeader[] = computeLeadingLineFlags();
-		ArrayList<BInstruction> instructions = bMethod.getInstructions();	
+		ArrayList<BInstruction> instructions = bMethod.getInstructions();
 		CBlock block = new CBlock(bMethod.getName(), blockID++);
-		
+
 		for (int j = 1; j < blockLeader.length; j++) {
 			if (blockLeader[j]) {
 				blocks.add(block);
@@ -48,10 +85,11 @@ public class CFGMethod {
 			BInstruction instr = instrList.get(i);
 			String opcode = instr.getOpCodeCommand();
 
-			// rule 1: first instruction is a leader, however, for implementation purpose, we omit it
-//			if (i == 0) {
-//				leaders[i] = true;
-//			}
+			// rule 1: first instruction is a leader, however, for
+			// implementation purpose, we omit it
+			// if (i == 0) {
+			// leaders[i] = true;
+			// }
 
 			// rule 2: Each instruction that is the target of a conditional "if"
 			// /unconditional "goto" branch is a leader.
@@ -61,7 +99,8 @@ public class CFGMethod {
 				leaders[i + 1] = true;
 				// target line number is a leader
 				if (instr instanceof BPredicateInstruction) {
-					int targetLineNumber = ((BPredicateInstruction) instr).getOperand().getGoToLineNumber();
+					int targetLineNumber = ((BPredicateInstruction) instr)
+							.getOperand().getGoToLineNumber();
 					leaders[targetLineNumber - 1] = true;
 				}
 			}
@@ -82,10 +121,9 @@ public class CFGMethod {
 
 	public void displayLeadingFlags(boolean[] computeLeadingLineFlags) {
 		for (int i = 0; i < computeLeadingLineFlags.length; i++) {
-			System.out.println("Line Number " + i + " Flag: " + computeLeadingLineFlags[i] + "\n ");
+			System.out.println("Line Number " + i + " Flag: "
+					+ computeLeadingLineFlags[i] + "\n ");
 		}
 	}
-	
-	
 
 }

@@ -20,7 +20,7 @@ public class CNode {
 
 	@Override
 	public String toString() {
-		return "CNode [id=" + id + "]";
+		return "CNode [id=" + id + "]\n";
 	}
 
 	public void setBlcok(CBlock blcok) {

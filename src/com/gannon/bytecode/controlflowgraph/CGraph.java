@@ -13,8 +13,8 @@ import java.util.Set;
 
 public final class CGraph {
 	private static final List<CEdge> EMPTY_EDGES = Collections.emptyList();
-	private final Set<CNode> nodes;
-	private final Set<CEdge> edges;
+	private Set<CNode> nodes;
+	private Set<CEdge> edges;
 	private Map<CNode, Map<CNode, List<CEdge>>> adjacency;
 	private Map<CNode, List<CNode>> setOfDominatorNodes;
 
@@ -28,12 +28,28 @@ public final class CGraph {
 		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
 	}
 
+	public CGraph(Set<CNode> nodes, Set<CEdge> newEdges) {
+		this.nodes = nodes;
+		this.edges = new HashSet<CEdge>();
+		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
+		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
+		initEdges(newEdges);
+	}
+
+	private void initEdges(Set<CEdge> edges) {
+		Iterator<CEdge> it = edges.iterator();
+		while (it.hasNext()) {
+			CEdge edge = (CEdge) it.next();
+			addCEdge(edge);
+		}
+	}
+
 	public CGraph(String inputText) {
 		this.nodes = new HashSet<CNode>();
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
 		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
-		
+
 		try {
 			String[] listOfLines; // Array of strings
 			listOfLines = inputText.split("\n"); // splitting the input text to
@@ -221,7 +237,7 @@ public final class CGraph {
 		Set<CEdge> gEdges = g.getEdges();
 		merge(gNodes, gEdges);
 		addCEdge(newCEdge(invokeCNode, g.getRoot()));
-		addCEdge(newCEdge( g.getSink(), invokeCNode));
+		addCEdge(newCEdge(g.getSink(), invokeCNode));
 	}
 
 	public Set<CNode> getTargetNodes() {
@@ -284,7 +300,7 @@ public final class CGraph {
 					CPath childPath = processGetLongestPath(endNode, childNode,
 							currentPath);
 					currentPath.getNodes().remove(currentNode);
-					if(childPath != null){
+					if (childPath != null) {
 						paths.add(childPath);
 					}
 				}
@@ -361,8 +377,9 @@ public final class CGraph {
 		}
 	}
 
-	// checking if an edge between two nodes is a loop edge by finding if the node is dominated ny the other node
-	public boolean isLoopEdge(CNode startNode,CNode endNode) {
+	// checking if an edge between two nodes is a loop edge by finding if the
+	// node is dominated ny the other node
+	public boolean isLoopEdge(CNode startNode, CNode endNode) {
 		return setOfDominatorNodes.get(startNode).contains(endNode);
 	}
 
@@ -380,5 +397,34 @@ public final class CGraph {
 		}
 		return null;
 
+	}
+	
+	public String printEdgesToString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append("\n====== Edges ======\n");
+		Iterator<CEdge> it = edges.iterator();
+		while (it.hasNext()) {
+			CEdge edge = (CEdge) it.next();
+			sb.append(edge);
+		}
+		return sb.toString();
+	}
+	
+	public String printNodesToString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append("\n====== Nodes ======\n");
+		Iterator<CNode> it = nodes.iterator();
+		while (it.hasNext()) {
+			CNode node = (CNode) it.next();
+			sb.append(node);
+		}
+		return sb.toString();
+	}
+	
+	public String toString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append(printNodesToString());
+		sb.append(printEdgesToString());
+		return sb.toString();
 	}
 }

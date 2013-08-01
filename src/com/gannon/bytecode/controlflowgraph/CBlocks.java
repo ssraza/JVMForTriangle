@@ -1,13 +1,13 @@
 package com.gannon.bytecode.controlflowgraph;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
 
 public class CBlocks {
 	private String methodName;
-	private ArrayList<CBlock> blocks = new ArrayList<CBlock>();
+	private List<CBlock> blocks = new ArrayList<CBlock>();
 
 	public CBlocks(String methodName) {
 		super();
@@ -22,11 +22,11 @@ public class CBlocks {
 		this.methodName = methodName;
 	}
 
-	public ArrayList<CBlock> getBlocks() {
+	public List<CBlock> getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(ArrayList<CBlock> blocks) {
+	public void setBlocks(List<CBlock> blocks) {
 		this.blocks = blocks;
 	}
 
@@ -65,6 +65,15 @@ public class CBlocks {
 		return blocks.size();
 	}
 
+	public Set<CNode> convertToSet(){
+		int nodeId=0;
+		Set<CNode> nodes=new HashSet<CNode>();
+		for(CBlock block: blocks){
+			nodes.add(new CNode(nodeId++,block));
+		}
+		return nodes;
+	}
+	
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (CBlock b : blocks) {
