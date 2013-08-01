@@ -221,7 +221,7 @@ public final class CGraph {
 		Set<CEdge> gEdges = g.getEdges();
 		merge(gNodes, gEdges);
 		addCEdge(newCEdge(invokeCNode, g.getRoot()));
-		// addCEdge(newCEdge( g.getSink(), invokeCNode));
+		addCEdge(newCEdge( g.getSink(), invokeCNode));
 	}
 
 	public Set<CNode> getTargetNodes() {

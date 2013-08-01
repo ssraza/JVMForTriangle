@@ -8,7 +8,7 @@ public class CBlock {
 	private ArrayList<BInstruction> instructions = new ArrayList<BInstruction>();
 	private String owner;// which method?
 	private int id;
-	
+
 	public CBlock(int id) {
 		super();
 		this.id = id;
@@ -27,9 +27,18 @@ public class CBlock {
 		return instructions.get(0);
 	}
 
-	public boolean isContainLineNumber(int lineNumber) {
+	public boolean containInstruction(BInstruction instruction) {
 		for (BInstruction instr : instructions) {
-			if (instr.getLineNumber() == lineNumber) {
+			if (instr.equals(instruction)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean containLineNumber(int lineNumber) {
+		for (BInstruction instr : instructions) {
+			if (instr.getLineNumber()==lineNumber) {
 				return true;
 			}
 		}
@@ -61,13 +70,14 @@ public class CBlock {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Blocks info (ID):" + id + "\n");
 		for (BInstruction instr : instructions) {
-			sb.append(instr+"\n");
+			sb.append(instr + "\n");
 		}
 		return sb.toString();
 	}
 
 	public boolean hasInvoke() {
-		return instructions.size() == 1 && instructions.get(0).getOpCodeCommand().contains("invoke");
+		return instructions.size() == 1
+				&& instructions.get(0).getOpCodeCommand().contains("invoke");
 	}
 
 	@Override
@@ -91,17 +101,17 @@ public class CBlock {
 		if (instructions == null) {
 			if (other.instructions != null)
 				return false;
-		} else if (!isEqual((CBlock)obj))
+		} else if (!isEqual((CBlock) obj))
 			return false;
 		return true;
 	}
-	
-	private boolean isEqual(CBlock block){
-		if(instructions.size()!=block.getInstructions().size()){
+
+	private boolean isEqual(CBlock block) {
+		if (instructions.size() != block.getInstructions().size()) {
 			return false;
 		}
-		for(int i=0;i<instructions.size();i++){
-			if(!instructions.get(i).equals(block.getInstructions().get(i))){
+		for (int i = 0; i < instructions.size(); i++) {
+			if (!instructions.get(i).equals(block.getInstructions().get(i))) {
 				return false;
 			}
 		}

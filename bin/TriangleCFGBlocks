@@ -1,0 +1,70 @@
+Starting test: testSize
+=========================
+Blocks info (ID):0
+2 iload 2
+3 iload 3
+4 iadd
+5 if_icmpge  L6(L27844531)  37 
+
+=========================
+Blocks info (ID):1
+6 iload 2
+7 iload 1
+8 iload 3
+9 iadd
+10 if_icmpge  L6(L27844531)  37 
+
+=========================
+Blocks info (ID):2
+11 iload 3
+12 iload 1
+13 iload 2
+14 iadd
+15 if_icmpge  L6(L27844531)  37 
+
+=========================
+Blocks info (ID):3
+16 iload 1
+17 iload 2
+18 if_icmpne  L3(L32932466)  24 
+
+=========================
+Blocks info (ID):4
+19 iload 2
+20 iload 3
+21 if_icmpne  L3(L32932466)  24 
+
+=========================
+Blocks info (ID):5
+22 iconst_1
+23 ireturn
+=========================
+Blocks info (ID):6
+24 iload 1
+25 iload 2
+26 if_icmpeq  L5(L15607307)  35 
+
+=========================
+Blocks info (ID):7
+27 iload 1
+28 iload 3
+29 if_icmpeq  L5(L15607307)  35 
+
+=========================
+Blocks info (ID):8
+30 iload 2
+31 iload 3
+32 if_icmpeq  L5(L15607307)  35 
+
+=========================
+Blocks info (ID):9
+33 iconst_2
+34 ireturn
+=========================
+Blocks info (ID):10
+35 iconst_3
+36 ireturn
+=========================
+Blocks info (ID):11
+37 iconst_4
+38 ireturn
