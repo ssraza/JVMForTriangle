@@ -26,11 +26,7 @@ public final class CEdge {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((source == null) ? 0 : source.hashCode());
-		result = prime * result + ((target == null) ? 0 : target.hashCode());
-		return result;
+		return source.hashCode() + target.hashCode();
 	}
 
 	@Override
@@ -52,7 +48,7 @@ public final class CEdge {
 				return false;
 		} else if (!target.equals(other.target))
 			return false;
-		return true;
+		return source.equals(other.source)&&target.equals(other.target);
 	}
 
 	/*

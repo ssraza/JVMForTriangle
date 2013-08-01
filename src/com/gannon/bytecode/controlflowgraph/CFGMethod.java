@@ -30,21 +30,23 @@ public class CFGMethod {
 				// first edge is next to next
 				CNode sourceNode = new CNode(i, listOfBlock.get(i));
 				CNode targetNode1 = new CNode(i + 1, listOfBlock.get(i + 1));
-				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
+				CEdge cEdge1 = new CEdge(edgeId++, sourceNode, targetNode1);
+				edges.add(cEdge1);
 
 				// second edge connects to a block contains the instruction with
 				// gotolinenumber
 				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
 				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
-				CNode targetNode2 = new CNode(i + 1, listOfBlock.get(destBlockID));
-				edges.add(new CEdge(edgeId++, sourceNode, targetNode2));
+				CNode targetNode2 = new CNode(destBlockID, listOfBlock.get(destBlockID));
+				CEdge cEdge2 = new CEdge(edgeId++, sourceNode, targetNode2);
+				edges.add(cEdge2);
 			} else if (block.findGotoInstruction() != null) {
 				int operandLineNumber = block.findIfInstruction().getOperand()
 						.getGoToLineNumber();
 				int destBlockID = listOfBlock
 						.findBlockIndexByLineNumber(operandLineNumber);
 				CNode sourceNode = new CNode(i, listOfBlock.get(i));
-				CNode targetNode = new CNode(i + 1,	listOfBlock.get(destBlockID));
+				CNode targetNode = new CNode(destBlockID,	listOfBlock.get(destBlockID));
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode));
 			} else if (block.findReturnInstruction() == null) {
 				// connect to next block if this block doesn't have return
