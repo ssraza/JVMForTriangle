@@ -25,12 +25,14 @@ public class BGetField extends BInstruction{
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		activeFrame.setLineNumber(1 + activeFrame.getLineNumber());
 		return null;
 
 	}
 
+	@Override
 	public int getOpcode() {
 		return 180;
 	}
@@ -39,6 +41,7 @@ public class BGetField extends BInstruction{
 		return "getfield" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

@@ -55,11 +55,13 @@ public class BinNode {
 		this.rightBNode = rightBNode;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof BinNode)
 				&& localVariableName.equals(((BinNode) obj).localVariableName);
 	}
 
+	@Override
 	public int hashCode() {
 		return localVariableName.hashCode();
 	}

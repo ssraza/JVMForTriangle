@@ -9,19 +9,14 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.objectweb.asm.Label;
-
-import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.instructions.BIAdd;
-import com.gannon.jvm.instructions.BIFicmpge;
-import com.gannon.jvm.instructions.BILoad;
-import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
 
 public class DependenciesTest {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
+		@Override
 		protected void starting(Description description) {
 			System.out.println("Starting test: " + description.getMethodName());
 		}

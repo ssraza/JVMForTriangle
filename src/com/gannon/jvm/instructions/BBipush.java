@@ -17,6 +17,7 @@ public class BBipush extends BInstruction {
 		this.operand1 = operand1;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		Integer pc = activeFrame.getLineNumber();
@@ -26,10 +27,12 @@ public class BBipush extends BInstruction {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 16;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + operand1;
 	}

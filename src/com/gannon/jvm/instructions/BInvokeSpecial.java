@@ -17,10 +17,12 @@ public class BInvokeSpecial extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 183;
 	}
@@ -29,6 +31,7 @@ public class BInvokeSpecial extends BInstruction {
 		return "invokespecial" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

@@ -101,6 +101,7 @@ public class Dependency {
 
 
 	// ------------------display nicely to string---------------------------
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Instruction in relation: "+inst+"\n");
@@ -159,6 +160,7 @@ public class Dependency {
 	}
 	// ------------------------------------------------------------------
 
+	@Override
 	public boolean equals(Object relation){
 		if(!(relation instanceof Dependency)){
 			return false;
@@ -168,6 +170,7 @@ public class Dependency {
 			&& theBTRootNode.getRightBNode().equals(((Dependency) relation).getTheBTRootNode().getRightBNode());
 	}
 
+	@Override
 	public int hashCode() {
 		return theBTRootNode.hashCode();
 	}

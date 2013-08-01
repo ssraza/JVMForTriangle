@@ -98,6 +98,7 @@ public class BMethod {
 		return instructionList;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (BBlock block : blockList) {

@@ -12,7 +12,6 @@ import org.objectweb.asm.Label;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLabel;
-import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.BinPredicateNode;

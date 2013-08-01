@@ -12,6 +12,7 @@ public class BIConst_3 extends BInstruction {
 		super(lineNumber);
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 
@@ -22,6 +23,7 @@ public class BIConst_3 extends BInstruction {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 6;
 	}

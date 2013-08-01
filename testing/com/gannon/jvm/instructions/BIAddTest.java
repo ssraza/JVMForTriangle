@@ -29,6 +29,7 @@ public class BIAddTest {
 	
 	@Rule
 	public TestRule watcher = new TestWatcher() {
+		@Override
 		protected void starting(Description description) {
 			System.out.println("Starting test: " + description.getMethodName());
 		}

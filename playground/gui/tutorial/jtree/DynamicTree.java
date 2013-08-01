@@ -137,7 +137,8 @@ public class DynamicTree extends JPanel {
     }
 
     class MyTreeModelListener implements TreeModelListener {
-        public void treeNodesChanged(TreeModelEvent e) {
+        @Override
+		public void treeNodesChanged(TreeModelEvent e) {
             DefaultMutableTreeNode node;
             node = (DefaultMutableTreeNode)(e.getTreePath().getLastPathComponent());
 
@@ -154,11 +155,14 @@ public class DynamicTree extends JPanel {
             System.out.println("The user has finished editing the node.");
             System.out.println("New value: " + node.getUserObject());
         }
-        public void treeNodesInserted(TreeModelEvent e) {
+        @Override
+		public void treeNodesInserted(TreeModelEvent e) {
         }
-        public void treeNodesRemoved(TreeModelEvent e) {
+        @Override
+		public void treeNodesRemoved(TreeModelEvent e) {
         }
-        public void treeStructureChanged(TreeModelEvent e) {
+        @Override
+		public void treeStructureChanged(TreeModelEvent e) {
         }
     }
 }

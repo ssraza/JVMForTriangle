@@ -17,6 +17,7 @@ public class ClassFileVisitor extends ClassVisitor {
 		super(Opcodes.ASM4);
 	}
 
+	@Override
 	public void visit(int version, int access, String name, String signature,
 			String superName, String[] interfaces) {
 		myClass.setClassName(name);
@@ -26,31 +27,38 @@ public class ClassFileVisitor extends ClassVisitor {
 
 	}
 
+	@Override
 	public void visitSource(String source, String debug) {
 		myClass.setSourceFile(source);
 
 	}
 
+	@Override
 	public void visitOuterClass(String owner, String name, String desc) {
 	}
 
+	@Override
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
 		return null;
 	}
 
+	@Override
 	public void visitAttribute(Attribute attr) {
 	}
 
+	@Override
 	public void visitInnerClass(String name, String outerName,
 			String innerName, int access) {
 	}
 
+	@Override
 	public FieldVisitor visitField(int access, String name, String desc,
 			String signature, Object value) {
 		System.out.println(" Field " + desc + " " + name);
 		return null;
 	}
 
+	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc,
 			String signature, String[] exceptions) {
 		BMethod currentMethod = new BMethod(access, name, desc);
@@ -61,6 +69,7 @@ public class ClassFileVisitor extends ClassVisitor {
 		return oriMv;
 	}
 
+	@Override
 	public void visitEnd() {
 		for(BMethod method: myClass.getMethods()){
 			method.updateJumpLabel();

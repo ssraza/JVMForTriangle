@@ -6,7 +6,6 @@ import java.util.Stack;
 import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CBlock;
 import com.gannon.bytecode.controlflowgraph.Frame;
-import com.gannon.bytecode.controlflowgraph.Graph;
 import com.gannon.bytecode.controlflowgraph.GraphObjectBuilder;
 
 public class BuildCFG {
@@ -43,7 +42,7 @@ public class BuildCFG {
 				// always point to next block
 				CBlock b = currentBlocks.get(i);
 				if (b.hasInvoke()) {
-					String methodName = (String) b.getLastLineInstruction().getOpCodeCommand();// It will give the name including MethodNAme, Desc etc.
+					String methodName = b.getLastLineInstruction().getOpCodeCommand();// It will give the name including MethodNAme, Desc etc.
 					System.out.println("---------------");
 					System.out.println(b.getLastLineInstruction().getOpcode());
 

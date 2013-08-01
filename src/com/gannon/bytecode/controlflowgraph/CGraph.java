@@ -11,15 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.gannon.program.cfg.Node;
-import com.gannon.program.cfg.TEdge;
-import com.gannon.program.cfg.TNode;
-
 public final class CGraph {
 	private static final List<CEdge> EMPTY_EDGES = Collections.emptyList();
 	private final Set<CNode> nodes;
 	private final Set<CEdge> edges;
 	private Map<CNode, Map<CNode, List<CEdge>>> adjacency;
+	private Map<CNode, List<CNode>> setOfDominatorNodes;
 
 	private int nextCNodeId;
 	private int nextCEdgeId;
@@ -28,10 +25,15 @@ public final class CGraph {
 		this.nodes = new HashSet<CNode>();
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
+		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
 	}
 
 	public CGraph(String inputText) {
-		super();
+		this.nodes = new HashSet<CNode>();
+		this.edges = new HashSet<CEdge>();
+		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
+		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
+		
 		try {
 			String[] listOfLines; // Array of strings
 			listOfLines = inputText.split("\n"); // splitting the input text to
@@ -69,7 +71,6 @@ public final class CGraph {
 														// nodes
 				// getting parent node for current line which is the first node
 				CNode parentNode = getCNode(Integer.parseInt(listOfLines[0]));
-				;
 
 				// Processing all nodes in the current line after the first node
 				for (int j = 1; j < listOfStrings.length; j++) {
@@ -82,6 +83,9 @@ public final class CGraph {
 				}
 
 			}
+
+			// initializing dominator nodes
+			processDominatorNodes();
 
 		} catch (Exception e) {
 			System.out.println("Error reading input string");
@@ -224,7 +228,7 @@ public final class CGraph {
 		Set<CNode> targetNodes = new HashSet<CNode>();
 		Iterator<CEdge> it = edges.iterator();
 		while (it.hasNext()) {
-			CEdge edge = (CEdge) it.next();
+			CEdge edge = it.next();
 			CNode tat = edge.getTarget();
 			targetNodes.add(tat);
 		}
@@ -235,7 +239,7 @@ public final class CGraph {
 		Set<CNode> sourceNode = new HashSet<CNode>();
 		Iterator<CEdge> it = edges.iterator();
 		while (it.hasNext()) {
-			CEdge edge = (CEdge) it.next();
+			CEdge edge = it.next();
 			CNode tat = edge.getSource();
 			sourceNode.add(tat);
 		}
@@ -246,7 +250,7 @@ public final class CGraph {
 		Set<CNode> set = new HashSet<CNode>(nodes);
 		set.removeAll(getTargetNodes());
 		if (set.size() == 1) {
-			return (CNode) set.iterator().next();
+			return set.iterator().next();
 		}
 		return null;
 	}
@@ -255,7 +259,7 @@ public final class CGraph {
 		Set<CNode> set = new HashSet<CNode>(nodes);
 		set.removeAll(getSourceNodes());
 		if (set.size() == 1) {
-			return (CNode) set.iterator().next();
+			return set.iterator().next();
 		}
 		return null;
 	}
@@ -264,53 +268,106 @@ public final class CGraph {
 			CPath currentPath) {
 		CPath pathFromCurrentNode = new CPath(0);
 		CPaths paths = new CPaths(0);
-		
-		if(currentNode == endNode){
+
+		if (currentNode == endNode) {
 			return pathFromCurrentNode;
-		}else if(currentPath.getNodes().contains(currentNode)){
-			return pathFromCurrentNode;
-		}
-		else{
+		} else if (currentPath.getNodes().contains(currentNode)) {
+			return null;
+		} else {
 			// finding and processing child nodes
-			for (CEdge currentEdge : edges)  {
+			for (CEdge currentEdge : edges) {
 				// checking if current node is source node for current edge
 				if (currentEdge.getSource() == currentNode) {
 					// getting child node
 					CNode childNode = currentEdge.getTarget();
 					currentPath.add(currentNode);
-					CPath childPath = processGetLongestPath(endNode,childNode,currentPath);
+					CPath childPath = processGetLongestPath(endNode, childNode,
+							currentPath);
 					currentPath.getNodes().remove(currentNode);
-					paths.add(childPath);
-				}				
+					if(childPath != null){
+						paths.add(childPath);
+					}
+				}
 			}
 			// finding longest path from child paths
 			CPath longestPath = paths.getPaths().get(0);
-			
-			for(int j =1 ; j < paths.getPaths().size();j++){
+
+			for (int j = 1; j < paths.getPaths().size(); j++) {
 				CPath newPath = paths.getPaths().get(j);
-				if(newPath.getNodes().size() > longestPath.getNodes().size()){
-					longestPath = newPath;					
+				if (newPath.getNodes().size() > longestPath.getNodes().size()) {
+					longestPath = newPath;
 				}
 			}
-			
+
 			return longestPath;
 		}
 	}
 
-	public CPath getLongestPath(CNode finishNode ,CNode startNode ) {
+	public CPath getLongestPath(CNode finishNode, CNode startNode) {
 		// creating list of visited nodes
 		CPath longestPath = new CPath(1);
 		return processGetLongestPath(startNode, finishNode, longestPath);
 	}
 
-	private Set<CNode> findDominatorNodes(CNode node) {
+	private void processDominatorNodes() {
+		CNode rootNode = getRoot();
+		List<CNode> dominatorNodesList = new ArrayList<CNode>();
 
-		return null;
+		setDominatorNodes(rootNode, dominatorNodesList);
+	}
+
+	private void setDominatorNodes(CNode currentNode,
+			List<CNode> parentDominatorNodeList) {
+		// getting dominator nodes for current node from hashmap
+		List<CNode> dominatorNodes = setOfDominatorNodes.get(currentNode);
+
+		if (dominatorNodes != null) {
+			dominatorNodes.retainAll(parentDominatorNodeList);
+			dominatorNodes.add(currentNode);
+			// finding and processing child nodes
+			for (CEdge currentEdge : edges) {
+				// checking if current node is source node for current edge
+				if (currentEdge.getSource() == currentNode) {
+					// getting child node
+					CNode childNode = currentEdge.getTarget();
+					// getting set of dominator nodes for current node
+					if (!dominatorNodes.contains(childNode)) {
+						setDominatorNodes(childNode, dominatorNodes);
+					}
+				}
+			}
+		} else {
+			// creating list of dominator nodes for current node
+			dominatorNodes = new ArrayList<CNode>();
+			dominatorNodes.add(currentNode);
+
+			// adding list of dominator nodes to hash map
+			setOfDominatorNodes.put(currentNode, dominatorNodes);
+
+			// adding parent dominator nodes
+			dominatorNodes.addAll(parentDominatorNodeList);
+
+			// finding and processing child nodes
+			for (CEdge currentEdge : edges) {
+				// checking if current node is source node for current edge
+				if (currentEdge.getSource() == currentNode) {
+					// getting child node
+					CNode childNode = currentEdge.getTarget();
+					if (!dominatorNodes.contains(childNode)) {
+						setDominatorNodes(childNode, dominatorNodes);
+					}
+				}
+			}
+		}
+	}
+
+	// checking if an edge between two nodes is a loop edge by finding if the node is dominated ny the other node
+	public boolean isLoopEdge(CNode startNode,CNode endNode) {
+		return setOfDominatorNodes.get(startNode).contains(endNode);
 	}
 
 	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
 
-		
 		return 0;
 	}
 

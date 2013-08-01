@@ -81,6 +81,7 @@ public class TestPath {
 		return instructions;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		boolean result=true;
 		if(!(obj instanceof TestPath)){
@@ -97,10 +98,12 @@ public class TestPath {
 		return result;
 	}
 
+	@Override
 	public int hashCode() {
 		return bMethod.hashCode();
 	}
 
+	@Override
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
 		for(Node node: nodes){

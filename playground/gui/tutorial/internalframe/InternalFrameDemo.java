@@ -103,7 +103,8 @@ public class InternalFrameDemo extends JFrame
     }
 
     //React to menu selections.
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         if ("new".equals(e.getActionCommand())) { //new
             createFrame();
         } else { //quit
@@ -147,7 +148,8 @@ public class InternalFrameDemo extends JFrame
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 createAndShowGUI();
             }
         });

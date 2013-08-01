@@ -16,6 +16,7 @@ public class BALoad extends BInstruction {
 		this.operand1 = operand1;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
@@ -26,10 +27,12 @@ public class BALoad extends BInstruction {
 		return null;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + operand1;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 25;
 	}

@@ -13,20 +13,23 @@ public class BIReturn extends Return {
 		super(lineNumber);
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		//-1 means the end of the instructions??
 		activeFrame.setLineNumber(OpcodeUtility.END_INSTRUCTION_FLAG);
 		System.out.println(activeFrame.getOperandStack());
 		System.out.println(activeFrame.getVarTable());
-		Integer returnedValue = (Integer) myOperandStack.pop();
+		Integer returnedValue = myOperandStack.pop();
 		return returnedValue;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 172;
 	}
@@ -45,6 +48,6 @@ public class BIReturn extends Return {
 	public Object execute(PathFrame pathFrame) {
 		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
 
-		return (Integer) myOperandStack.pop();
+		return myOperandStack.pop();
 	}
 }

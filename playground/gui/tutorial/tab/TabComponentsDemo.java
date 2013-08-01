@@ -69,7 +69,8 @@ public class TabComponentsDemo extends JFrame {
         //Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable(){
-            public void run(){
+            @Override
+			public void run(){
                 //Turn off metal's use of bold fonts
 	        UIManager.put("swing.boldMetal", Boolean.FALSE);
                 new TabComponentsDemo("TabComponentsDemo").runTest();
@@ -113,7 +114,8 @@ public class TabComponentsDemo extends JFrame {
         tabComponentsItem = new JCheckBoxMenuItem("Use TabComponents", true);
         tabComponentsItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.ALT_MASK));
         tabComponentsItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < pane.getTabCount(); i++) {
                     if (tabComponentsItem.isSelected()) {
                         initTabComponent(i);
@@ -126,7 +128,8 @@ public class TabComponentsDemo extends JFrame {
         scrollLayoutItem = new JCheckBoxMenuItem("Set ScrollLayout");
         scrollLayoutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK));
         scrollLayoutItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 if (pane.getTabLayoutPolicy() == JTabbedPane.WRAP_TAB_LAYOUT) {
                     pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
                 } else {
@@ -137,7 +140,8 @@ public class TabComponentsDemo extends JFrame {
         JMenuItem resetItem = new JMenuItem("Reset JTabbedPane");
         resetItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.ALT_MASK));
         resetItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 runTest();
             }
         });

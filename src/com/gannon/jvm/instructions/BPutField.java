@@ -18,11 +18,13 @@ public class BPutField extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 
 	}
 
+	@Override
 	public int getOpcode() {
 		return 181;
 	}
@@ -31,6 +33,7 @@ public class BPutField extends BInstruction {
 		return "putfield" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

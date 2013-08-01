@@ -17,11 +17,13 @@ public class BPutStatic extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 
 	}
 
+	@Override
 	public int getOpcode() {
 		return 179;
 	}
@@ -30,6 +32,7 @@ public class BPutStatic extends BInstruction {
 		return "putstatic" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

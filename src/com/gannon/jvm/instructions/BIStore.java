@@ -16,6 +16,7 @@ public class BIStore extends BInstruction {
 		this.operand1 = operand1;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
@@ -28,6 +29,7 @@ public class BIStore extends BInstruction {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 54;
 	}
@@ -36,6 +38,7 @@ public class BIStore extends BInstruction {
 		return operand1;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + Integer.toString(getOperand());
 	}

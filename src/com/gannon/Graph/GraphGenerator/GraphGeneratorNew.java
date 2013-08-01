@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.bytecode.controlflowgraph.Graph;
 import com.gannon.bytecode.controlflowgraph.GraphObjectBuilder;
 import com.gannon.main.InterfaceAPISingleton;
 

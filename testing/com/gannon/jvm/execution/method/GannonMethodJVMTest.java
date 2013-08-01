@@ -22,6 +22,7 @@ public class GannonMethodJVMTest {
 
 	@Rule
 	public TestRule watcher = new TestWatcher() {
+		@Override
 		protected void starting(Description description) {
 			System.out.println("===========================================");
 			System.out.println("Starting test: " + description.getMethodName());

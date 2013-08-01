@@ -3,7 +3,6 @@ package com.gannon.jvm.data.dependency;
 import java.util.Stack;
 
 import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.progam.path.TestPath;
 
 /**

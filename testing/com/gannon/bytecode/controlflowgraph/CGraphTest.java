@@ -11,6 +11,7 @@ import org.junit.runner.Description;
 public class CGraphTest {
 	@Rule
 	public TestRule watcher = new TestWatcher() {
+		@Override
 		protected void starting(Description description) {
 			System.out.println("Starting test: " + description.getMethodName());
 		}

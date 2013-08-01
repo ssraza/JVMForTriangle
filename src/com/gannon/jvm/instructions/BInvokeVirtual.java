@@ -24,6 +24,7 @@ public class BInvokeVirtual extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Integer execute(BFrame activeFrame) {
 		Stack<Object> myCurrentOperandStack = activeFrame.getOperandStack();
 		BLocalVarTable myCurrentLocalVariableTable = activeFrame.getVarTable();
@@ -100,6 +101,7 @@ public class BInvokeVirtual extends BInstruction {
 		return nextMethod;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 182;
 	}
@@ -108,6 +110,7 @@ public class BInvokeVirtual extends BInstruction {
 		return "invokevirtual" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

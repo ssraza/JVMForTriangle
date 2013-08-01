@@ -125,10 +125,12 @@ public class Main extends javax.swing.JFrame {
 		localVariableList.setModel(new javax.swing.AbstractListModel() {
 			String[] strings = { "local 1", "local 2", "local 3" };
 
+			@Override
 			public int getSize() {
 				return strings.length;
 			}
 
+			@Override
 			public Object getElementAt(int i) {
 				return strings[i];
 			}
@@ -140,10 +142,12 @@ public class Main extends javax.swing.JFrame {
 		stackList.setModel(new javax.swing.AbstractListModel() {
 			String[] strings = { "Stack 1", "Stack 2", "Stack 3", "Stack 4" };
 
+			@Override
 			public int getSize() {
 				return strings.length;
 			}
 
+			@Override
 			public Object getElementAt(int i) {
 				return strings[i];
 			}
@@ -157,10 +161,12 @@ public class Main extends javax.swing.JFrame {
 		opCodeList.setModel(new javax.swing.AbstractListModel() {
 			String[] strings = { "Opcode 0 1", "Opcode 0 2", "Opcode 0 3" };
 
+			@Override
 			public int getSize() {
 				return strings.length;
 			}
 
+			@Override
 			public Object getElementAt(int i) {
 				return strings[i];
 			}
@@ -181,6 +187,7 @@ public class Main extends javax.swing.JFrame {
 		overrideValueTextField.setText("Override Value");
 		overrideValueTextField
 				.addActionListener(new java.awt.event.ActionListener() {
+					@Override
 					public void actionPerformed(java.awt.event.ActionEvent evt) {
 						overrideValueTextFieldActionPerformed(evt);
 					}
@@ -200,6 +207,7 @@ public class Main extends javax.swing.JFrame {
 
 		applyButton.setText("Apply");
 		applyButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				applyButtonActionPerformed(evt);
 			}
@@ -214,12 +222,14 @@ public class Main extends javax.swing.JFrame {
 		jSplitPane1.setLeftComponent(jScrollPane2);
 
 		classMethodTree.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				classMethodTreeMousePressed(evt);
 			}
 		});
 		classMethodTree
 				.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+					@Override
 					public void valueChanged(
 							javax.swing.event.TreeSelectionEvent evt) {
 						classMethodTreeValueChanged(evt);
@@ -235,6 +245,7 @@ public class Main extends javax.swing.JFrame {
 
 		openClassFile.setText("Open Class File");
 		openClassFile.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				openClassFileActionPerformed(evt);
 			}
@@ -538,6 +549,7 @@ public class Main extends javax.swing.JFrame {
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				new Main().setVisible(true);
 			}

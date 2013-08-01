@@ -16,18 +16,20 @@ public class BIAdd extends BInstruction  {
 		super(lineNumber);
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 
 		Integer pc = activeFrame.getLineNumber();
 
-		myOperandStack.push((Integer) myOperandStack.pop()
-				+ (Integer) myOperandStack.pop());
+		myOperandStack.push(myOperandStack.pop()
+				+ myOperandStack.pop());
 
 		activeFrame.setLineNumber(++pc);
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 96;
 	}
@@ -63,8 +65,8 @@ public class BIAdd extends BInstruction  {
 	public Object execute(PathFrame pathFrame) {
 		Stack<Integer> myOperandStack = pathFrame.getOperandStack();
 
-		myOperandStack.push((Integer) myOperandStack.pop()
-				+ (Integer) myOperandStack.pop());
+		myOperandStack.push(myOperandStack.pop()
+				+ myOperandStack.pop());
 
 		pathFrame.setOperandStack(myOperandStack);
 		return null;

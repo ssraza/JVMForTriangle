@@ -13,16 +13,19 @@ public class BReturn extends Return {
 		super(lineNumber);
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		Integer pc = activeFrame.getLineNumber();
 		activeFrame.setLineNumber(OpcodeUtility.END_INSTRUCTION_FLAG);
 		return null;// return a null letting main know to execute next method
 	}
 
+	@Override
 	public int getOpcode() {
 		return 177;
 	}

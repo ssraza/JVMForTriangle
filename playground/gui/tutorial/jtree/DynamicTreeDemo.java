@@ -104,7 +104,8 @@ public class DynamicTreeDemo extends JPanel
         treePanel.addObject(p2, c2Name);
     }
     
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         
         if (ADD_COMMAND.equals(command)) {
@@ -143,7 +144,8 @@ public class DynamicTreeDemo extends JPanel
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 createAndShowGUI();
             }
         });

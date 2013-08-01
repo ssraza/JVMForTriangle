@@ -18,11 +18,13 @@ public class BGetStatic extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 
 	}
 
+	@Override
 	public int getOpcode() {
 		return 178;
 	}
@@ -31,6 +33,7 @@ public class BGetStatic extends BInstruction {
 		return "getstatic" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

@@ -40,6 +40,7 @@ public class PredicateNode extends Node {
 		this.isIgnore = isIgnore;
 	}
 
+	@Override
 	public String toString() {
 		return getInstruction()+"ActualPredicateResult= " + actualPredicateResult + ";ExpectedPredicateResult= " + expectedPredicateResult;
 	}

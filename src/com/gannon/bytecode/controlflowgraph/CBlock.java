@@ -56,11 +56,12 @@ public class CBlock {
 		return instructions;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Blocks info (ID):" + id + "\n");
 		for (BInstruction instr : instructions) {
-			sb.append(instr);
+			sb.append(instr+"\n");
 		}
 		return sb.toString();
 	}

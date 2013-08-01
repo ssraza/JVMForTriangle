@@ -95,7 +95,7 @@ public class GraphObjectBuilder {
 		for (int i = 0; i < listOfBlock.size(); i++) {
 			BInstruction instr = listOfBlock.get(i).getLastLineInstruction();
 			String lastLineOpcode = instr.getOpCodeCommand();
-			String lastLineOperand = (String) instr.getOpCodeCommand();
+			String lastLineOperand = instr.getOpCodeCommand();
 			if (lastLineOpcode.toLowerCase().contains("if")) {
 				edges.add(new Edge(listOfBlock.get(i), listOfBlock.get(i + 1)));
 				int operandLineNumber = Integer.parseInt(lastLineOperand);

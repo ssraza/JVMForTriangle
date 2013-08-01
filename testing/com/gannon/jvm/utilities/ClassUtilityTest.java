@@ -33,7 +33,8 @@ public class ClassUtilityTest {
 			e.printStackTrace();
 		}
 		Method[] methods = c.getMethods();
-		Method m = new ClassUtility().findMethodByName(methods, "triangleType");
+		new ClassUtility();
+		Method m = ClassUtility.findMethodByName(methods, "triangleType");
 		assertEquals("triangleType", m.getName());
 
 	}
@@ -48,13 +49,15 @@ public class ClassUtilityTest {
 			e.printStackTrace();
 		}
 		Method[] methods = c.getMethods();
-		Method m = new ClassUtility().findMethodByName(methods, "triangleType");
+		new ClassUtility();
+		Method m = ClassUtility.findMethodByName(methods, "triangleType");
 		assertEquals(3, m.getParameterTypes().length);
 	}
 	
 	@Test
 	public void testRetriveNumberOfParameters2() {
-		int m = new ClassUtility().retriveNumberOfParameters("com.gannon.jvm.utilities.Triangle", "triangleType");
+		new ClassUtility();
+		int m = ClassUtility.retriveNumberOfParameters("com.gannon.jvm.utilities.Triangle", "triangleType");
 		assertEquals(3, m);
 	}
 }

@@ -87,6 +87,7 @@ public class MethodTree extends JScrollPane {
 	}
 
 	class MethodTreeModelListener implements TreeModelListener {
+		@Override
 		public void treeNodesChanged(TreeModelEvent e) {
 			DefaultMutableTreeNode node;
 			node = (DefaultMutableTreeNode) (e.getTreePath().getLastPathComponent());
@@ -104,12 +105,15 @@ public class MethodTree extends JScrollPane {
 			System.out.println("New value: " + node.getUserObject());
 		}
 
+		@Override
 		public void treeNodesInserted(TreeModelEvent e) {
 		}
 
+		@Override
 		public void treeNodesRemoved(TreeModelEvent e) {
 		}
 
+		@Override
 		public void treeStructureChanged(TreeModelEvent e) {
 		}
 	}

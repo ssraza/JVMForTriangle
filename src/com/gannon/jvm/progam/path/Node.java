@@ -33,14 +33,17 @@ public class Node {
 	}
 
 	
+	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof Node) && instruction.equals(((Node) obj).getInstruction());
 	}
 
+	@Override
 	public int hashCode() {
 		return instruction.hashCode();
 	}
 
+	@Override
 	public String toString() {
 		return Integer.toString(instruction.getLineNumber());
 	}

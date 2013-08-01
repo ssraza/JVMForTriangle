@@ -18,10 +18,12 @@ public class BInvokeInterface extends BInstruction {
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 185;
 	}
@@ -30,6 +32,7 @@ public class BInvokeInterface extends BInstruction {
 		return "invokeinterface" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

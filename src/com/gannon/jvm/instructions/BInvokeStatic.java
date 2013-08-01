@@ -17,10 +17,12 @@ public class BInvokeStatic extends BInstruction{
 		this.desc = desc;
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		return null;
 	}
 
+	@Override
 	public int getOpcode() {
 		return 184;
 	}
@@ -29,6 +31,7 @@ public class BInvokeStatic extends BInstruction{
 		return "invokestatic" + " " + owner + " " + name + " " + desc;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}

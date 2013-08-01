@@ -43,6 +43,7 @@ public class BLabel {
 		this.goToLineNumber = goToLineNumber;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder s=new StringBuilder();
 		s.append(" " + ch + sequenceID + "("+lb.toString()+ ")  "+ goToLineNumber+" \n");

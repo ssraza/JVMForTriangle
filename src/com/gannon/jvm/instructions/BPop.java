@@ -9,16 +9,19 @@ public class BPop extends BInstruction {
 		super(lineNumber);
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}
 
+	@Override
 	public Object execute(BFrame activeFrame) {
 		activeFrame.setLineNumber(1 + activeFrame.getLineNumber());
 		return null;
 
 	}
 
+	@Override
 	public int getOpcode() {
 		return 87;
 	}

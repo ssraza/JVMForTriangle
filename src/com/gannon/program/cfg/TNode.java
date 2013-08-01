@@ -1,6 +1,5 @@
 package com.gannon.program.cfg;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**

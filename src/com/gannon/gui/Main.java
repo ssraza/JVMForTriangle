@@ -24,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -51,6 +52,7 @@ public class Main extends JFrame {
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Main frame = new Main();
@@ -131,7 +133,7 @@ public class Main extends JFrame {
 		JButton btnStep = new JButton("Step");
 		panel.add(btnStep);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 		
 		JScrollPane scrollPaneInstruction = new JScrollPane();

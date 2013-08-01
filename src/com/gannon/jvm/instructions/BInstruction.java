@@ -53,14 +53,17 @@ public abstract class BInstruction {
 		this.lineNumber = lineNumber;
 	}
 
+	@Override
 	public String toString(){
 		return String.valueOf(lineNumber) + " "+getOpCodeCommand();
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof BInstruction) && lineNumber == ((BInstruction)obj).getLineNumber();
 	}
 
+	@Override
 	public int hashCode() {
 		return Integer.toString(lineNumber).hashCode();
 	}

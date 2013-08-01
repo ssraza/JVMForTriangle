@@ -47,10 +47,12 @@ public class BIFicmpge extends BPredicateInstruction {
 		return predicateResult;
 	}
 
+	@Override
 	public String toString() {
 		return super.toString()+" "+getOperand();
 	}
 
+	@Override
 	public int getOpcode() {
 		return 162;
 	}
