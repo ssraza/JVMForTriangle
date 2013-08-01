@@ -66,7 +66,7 @@ public class CFGMethod {
 		ArrayList<BInstruction> instructions = bMethod.getInstructions();
 		CBlock block = new CBlock(bMethod.getName(), blockID++);
 
-		for (int j = 1; j < blockLeader.length; j++) {
+		for (int j = 0; j < blockLeader.length; j++) {
 			if (blockLeader[j]) {
 				blocks.add(block);
 				block = new CBlock(bMethod.getName(), blockID++);
@@ -97,6 +97,8 @@ public class CFGMethod {
 			// /unconditional "goto" branch is a leader.
 			// and its next line is a leader
 			if (opcode.contains("if") || opcode.contains("goto")) {
+				//this line is a leader so the if statement is a block
+				leaders[i] = true;
 				// next line is a leader
 				leaders[i + 1] = true;
 				// target line number is a leader

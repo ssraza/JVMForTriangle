@@ -191,6 +191,7 @@ public final class CGraph {
 		return this.nodes;
 	}
 
+	// not been tested
 	public void merge(final Set<CNode> nodes, final Set<CEdge> edges) {
 		this.nodes.addAll(nodes);
 		this.edges.addAll(edges);
@@ -232,6 +233,7 @@ public final class CGraph {
 		return edges;
 	}
 
+	// not been tested
 	public void mergeCallingGraph(CGraph g, CNode invokeCNode) {
 		Set<CNode> gNodes = g.getNodes();
 		Set<CEdge> gEdges = g.getEdges();
@@ -285,7 +287,7 @@ public final class CGraph {
 		CPath pathFromCurrentNode = new CPath(0);
 		CPaths paths = new CPaths(0);
 
-		if (currentNode == endNode) {
+		if (currentNode.equals(endNode)) {
 			return pathFromCurrentNode;
 		} else if (currentPath.getNodes().contains(currentNode)) {
 			return null;
@@ -293,7 +295,7 @@ public final class CGraph {
 			// finding and processing child nodes
 			for (CEdge currentEdge : edges) {
 				// checking if current node is source node for current edge
-				if (currentEdge.getSource() == currentNode) {
+				if (currentEdge.getSource().equals(currentNode)) {
 					// getting child node
 					CNode childNode = currentEdge.getTarget();
 					currentPath.add(currentNode);
@@ -305,18 +307,24 @@ public final class CGraph {
 					}
 				}
 			}
-			// finding longest path from child paths
-			CPath longestPath = paths.getPaths().get(0);
 
-			for (int j = 1; j < paths.getPaths().size(); j++) {
-				CPath newPath = paths.getPaths().get(j);
-				if (newPath.getNodes().size() > longestPath.getNodes().size()) {
-					longestPath = newPath;
+			if (paths.getPaths().size() > 0) {
+				// finding longest path from child paths
+				CPath longestPath = paths.getPaths().get(0);
+
+				for (int j = 1; j < paths.getPaths().size(); j++) {
+					CPath newPath = paths.getPaths().get(j);
+					if (newPath.getNodes().size() > longestPath.getNodes()
+							.size()) {
+						longestPath = newPath;
+					}
 				}
-			}
 
-			return longestPath;
+				return longestPath;
+			}
 		}
+
+		return null;
 	}
 
 	public CPath getLongestPath(CNode finishNode, CNode startNode) {
@@ -383,9 +391,36 @@ public final class CGraph {
 		return setOfDominatorNodes.get(startNode).contains(endNode);
 	}
 
-	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
+	private int processGetNumberOfPaths(CNode endNode, CNode currentNode,
+			CPath currentPath) {
+		int numberOfFoundPaths = 0;
 
-		return 0;
+		if (currentNode == endNode) {
+			return 1;
+		} else if (currentPath.getNodes().contains(currentNode)) {
+			return 0;
+		} else {
+
+			// finding and processing child nodes
+			for (CEdge currentEdge : edges) {
+				// checking if current node is source node for current edge
+				if (currentEdge.getSource() == currentNode) {
+					// getting child node
+					CNode childNode = currentEdge.getTarget();
+					currentPath.add(currentNode);
+					numberOfFoundPaths += processGetNumberOfPaths(endNode,
+							childNode, currentPath);
+					currentPath.getNodes().remove(currentNode);
+				}
+			}
+		}
+		return numberOfFoundPaths;
+	}
+
+	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
+		// creating list of visited nodes
+		CPath visitedPath = new CPath(0);
+		return processGetNumberOfPaths(node1, node2, visitedPath);
 	}
 
 	public List<CNode> getListOfChildNodes(CNode parentNode) {
@@ -398,9 +433,10 @@ public final class CGraph {
 		return null;
 
 	}
-	
-	public String printEdgesToString(){
-		StringBuffer sb=new StringBuffer();
+
+	// ============================ for displaying=================
+	public String printEdgesToString() {
+		StringBuffer sb = new StringBuffer();
 		sb.append("\n====== Edges ======\n");
 		Iterator<CEdge> it = edges.iterator();
 		while (it.hasNext()) {
@@ -409,9 +445,9 @@ public final class CGraph {
 		}
 		return sb.toString();
 	}
-	
-	public String printNodesToString(){
-		StringBuffer sb=new StringBuffer();
+
+	public String printNodesToString() {
+		StringBuffer sb = new StringBuffer();
 		sb.append("\n====== Nodes ======\n");
 		Iterator<CNode> it = nodes.iterator();
 		while (it.hasNext()) {
@@ -420,9 +456,9 @@ public final class CGraph {
 		}
 		return sb.toString();
 	}
-	
-	public String toString(){
-		StringBuffer sb=new StringBuffer();
+
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
 		sb.append(printNodesToString());
 		sb.append(printEdgesToString());
 		return sb.toString();

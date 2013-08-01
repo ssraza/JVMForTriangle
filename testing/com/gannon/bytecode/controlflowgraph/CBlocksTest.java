@@ -37,7 +37,7 @@ public class CBlocksTest {
 		blabel.setGoToLineNumber(37);//jump to 37 
 		BIFicmpge instr=new BIFicmpge(blabel,5);//line number is 5
 		int actual=blocks.findPredicateInstructionTargtBlockId(instr);
-		assertEquals(11,actual);
+		assertEquals(19,actual);
 	}
 	
 	
@@ -53,7 +53,7 @@ public class CBlocksTest {
 		blabel.setGoToLineNumber(35);//jump to 35 
 		BIFicmpge instr=new BIFicmpge(blabel,32);//line number is 5
 		int actual=blocks.findPredicateInstructionTargtBlockId(instr);
-		assertEquals(10,actual);
+		assertEquals(18,actual);
 	}
 	
 	@Test
@@ -64,8 +64,8 @@ public class CBlocksTest {
 
 		CFGMethod cfg = new CFGMethod(m);
 		CBlocks blocks=cfg.buildBlocks();
-		System.out.print(blocks);
-		assertEquals(12,blocks.size());
+		//System.out.print(blocks);
+		assertEquals(20,blocks.size());
 	}
 
 }

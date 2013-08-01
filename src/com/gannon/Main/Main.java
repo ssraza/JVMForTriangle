@@ -16,11 +16,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.gannon.Graph.GraphGenerator.GraphGeneratorNew;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.asm.components.BStackMaxLocals;
+
+import dontworkonthis.GraphGeneratorNew;
 
 /**
  * 
