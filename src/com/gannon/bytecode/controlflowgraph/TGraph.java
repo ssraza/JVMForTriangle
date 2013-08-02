@@ -2,6 +2,8 @@ package com.gannon.bytecode.controlflowgraph;
 
 import java.util.ArrayList;
 
+import com.gannon.program.cfg.Edge;
+
 public class TGraph {
 	private ArrayList<CNode> nodes = new ArrayList<CNode>();
 	private ArrayList<Edge> edges = new ArrayList<Edge>();

@@ -288,6 +288,7 @@ public final class CGraph {
 		CPaths paths = new CPaths(0);
 
 		if (currentNode.equals(endNode)) {
+			pathFromCurrentNode.add(currentNode);
 			return pathFromCurrentNode;
 		} else if (currentPath.getNodes().contains(currentNode)) {
 			return null;
