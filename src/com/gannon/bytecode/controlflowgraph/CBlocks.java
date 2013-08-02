@@ -34,12 +34,20 @@ public class CBlocks {
 		return blocks.add(blcok);
 	}
 
+	public void add(int arg0, CBlock arg1) {
+		blocks.add(arg0, arg1);
+	}
+
 	public void clear() {
 		blocks.clear();
 	}
 
 	public CBlock get(int block) {
 		return blocks.get(block);
+	}
+	
+	public CBlock getLast() {
+		return blocks.get(size()-1);
 	}
 
 	// find blockID with line number x, where x is in conditional instructions,
@@ -65,15 +73,15 @@ public class CBlocks {
 		return blocks.size();
 	}
 
-	public Set<CNode> convertToSet(){
-		int nodeId=0;
-		Set<CNode> nodes=new HashSet<CNode>();
-		for(CBlock block: blocks){
-			nodes.add(new CNode(nodeId++,block));
+	public Set<CNode> convertToSet() {
+		int nodeId = 0;
+		Set<CNode> nodes = new HashSet<CNode>();
+		for (CBlock block : blocks) {
+			nodes.add(new CNode(nodeId++, block));
 		}
 		return nodes;
 	}
-	
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (CBlock b : blocks) {

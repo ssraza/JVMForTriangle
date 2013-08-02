@@ -442,7 +442,7 @@ public final class CGraph {
 		Iterator<CEdge> it = edges.iterator();
 		while (it.hasNext()) {
 			CEdge edge = (CEdge) it.next();
-			sb.append(edge);
+			sb.append(edge+"\n");
 		}
 		return sb.toString();
 	}
@@ -453,7 +453,7 @@ public final class CGraph {
 		Iterator<CNode> it = nodes.iterator();
 		while (it.hasNext()) {
 			CNode node = (CNode) it.next();
-			sb.append(node);
+			sb.append(node+"\n");
 		}
 		return sb.toString();
 	}

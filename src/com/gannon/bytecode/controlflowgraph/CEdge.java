@@ -58,7 +58,6 @@ public final class CEdge {
 	 */
 	@Override
 	public String toString() {
-		return "Edge [id=" + this.id + ", source=" + this.source.getId()
-				+ ", target=" + this.target.getId() + "]\n";
+		return "Edge [id=" + this.id+ "] Source Node ["+ source+ "] Target Node["+target+"]";
 	}
 }

@@ -20,9 +20,14 @@ public class CFGMethod {
 	}
 
 	public CGraph buildGraph() {
-		CBlocks listOfBlock=buildBlocks();
+		CBlocks listOfBlock = buildBlocks();
 		int edgeId = 0;
 		Set<CEdge> edges = new HashSet<CEdge>();
+
+		// adding the CFG Starting Node
+		listOfBlock.add(0, new CBlock(Integer.MIN_VALUE));
+		// adding the CFG Ending Node
+		listOfBlock.add(new CBlock(Integer.MAX_VALUE));
 
 		for (int i = 0; i < listOfBlock.size(); i++) {
 			CBlock block = listOfBlock.get(i);
@@ -41,22 +46,41 @@ public class CFGMethod {
 				CEdge cEdge2 = new CEdge(edgeId++, sourceNode, targetNode2);
 				edges.add(cEdge2);
 			} else if (block.findGotoInstruction() != null) {
-				int operandLineNumber = block.findIfInstruction().getOperand()
-						.getGoToLineNumber();
-				int destBlockID = listOfBlock
-						.findBlockIndexByLineNumber(operandLineNumber);
+				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
+				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
 				CNode sourceNode = new CNode(i, listOfBlock.get(i));
-				CNode targetNode = new CNode(destBlockID,	listOfBlock.get(destBlockID));
+				CNode targetNode = new CNode(destBlockID, listOfBlock.get(destBlockID));
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode));
-			} else if (block.findReturnInstruction() == null) {
-				// connect to next block if this block doesn't have return
+			} else if (block.findReturnInstruction() != null) {
+				// connect to ending node if there is a return instruction
+				CNode sourceNode = new CNode(i, listOfBlock.get(i));
+				CNode endingNode = new CNode(listOfBlock.size() - 1, listOfBlock.getLast());
+				edges.add(new CEdge(edgeId++, sourceNode, endingNode));
+
+			} else if (i < listOfBlock.size() - 1) {
+				// connect to next block if this block doesn't have all above
+				// instructions and not reach the end of the block
 				CNode sourceNode = new CNode(i, listOfBlock.get(i));
 				CNode targetNode1 = new CNode(i + 1, listOfBlock.get(i + 1));
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
 			}
 
 		}
+
+		// now we need to add start and end nodes
 		return new CGraph(listOfBlock.convertToSet(), edges);
+	}
+
+	private void addCFGStartingNode(CBlocks listOfBlock, Set<CEdge> edges) {
+		// add start the node and and the edge to the first block
+		// -1 indicates the starting number
+		CNode startingNode = new CNode(-1, new CBlock(-1));
+		CNode firstBlcokNode = null;
+		if (listOfBlock.size() > 0) {
+			firstBlcokNode = new CNode(0, listOfBlock.get(0));
+		}
+		CEdge startingEdge = new CEdge(-1, startingNode, firstBlcokNode);
+		edges.add(startingEdge);
 	}
 
 	public CBlocks buildBlocks() {
@@ -97,14 +121,13 @@ public class CFGMethod {
 			// /unconditional "goto" branch is a leader.
 			// and its next line is a leader
 			if (opcode.contains("if") || opcode.contains("goto")) {
-				//this line is a leader so the if statement is a block
+				// this line is a leader so the if statement is a block
 				leaders[i] = true;
 				// next line is a leader
 				leaders[i + 1] = true;
 				// target line number is a leader
 				if (instr instanceof BPredicateInstruction) {
-					int targetLineNumber = ((BPredicateInstruction) instr)
-							.getOperand().getGoToLineNumber();
+					int targetLineNumber = ((BPredicateInstruction) instr).getOperand().getGoToLineNumber();
 					leaders[targetLineNumber - 1] = true;
 				}
 			}
@@ -125,8 +148,7 @@ public class CFGMethod {
 
 	public void displayLeadingFlags(boolean[] computeLeadingLineFlags) {
 		for (int i = 0; i < computeLeadingLineFlags.length; i++) {
-			System.out.println("Line Number " + i + " Flag: "
-					+ computeLeadingLineFlags[i] + "\n ");
+			System.out.println("Line Number " + i + " Flag: " + computeLeadingLineFlags[i] + "\n ");
 		}
 	}
 
