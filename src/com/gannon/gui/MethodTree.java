@@ -1,24 +1,37 @@
 package com.gannon.gui;
 
-
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-public class MethodTree extends JScrollPane {
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
+
+public class MethodTree extends JScrollPane implements TreeSelectionListener {
+	private static final int METHOD_LEVEL = 2;
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 	protected JTree tree;
 	private String rootName;
+	private Main mainFrame;
 
-	public MethodTree(String rootName) {
-		this.rootName=rootName;
+	public MethodTree() {
+		super();
+	}
+
+	public MethodTree(Main mainFrame, String rootName) {
+		this.mainFrame = mainFrame;
+		this.rootName = rootName;
 		rootNode = new DefaultMutableTreeNode(rootName);
 		treeModel = new DefaultTreeModel(rootNode);
 		treeModel.addTreeModelListener(new MethodTreeModelListener());
@@ -26,7 +39,8 @@ public class MethodTree extends JScrollPane {
 		tree.setEditable(false);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setShowsRootHandles(true);
-		
+		tree.addTreeSelectionListener(this);
+
 		add(tree);
 		setViewportView(tree);
 	}
@@ -125,6 +139,18 @@ public class MethodTree extends JScrollPane {
 	public void setClassName(String className) {
 		this.rootName = className;
 	}
-	
-	
+
+	@Override
+	public void valueChanged(TreeSelectionEvent arg0) {
+		BClass myclass = BClassGenerator.getBClass(rootName);
+		if (myclass != null) {
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+			BMethod selectedMethod = myclass.getMethod(node.toString());
+			if (tree.getSelectionPath().getPathCount() == METHOD_LEVEL && selectedMethod != null) {
+				mainFrame.txtrInstructionarea.setText("");
+				mainFrame.txtrInstructionarea.append(selectedMethod.toString());
+			}
+		}
+
+	}
 }

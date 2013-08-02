@@ -116,6 +116,7 @@ public class BMethod {
 		return null;
 	}
 
+	//change IFcompge BLabel to line number
 	public void updateJumpLabel(){
 		for(BBlock block: blockList){
 			for(BInstruction instruction: block.getInstructions()){
