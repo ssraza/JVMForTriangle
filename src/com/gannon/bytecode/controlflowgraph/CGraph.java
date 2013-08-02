@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.gannon.jvm.progam.path.TestPaths;
+
 public final class CGraph {
 	private static final List<CEdge> EMPTY_EDGES = Collections.emptyList();
 	private Set<CNode> nodes;
@@ -464,4 +466,28 @@ public final class CGraph {
 		sb.append(printEdgesToString());
 		return sb.toString();
 	}
+	
+	//============== Generate all paths========================
+	
+	private  void breadthFirst(TestPaths paths){
+		
+		
+		//your implmenation is here
+		
+		
+		
+	}
+	
+	public TestPaths generateAllPaths(){
+		TestPaths paths=new TestPaths();
+		breadthFirst(paths);
+		return paths;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
