@@ -11,6 +11,7 @@ import org.junit.runner.Description;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.progam.path.TestPaths;
 
 public class CGraphTest {
 	@Rule
@@ -142,5 +143,22 @@ public class CGraphTest {
 		CFGMethod cfg = new CFGMethod(m);
 		System.out.print(cfg.buildGraph());
 
+	}
+	
+
+	@Test
+	public CGraph getCFG() {
+		BClass myclass = BClassGenerator.getBClass("ClassForRandomMethods.class");
+		BMethod m = myclass.getMethod("testGraphMethod2");
+		CFGMethod cfg = new CFGMethod(m);
+		CGraph graph = cfg.buildGraph();	
+		return graph;
+	}
+	
+	@Test
+	public void GenerateAllTestPathTest(){
+		CGraph graph = getCFG();
+		CPaths testPaths = graph.generateAllPaths();
+		System.out.println(testPaths.getPaths().size());
 	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.progam.path.TestPaths;
 
 public final class CGraph {
@@ -469,25 +470,46 @@ public final class CGraph {
 	
 	//============== Generate all paths========================
 	
-	private  void breadthFirst(TestPaths paths){
+	private void breadthFirst(CPaths paths){
+		Set<CNode> graphNodes = this.nodes;
 		
+		for (CNode Block : graphNodes) {
+		for(int index = 0; ; index ++){
+			CPath testPath = new CPath(index);
+			testPath.add(Block);
+		}
 		
-		//your implmenation is here
+		}
+	        // get  the start node
+	            if (visited.contains(node)) {
+	                continue;
+	            }
+	            if (node.equals(END)) {
+	                visited.add(node);
+	                printPath(visited);
+	                visited.removeLast();
+	                break;
+	            }
+	        }
+	        // in breadth-first, recursion needs to come after visiting adjacent nodes
+	        for (String node : nodes) {
+	            if (visited.contains(node) || node.equals(END)) {
+	                continue;
+	            }
+	            visited.addLast(node);
+	            breadthFirst(graph, visited);
+	            visited.removeLast();
+	        }
 		
 		
 		
 	}
 	
-	public TestPaths generateAllPaths(){
-		TestPaths paths=new TestPaths();
+	public CPaths generateAllPaths(){
+		CPaths paths=new CPaths(1);
 		breadthFirst(paths);
 		return paths;
 	}
-	
-	
-	
-	
-	
 	
 	
 }

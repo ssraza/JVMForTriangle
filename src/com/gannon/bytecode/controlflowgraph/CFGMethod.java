@@ -2,10 +2,10 @@ package com.gannon.bytecode.controlflowgraph;
 
 import java.util.*;
 
-import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
+
 
 /*
  * A wrapper of BMethod

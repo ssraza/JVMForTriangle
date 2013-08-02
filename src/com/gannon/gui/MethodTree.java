@@ -1,5 +1,7 @@
 package com.gannon.gui;
 
+import java.awt.Font;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -147,7 +149,8 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 			BMethod selectedMethod = myclass.getMethod(node.toString());
 			if (tree.getSelectionPath().getPathCount() == METHOD_LEVEL && selectedMethod != null) {
-				mainFrame.txtrInstructionarea.setText("");
+				mainFrame.txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
+				mainFrame.txtrInstructionarea.setText("");			
 				mainFrame.txtrInstructionarea.append(selectedMethod.toString());
 			}
 		}

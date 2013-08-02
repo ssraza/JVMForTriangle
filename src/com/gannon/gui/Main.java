@@ -29,6 +29,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.apache.commons.io.FileUtils;
+
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
@@ -41,6 +43,8 @@ import com.tutorial.filechoosen.FileChooserDemo;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class Main extends JFrame {
 
@@ -50,9 +54,10 @@ public class Main extends JFrame {
 	private JTextField txtCfgHere;
 	public JTextArea txtrInstructionarea;
 	private JTextArea txtrConsole;
-	private File file ;
+	private File file;
 	private MethodTree scrollPaneTree;
-	protected JSplitPane splitPaneRoot; 
+	protected JSplitPane splitPaneRoot;
+	private JFileChooser fc;
 
 	/**
 	 * Launch the application.
@@ -107,7 +112,7 @@ public class Main extends JFrame {
 		centerDesktopPane.add(splitPaneRoot, BorderLayout.CENTER);
 
 		// populated tree will be added here when open a file
-		scrollPaneTree = new MethodTree(); 
+		scrollPaneTree = new MethodTree();
 
 		scrollPaneTree.setPreferredSize(new Dimension(100, 23));
 		scrollPaneTree.setMinimumSize(new Dimension(100, 23));
@@ -199,18 +204,40 @@ public class Main extends JFrame {
 		mntmOpenClass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Create a file chooser
-				JFileChooser fc = new JFileChooser();
+
+				URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
+				String directory = location.toString();
+				File pathFile = new File(ConstantsUtility.GANNON_JVM_PATH_TXT);
+				if (pathFile.exists()) {
+					try {
+
+						directory = FileUtils.readFileToString(pathFile);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				fc = new JFileChooser(new File(directory));
 
 				int returnVal = fc.showOpenDialog(Main.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					file = fc.getSelectedFile();
+					fc.setCurrentDirectory(file);
 					// This is where a real application would open the file.
 					txtrConsole.append("Opening: " + file.getName() + "." + ConstantsUtility.NEW_LINE);
-					scrollPaneTree = new MethodTree(Main.this, file.getName()); 
+					scrollPaneTree = new MethodTree(Main.this, file.getName());
 					populateTree(scrollPaneTree);
 					splitPaneRoot.setLeftComponent(scrollPaneTree);
 					revalidate();
 					repaint();
+
+					// save the path to a file
+					try {
+						FileUtils.writeStringToFile(pathFile, file.getAbsolutePath());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else {
 				}
 			}

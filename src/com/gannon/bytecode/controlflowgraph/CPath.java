@@ -30,6 +30,9 @@ public class CPath {
 		this.nodes = nodes;
 	}
 
+	public void addNodes(CNode nodes) {
+		this.nodes.add(nodes);
+	}
 
 	@Override
 	public String toString() {
