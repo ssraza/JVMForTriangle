@@ -2,6 +2,8 @@ package com.gannon.bytecode.controlflowgraph;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
@@ -188,5 +190,30 @@ public class CGraphTest {
 		CFGMethod cfg = new CFGMethod(m);
 		CGraph graph = cfg.buildGraph();
 		System.out.println(graph.getAdjacency());
+	}
+	
+	@Test
+	public void testAetAdjacentNodeIDs(){
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		assertEquals("triangleType", m.getName());
+
+		CFGMethod cfg = new CFGMethod(m);
+		CGraph graph = cfg.buildGraph();
+		assertEquals(Arrays.asList(1),graph.getAdjacentNodeIDs(0));
+		
+	}
+	
+	
+	@Test
+	public void testAetAdjacentNodeIDs2(){
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		assertEquals("triangleType", m.getName());
+
+		CFGMethod cfg = new CFGMethod(m);
+		CGraph graph = cfg.buildGraph();
+		assertEquals(Arrays.asList(19,14),graph.getAdjacentNodeIDs(13));
+		
 	}
 }

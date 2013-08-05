@@ -2,9 +2,13 @@ package com.gannon.program.cfg;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import com.gannon.bytecode.controlflowgraph.CGraph;
 import com.gannon.bytecode.controlflowgraph.CNode;
+import com.gannon.bytecode.controlflowgraph.CPath;
 
 
 
@@ -14,10 +18,10 @@ public class CFGPanel extends GraphPanel {
     private CGraph cGraph;    // contains list of cfg node
     CNode rootNode;  // root node of the cfg tree
 
-    public Node findNode(String label) {
+    public Node findNode(int nodeID) {
         for (int i = 0; i < listOfNodes.size(); i++) {
             Node node = listOfNodes.get(i);
-            if (node.getData().getLabel().equals(label)) {
+            if (node.getData().getLabel().equals( String.valueOf(nodeID))) {
                 return node;
             }
         }
@@ -26,25 +30,25 @@ public class CFGPanel extends GraphPanel {
 
     public void ReadCFG() {
     	String inputText = "start_node end_nodes\n" +
-    			"B0 B1 B3\n" +
-    			"B1 B3\n" +
-    			"B3 B5 B20\n" +
-    			"B4 B6 B7\n" +
-    			"B5 B10 B11\n" +
-    			"B6 B8 B9\n" +
-    			"B8\n" +
-    			"B7\n" +
-    			"B9 B4\n" +
-    			"B10 B12\n" +
-    			"B11\n" +
-    			"B12 B11 B13\n" +
-    			"B13 B14 B15\n" +
-    			"B14 B11 B17\n" +
-    			"B15 B12\n" +
-    			"B17 B18 B15\n" +
-    			"B18\n" +
-    			"B19 B0\n" +
-    			"B20 B4\n";
+    			"0 1 3\n" +
+    			"1 3\n" +
+    			"3 5 20\n" +
+    			"4 6 7\n" +
+    			"5 10 11\n" +
+    			"6 8 9\n" +
+    			"8\n" +
+    			"7\n" +
+    			"9 4\n" +
+    			"10 12\n" +
+    			"11\n" +
+    			"12 11 13\n" +
+    			"13 14 15\n" +
+    			"14 11 17\n" +
+    			"15 12\n" +
+    			"17 18 15\n" +
+    			"18\n" +
+    			"19 0\n" +
+    			"20 4\n";
 
         // creating loop algorithm tree
     	cGraph= new CGraph(inputText);
@@ -55,48 +59,49 @@ public class CFGPanel extends GraphPanel {
 
     public void drawCFGTree() {
         // getting list of nodes and adding them to the graph
-        ArrayList<TNode> listOfTNodes =cGraph.getCNodes();
-        for (int k = 0; k < listOfTNodes.size(); k++) {
-            TNode nodeToInsert = listOfTNodes.get(k);
-            //adding tnode to graph panel
-            Node newNode = addNode(nodeToInsert.getName(), Color.BLACK, Color.GREEN, Color.BLUE, 20.0f);
+        Set<CNode> listOfCNodes =cGraph.getCNodes();
+        for (Iterator<CNode> iterator = listOfCNodes.iterator(); iterator.hasNext(); ) {
+        	CNode nodeToInsert =  iterator.next();
+        	//adding tnode to graph panel
+            Node newNode = addNode( String.valueOf( nodeToInsert.getId()), Color.BLACK, Color.GREEN, Color.BLUE, 20.0f);
             // adding new node to listOfNodes
             listOfNodes.add(newNode);
         }
 
         // adding edges between nodes
-        for (int k = 0; k < listOfTNodes.size(); k++) {
-            TNode tnode = listOfTNodes.get(k);
+        for (Iterator<CNode> iterator = listOfCNodes.iterator(); iterator.hasNext(); ) {
+        	CNode parentNode =  iterator.next();
             // getting node from listOfNodes
-            Node node = findNode(tnode.getName());
+            Node node = findNode(parentNode.getId());
 
             // getting list of child node for tnode
-            ArrayList<TNode> listOfChildNodes = cfgTree.getListOfChildNodes(tnode);
+            List<CNode> listOfChildNodes =  cGraph.getAdjacentNodes(parentNode);// .getAdjacentNodes(tnode);
             
             // processing child nodes
             for (int j = 0; j < listOfChildNodes.size(); j++) {
-            	TNode childNode = listOfChildNodes.get(j);
+            	CNode childNode = listOfChildNodes.get(j);
             	// getting node from listOfNodes
-                Node graphNode = findNode(childNode.getName());
+                Node graphNode = findNode(childNode.getId());
                 
-                int numberOfPaths = cfgTree.findLongestBetweenTwoNodes(tnode,childNode);
-               // System.out.println("path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + numberOfPaths);
+                CPath longestPath =  cGraph.getLongestPath(parentNode,childNode);
                 
-                int longestPath = cfgTree.findLongestBetweenTwoNodes(tnode, childNode);
+                int  lengthOfLongestPath = longestPath.getNodes().size();// cGraph.getLongestPath(childNode, cnode)"path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + numberOfPaths);
+                
+                int numberOfPaths  = cGraph.getNumberOfPathsBetweenTwoNodes(parentNode, childNode);
                 //System.out.println("Longest path between " + tnode.getName() + " and " + tnode.getLeft().getName() + " is : " + longestPath);
                 
                
-                if(tnode.getSetOfDominatorNodes().contains(childNode.getName())){
+                if(cGraph.isLoopEdge(parentNode, childNode)){
                     // Finding max path for loop edge
-                    int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( childNode,tnode);
+                  //  int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( childNode,tnode);
                      // adding an  invisible edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPathForLoop);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",lengthOfLongestPath);
                 }
                 //  checking if the edge is a branch statement (goto,if-then)
-                else if(childNode.getSetOfDominatorNodes().contains(tnode.getName()) && (numberOfPaths > 1))
+                else if(cGraph.isLoopEdge( childNode,parentNode) && (numberOfPaths > 1))
                 {
                     // adding an edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",longestPath);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",lengthOfLongestPath);
                     
                 }else{
                     addEdge(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "");
@@ -105,10 +110,10 @@ public class CFGPanel extends GraphPanel {
         }
 
         // setting root node flag for the root node
-        findNode(rootNode.getName()).getData().setIsRoot(true);
+        findNode(rootNode.getId()).getData().setIsRoot(true);
     }
 
-    public CFGPanel(int width,int height) {
+    public CFGPanel(CGraph cGraph, int width,int height) {
     	super(new ForceDirectedLayout(), width, height);
     	// initializing graph panel
     	
@@ -117,9 +122,7 @@ public class CFGPanel extends GraphPanel {
 
         // reading CFG file to get nodes and edges
         ReadCFG();
-        
-        cfgTree.processDominatorNodes();
-        
+
         // drawing CFG
         drawCFGTree();
     }

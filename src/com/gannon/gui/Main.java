@@ -167,7 +167,7 @@ public class Main extends JFrame {
 		// scrollPaneCFG.setViewportView(panelCFG);
 
 		// creating CFG Panel ( width x height)
-		CFGPanel cfgPanel = new CFGPanel(600, 800);
+		CFGPanel cfgPanel = new CFGPanel(null,600, 800);
 		scrollPaneCFG.setViewportView(cfgPanel);
 
 		// txtCfgHere = new JTextField();

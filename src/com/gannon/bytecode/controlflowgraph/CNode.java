@@ -49,4 +49,8 @@ public class CNode {
 		return true;
 	}
 
+	public boolean hasInvoke() { 
+		return block.hasInvoke();
+	}
+
 }
