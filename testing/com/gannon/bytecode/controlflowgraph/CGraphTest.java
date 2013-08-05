@@ -38,7 +38,7 @@ public class CGraphTest {
 		assertEquals(expectedRoot, g.getRoot());
 
 	}
-	
+
 	@Test
 	public void testGetSink() {
 		CNode expectedRoot = new CNode(4, new CBlock(4));
@@ -64,19 +64,19 @@ public class CGraphTest {
 		g.addCEdge(new CEdge(4, node3, node4));
 		return g;
 	}
-	
+
 	//
 	// _1
 	// / \
-	// 2  3
+	// 2 3
 	// | | \
-	// | 4  5
+	// | 4 5
 	// | | /
 	// | 6
 	// | |
 	// | 7
 	// \ /
-	//  8
+	// 8
 	private CGraph create8NodesGraph() {
 		CGraph g = new CGraph();
 		CNode node1 = new CNode(1, new CBlock(1));
@@ -105,13 +105,14 @@ public class CGraphTest {
 		g.addCEdge(new CEdge(7, node5, node6));
 		g.addCEdge(new CEdge(8, node6, node7));
 		g.addCEdge(new CEdge(9, node7, node8));
-		
+
 		return g;
 	}
-	
+
 	@Test
-	public void testGetLongestPath(){
-		/*CNode node1 = new CNode(1, new CBlock(1));
+	public void testGetLongestPath() {
+
+		CNode node1 = new CNode(1, new CBlock(1));
 		CNode node2 = new CNode(2, new CBlock(2));
 		CNode node3 = new CNode(3, new CBlock(3));
 		CNode node4 = new CNode(4, new CBlock(4));
@@ -119,10 +120,10 @@ public class CGraphTest {
 		CNode node6 = new CNode(6, new CBlock(6));
 		CNode node7 = new CNode(7, new CBlock(7));
 		CNode node8 = new CNode(8, new CBlock(8));
-		
+
 		CGraph g = create8NodesGraph();
 		CPath longestPath = g.getLongestPath(node1, node8);
-		
+
 		assertEquals(longestPath.getNodes().size(), 6);
 		assertEquals(longestPath.getNodes().get(0), node1);
 		assertEquals(longestPath.getNodes().get(1), node3);
@@ -130,8 +131,25 @@ public class CGraphTest {
 		assertEquals(longestPath.getNodes().get(3), node6);
 		assertEquals(longestPath.getNodes().get(4), node7);
 		assertEquals(longestPath.getNodes().get(5), node8);
-		*/
-		
+
+	}
+
+	@Test
+	public void testGetNymberOfPaths() {
+		CNode node1 = new CNode(1, new CBlock(1));
+		CNode node2 = new CNode(2, new CBlock(2));
+		CNode node3 = new CNode(3, new CBlock(3));
+		CNode node4 = new CNode(4, new CBlock(4));
+		CNode node5 = new CNode(5, new CBlock(5));
+		CNode node6 = new CNode(6, new CBlock(6));
+		CNode node7 = new CNode(7, new CBlock(7));
+		CNode node8 = new CNode(8, new CBlock(8));
+
+		CGraph g = create8NodesGraph();
+
+		int numberOfPaths = g.getNumberOfPathsBetweenTwoNodes(node1, node8);
+		assertEquals(3, numberOfPaths);
+
 	}
 
 	@Test
@@ -144,21 +162,31 @@ public class CGraphTest {
 		System.out.print(cfg.buildGraph());
 
 	}
-	
 
-	@Test
 	public CGraph getCFG() {
-		BClass myclass = BClassGenerator.getBClass("ClassForRandomMethods.class");
+		BClass myclass = BClassGenerator
+				.getBClass("ClassForRandomMethods.class");
 		BMethod m = myclass.getMethod("testGraphMethod2");
 		CFGMethod cfg = new CFGMethod(m);
-		CGraph graph = cfg.buildGraph();	
+		CGraph graph = cfg.buildGraph();
 		return graph;
 	}
-	
+
 	@Test
-	public void GenerateAllTestPathTest(){
+	public void GenerateAllTestPathTest() {
 		CGraph graph = getCFG();
-		CPaths testPaths = graph.generateAllPaths();
-		System.out.println(testPaths.getPaths().size());
+		// CPaths testPaths = graph.generateAllPaths();
+		// System.out.println(testPaths.getPaths().size());
+	}
+
+	@Test
+	public void testAdjacency() {
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		assertEquals("triangleType", m.getName());
+
+		CFGMethod cfg = new CFGMethod(m);
+		CGraph graph = cfg.buildGraph();
+		System.out.println(graph.getAdjacency());
 	}
 }

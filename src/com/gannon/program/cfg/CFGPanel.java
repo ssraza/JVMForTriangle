@@ -3,13 +3,16 @@ package com.gannon.program.cfg;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import com.gannon.bytecode.controlflowgraph.CGraph;
+import com.gannon.bytecode.controlflowgraph.CNode;
+
 
 
 public class CFGPanel extends GraphPanel {
 
     private final ArrayList<Node> listOfNodes;
-    private LoopTree cfgTree;    // contains list of cfg node
-    TNode rootNode;  // root node of the cfg tree
+    private CGraph cGraph;    // contains list of cfg node
+    CNode rootNode;  // root node of the cfg tree
 
     public Node findNode(String label) {
         for (int i = 0; i < listOfNodes.size(); i++) {
@@ -44,15 +47,15 @@ public class CFGPanel extends GraphPanel {
     			"B20 B4\n";
 
         // creating loop algorithm tree
-        cfgTree = new LoopTree(inputText);
+    	cGraph= new CGraph(inputText);
 
         // getting root node
-        rootNode = cfgTree.getRootTNode();
+        rootNode = cGraph.getRoot();
     }
 
     public void drawCFGTree() {
         // getting list of nodes and adding them to the graph
-        ArrayList<TNode> listOfTNodes = cfgTree.getListOfTNodes();
+        ArrayList<TNode> listOfTNodes =cGraph.getCNodes();
         for (int k = 0; k < listOfTNodes.size(); k++) {
             TNode nodeToInsert = listOfTNodes.get(k);
             //adding tnode to graph panel

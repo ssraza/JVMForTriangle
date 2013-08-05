@@ -44,7 +44,7 @@ public class TestPath {
 		this.nodes = nodes;
 	}
 
-	public void add(Node node){
+	public void add(Node node) {
 		this.nodes.add(node);
 	}
 
@@ -57,41 +57,49 @@ public class TestPath {
 	}
 
 	public ArrayList<Integer> getExecutedInsIDs() {
-		ArrayList<Integer> ids=new ArrayList<Integer>();
-		for(Node node: nodes){
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		for (Node node : nodes) {
 			ids.add(node.getInstructionLineNumber());
 		}
 		return ids;
 	}
 
-	public Node getNode(int lineNumber){
-		for(Node node: nodes){
-			if(node.getInstruction().getLineNumber()==lineNumber){
+	public Node getNode(int lineNumber) {
+		for (Node node : nodes) {
+			if (node.getInstruction().getLineNumber() == lineNumber) {
 				return node;
 			}
 		}
 		return null;
 	}
 
-	public ArrayList<BInstruction> getInstrucitons(){
-		ArrayList<BInstruction> instructions=new ArrayList<BInstruction>();
-		for(Node node: nodes){
+	public ArrayList<BInstruction> getInstrucitons() {
+		ArrayList<BInstruction> instructions = new ArrayList<BInstruction>();
+		for (Node node : nodes) {
 			instructions.add(node.getInstruction());
 		}
 		return instructions;
 	}
 
+	public void clearIgnoreFlags() {
+		for (Node node : nodes) {
+			if (node instanceof PredicateNode) {
+				((PredicateNode) node).setIgnore(false);
+			}
+		}
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		boolean result=true;
-		if(!(obj instanceof TestPath)){
+		boolean result = true;
+		if (!(obj instanceof TestPath)) {
 			return false;
 		}
-		if(nodes.size()!=((TestPath)obj).getNodes().size()){
+		if (nodes.size() != ((TestPath) obj).getNodes().size()) {
 			return false;
 		}
-		for(int i=0;i<nodes.size();i++){
-			if(!nodes.get(i).equals(((TestPath)obj).getNodes().get(i))){
+		for (int i = 0; i < nodes.size(); i++) {
+			if (!nodes.get(i).equals(((TestPath) obj).getNodes().get(i))) {
 				return false;
 			}
 		}
@@ -104,9 +112,9 @@ public class TestPath {
 	}
 
 	@Override
-	public String toString(){
-		StringBuffer sb=new StringBuffer();
-		for(Node node: nodes){
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		for (Node node : nodes) {
 			sb.append(node);
 			sb.append(" ->");
 		}

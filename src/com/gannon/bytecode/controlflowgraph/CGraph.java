@@ -324,7 +324,14 @@ public final class CGraph {
 					}
 				}
 
-				return longestPath;
+				pathFromCurrentNode.add(currentNode);
+				
+				//
+				for(int i =0; i < longestPath.getNodes().size();i++){
+					pathFromCurrentNode.add(longestPath.getNodes().get(i));
+					
+				}
+				return pathFromCurrentNode;
 			}
 		}
 
@@ -399,7 +406,7 @@ public final class CGraph {
 			CPath currentPath) {
 		int numberOfFoundPaths = 0;
 
-		if (currentNode == endNode) {
+		if (currentNode.equals(endNode)) {
 			return 1;
 		} else if (currentPath.getNodes().contains(currentNode)) {
 			return 0;
@@ -408,7 +415,7 @@ public final class CGraph {
 			// finding and processing child nodes
 			for (CEdge currentEdge : edges) {
 				// checking if current node is source node for current edge
-				if (currentEdge.getSource() == currentNode) {
+				if (currentEdge.getSource().equals(currentNode)) {
 					// getting child node
 					CNode childNode = currentEdge.getTarget();
 					currentPath.add(currentNode);
@@ -424,7 +431,7 @@ public final class CGraph {
 	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
 		// creating list of visited nodes
 		CPath visitedPath = new CPath(0);
-		return processGetNumberOfPaths(node1, node2, visitedPath);
+		return processGetNumberOfPaths(node2, node1, visitedPath);
 	}
 
 	public List<CNode> getListOfChildNodes(CNode parentNode) {
@@ -470,12 +477,23 @@ public final class CGraph {
 	
 	//============== Generate all paths========================
 	
-	private void breadthFirst(CPaths paths){
+	/*private void breadthFirst(CPaths paths){
 		Set<CNode> graphNodes = this.nodes;
+		CNode adjacentNode = getAdjacency()
 		
 		for (CNode Block : graphNodes) {
 		for(int index = 0; ; index ++){
 			CPath testPath = new CPath(index);
+			// get  the start node
+            if (visited.contains(node)) {
+                continue;
+            }
+            if (node.equals(END)) {
+                visited.add(node);
+                printPath(visited);
+                visited.removeLast();
+                break;
+            }
 			testPath.add(Block);
 		}
 		
@@ -500,9 +518,9 @@ public final class CGraph {
 	            breadthFirst(graph, visited);
 	            visited.removeLast();
 	        }
+}
 		
-		
-		
+	
 	}
 	
 	public CPaths generateAllPaths(){
@@ -510,6 +528,6 @@ public final class CGraph {
 		breadthFirst(paths);
 		return paths;
 	}
-	
+	*/
 	
 }

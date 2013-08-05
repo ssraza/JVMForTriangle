@@ -205,19 +205,19 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// Create a file chooser
 
-				URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-				String directory = location.toString();
 				File pathFile = new File(ConstantsUtility.GANNON_JVM_PATH_TXT);
 				if (pathFile.exists()) {
 					try {
 
-						directory = FileUtils.readFileToString(pathFile);
+						String directory = FileUtils.readFileToString(pathFile);
+						fc = new JFileChooser(new File(directory));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				} else {
+					fc = new JFileChooser();
 				}
-				fc = new JFileChooser(new File(directory));
 
 				int returnVal = fc.showOpenDialog(Main.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
