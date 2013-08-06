@@ -289,63 +289,12 @@ public final class CGraph {
 		return null;
 	}
 
-	private CPath processGetLongestPath(CNode endNode, CNode currentNode, CPath currentPath) {
-		CPath pathFromCurrentNode = new CPath(0);
-		CPaths paths = new CPaths(0);
-
-		if (currentNode.equals(endNode)) {
-			pathFromCurrentNode.add(currentNode);
-			return pathFromCurrentNode;
-		} else if (currentPath.getNodes().contains(currentNode)) {
-			return null;
-		} else {
-			// finding and processing child nodes
-			for (CEdge currentEdge : edges) {
-				// checking if current node is source node for current edge
-				if (currentEdge.getSource().equals(currentNode)) {
-					// getting child node
-					CNode childNode = currentEdge.getTarget();
-					currentPath.add(currentNode);
-					CPath childPath = processGetLongestPath(endNode, childNode, currentPath);
-					currentPath.getNodes().remove(currentNode);
-					if (childPath != null) {
-						paths.add(childPath);
-					}
-				}
-			}
-
-			if (paths.getPaths().size() > 0) {
-				// finding longest path from child paths
-				CPath longestPath = paths.getPaths().get(0);
-
-				for (int j = 1; j < paths.getPaths().size(); j++) {
-					CPath newPath = paths.getPaths().get(j);
-					if (newPath.getNodes().size() > longestPath.getNodes().size()) {
-						longestPath = newPath;
-					}
-				}
-
-				pathFromCurrentNode.add(currentNode);
-
-				//
-				for (int i = 0; i < longestPath.getNodes().size(); i++) {
-					pathFromCurrentNode.add(longestPath.getNodes().get(i));
-
-				}
-				return pathFromCurrentNode;
-			}
-		}
-
-		return null;
+	public CPath getLongestPath(CNode startNode, CNode endNode) {
+		CPaths paths = computeAllPaths(startNode.getId(), endNode.getId());
+		return paths.getLongestPath();
 	}
 
-	public CPath getLongestPath(CNode finishNode, CNode startNode) {
-		// creating list of visited nodes
-		CPath longestPath = new CPath(1);
-		return processGetLongestPath(startNode, finishNode, longestPath);
-	}
-
-	private void processDominatorNodes() {
+	public void processDominatorNodes() {
 		CNode rootNode = getRoot();
 		List<CNode> dominatorNodesList = new ArrayList<CNode>();
 
@@ -405,34 +354,9 @@ public final class CGraph {
 		return setOfDominatorNodes.get(startNode).contains(endNode);
 	}
 
-	private int processGetNumberOfPaths(CNode endNode, CNode currentNode, CPath currentPath) {
-		int numberOfFoundPaths = 0;
-
-		if (currentNode.equals(endNode)) {
-			return 1;
-		} else if (currentPath.getNodes().contains(currentNode)) {
-			return 0;
-		} else {
-
-			// finding and processing child nodes
-			for (CEdge currentEdge : edges) {
-				// checking if current node is source node for current edge
-				if (currentEdge.getSource().equals(currentNode)) {
-					// getting child node
-					CNode childNode = currentEdge.getTarget();
-					currentPath.add(currentNode);
-					numberOfFoundPaths += processGetNumberOfPaths(endNode, childNode, currentPath);
-					currentPath.getNodes().remove(currentNode);
-				}
-			}
-		}
-		return numberOfFoundPaths;
-	}
-
-	public int getNumberOfPathsBetweenTwoNodes(CNode node1, CNode node2) {
-		// creating list of visited nodes
-		CPath visitedPath = new CPath(0);
-		return processGetNumberOfPaths(node2, node1, visitedPath);
+	public int getNumberOfPathsBetweenTwoNodes(CNode startNode, CNode endNode) {
+		CPaths paths = computeAllPaths(startNode.getId(), endNode.getId());
+		return paths.size();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -491,7 +415,8 @@ public final class CGraph {
 
 	// ============== Generate all paths========================
 
-	public LinkedList<LinkedList<Integer>> computeAllPaths(int startNodeID, int endNodeID) {
+	// paths are represented by nodeIDs
+	public LinkedList<LinkedList<Integer>> computeAllPathsUsingNodeID(int startNodeID, int endNodeID) {
 		LinkedList<LinkedList<Integer>> paths = new LinkedList<LinkedList<Integer>>();
 		LinkedList<Integer> visited = new LinkedList<Integer>();
 		visited.add(startNodeID);
@@ -499,31 +424,32 @@ public final class CGraph {
 		return paths;
 	}
 
-	public void breadthFirst(LinkedList<Integer> visited, int endNodeID, LinkedList<LinkedList<Integer>> paths) {
-		List<Integer> nodes = getAdjacentNodeIDs(visited.getLast());
+	public void breadthFirst(LinkedList<Integer> visitedNodeID, int endNodeID,
+			LinkedList<LinkedList<Integer>> resultPaths) {
+		List<Integer> nodes = getAdjacentNodeIDs(visitedNodeID.getLast());
 		// examine adjacent nodes
 		for (Integer node : nodes) {
-			if (visited.contains(node)) {
+			if (visitedNodeID.contains(node)) {
 				continue;
 			}
 			if (node.equals(endNodeID)) {
-				visited.add(node);
+				visitedNodeID.add(node);
 				// get a new copy of the visited list before add to paths,
 				// otherwise, it will be removed by next statement
-				paths.add(new LinkedList<Integer>(visited));
-				visited.removeLast();
+				resultPaths.add(new LinkedList<Integer>(visitedNodeID));
+				visitedNodeID.removeLast();
 				break;
 			}
 		}
 		// in breadth-first, recursion needs to come after visiting adjacent
 		// nodes
 		for (Integer node : nodes) {
-			if (visited.contains(node) || node.equals(endNodeID)) {
+			if (visitedNodeID.contains(node) || node.equals(endNodeID)) {
 				continue;
 			}
-			visited.addLast(node);
-			breadthFirst(visited, endNodeID, paths);
-			visited.removeLast();
+			visitedNodeID.addLast(node);
+			breadthFirst(visitedNodeID, endNodeID, resultPaths);
+			visitedNodeID.removeLast();
 		}
 	}
 
@@ -542,21 +468,31 @@ public final class CGraph {
 		}
 		System.out.println();
 	}
-	
-	public CPath constructPathFormNodeIDs (int id, List<Integer> nodeIDs){
-		CPath path=new CPath(id);
-		for(Integer nodeId:nodeIDs){
+
+	public CPath constructPathFormNodeIDs(int id, List<Integer> nodeIDs) {
+		CPath path = new CPath(id);
+		for (Integer nodeId : nodeIDs) {
 			path.add(getCNode(nodeId));
 		}
 		return path;
 	}
 
-	public CPaths constructPaths (){
-		int pathID=1;
-		CPaths paths=new CPaths(1);//need set coverage and method name later
-		LinkedList<LinkedList<Integer>> pathsWithIDs=computeAllPaths(getRoot().getId(), getSink().getId()); 
-		for(LinkedList<Integer> p:pathsWithIDs){
-			paths.add(constructPathFormNodeIDs(pathID++,p));
+	public CPaths computeAllPaths() {
+		int pathID = 1;
+		CPaths paths = new CPaths(1);// need set coverage and method name later
+		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(getRoot().getId(), getSink().getId());
+		for (LinkedList<Integer> p : pathsWithIDs) {
+			paths.add(constructPathFormNodeIDs(pathID++, p));
+		}
+		return paths;
+	}
+
+	public CPaths computeAllPaths(int startNodeID, int endNodeID) {
+		int pathID = 1;
+		CPaths paths = new CPaths(1);// need set coverage and method name later
+		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(startNodeID, endNodeID);
+		for (LinkedList<Integer> p : pathsWithIDs) {
+			paths.add(constructPathFormNodeIDs(pathID++, p));
 		}
 		return paths;
 	}

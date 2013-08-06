@@ -1,6 +1,7 @@
 package com.gannon.bytecode.controlflowgraph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CPaths {
 	private final int id;
@@ -36,12 +37,31 @@ public class CPaths {
 		paths.add(path);
 	}
 
+	public int size() {
+		return paths.size();
+	}
+
+	public CPath getLongestPath() {
+		int maxLength = -1;
+		CPath resultPath=null;
+		for (CPath p:paths) {
+			if (p.size() > maxLength) {
+				maxLength = p.size();
+				resultPath = p;
+			}
+		}
+		return resultPath;
+	}
+
+	public Iterator<CPath> iterator() {
+		return paths.iterator();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((coverageName == null) ? 0 : coverageName.hashCode());
+		result = prime * result + ((coverageName == null) ? 0 : coverageName.hashCode());
 		return result;
 	}
 
@@ -61,8 +81,5 @@ public class CPaths {
 			return false;
 		return true;
 	}
-
-	
-	
 
 }

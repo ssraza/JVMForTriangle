@@ -255,7 +255,7 @@ public class CGraphTest {
 		g.addCEdge(new CEdge(15, node6, node5));
 
 		LinkedList<LinkedList<Integer>> paths = new LinkedList<LinkedList<Integer>>();
-		paths = g.computeAllPaths(START, END);
+		paths = g.computeAllPathsUsingNodeID(START, END);
 		g.printPaths(paths);
 
 		LinkedList<LinkedList<Integer>> expectedPaths = new LinkedList<LinkedList<Integer>>();

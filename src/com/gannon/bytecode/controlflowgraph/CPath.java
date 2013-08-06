@@ -35,6 +35,11 @@ public class CPath {
 		this.nodes.add(nodes);
 	}
 
+	
+	public int size() {
+		return nodes.size();
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer sb=new StringBuffer();

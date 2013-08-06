@@ -285,7 +285,7 @@ public class Main extends JFrame {
 			p1 = methodScollPane.addObject(null, m.getName());
 			CFGMethod cfgMethod = new CFGMethod(m);
 			CGraph g = cfgMethod.buildGraph();
-			CPaths paths = g.constructPaths();
+			CPaths paths = g.computeAllPaths();
 			for (CPath path : paths.getPaths()) {
 				methodScollPane.addObject(p1, path.toString());
 			}

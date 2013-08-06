@@ -160,6 +160,7 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				//set CFG
 				CFGMethod m=new CFGMethod(selectedMethod); 
 				CGraph buildGraph = m.buildGraph();
+				buildGraph.processDominatorNodes();
 				mainFrame.cfgPanel = new CFGPanel(buildGraph, 600, 800);
 				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
 				//}
