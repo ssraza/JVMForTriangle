@@ -3,6 +3,7 @@ package com.gannon.bytecode.controlflowgraph;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.progam.path.TestPaths;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class CGraphTest {
 	@Rule
@@ -166,8 +168,7 @@ public class CGraphTest {
 	}
 
 	public CGraph getCFG() {
-		BClass myclass = BClassGenerator
-				.getBClass("ClassForRandomMethods.class");
+		BClass myclass = BClassGenerator.getBClass("ClassForRandomMethods.class");
 		BMethod m = myclass.getMethod("testGraphMethod2");
 		CFGMethod cfg = new CFGMethod(m);
 		CGraph graph = cfg.buildGraph();
@@ -191,29 +192,85 @@ public class CGraphTest {
 		CGraph graph = cfg.buildGraph();
 		System.out.println(graph.getAdjacency());
 	}
-	
+
 	@Test
-	public void testAetAdjacentNodeIDs(){
+	public void testAetAdjacentNodeIDs() {
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
 		CFGMethod cfg = new CFGMethod(m);
 		CGraph graph = cfg.buildGraph();
-		assertEquals(Arrays.asList(1),graph.getAdjacentNodeIDs(0));
-		
+		assertEquals(Arrays.asList(1), graph.getAdjacentNodeIDs(0));
+
 	}
-	
-	
+
 	@Test
-	public void testAetAdjacentNodeIDs2(){
+	public void testAetAdjacentNodeIDs2() {
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
 		CFGMethod cfg = new CFGMethod(m);
 		CGraph graph = cfg.buildGraph();
-		assertEquals(Arrays.asList(19,14),graph.getAdjacentNodeIDs(13));
-		
+		assertEquals(Arrays.asList(19, 14), graph.getAdjacentNodeIDs(13));
+
 	}
+
+	@Test
+	public void testAllPaths() {
+		int START = 2;
+		int END = 5;
+
+		// this graph is directional
+		CGraph graph = new CGraph();
+		CGraph g = new CGraph();
+		CNode node1 = new CNode(1, new CBlock(1));
+		g.addCNode(node1);
+		CNode node2 = new CNode(2, new CBlock(2));
+		g.addCNode(node2);
+		CNode node3 = new CNode(3, new CBlock(3));
+		g.addCNode(node3);
+		CNode node4 = new CNode(4, new CBlock(4));
+		g.addCNode(node4);
+		CNode node5 = new CNode(5, new CBlock(5));
+		g.addCNode(node5);
+		CNode node6 = new CNode(6, new CBlock(6));
+		g.addCNode(node6);
+
+		g.addCEdge(new CEdge(1, node1, node2));
+		g.addCEdge(new CEdge(2, node1, node3));
+		g.addCEdge(new CEdge(3, node2, node1));
+		g.addCEdge(new CEdge(4, node2, node4));
+		g.addCEdge(new CEdge(5, node2, node5));
+		g.addCEdge(new CEdge(6, node2, node6));
+		g.addCEdge(new CEdge(7, node3, node1));
+		g.addCEdge(new CEdge(8, node3, node5));
+		g.addCEdge(new CEdge(9, node3, node6));
+		g.addCEdge(new CEdge(10, node4, node2));
+		g.addCEdge(new CEdge(11, node5, node3));
+		g.addCEdge(new CEdge(12, node5, node6));
+		g.addCEdge(new CEdge(13, node6, node2));
+		g.addCEdge(new CEdge(14, node6, node3));
+		g.addCEdge(new CEdge(15, node6, node5));
+
+		LinkedList<LinkedList<Integer>> paths = new LinkedList<LinkedList<Integer>>();
+		paths = g.computeAllPaths(START, END);
+		g.printPaths(paths);
+
+		LinkedList<LinkedList<Integer>> expectedPaths = new LinkedList<LinkedList<Integer>>();
+		LinkedList<Integer> path1 = new LinkedList<Integer>(Arrays.asList(2, END));
+		LinkedList<Integer> path4 = new LinkedList<Integer>(Arrays.asList(2, 1, 3, END));
+		LinkedList<Integer> path5 = new LinkedList<Integer>(Arrays.asList(2, 1, 3, 6, END));
+		LinkedList<Integer> path2 = new LinkedList<Integer>(Arrays.asList(2, 6, END));
+		LinkedList<Integer> path3 = new LinkedList<Integer>(Arrays.asList(2, 6, 3, END));
+		expectedPaths.add(path1);
+		expectedPaths.add(path2);
+		expectedPaths.add(path3);
+		expectedPaths.add(path4);
+		expectedPaths.add(path5);
+		assertEquals(expectedPaths, paths);
+
+	}
+
 }

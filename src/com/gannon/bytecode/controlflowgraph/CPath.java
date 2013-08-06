@@ -1,10 +1,11 @@
 package com.gannon.bytecode.controlflowgraph;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CPath {
 	private int id;
-	private ArrayList<CNode> nodes = new ArrayList<CNode>();
+	private List<CNode> nodes = new ArrayList<CNode>();
 	public CPath(int id) {
 		super();
 		this.id = id;
@@ -22,7 +23,7 @@ public class CPath {
 		this.id = id;
 	}
 
-	public ArrayList<CNode> getNodes() {
+	public List<CNode> getNodes() {
 		return nodes;
 	}
 

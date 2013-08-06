@@ -64,7 +64,7 @@ public class CBlocksTest {
 
 		CFGMethod cfg = new CFGMethod(m);
 		CBlocks blocks=cfg.buildBlocks();
-		//System.out.print(blocks);
+		System.out.print(blocks);
 		assertEquals(20,blocks.size());
 	}
 

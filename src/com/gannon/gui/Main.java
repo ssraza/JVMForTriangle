@@ -34,6 +34,10 @@ import org.apache.commons.io.FileUtils;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.CFGMethod;
+import com.gannon.bytecode.controlflowgraph.CGraph;
+import com.gannon.bytecode.controlflowgraph.CPath;
+import com.gannon.bytecode.controlflowgraph.CPaths;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.progam.path.TestPathGenerator;
 import com.gannon.jvm.utilities.ConstantsUtility;
@@ -58,7 +62,9 @@ public class Main extends JFrame {
 	private MethodTree scrollPaneTree;
 	protected JSplitPane splitPaneRoot;
 	private JFileChooser fc;
-
+	public CFGPanel cfgPanel;
+	public JScrollPane scrollPaneCFG;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -160,14 +166,14 @@ public class Main extends JFrame {
 		txtrInstructionarea.setText("InstructionArea");
 		scrollPaneInstruction.setViewportView(txtrInstructionarea);
 
-		JScrollPane scrollPaneCFG = new JScrollPane();
+		scrollPaneCFG = new JScrollPane();
 		tabbedPane.addTab("CFG", null, scrollPaneCFG, null);
 
-		JPanel panelCFG = new JPanel();
+		//JPanel panelCFG = new JPanel();
 		// scrollPaneCFG.setViewportView(panelCFG);
 
 		// creating CFG Panel ( width x height)
-		CFGPanel cfgPanel = new CFGPanel(null,600, 800);
+	    cfgPanel = new CFGPanel(createSampleCGraph(), 600, 800);
 		scrollPaneCFG.setViewportView(cfgPanel);
 
 		// txtCfgHere = new JTextField();
@@ -277,12 +283,34 @@ public class Main extends JFrame {
 		DefaultMutableTreeNode p1;
 		for (BMethod m : methods) {
 			p1 = methodScollPane.addObject(null, m.getName());
-			if (m.getName().equalsIgnoreCase("TriangleType")) {
-				TestPathGenerator g = new TestPathGenerator(className, m.getName());
-				for (TestPath p : g.deriveTestPaths().getPaths()) {
-					methodScollPane.addObject(p1, p.getPathId());
-				}
+			CFGMethod cfgMethod = new CFGMethod(m);
+			CGraph g = cfgMethod.buildGraph();
+			CPaths paths = g.constructPaths();
+			for (CPath path : paths.getPaths()) {
+				methodScollPane.addObject(p1, path.toString());
 			}
+			// for testng purpose
+			// if (m.getName().equalsIgnoreCase("TriangleType")) {
+			// TestPathGenerator g = new TestPathGenerator(className,
+			// m.getName());
+			// for (TestPath p : g.deriveTestPaths().getPaths()) {
+			// methodScollPane.addObject(p1, p.getPathId());
+			// }
+			// }
 		}
+	}
+
+	/*
+	 * create sample CGraph
+	 */
+	public CGraph createSampleCGraph() {
+		String inputText = "start_node end_nodes\n" + "0 1 3\n" + "1 3\n" + "2\n" + "3 5 20\n" + "4 6 7\n"
+				+ "5 10 11\n" + "6 8 9\n" + "7 16\n" + "8\n" + "9 4\n" + "10 12\n" + "11\n" + "12 11 13\n"
+				+ "13 14 15\n" + "14 11 17\n" + "15 12\n" + "16\n" + "17 18 15\n" + "18 2\n" + "19 0\n" + "20 4\n";
+
+		// creating loop algorithm tree
+		CGraph cGraph = new CGraph(inputText);
+
+		return cGraph;
 	}
 }

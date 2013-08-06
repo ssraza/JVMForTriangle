@@ -2,7 +2,6 @@ package com.gannon.bytecode.controlflowgraph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.gannon.jvm.progam.path.TestPath;
-import com.gannon.jvm.progam.path.TestPaths;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public final class CGraph {
+
 	private static final List<CEdge> EMPTY_EDGES = Collections.emptyList();
 	private Set<CNode> nodes;
 	private Set<CEdge> edges;
@@ -78,6 +77,9 @@ public final class CGraph {
 				// creating new node
 				CNode newNode = newCNode(newNodeBlock);
 
+				// adding node to node list
+				nodes.add(newNode);
+
 				index++;
 			}
 
@@ -102,6 +104,7 @@ public final class CGraph {
 					newCEdge(parentNode, childNode);
 				}
 
+				index++;
 			}
 
 			// initializing dominator nodes
@@ -111,16 +114,14 @@ public final class CGraph {
 			System.out.println("Error reading input string");
 		}
 	}
-	
-	
 
 	public CNode getCNode(int nodeID) {
 		for (CNode n1 : nodes) {
-			if (n1.getId()==nodeID) {
+			if (n1.getId() == nodeID) {
 				return n1;
 			}
 		}
-		System.out.println("From method getCnode: can't find node ID "+ nodeID);
+		System.out.println("From method getCnode: can't find node ID " + nodeID);
 		return null;
 	}
 
@@ -287,7 +288,7 @@ public final class CGraph {
 		}
 		return null;
 	}
-	
+
 	private CPath processGetLongestPath(CNode endNode, CNode currentNode, CPath currentPath) {
 		CPath pathFromCurrentNode = new CPath(0);
 		CPaths paths = new CPaths(0);
@@ -347,6 +348,9 @@ public final class CGraph {
 	private void processDominatorNodes() {
 		CNode rootNode = getRoot();
 		List<CNode> dominatorNodesList = new ArrayList<CNode>();
+
+		// clearing dominator nodes map
+		setOfDominatorNodes.clear();
 
 		setDominatorNodes(rootNode, dominatorNodesList);
 	}
@@ -437,7 +441,7 @@ public final class CGraph {
 		Iterator<CEdge> it = edges.iterator();
 		while (it.hasNext()) {
 			CEdge edge = (CEdge) it.next();
-			if(edge.getSource().equals(sourceNode)){
+			if (edge.getSource().equals(sourceNode)) {
 				nodes.add(edge.getTarget());
 			}
 		}
@@ -487,123 +491,73 @@ public final class CGraph {
 
 	// ============== Generate all paths========================
 
-	/*
-	 * private void breadthFirst(CPaths paths){ Set<CNode> graphNodes =
-	 * this.nodes; CNode adjacentNode = getAdjacency()
-	 * 
-	 * for (CNode Block : graphNodes) { for(int index = 0; ; index ++){ CPath
-	 * testPath = new CPath(index); // get the start node if
-	 * (visited.contains(node)) { continue; } if (node.equals(END)) {
-	 * visited.add(node); printPath(visited); visited.removeLast(); break; }
-	 * testPath.add(Block); }
-	 * 
-	 * } // get the start node if (visited.contains(node)) { continue; } if
-	 * (node.equals(END)) { visited.add(node); printPath(visited);
-	 * visited.removeLast(); break; } } // in breadth-first, recursion needs to
-	 * come after visiting adjacent nodes for (String node : nodes) { if
-	 * (visited.contains(node) || node.equals(END)) { continue; }
-	 * visited.addLast(node); breadthFirst(graph, visited);
-	 * visited.removeLast(); } }
-	 * 
-	 * 
-	 * }
-	 * 
-	 * public CPaths generateAllPaths(){ CPaths paths=new CPaths(1);
-	 * breadthFirst(paths); return paths; }
-	 */
-	
-	
-	
-	
-	
-	
-	
-	
-	//---------------------------------BFS search algorithm==================
-	
-	 /** Starting bfs search from vertex v */
-	  /** To be discussed in Section 27.7 */
-	  public Tree bfs(int v) {
-	    List<Integer> searchOrders = new ArrayList<Integer>();
-	    int[] parent = new int[nodes.size()];
-	    for (int i = 0; i < parent.length; i++)
-	      parent[i] = -1; // Initialize parent[i] to -1
-
-	    java.util.LinkedList<Integer> queue =
-	      new java.util.LinkedList<Integer>(); // list used as a queue
-	    boolean[] isVisited = new boolean[nodes.size()];
-	    queue.offer(v); // Enqueue v
-	    isVisited[v] = true; // Mark it visited
-
-	    while (!queue.isEmpty()) {
-	      int u = queue.poll(); // Dequeue to u
-	      searchOrders.add(u); // u searched
-	      for (int w : getAdjacentNodeIDs(u)) {
-	        if (!isVisited[w]) {
-	          queue.offer(w); // Enqueue w
-	          parent[w] = u; // The parent of w is u
-	          isVisited[w] = true; // Mark it visited
-	        }
-	      }
-	    }
-	    return new Tree(v, parent, searchOrders);
-	  }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public class Tree {
-		private int root; // The root of the tree
-		private int[] parent; // Store the parent of each vertex
-		private List<Integer> searchOrders; // Store the search order
-
-		/** Construct a tree with root, parent, and searchOrder */
-		public Tree(int root, int[] parent, List<Integer> searchOrders) {
-			this.root = root;
-			this.parent = parent;
-			this.searchOrders = searchOrders;
-		}
-
-		/** Return the root of the tree */
-		public int getRoot() {
-			return root;
-		}
-
-		/** Return the parent of vertex v */
-		public int getParent(int v) {
-			return parent[v];
-		}
-
-		/** Return an array representing search order */
-		public List<Integer> getSearchOrders() {
-			return searchOrders;
-		}
-
-		/** Return number of vertices found */
-		public int getNumberOfVerticesFound() {
-			return searchOrders.size();
-		}
-
-		/** Return the path of vertices from a vertex index to the root */
-		public List<CNode> getPath(int index) {
-			ArrayList<CNode> path = new ArrayList<CNode>();
-
-			do {
-				path.add(getCNode(index));
-				index = parent[index];
-			} while (index != -1);
-
-			return path;
-		}
-		
-
-
+	public LinkedList<LinkedList<Integer>> computeAllPaths(int startNodeID, int endNodeID) {
+		LinkedList<LinkedList<Integer>> paths = new LinkedList<LinkedList<Integer>>();
+		LinkedList<Integer> visited = new LinkedList<Integer>();
+		visited.add(startNodeID);
+		breadthFirst(visited, endNodeID, paths);
+		return paths;
 	}
 
+	public void breadthFirst(LinkedList<Integer> visited, int endNodeID, LinkedList<LinkedList<Integer>> paths) {
+		List<Integer> nodes = getAdjacentNodeIDs(visited.getLast());
+		// examine adjacent nodes
+		for (Integer node : nodes) {
+			if (visited.contains(node)) {
+				continue;
+			}
+			if (node.equals(endNodeID)) {
+				visited.add(node);
+				// get a new copy of the visited list before add to paths,
+				// otherwise, it will be removed by next statement
+				paths.add(new LinkedList<Integer>(visited));
+				visited.removeLast();
+				break;
+			}
+		}
+		// in breadth-first, recursion needs to come after visiting adjacent
+		// nodes
+		for (Integer node : nodes) {
+			if (visited.contains(node) || node.equals(endNodeID)) {
+				continue;
+			}
+			visited.addLast(node);
+			breadthFirst(visited, endNodeID, paths);
+			visited.removeLast();
+		}
+	}
+
+	private void printPath(LinkedList<Integer> visited) {
+		for (Integer node : visited) {
+			System.out.print(node);
+			System.out.print("   ");
+		}
+		System.out.println();
+	}
+
+	public void printPaths(LinkedList<LinkedList<Integer>> paths) {
+		for (LinkedList<Integer> path : paths) {
+			printPath(path);
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+	
+	public CPath constructPathFormNodeIDs (int id, List<Integer> nodeIDs){
+		CPath path=new CPath(id);
+		for(Integer nodeId:nodeIDs){
+			path.add(getCNode(nodeId));
+		}
+		return path;
+	}
+
+	public CPaths constructPaths (){
+		int pathID=1;
+		CPaths paths=new CPaths(1);//need set coverage and method name later
+		LinkedList<LinkedList<Integer>> pathsWithIDs=computeAllPaths(getRoot().getId(), getSink().getId()); 
+		for(LinkedList<Integer> p:pathsWithIDs){
+			paths.add(constructPathFormNodeIDs(pathID++,p));
+		}
+		return paths;
+	}
 }

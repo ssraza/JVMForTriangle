@@ -28,34 +28,7 @@ public class CFGPanel extends GraphPanel {
         return null;
     }
 
-    public void ReadCFG() {
-    	String inputText = "start_node end_nodes\n" +
-    			"0 1 3\n" +
-    			"1 3\n" +
-    			"3 5 20\n" +
-    			"4 6 7\n" +
-    			"5 10 11\n" +
-    			"6 8 9\n" +
-    			"8\n" +
-    			"7\n" +
-    			"9 4\n" +
-    			"10 12\n" +
-    			"11\n" +
-    			"12 11 13\n" +
-    			"13 14 15\n" +
-    			"14 11 17\n" +
-    			"15 12\n" +
-    			"17 18 15\n" +
-    			"18\n" +
-    			"19 0\n" +
-    			"20 4\n";
-
-        // creating loop algorithm tree
-    	cGraph= new CGraph(inputText);
-
-        // getting root node
-        rootNode = cGraph.getRoot();
-    }
+    
 
     public void drawCFGTree() {
         // getting list of nodes and adding them to the graph
@@ -121,7 +94,11 @@ public class CFGPanel extends GraphPanel {
         this.listOfNodes = new ArrayList<Node>();
 
         // reading CFG file to get nodes and edges
-        ReadCFG();
+        this.cGraph = cGraph;
+        
+        // getting root node
+        rootNode = this.cGraph.getRoot();
+        
 
         // drawing CFG
         drawCFGTree();

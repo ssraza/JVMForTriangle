@@ -32,18 +32,29 @@ public class CFGMethodTest {
 
 		CFGMethod cfg = new CFGMethod(m);
 		boolean[] actualFlags = cfg.computeLeadingLineFlags();
+	// for testing without break condition as a block	
+//		boolean[] expectedFlags = new boolean[] { 
+//				false, false,false,false,false,
+//				true,false,false,false,false,
+//				true,false,false,false,false,
+//				true,false,false,true,false,
+//				false,true,false,true,false,
+//				false,true,false,false,true,
+//				false,false,true,false,true,
+//				false,true,false};
 		boolean[] expectedFlags = new boolean[] { 
-				false, false,false,false,false,
-				true,false,false,false,false,
-				true,false,false,false,false,
-				true,false,false,true,false,
-				false,true,false,true,false,
-				false,true,false,false,true,
-				false,false,true,false,true,
-				false,true,false};
+		false, false,false,false,true,
+		true,false,false,false,true,
+		true,false,false,false,true,
+		true,false,true,true,false,
+		true,true,false,true,false,
+		true,true,false,true,true,
+		false,true,true,false,true,
+		false,true,false};
+		cfg.displayLeadingFlags(actualFlags);
 		assertTrue(Arrays.equals(expectedFlags,actualFlags));
 	}
 	
-	
+
 
 }

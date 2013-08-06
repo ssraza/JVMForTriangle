@@ -18,6 +18,9 @@ import javax.swing.tree.TreeSelectionModel;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.CFGMethod;
+import com.gannon.bytecode.controlflowgraph.CGraph;
+import com.gannon.program.cfg.CFGPanel;
 
 public class MethodTree extends JScrollPane implements TreeSelectionListener {
 	private static final int METHOD_LEVEL = 2;
@@ -152,6 +155,14 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				mainFrame.txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
 				mainFrame.txtrInstructionarea.setText("");			
 				mainFrame.txtrInstructionarea.append(selectedMethod.toString());
+				
+				//if(selectedMethod.getName().equalsIgnoreCase("triangleType")){
+				//set CFG
+				CFGMethod m=new CFGMethod(selectedMethod); 
+				CGraph buildGraph = m.buildGraph();
+				mainFrame.cfgPanel = new CFGPanel(buildGraph, 600, 800);
+				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
+				//}
 			}
 		}
 

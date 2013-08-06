@@ -148,7 +148,7 @@ public class CFGMethod {
 
 	public void displayLeadingFlags(boolean[] computeLeadingLineFlags) {
 		for (int i = 0; i < computeLeadingLineFlags.length; i++) {
-			System.out.println("Line Number " + i + " Flag: " + computeLeadingLineFlags[i] + "\n ");
+			System.out.println("Line Number " + (i+1) + " Flag: " + computeLeadingLineFlags[i] + "\n ");
 		}
 	}
 
