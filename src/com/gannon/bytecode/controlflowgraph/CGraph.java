@@ -19,7 +19,8 @@ public final class CGraph {
 	private Set<CNode> nodes;
 	private Set<CEdge> edges;
 	private Map<CNode, Map<CNode, List<CEdge>>> adjacency;// multiple edges?
-	private Map<CNode, List<CNode>> setOfDominatorNodes;
+	private Map<CNode, List<CNode>> dominatorNodes;
+	private int[][] adjMatrix; 
 
 	private int nextCNodeId;
 	private int nextCEdgeId;
@@ -28,14 +29,15 @@ public final class CGraph {
 		this.nodes = new HashSet<CNode>();
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
-		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
+		this.dominatorNodes = new HashMap<CNode, List<CNode>>();
 	}
 
 	public CGraph(Set<CNode> nodes, Set<CEdge> newEdges) {
 		this.nodes = nodes;
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
-		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
+		adjMatrix = new int[nodes.size()][nodes.size()];
+		this.dominatorNodes = new HashMap<CNode, List<CNode>>();
 		initEdges(newEdges);
 	}
 
@@ -51,7 +53,7 @@ public final class CGraph {
 		this.nodes = new HashSet<CNode>();
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
-		this.setOfDominatorNodes = new HashMap<CNode, List<CNode>>();
+		this.dominatorNodes = new HashMap<CNode, List<CNode>>();
 
 		try {
 			String[] listOfLines; // Array of strings
@@ -126,6 +128,10 @@ public final class CGraph {
 	}
 
 	public CEdge addCEdge(final CEdge edge) {
+		//init matrix
+		if(adjMatrix==null){
+			adjMatrix = new int[nodes.size()][nodes.size()];
+		}
 		if (this.edges.add(edge)) {
 			final CNode src = edge.getSource();
 			final CNode tgt = edge.getTarget();
@@ -141,6 +147,7 @@ public final class CGraph {
 					srcAdjacency.put(tgt, adjacencyCEdges);
 				}
 				adjacencyCEdges.add(edge);
+				adjMatrix[src.getId()][tgt.getId()]=1;
 
 			} else {
 				this.edges.remove(edge);
@@ -299,59 +306,83 @@ public final class CGraph {
 		List<CNode> dominatorNodesList = new ArrayList<CNode>();
 
 		// clearing dominator nodes map
-		setOfDominatorNodes.clear();
+		dominatorNodes.clear();
 
-		setDominatorNodes(rootNode, dominatorNodesList);
+		computeDominatorNodes();
 	}
 
-	private void setDominatorNodes(CNode currentNode, List<CNode> parentDominatorNodeList) {
-		// getting dominator nodes for current node from hashmap
-		List<CNode> dominatorNodes = setOfDominatorNodes.get(currentNode);
-
-		if (dominatorNodes != null) {
-			dominatorNodes.retainAll(parentDominatorNodeList);
-			dominatorNodes.add(currentNode);
-			// finding and processing child nodes
-			for (CEdge currentEdge : edges) {
-				// checking if current node is source node for current edge
-				if (currentEdge.getSource() == currentNode) {
-					// getting child node
-					CNode childNode = currentEdge.getTarget();
-					// getting set of dominator nodes for current node
-					if (!dominatorNodes.contains(childNode)) {
-						setDominatorNodes(childNode, dominatorNodes);
-					}
-				}
-			}
-		} else {
-			// creating list of dominator nodes for current node
-			dominatorNodes = new ArrayList<CNode>();
-			dominatorNodes.add(currentNode);
-
-			// adding list of dominator nodes to hash map
-			setOfDominatorNodes.put(currentNode, dominatorNodes);
-
-			// adding parent dominator nodes
-			dominatorNodes.addAll(parentDominatorNodeList);
-
-			// finding and processing child nodes
-			for (CEdge currentEdge : edges) {
-				// checking if current node is source node for current edge
-				if (currentEdge.getSource() == currentNode) {
-					// getting child node
-					CNode childNode = currentEdge.getTarget();
-					if (!dominatorNodes.contains(childNode)) {
-						setDominatorNodes(childNode, dominatorNodes);
-					}
-				}
+	private List<CNode> getParentNodes(CNode node){
+		List<CNode> parentNodes =  new ArrayList<CNode>();
+		
+		for(CEdge edge:edges){
+			if(edge.getTarget().equals(node)){
+				parentNodes.add(edge.getSource());
 			}
 		}
+		
+		return parentNodes;
 	}
+	
+	private void computeDominateNode(CNode currentNode){
+		// getPredecessors(currentNode.getId());
+		
+		List<CNode> listOfParentNodes = getParentNodes(currentNode);
+		
+		//List<CNode> intersectionOfAllParentsNodes = new List
+		// updating set of dominator nodes for current node
+		for(CNode parentNode:listOfParentNodes){
+			dominatorNodes.get(currentNode).retainAll(dominatorNodes.get(parentNode));
+		}
+		
+		dominatorNodes.get(currentNode).add(currentNode);
+	}
+	
+	private void computeDominatorNodes() {
+		// initializing dominator set hash map
+		for(CNode node:nodes){
+			ArrayList<CNode> dominatorNodesSet = new ArrayList<CNode>();
+			if(node.equals(getRoot())){
+				dominatorNodesSet.add(node);
+			}else{
+				dominatorNodesSet.addAll(nodes);
+			}
+			dominatorNodes.put(node, dominatorNodesSet);			
+		}
+		
+		List<CNode> nodesToBeVisited =  new ArrayList<CNode>();
+		List<CNode> traversedNodes =  new ArrayList<CNode>();
+		
+		nodesToBeVisited.add(getRoot());
+		
+		while(nodesToBeVisited.size() > 0){
+			CNode visitedNode= nodesToBeVisited.get(0);
+			traversedNodes.add(visitedNode);
+			
+			// updating current visited node
+			computeDominateNode(visitedNode);
+			
+			// updating all other nodes
+			for(CNode node:nodes){
+				computeDominateNode(node);			
+			}
 
+			// getting list of child nodes
+			List<CNode> listOfChildNodes = getAdjacentNodes(visitedNode);
+			// removing current node from nodes to be visited
+			nodesToBeVisited.remove(0);
+			// adding child nodes to nodes to be cisited
+			nodesToBeVisited.addAll(listOfChildNodes);
+		}	
+	}
+	
+	public List<CNode> getSetOfDominatorNodes(CNode node){
+		return dominatorNodes.get(node);
+	}
+	
 	// checking if an edge between two nodes is a loop edge by finding if the
 	// node is dominated ny the other node
 	public boolean isLoopEdge(CNode startNode, CNode endNode) {
-		return setOfDominatorNodes.get(startNode).contains(endNode);
+		return dominatorNodes.get(startNode).contains(endNode);
 	}
 
 	public int getNumberOfPathsBetweenTwoNodes(CNode startNode, CNode endNode) {
@@ -382,6 +413,18 @@ public final class CGraph {
 		return nodeIDs;
 
 	}
+	
+	//not working, 
+	public List<Integer> getPredecessors(int nodeID) {
+		List<Integer> result=new ArrayList<Integer>();
+		for(int i=0;i<adjMatrix.length;i++){
+				if(adjMatrix[i][nodeID] == 1){
+					result.add(i);
+				}
+		}
+		return result;
+
+	}
 
 	// ============================ for displaying=================
 	public String printEdgesToString() {
@@ -410,6 +453,18 @@ public final class CGraph {
 		StringBuffer sb = new StringBuffer();
 		sb.append(printNodesToString());
 		sb.append(printEdgesToString());
+		return sb.toString();
+	}
+	
+	public String getAdjMatrixString() {
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<adjMatrix.length;i++){
+			sb.append("\n");
+			for(int j=0;j<adjMatrix.length;j++){
+				sb.append(adjMatrix[i][j]+ " ");
+			}
+			
+		}
 		return sb.toString();
 	}
 

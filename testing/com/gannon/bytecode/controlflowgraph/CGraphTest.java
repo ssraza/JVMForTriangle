@@ -2,6 +2,7 @@ package com.gannon.bytecode.controlflowgraph;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -36,7 +37,7 @@ public class CGraphTest {
 
 	@Test
 	public void testGetRoot() {
-		CNode expectedRoot = new CNode(1, new CBlock(1));
+		CNode expectedRoot = new CNode(0, new CBlock(1));
 
 		CGraph g = create4NodesGraph();
 		assertEquals(expectedRoot, g.getRoot());
@@ -45,7 +46,7 @@ public class CGraphTest {
 
 	@Test
 	public void testGetSink() {
-		CNode expectedRoot = new CNode(4, new CBlock(4));
+		CNode expectedRoot = new CNode(3, new CBlock(4));
 		CGraph g = create4NodesGraph();
 		assertEquals(expectedRoot, g.getSink());
 
@@ -53,13 +54,13 @@ public class CGraphTest {
 
 	private CGraph create4NodesGraph() {
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(1, new CBlock(1));
+		CNode node1 = new CNode(0, new CBlock(1));
 		g.addCNode(node1);
-		CNode node2 = new CNode(2, new CBlock(2));
+		CNode node2 = new CNode(1, new CBlock(2));
 		g.addCNode(node2);
-		CNode node3 = new CNode(3, new CBlock(3));
+		CNode node3 = new CNode(2, new CBlock(3));
 		g.addCNode(node3);
-		CNode node4 = new CNode(4, new CBlock(4));
+		CNode node4 = new CNode(3, new CBlock(4));
 		g.addCNode(node4);
 
 		g.addCEdge(new CEdge(1, node1, node2));
@@ -68,36 +69,37 @@ public class CGraphTest {
 		g.addCEdge(new CEdge(4, node3, node4));
 		return g;
 	}
+	
 
 	//
-	// _1
+	// _0
 	// / \
-	// 2 3
+	// 1 2
 	// | | \
-	// | 4 5
+	// | 3 4
 	// | | /
-	// | 6
+	// | 5
 	// | |
-	// | 7
+	// | 6
 	// \ /
-	// 8
+	// 7
 	private CGraph create8NodesGraph() {
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(1, new CBlock(1));
+		CNode node1 = new CNode(0, new CBlock(1));
 		g.addCNode(node1);
-		CNode node2 = new CNode(2, new CBlock(2));
+		CNode node2 = new CNode(1, new CBlock(2));
 		g.addCNode(node2);
-		CNode node3 = new CNode(3, new CBlock(3));
+		CNode node3 = new CNode(2, new CBlock(3));
 		g.addCNode(node3);
-		CNode node4 = new CNode(4, new CBlock(4));
+		CNode node4 = new CNode(3, new CBlock(4));
 		g.addCNode(node4);
-		CNode node5 = new CNode(5, new CBlock(5));
+		CNode node5 = new CNode(4, new CBlock(5));
 		g.addCNode(node5);
-		CNode node6 = new CNode(6, new CBlock(6));
+		CNode node6 = new CNode(5, new CBlock(6));
 		g.addCNode(node6);
-		CNode node7 = new CNode(7, new CBlock(7));
+		CNode node7 = new CNode(6, new CBlock(7));
 		g.addCNode(node7);
-		CNode node8 = new CNode(8, new CBlock(8));
+		CNode node8 = new CNode(7, new CBlock(8));
 		g.addCNode(node8);
 
 		g.addCEdge(new CEdge(1, node1, node2));
@@ -112,42 +114,79 @@ public class CGraphTest {
 
 		return g;
 	}
+	
+	@Test
+	public void testAdjMatrix() {
+		CGraph g=create4NodesGraph();
+		System.out.println("AdjMatric : ===\n"+g.getAdjMatrixString());
+	}
 
 	@Test
 	public void testGetLongestPath() {
 
-		CNode node1 = new CNode(1, new CBlock(1));
-		CNode node2 = new CNode(2, new CBlock(2));
-		CNode node3 = new CNode(3, new CBlock(3));
-		CNode node4 = new CNode(4, new CBlock(4));
-		CNode node5 = new CNode(5, new CBlock(5));
-		CNode node6 = new CNode(6, new CBlock(6));
-		CNode node7 = new CNode(7, new CBlock(7));
-		CNode node8 = new CNode(8, new CBlock(8));
+		CNode node0 = new CNode(0, new CBlock(1));
+		CNode node1 = new CNode(1, new CBlock(2));
+		CNode node2 = new CNode(2, new CBlock(3));
+		CNode node3 = new CNode(3, new CBlock(4));
+		CNode node4 = new CNode(4, new CBlock(5));
+		CNode node5 = new CNode(5, new CBlock(6));
+		CNode node6 = new CNode(6, new CBlock(7));
+		CNode node7 = new CNode(7, new CBlock(8));
 
 		CGraph g = create8NodesGraph();
-		CPath longestPath = g.getLongestPath(node1, node8);
+		CPath longestPath = g.getLongestPath(node0, node7);
 
+		//0-2-4-5-6-7
 		assertEquals(longestPath.getNodes().size(), 6);
-		assertEquals(longestPath.getNodes().get(0), node1);
-		assertEquals(longestPath.getNodes().get(1), node3);
+		System.out.println("Longest path: "+longestPath.getNodes());
+		assertEquals(longestPath.getNodes().get(0), node0);
+		assertEquals(longestPath.getNodes().get(1), node2);
 		assertEquals(longestPath.getNodes().get(2), node4);
-		assertEquals(longestPath.getNodes().get(3), node6);
-		assertEquals(longestPath.getNodes().get(4), node7);
-		assertEquals(longestPath.getNodes().get(5), node8);
+		assertEquals(longestPath.getNodes().get(3), node5);
+		assertEquals(longestPath.getNodes().get(4), node6);
+		assertEquals(longestPath.getNodes().get(5), node7);
 
+	}
+	
+	@Test
+	public void testSetOfDominatorNodes() {
+
+		CNode node0 = new CNode(0, new CBlock(1));
+		CNode node1 = new CNode(1, new CBlock(2));
+		CNode node2 = new CNode(2, new CBlock(3));
+		CNode node3 = new CNode(3, new CBlock(4));
+		CNode node4 = new CNode(4, new CBlock(5));
+		CNode node5 = new CNode(5, new CBlock(6));
+		CNode node6 = new CNode(6, new CBlock(7));
+		CNode node7 = new CNode(7, new CBlock(8));
+
+		CGraph g = create8NodesGraph();
+		g.processDominatorNodes();
+
+		List<CNode> setOfDominatorNodesForNode5 =  g.getSetOfDominatorNodes(node5);
+		// set of dominator nodes{0,2,5}
+		assertEquals( 3,setOfDominatorNodesForNode5.size());
+		assertTrue(setOfDominatorNodesForNode5.contains(node0));
+		assertTrue(setOfDominatorNodesForNode5.contains(node2));
+		assertTrue(setOfDominatorNodesForNode5.contains(node5));
+		
+		List<CNode> setOfDominatorNodesForNode7 =  g.getSetOfDominatorNodes(node7);
+		// set of dominator nodes{0,7}
+		assertEquals( 2,setOfDominatorNodesForNode7.size());
+		assertTrue(setOfDominatorNodesForNode7.contains(node0));
+		assertTrue(setOfDominatorNodesForNode7.contains(node7));
 	}
 
 	@Test
 	public void testGetNymberOfPaths() {
-		CNode node1 = new CNode(1, new CBlock(1));
-		CNode node2 = new CNode(2, new CBlock(2));
-		CNode node3 = new CNode(3, new CBlock(3));
-		CNode node4 = new CNode(4, new CBlock(4));
-		CNode node5 = new CNode(5, new CBlock(5));
-		CNode node6 = new CNode(6, new CBlock(6));
-		CNode node7 = new CNode(7, new CBlock(7));
-		CNode node8 = new CNode(8, new CBlock(8));
+		CNode node1 = new CNode(0, new CBlock(1));
+		CNode node2 = new CNode(1, new CBlock(2));
+		CNode node3 = new CNode(2, new CBlock(3));
+		CNode node4 = new CNode(3, new CBlock(4));
+		CNode node5 = new CNode(4, new CBlock(5));
+		CNode node6 = new CNode(5, new CBlock(6));
+		CNode node7 = new CNode(6, new CBlock(7));
+		CNode node8 = new CNode(7, new CBlock(8));
 
 		CGraph g = create8NodesGraph();
 
@@ -219,23 +258,23 @@ public class CGraphTest {
 
 	@Test
 	public void testAllPaths() {
-		int START = 2;
-		int END = 5;
+		int START = 1;
+		int END = 4;
 
 		// this graph is directional
 		CGraph graph = new CGraph();
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(1, new CBlock(1));
+		CNode node1 = new CNode(0, new CBlock(1));
 		g.addCNode(node1);
-		CNode node2 = new CNode(2, new CBlock(2));
+		CNode node2 = new CNode(1, new CBlock(2));
 		g.addCNode(node2);
-		CNode node3 = new CNode(3, new CBlock(3));
+		CNode node3 = new CNode(2, new CBlock(3));
 		g.addCNode(node3);
-		CNode node4 = new CNode(4, new CBlock(4));
+		CNode node4 = new CNode(3, new CBlock(4));
 		g.addCNode(node4);
-		CNode node5 = new CNode(5, new CBlock(5));
+		CNode node5 = new CNode(4, new CBlock(5));
 		g.addCNode(node5);
-		CNode node6 = new CNode(6, new CBlock(6));
+		CNode node6 = new CNode(5, new CBlock(6));
 		g.addCNode(node6);
 
 		g.addCEdge(new CEdge(1, node1, node2));
@@ -259,11 +298,11 @@ public class CGraphTest {
 		g.printPaths(paths);
 
 		LinkedList<LinkedList<Integer>> expectedPaths = new LinkedList<LinkedList<Integer>>();
-		LinkedList<Integer> path1 = new LinkedList<Integer>(Arrays.asList(2, END));
-		LinkedList<Integer> path4 = new LinkedList<Integer>(Arrays.asList(2, 1, 3, END));
-		LinkedList<Integer> path5 = new LinkedList<Integer>(Arrays.asList(2, 1, 3, 6, END));
-		LinkedList<Integer> path2 = new LinkedList<Integer>(Arrays.asList(2, 6, END));
-		LinkedList<Integer> path3 = new LinkedList<Integer>(Arrays.asList(2, 6, 3, END));
+		LinkedList<Integer> path1 = new LinkedList<Integer>(Arrays.asList(START, END));
+		LinkedList<Integer> path4 = new LinkedList<Integer>(Arrays.asList(START, 0, 2, END));
+		LinkedList<Integer> path5 = new LinkedList<Integer>(Arrays.asList(START, 0, 2, 5, END));
+		LinkedList<Integer> path2 = new LinkedList<Integer>(Arrays.asList(START, 5, END));
+		LinkedList<Integer> path3 = new LinkedList<Integer>(Arrays.asList(START, 5, 2, END));
 		expectedPaths.add(path1);
 		expectedPaths.add(path2);
 		expectedPaths.add(path3);

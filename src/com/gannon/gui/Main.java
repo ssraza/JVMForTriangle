@@ -173,8 +173,8 @@ public class Main extends JFrame {
 		// scrollPaneCFG.setViewportView(panelCFG);
 
 		// creating CFG Panel ( width x height)
-	    cfgPanel = new CFGPanel(createSampleCGraph(), 600, 800);
-		scrollPaneCFG.setViewportView(cfgPanel);
+	    //cfgPanel = new CFGPanel(createSampleCGraph(), 600, 800);
+		//scrollPaneCFG.setViewportView(cfgPanel);
 
 		// txtCfgHere = new JTextField();
 		// txtCfgHere.setText("CFG here2");
@@ -288,7 +288,7 @@ public class Main extends JFrame {
 			CPaths paths = g.computeAllPaths();
 			for (CPath path : paths.getPaths()) {
 				methodScollPane.addObject(p1, path.toString());
-			}
+			} 
 			// for testng purpose
 			// if (m.getName().equalsIgnoreCase("TriangleType")) {
 			// TestPathGenerator g = new TestPathGenerator(className,
