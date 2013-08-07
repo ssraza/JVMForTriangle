@@ -63,6 +63,7 @@ public class Main extends JFrame {
 	private JFileChooser fc;
 	public JScrollPane scrollPaneCFG;
 	public JScrollPane scrollPanePath;
+	public JTabbedPane tabbedPane;
 	
 	/**
 	 * Launch the application.
@@ -155,26 +156,26 @@ public class Main extends JFrame {
 		JButton btnStep = new JButton("Step");
 		panel.add(btnStep);
 
-		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 
 		JScrollPane scrollPaneInstruction = new JScrollPane();
-		tabbedPane.addTab("Instructions", null, scrollPaneInstruction, null);
+		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instructions.png")), scrollPaneInstruction, null);
 
 		txtrInstructionarea = new JTextArea();
 		txtrInstructionarea.setText("InstructionArea");
 		scrollPaneInstruction.setViewportView(txtrInstructionarea);
 
 		scrollPaneCFG = new JScrollPane();
-		tabbedPane.addTab("CFG", null, scrollPaneCFG, null);
+		tabbedPane.addTab("CFG", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/flow_chart.png")), scrollPaneCFG, null);
 		
 		scrollPanePath = new JScrollPane();
-		tabbedPane.addTab("Path", null, scrollPanePath, null);
+		tabbedPane.addTab("Path", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png")), scrollPanePath, null);
 
 
 		JScrollPane scrollPaneConsole = new JScrollPane();
 		splitPaneMainAndOutputAndConsole.setRightComponent(scrollPaneConsole);
-
+ 
 		txtrConsole = new JTextArea();
 		txtrConsole.setText("console");
 		scrollPaneConsole.setViewportView(txtrConsole);
