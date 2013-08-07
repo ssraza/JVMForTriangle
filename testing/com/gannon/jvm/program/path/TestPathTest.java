@@ -3,13 +3,25 @@ package com.gannon.jvm.program.path;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.CBlock;
+import com.gannon.bytecode.controlflowgraph.CEdge;
+import com.gannon.bytecode.controlflowgraph.CGraph;
+import com.gannon.bytecode.controlflowgraph.CNode;
+import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BIConst_2;
 import com.gannon.jvm.instructions.BIFicmpeq;
@@ -24,18 +36,23 @@ import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
 public class TestPathTest {
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		@Override
+		protected void starting(Description description) {
+			System.out.println("Starting test: " + description.getMethodName());
+		}
+	};
 
 	@Test
 	public void testEquals() {
-		assertEquals(TrianglePathBuilderUtility.createPathID1(),
-				TrianglePathBuilderUtility.createPathID1());
+		assertEquals(TrianglePathBuilderUtility.createPathID1(), TrianglePathBuilderUtility.createPathID1());
 	}
 
 	@Test
 	public void testEqualsNotEqual() {
 		// use Unit 4.11 version
-		assertNotEquals(TrianglePathBuilderUtility.createPathID1(),
-				TrianglePathBuilderUtility.createPathID2());
+		assertNotEquals(TrianglePathBuilderUtility.createPathID1(), TrianglePathBuilderUtility.createPathID2());
 	}
 
 	@Test

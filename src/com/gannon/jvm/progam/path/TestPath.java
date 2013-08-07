@@ -1,15 +1,23 @@
 package com.gannon.jvm.progam.path;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import com.gannon.asm.components.BMethod;
+import com.gannon.bytecode.controlflowgraph.CEdge;
+import com.gannon.bytecode.controlflowgraph.CNode;
+import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.jvm.instructions.BInstruction;
 
 public class TestPath {
 	private int pathId;
 	private BMethod bMethod;// the method to where the path belongs
-	private ArrayList<Node> nodes = new ArrayList<Node>();
-	private ArrayList<Object> inputs = new ArrayList<Object>();
+	private List<Node> nodes = new ArrayList<Node>();
+	private List<Object> inputs = new ArrayList<Object>();
 
 	public TestPath() {
 		super();
@@ -19,6 +27,25 @@ public class TestPath {
 		super();
 		this.pathId = pathId;
 	}
+
+	// CPath has blocks (multiple instructions), however, the test path only
+	// contains nodes, which is an instruction. We also need the expected
+	// predicate values from CEdges
+	public TestPath(CPath cPath) {
+		this.pathId = cPath.getId();
+		List<CNode> cNodes = cPath.getNodes();
+		for (CNode cNode : cNodes) {
+			List<BInstruction> instructions = cNode.getBlock().getInstructions();
+			for (BInstruction inst : instructions) {
+				nodes.add(new Node(inst));
+			}
+		}
+
+		// Set<CEdge> cEdges = cPath.getEdges();
+
+	}
+	
+	//private boolean findExpectedPredicate
 
 	public int getPathId() {
 		return pathId;
@@ -36,7 +63,7 @@ public class TestPath {
 		this.bMethod = bMethod;
 	}
 
-	public ArrayList<Node> getNodes() {
+	public List<Node> getNodes() {
 		return nodes;
 	}
 
@@ -48,7 +75,7 @@ public class TestPath {
 		this.nodes.add(node);
 	}
 
-	public ArrayList<Object> getInputs() {
+	public List<Object> getInputs() {
 		return inputs;
 	}
 
@@ -115,8 +142,8 @@ public class TestPath {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		for (Node node : nodes) {
-			sb.append(node);
-			sb.append(" ->");
+			sb.append(node + "\n");
+			// sb.append(" ->");
 		}
 		return sb.toString();
 

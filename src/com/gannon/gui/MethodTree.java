@@ -21,6 +21,7 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CFGMethod;
 import com.gannon.bytecode.controlflowgraph.CGraph;
 import com.gannon.bytecode.controlflowgraph.CPath;
+import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class MethodTree extends JScrollPane implements TreeSelectionListener {
@@ -181,10 +182,18 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				//covert to the path to a graph so it can be displayed
 				CGraph pathGraph=selectedPath.convertToGraph();
 
+				//log 
 				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
 				mainFrame.txtrConsole.append("\n"+selectedPath);
-				pathGraph.processDominatorNodes();
 				
+				
+				//display instruction
+				mainFrame.txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
+				mainFrame.txtrInstructionarea.setText("");
+				mainFrame.txtrInstructionarea.append((new TestPath(selectedPath)).toString());
+				
+				//display path
+				pathGraph.processDominatorNodes();
 				mainFrame.tabbedPane.setSelectedIndex(2);
 				mainFrame.scrollPanePath.setViewportView(new CFGPanel(pathGraph, 200, 500));
 			}

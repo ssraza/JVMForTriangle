@@ -45,6 +45,6 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return Integer.toString(instruction.getLineNumber());
+		return instruction.toString();
 	}
 }

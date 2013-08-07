@@ -3,7 +3,6 @@ package com.gannon.bytecode.controlflowgraph;
 public class CNode {
 	private final int id;
 	private CBlock block;
-	private boolean expectedPredicateResult;
 
 	public CNode(int id) {
 		super();
@@ -22,14 +21,6 @@ public class CNode {
 
 	public CBlock getBlock() {
 		return block;
-	}
-
-	public boolean isExpectedPredicateResult() {
-		return expectedPredicateResult;
-	}
-
-	public void setExpectedPredicateResult(boolean expectedPredicateResult) {
-		this.expectedPredicateResult = expectedPredicateResult;
 	}
 
 	@Override

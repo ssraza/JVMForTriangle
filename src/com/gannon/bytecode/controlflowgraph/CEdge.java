@@ -1,5 +1,8 @@
 package com.gannon.bytecode.controlflowgraph;
 
+import com.gannon.jvm.progam.path.Edge;
+import com.gannon.jvm.progam.path.Node;
+
 public final class CEdge {
 	private final int id;
 	private final CNode source;
@@ -33,13 +36,19 @@ public final class CEdge {
 		this.value = value;
 	}
 
-	public CEdgeValue findValue(CNode sourceNode, CNode targetNode){
-		if(source.equals(sourceNode) && target.equals(targetNode)){
+	public Edge convertToEdge() {
+		Node sourceNode = new Node(source.getBlock().getLastInstruction());
+		Node targetNode = new Node(target.getBlock().getFirstInstruction());
+		return new Edge(sourceNode, targetNode);
+	}
+
+	public CEdgeValue findValue(CNode sourceNode, CNode targetNode) {
+		if (source.equals(sourceNode) && target.equals(targetNode)) {
 			return value;
 		}
 		return null;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return source.hashCode() + target.hashCode();

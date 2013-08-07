@@ -361,16 +361,45 @@ public class CGraphTest {
 		LinkedList<Integer> path3 = new LinkedList<Integer>(Arrays.asList(START, 5, 2, END));
 		
 		CPath actualCPath1=g.constructPathFromNodeIDs(1,path1);
-		//CPath actualCPpath2=g.constructPathFromNodeIDs(2,path2);
-		//CPath actualCPpath3=g.constructPathFromNodeIDs(3,path3);
-		//CPath actualCPpath4=g.constructPathFromNodeIDs(4,path4);
-		//CPath actualCPpath5=g.constructPathFromNodeIDs(5,path5);
-		
 		CPath expectedCPath1=new CPath(1);
 		expectedCPath1.add(new CNode(START, new CBlock(1)));
 		expectedCPath1.add(new CNode(END,new CBlock(2)));
 		
+		CPath actualCPath2=g.constructPathFromNodeIDs(2,path2);
+		CPath expectedCPath2=new CPath(2);
+		expectedCPath2.add(new CNode(START, new CBlock(2)));
+		expectedCPath2.add(new CNode(5, new CBlock(5)));
+		expectedCPath2.add(new CNode(END,new CBlock(4)));
+		
+		
+		CPath actualCPath3=g.constructPathFromNodeIDs(3,path3);
+		CPath expectedCPath3=new CPath(3);
+		expectedCPath3.add(new CNode(START, new CBlock(1)));
+		expectedCPath3.add(new CNode(5, new CBlock(5)));
+		expectedCPath3.add(new CNode(2, new CBlock(2)));
+		expectedCPath3.add(new CNode(END,new CBlock(4)));
+		
+		CPath actualCPath4=g.constructPathFromNodeIDs(4,path4);
+		CPath expectedCPath4=new CPath(4);
+		expectedCPath4.add(new CNode(START, new CBlock(1)));
+		expectedCPath4.add(new CNode(0, new CBlock(0)));
+		expectedCPath4.add(new CNode(2, new CBlock(2)));
+		expectedCPath4.add(new CNode(END,new CBlock(4)));
+		
+		CPath actualCPath5=g.constructPathFromNodeIDs(5,path5);
+		CPath expectedCPath5=new CPath(5);
+		expectedCPath5.add(new CNode(START, new CBlock(1)));
+		expectedCPath5.add(new CNode(0, new CBlock(0)));
+		expectedCPath5.add(new CNode(2, new CBlock(2)));
+		expectedCPath5.add(new CNode(5, new CBlock(5)));
+		expectedCPath5.add(new CNode(END,new CBlock(4)));
+		
+		
 		assertEquals(expectedCPath1,actualCPath1);
+		assertEquals(expectedCPath2,actualCPath2);
+		assertEquals(expectedCPath3,actualCPath3);
+		assertEquals(expectedCPath4,actualCPath4);
+		assertEquals(expectedCPath5,actualCPath5);
 
 	}
 

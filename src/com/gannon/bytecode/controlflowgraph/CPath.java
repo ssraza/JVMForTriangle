@@ -12,11 +12,12 @@ import com.gannon.jvm.utilities.ConstantsUtility;
 public class CPath {
 	private int id;
 	private List<CNode> nodes = new LinkedList<CNode>();
+	//store expected predicate result, such as True or False
 	private Set<CEdge> edges = new HashSet<CEdge>();;
 
 	public CPath(int id) {
 		super();
-		this.id = id;
+		this.id = id; 
 	}
 
 	public void add(CNode node) {
@@ -47,13 +48,30 @@ public class CPath {
 		this.nodes.add(nodes);
 	}
 
+	public Set<CEdge> getEdges() {
+		return edges;
+	}
+
+	public void setEdges(Set<CEdge> edges) {
+		this.edges = edges;
+	}
+
 	public int size() {
 		return nodes.size();
+	}
+	
+
+	public CEdge findCEdge(CNode src, CNode tgt){
+		for(CEdge edge: edges){
+			if(edge.getSource().equals(src)&& edge.getTarget().equals(tgt)){
+				return edge;
+			}
+		}
+		return null;
 	}
 
 	public CGraph convertToGraph() {
 		Set<CNode> nodeSet = new HashSet<CNode>(nodes);
-
 		return new CGraph(nodeSet, edges);
 	}
 
@@ -96,7 +114,8 @@ public class CPath {
 
 		for (CEdge edge : edges) {
 			if (edge.getValue().getExpectedPredicateResult() != ConstantsUtility.UNDEFINED_EXPECTED_VALUE) {
-				sb.append("\nEdge value: ["+edge.toString() +" Expected PredicateResult="+edge.getValue().getExpectedPredicateResult()+"]");
+				sb.append("\nEdge value: [" + edge.toString() + " Expected PredicateResult="
+						+ edge.getValue().getExpectedPredicateResult() + "]");
 			}
 		}
 		return sb.toString();
