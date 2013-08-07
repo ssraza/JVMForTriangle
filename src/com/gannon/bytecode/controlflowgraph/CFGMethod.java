@@ -95,7 +95,7 @@ public class CFGMethod {
 			block.addInstruction(instructions.get(j));
 		}
 		blocks.add(block);
-		return blocks;
+		return blocks; 
 	}
 
 	// return a flag array to indicate if an instruction is a leader instruction

@@ -160,7 +160,7 @@ public class Main extends JFrame {
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 
 		JScrollPane scrollPaneInstruction = new JScrollPane();
-		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instructions.png")), scrollPaneInstruction, null);
+		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")), scrollPaneInstruction, null);
 
 		txtrInstructionarea = new JTextArea();
 		txtrInstructionarea.setText("InstructionArea");
