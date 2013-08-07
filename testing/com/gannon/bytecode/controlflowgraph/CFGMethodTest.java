@@ -55,6 +55,16 @@ public class CFGMethodTest {
 		assertTrue(Arrays.equals(expectedFlags,actualFlags));
 	}
 	
+	@Test
+	public void testBuildGraph() {
+		BClass myclass = BClassGenerator.getBClass("Triangle.class");
+		BMethod m = myclass.getMethod("triangleType");
+		assertEquals("triangleType", m.getName());
+
+		CFGMethod cfg = new CFGMethod(m);
+		System.out.println("Graph results==="+cfg.buildGraph()+"=======");
+		
+	}
 
 
 }

@@ -36,7 +36,8 @@ public final class CGraph {
 		this.nodes = nodes;
 		this.edges = new HashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
-		adjMatrix = new int[nodes.size()][nodes.size()];
+		// node index starts from 0, therefore the size  +1
+		adjMatrix = new int[getLargestNodeID(nodes)+1][getLargestNodeID(nodes)+1];
 		this.dominatorNodes = new HashMap<CNode, List<CNode>>();
 		initEdges(newEdges);
 	}
@@ -116,6 +117,17 @@ public final class CGraph {
 			System.out.println("Error reading input string");
 		}
 	}
+	
+	
+	public int getLargestNodeID(Set<CNode> nodes){
+		int largestNodeID=0;
+		for(CNode node:nodes){
+			if(node.getId()>largestNodeID){
+				largestNodeID=node.getId();
+			}
+		}
+		return largestNodeID;
+	}
 
 	public CNode getCNode(int nodeID) {
 		for (CNode n1 : nodes) {
@@ -130,7 +142,7 @@ public final class CGraph {
 	public CEdge addCEdge(final CEdge edge) {
 		// init matrix
 		if (adjMatrix == null) {
-			adjMatrix = new int[nodes.size()][nodes.size()];
+			adjMatrix = new int[getLargestNodeID(nodes)+1][getLargestNodeID(nodes)+1];
 		}
 		if (this.edges.add(edge)) {
 			final CNode src = edge.getSource();
@@ -297,7 +309,7 @@ public final class CGraph {
 	}
 
 	public CPath getLongestPath(CNode startNode, CNode endNode) {
-		CPaths paths = computeAllPaths(startNode.getId(), endNode.getId());
+		CPaths paths = computeAllCPaths(startNode.getId(), endNode.getId());
 		return paths.getLongestPath();
 	}
 
@@ -386,7 +398,7 @@ public final class CGraph {
 	}
 
 	public int getNumberOfPathsBetweenTwoNodes(CNode startNode, CNode endNode) {
-		CPaths paths = computeAllPaths(startNode.getId(), endNode.getId());
+		CPaths paths = computeAllCPaths(startNode.getId(), endNode.getId());
 		return paths.size();
 	}
 
@@ -526,10 +538,9 @@ public final class CGraph {
 
 	public CPath constructPathFromNodeIDs(int pathId, List<Integer> nodeIDs) {
 		CPath path = new CPath(pathId);
-		CNode targetNode;
 		for (int i=0;i<nodeIDs.size()-1;i++) {
-			CNode sourceNode=getCNode(i);
-			targetNode=getCNode(i+1);
+			CNode sourceNode=getCNode(nodeIDs.get(i)); 
+			CNode targetNode=getCNode(nodeIDs.get(i+1));
 			path.add(sourceNode);
 			
 			//we need add edges because it contains True or False values of predicates
@@ -540,7 +551,7 @@ public final class CGraph {
 			}
 		}
 		//don't forget to add last node
-		path.add(getCNode(nodeIDs.size()-1));
+		path.add(getCNode(nodeIDs.get(nodeIDs.size()-1)));
 		
 		return path;
 	}
@@ -554,7 +565,7 @@ public final class CGraph {
 		return null;
 	}
 
-	public CPaths computeAllPaths() {
+	public CPaths computeAllCPaths() {
 		int pathID = 1;
 		CPaths paths = new CPaths(1);// need set coverage and method name later
 		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(getRoot().getId(), getSink().getId());
@@ -564,7 +575,7 @@ public final class CGraph {
 		return paths;
 	}
 
-	public CPaths computeAllPaths(int startNodeID, int endNodeID) {
+	public CPaths computeAllCPaths(int startNodeID, int endNodeID) {
 		int pathID = 1;
 		CPaths paths = new CPaths(1);// need set coverage and method name later
 		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(startNodeID, endNodeID);

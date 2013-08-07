@@ -174,12 +174,13 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				int selectedPathID = Integer.parseInt(node.toString());
 
 				// find path with the pathID from generated CFG
-				CPath selectedPath=cfgMethod.buildGraph().computeAllPaths().findPath(selectedPathID);
+				CPath selectedPath=cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 				
 				//covert to the path to a graph so it can be displayed
 				CGraph pathGraph=selectedPath.convertToGraph();
 
 				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
+				mainFrame.txtrConsole.append("\n"+selectedPath);
 				pathGraph.processDominatorNodes();
 				mainFrame.cfgPanel = new CFGPanel(pathGraph, 600, 800);
 				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);

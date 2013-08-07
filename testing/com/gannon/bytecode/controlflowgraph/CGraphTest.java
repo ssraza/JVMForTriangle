@@ -257,7 +257,7 @@ public class CGraphTest {
 	}
 
 	@Test
-	public void testAllPaths() {
+	public void testComputeAllPathsUsingNodeID() {
 		int START = 1;
 		int END = 4;
 
@@ -309,6 +309,68 @@ public class CGraphTest {
 		expectedPaths.add(path4);
 		expectedPaths.add(path5);
 		assertEquals(expectedPaths, paths);
+
+	}
+	
+
+	@Test
+	public void testConstructPathFromNodeIDs() {
+		int START = 1;
+		int END = 4;
+
+		// this graph is directional
+		CGraph graph = new CGraph();
+		CGraph g = new CGraph();
+		CNode node0 = new CNode(0, new CBlock(1));
+		g.addCNode(node0);
+		CNode node1 = new CNode(1, new CBlock(2));
+		g.addCNode(node1);
+		CNode node2 = new CNode(2, new CBlock(3));
+		g.addCNode(node2);
+		CNode node3 = new CNode(3, new CBlock(4));
+		g.addCNode(node3);
+		CNode node4 = new CNode(4, new CBlock(5));
+		g.addCNode(node4);
+		CNode node5 = new CNode(5, new CBlock(6));
+		g.addCNode(node5);
+
+		g.addCEdge(new CEdge(1, node0, node1));
+		g.addCEdge(new CEdge(2, node0, node2));
+		g.addCEdge(new CEdge(3, node1, node0));
+		g.addCEdge(new CEdge(4, node1, node3));
+		g.addCEdge(new CEdge(5, node1, node4));
+		g.addCEdge(new CEdge(6, node1, node5));
+		g.addCEdge(new CEdge(7, node2, node0));
+		g.addCEdge(new CEdge(8, node2, node4));
+		g.addCEdge(new CEdge(9, node2, node5));
+		g.addCEdge(new CEdge(10, node3, node1));
+		g.addCEdge(new CEdge(11, node4, node2));
+		g.addCEdge(new CEdge(12, node4, node5));
+		g.addCEdge(new CEdge(13, node5, node1));
+		g.addCEdge(new CEdge(14, node5, node2));
+		g.addCEdge(new CEdge(15, node5, node4));
+
+		LinkedList<LinkedList<Integer>> paths = new LinkedList<LinkedList<Integer>>();
+		paths = g.computeAllPathsUsingNodeID(START, END);
+		g.printPaths(paths);
+
+		LinkedList<Integer> path1 = new LinkedList<Integer>(Arrays.asList(START, END));
+		LinkedList<Integer> path4 = new LinkedList<Integer>(Arrays.asList(START, 0, 2, END));
+		LinkedList<Integer> path5 = new LinkedList<Integer>(Arrays.asList(START, 0, 2, 5, END));
+		LinkedList<Integer> path2 = new LinkedList<Integer>(Arrays.asList(START, 5, END));
+		LinkedList<Integer> path3 = new LinkedList<Integer>(Arrays.asList(START, 5, 2, END));
+		
+		CPath actualCPath1=g.constructPathFromNodeIDs(1,path1);
+		//CPath actualCPpath2=g.constructPathFromNodeIDs(2,path2);
+		//CPath actualCPpath3=g.constructPathFromNodeIDs(3,path3);
+		//CPath actualCPpath4=g.constructPathFromNodeIDs(4,path4);
+		//CPath actualCPpath5=g.constructPathFromNodeIDs(5,path5);
+		
+		CPath expectedCPath1=new CPath(1);
+		expectedCPath1.add(new CNode(START, new CBlock(1)));
+		expectedCPath1.add(new CNode(END,new CBlock(2)));
+		
+		assertEquals(expectedCPath1,actualCPath1);
 
 	}
 

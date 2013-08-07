@@ -5,6 +5,11 @@ public class CNode {
 	private CBlock block;
 	private boolean expectedPredicateResult;
 
+	public CNode(int id) {
+		super();
+		this.id = id;
+	}
+
 	public CNode(final int id, CBlock blcok) {
 		super();
 		this.id = id;
