@@ -1,17 +1,19 @@
 package com.gannon.bytecode.controlflowgraph;
 
+import com.gannon.jvm.utilities.ConstantsUtility;
+
 public class CEdgeValue {
-	private boolean expectedPredicateResult=false;
+	private int expectedPredicateResult=ConstantsUtility.UNDEFINED_EXPECTED_VALUE;
 
 	public CEdgeValue() {
 		super();
 	}
 
-	public boolean isExpectedPredicateResult() {
+	public int getExpectedPredicateResult() {
 		return expectedPredicateResult;
 	}
 
-	public void setExpectedPredicateResult(boolean expectedPredicateResult) {
+	public void setExpectedPredicateResult(int expectedPredicateResult) {
 		this.expectedPredicateResult = expectedPredicateResult;
 	}
 

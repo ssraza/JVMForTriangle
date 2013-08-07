@@ -8,4 +8,8 @@ public class ConstantsUtility {
 	public static final int START_CFG_NODE_ID = Integer.MIN_VALUE;
 	public static final int METHOD_LEVEL = 2;
 	public static final int TESTPATH_LEVEL = 3; 
+	
+	public static final int UNDEFINED_EXPECTED_VALUE=-1;
+	public static final int EXPECTED_TRUE=1;
+	public static final int EXPECTED_FALSE=0;
 }

@@ -161,7 +161,7 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				CGraph buildGraph = m.buildGraph();
 				//need to change this
 				buildGraph.processDominatorNodes();
-				mainFrame.cfgPanel = new CFGPanel(buildGraph, 600, 800);
+				mainFrame.cfgPanel = new CFGPanel(buildGraph, 200, 500);
 				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
 			} else if (tree.getSelectionPath().getPathCount() == ConstantsUtility.TESTPATH_LEVEL) {
 				// get current method
@@ -182,7 +182,7 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
 				mainFrame.txtrConsole.append("\n"+selectedPath);
 				pathGraph.processDominatorNodes();
-				mainFrame.cfgPanel = new CFGPanel(pathGraph, 600, 800);
+				mainFrame.cfgPanel = new CFGPanel(pathGraph, 200, 500);
 				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
 			}
 		}

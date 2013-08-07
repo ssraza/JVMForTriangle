@@ -5,6 +5,7 @@ import java.util.*;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 /*
  * A wrapper of BMethod
@@ -37,7 +38,7 @@ public class CFGMethod {
 				CEdge cEdge1 = new CEdge(edgeId++, sourceNode, targetNode1);
 				//we save predicated value in CEdges
 				CEdgeValue cEdgeValue1 = new CEdgeValue();
-				cEdgeValue1.setExpectedPredicateResult(false);
+				cEdgeValue1.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 				cEdge1.setValue(cEdgeValue1);  
 				
 				edges.add(cEdge1);
@@ -50,7 +51,7 @@ public class CFGMethod {
 				CEdge cEdge2 = new CEdge(edgeId++, sourceNode, targetNode2);
 				//we save predicated value in CEdges
 				CEdgeValue cEdgeValue2 = new CEdgeValue();
-				cEdgeValue2.setExpectedPredicateResult(true);
+				cEdgeValue2.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 				cEdge2.setValue(cEdgeValue2);
 				edges.add(cEdge2);
 			} else if (block.findGotoInstruction() != null) {

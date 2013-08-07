@@ -261,14 +261,14 @@ public class Main extends JFrame {
 	}
 
 	private void initFrame() {
-		setResizable(false);
+		setResizable(true);
 		setName("jvmFrame");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/com/gannon/images/camera_test.png")));
 		setTitle("Gannon JVM 1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Make the big window be indented 50 pixels from each edge
+		// Make the big window be indented 20 pixels from each edge
 		// of the screen.
-		int inset = 10;
+		int inset = 20;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height - inset * 2);
 	}
