@@ -4,6 +4,7 @@ public final class CEdge {
 	private final int id;
 	private final CNode source;
 	private final CNode target;
+	private CEdgeValue value = new CEdgeValue();
 
 	public CEdge(int id, CNode source, CNode target) {
 		super();
@@ -24,6 +25,21 @@ public final class CEdge {
 		return target;
 	}
 
+	public CEdgeValue getValue() {
+		return value;
+	}
+
+	public void setValue(CEdgeValue value) {
+		this.value = value;
+	}
+
+	public CEdgeValue findValue(CNode sourceNode, CNode targetNode){
+		if(source.equals(sourceNode) && target.equals(targetNode)){
+			return value;
+		}
+		return null;
+	}
+	
 	@Override
 	public int hashCode() {
 		return source.hashCode() + target.hashCode();
@@ -48,7 +64,7 @@ public final class CEdge {
 				return false;
 		} else if (!target.equals(other.target))
 			return false;
-		return source.equals(other.source)&&target.equals(other.target);
+		return source.equals(other.source) && target.equals(other.target);
 	}
 
 	/*
@@ -58,6 +74,6 @@ public final class CEdge {
 	 */
 	@Override
 	public String toString() {
-		return "Edge [id=" + this.id+ "] Source Node ["+ source+ "] Target Node["+target+"]";
+		return "Edge [id=" + this.id + "] Source Node [" + source + "] Target Node[" + target + "]";
 	}
 }

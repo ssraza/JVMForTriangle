@@ -41,7 +41,6 @@ import com.gannon.bytecode.controlflowgraph.CPaths;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.progam.path.TestPathGenerator;
 import com.gannon.jvm.utilities.ConstantsUtility;
-import com.gannon.program.cfg.CFGPanel;
 import com.tutorial.filechoosen.FileChooserDemo;
 
 import java.awt.event.ActionListener;
@@ -57,7 +56,7 @@ public class Main extends JFrame {
 	private JTextField textField;
 	private JTextField txtCfgHere;
 	public JTextArea txtrInstructionarea;
-	private JTextArea txtrConsole;
+	public JTextArea txtrConsole; 
 	private File file;
 	private MethodTree scrollPaneTree;
 	protected JSplitPane splitPaneRoot;
@@ -269,7 +268,7 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Make the big window be indented 50 pixels from each edge
 		// of the screen.
-		int inset = 50;
+		int inset = 10;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height - inset * 2);
 	}
@@ -287,16 +286,8 @@ public class Main extends JFrame {
 			CGraph g = cfgMethod.buildGraph();
 			CPaths paths = g.computeAllPaths();
 			for (CPath path : paths.getPaths()) {
-				methodScollPane.addObject(p1, path.toString());
+				methodScollPane.addObject(p1, path.getId());
 			} 
-			// for testng purpose
-			// if (m.getName().equalsIgnoreCase("TriangleType")) {
-			// TestPathGenerator g = new TestPathGenerator(className,
-			// m.getName());
-			// for (TestPath p : g.deriveTestPaths().getPaths()) {
-			// methodScollPane.addObject(p1, p.getPathId());
-			// }
-			// }
 		}
 	}
 

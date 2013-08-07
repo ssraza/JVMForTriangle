@@ -20,7 +20,7 @@ public final class CGraph {
 	private Set<CEdge> edges;
 	private Map<CNode, Map<CNode, List<CEdge>>> adjacency;// multiple edges?
 	private Map<CNode, List<CNode>> dominatorNodes;
-	private int[][] adjMatrix; 
+	private int[][] adjMatrix;
 
 	private int nextCNodeId;
 	private int nextCEdgeId;
@@ -128,8 +128,8 @@ public final class CGraph {
 	}
 
 	public CEdge addCEdge(final CEdge edge) {
-		//init matrix
-		if(adjMatrix==null){
+		// init matrix
+		if (adjMatrix == null) {
 			adjMatrix = new int[nodes.size()][nodes.size()];
 		}
 		if (this.edges.add(edge)) {
@@ -147,7 +147,7 @@ public final class CGraph {
 					srcAdjacency.put(tgt, adjacencyCEdges);
 				}
 				adjacencyCEdges.add(edge);
-				adjMatrix[src.getId()][tgt.getId()]=1;
+				adjMatrix[src.getId()][tgt.getId()] = 1;
 
 			} else {
 				this.edges.remove(edge);
@@ -311,59 +311,59 @@ public final class CGraph {
 		computeDominatorNodes();
 	}
 
-	private List<CNode> getParentNodes(CNode node){
-		List<CNode> parentNodes =  new ArrayList<CNode>();
-		
-		for(CEdge edge:edges){
-			if(edge.getTarget().equals(node)){
+	private List<CNode> getParentNodes(CNode node) {
+		List<CNode> parentNodes = new ArrayList<CNode>();
+
+		for (CEdge edge : edges) {
+			if (edge.getTarget().equals(node)) {
 				parentNodes.add(edge.getSource());
 			}
 		}
-		
+
 		return parentNodes;
 	}
-	
-	private void computeDominateNode(CNode currentNode){
+
+	private void computeDominateNode(CNode currentNode) {
 		// getPredecessors(currentNode.getId());
-		
+
 		List<CNode> listOfParentNodes = getParentNodes(currentNode);
-		
-		//List<CNode> intersectionOfAllParentsNodes = new List
+
+		// List<CNode> intersectionOfAllParentsNodes = new List
 		// updating set of dominator nodes for current node
-		for(CNode parentNode:listOfParentNodes){
+		for (CNode parentNode : listOfParentNodes) {
 			dominatorNodes.get(currentNode).retainAll(dominatorNodes.get(parentNode));
 		}
-		
+
 		dominatorNodes.get(currentNode).add(currentNode);
 	}
-	
+
 	private void computeDominatorNodes() {
 		// initializing dominator set hash map
-		for(CNode node:nodes){
+		for (CNode node : nodes) {
 			ArrayList<CNode> dominatorNodesSet = new ArrayList<CNode>();
-			if(node.equals(getRoot())){
+			if (node.equals(getRoot())) {
 				dominatorNodesSet.add(node);
-			}else{
+			} else {
 				dominatorNodesSet.addAll(nodes);
 			}
-			dominatorNodes.put(node, dominatorNodesSet);			
+			dominatorNodes.put(node, dominatorNodesSet);
 		}
-		
-		List<CNode> nodesToBeVisited =  new ArrayList<CNode>();
-		List<CNode> traversedNodes =  new ArrayList<CNode>();
-		
+
+		List<CNode> nodesToBeVisited = new ArrayList<CNode>();
+		List<CNode> traversedNodes = new ArrayList<CNode>();
+
 		nodesToBeVisited.add(getRoot());
-		
-		while(nodesToBeVisited.size() > 0){
-			CNode visitedNode= nodesToBeVisited.get(0);
+
+		while (nodesToBeVisited.size() > 0) {
+			CNode visitedNode = nodesToBeVisited.get(0);
 			traversedNodes.add(visitedNode);
-			
+
 			// updating current visited node
 			computeDominateNode(visitedNode);
-			
+
 			// updating all other nodes
-			for(CNode node:nodes){
-				computeDominateNode(node);			
+			for (CNode node : nodes) {
+				computeDominateNode(node);
 			}
 
 			// getting list of child nodes
@@ -372,13 +372,13 @@ public final class CGraph {
 			nodesToBeVisited.remove(0);
 			// adding child nodes to nodes to be cisited
 			nodesToBeVisited.addAll(listOfChildNodes);
-		}	
+		}
 	}
-	
-	public List<CNode> getSetOfDominatorNodes(CNode node){
+
+	public List<CNode> getSetOfDominatorNodes(CNode node) {
 		return dominatorNodes.get(node);
 	}
-	
+
 	// checking if an edge between two nodes is a loop edge by finding if the
 	// node is dominated ny the other node
 	public boolean isLoopEdge(CNode startNode, CNode endNode) {
@@ -413,14 +413,14 @@ public final class CGraph {
 		return nodeIDs;
 
 	}
-	
-	//not working, 
+
+	// not working,
 	public List<Integer> getPredecessors(int nodeID) {
-		List<Integer> result=new ArrayList<Integer>();
-		for(int i=0;i<adjMatrix.length;i++){
-				if(adjMatrix[i][nodeID] == 1){
-					result.add(i);
-				}
+		List<Integer> result = new ArrayList<Integer>();
+		for (int i = 0; i < adjMatrix.length; i++) {
+			if (adjMatrix[i][nodeID] == 1) {
+				result.add(i);
+			}
 		}
 		return result;
 
@@ -455,15 +455,15 @@ public final class CGraph {
 		sb.append(printEdgesToString());
 		return sb.toString();
 	}
-	
+
 	public String getAdjMatrixString() {
 		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<adjMatrix.length;i++){
+		for (int i = 0; i < adjMatrix.length; i++) {
 			sb.append("\n");
-			for(int j=0;j<adjMatrix.length;j++){
-				sb.append(adjMatrix[i][j]+ " ");
+			for (int j = 0; j < adjMatrix.length; j++) {
+				sb.append(adjMatrix[i][j] + " ");
 			}
-			
+
 		}
 		return sb.toString();
 	}
@@ -524,12 +524,34 @@ public final class CGraph {
 		System.out.println();
 	}
 
-	public CPath constructPathFormNodeIDs(int id, List<Integer> nodeIDs) {
-		CPath path = new CPath(id);
-		for (Integer nodeId : nodeIDs) {
-			path.add(getCNode(nodeId));
+	public CPath constructPathFromNodeIDs(int pathId, List<Integer> nodeIDs) {
+		CPath path = new CPath(pathId);
+		CNode targetNode;
+		for (int i=0;i<nodeIDs.size()-1;i++) {
+			CNode sourceNode=getCNode(i);
+			targetNode=getCNode(i+1);
+			path.add(sourceNode);
+			
+			//we need add edges because it contains True or False values of predicates
+			//the predicate values are added when CFG is built, see CFGMethod class for details
+			CEdge edge=findEdge(sourceNode,targetNode);
+			if(edge!=null){
+				path.add(edge);
+			}
 		}
+		//don't forget to add last node
+		path.add(getCNode(nodeIDs.size()-1));
+		
 		return path;
+	}
+
+	private CEdge findEdge(CNode sourceNode, CNode targetNode) {
+		for (CEdge edge : edges) {
+			if (sourceNode.equals(edge.getSource()) && targetNode.equals(edge.getTarget())) {
+				return edge;
+			}
+		}
+		return null;
 	}
 
 	public CPaths computeAllPaths() {
@@ -537,7 +559,7 @@ public final class CGraph {
 		CPaths paths = new CPaths(1);// need set coverage and method name later
 		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(getRoot().getId(), getSink().getId());
 		for (LinkedList<Integer> p : pathsWithIDs) {
-			paths.add(constructPathFormNodeIDs(pathID++, p));
+			paths.add(constructPathFromNodeIDs(pathID++, p));
 		}
 		return paths;
 	}
@@ -547,7 +569,7 @@ public final class CGraph {
 		CPaths paths = new CPaths(1);// need set coverage and method name later
 		LinkedList<LinkedList<Integer>> pathsWithIDs = computeAllPathsUsingNodeID(startNodeID, endNodeID);
 		for (LinkedList<Integer> p : pathsWithIDs) {
-			paths.add(constructPathFormNodeIDs(pathID++, p));
+			paths.add(constructPathFromNodeIDs(pathID++, p));
 		}
 		return paths;
 	}

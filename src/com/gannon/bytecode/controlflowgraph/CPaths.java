@@ -41,10 +41,19 @@ public class CPaths {
 		return paths.size();
 	}
 
+	public CPath findPath(int pathID) {
+		for (CPath path : paths) {
+			if (path.getId() == pathID) {
+				return path;
+			}
+		}
+		return null;
+	}
+
 	public CPath getLongestPath() {
 		int maxLength = -1;
-		CPath resultPath=null;
-		for (CPath p:paths) {
+		CPath resultPath = null;
+		for (CPath p : paths) {
 			if (p.size() > maxLength) {
 				maxLength = p.size();
 				resultPath = p;

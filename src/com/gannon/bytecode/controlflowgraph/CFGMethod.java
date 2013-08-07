@@ -6,7 +6,6 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
 
-
 /*
  * A wrapper of BMethod
  * It used for building CFG
@@ -24,7 +23,7 @@ public class CFGMethod {
 		int edgeId = 0;
 		Set<CEdge> edges = new HashSet<CEdge>();
 
-		// adding the CFG Starting Node
+		// insert the block to be the CFG Starting Node
 		listOfBlock.add(0, new CBlock(Integer.MIN_VALUE));
 		// adding the CFG Ending Node
 		listOfBlock.add(new CBlock(Integer.MAX_VALUE));
@@ -32,18 +31,27 @@ public class CFGMethod {
 		for (int i = 0; i < listOfBlock.size(); i++) {
 			CBlock block = listOfBlock.get(i);
 			if (block.findIfInstruction() != null) {
-				// first edge is next to next
+				// first edge is next to next if predicate result is false
 				CNode sourceNode = new CNode(i, listOfBlock.get(i));
 				CNode targetNode1 = new CNode(i + 1, listOfBlock.get(i + 1));
 				CEdge cEdge1 = new CEdge(edgeId++, sourceNode, targetNode1);
+				//we save predicated value in CEdges
+				CEdgeValue cEdgeValue1 = new CEdgeValue();
+				cEdgeValue1.setExpectedPredicateResult(false);
+				cEdge1.setValue(cEdgeValue1);  
+				
 				edges.add(cEdge1);
 
 				// second edge connects to a block contains the instruction with
-				// gotolinenumber
+				// gotolinenumber if the expected predicate result is true
 				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
 				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
 				CNode targetNode2 = new CNode(destBlockID, listOfBlock.get(destBlockID));
 				CEdge cEdge2 = new CEdge(edgeId++, sourceNode, targetNode2);
+				//we save predicated value in CEdges
+				CEdgeValue cEdgeValue2 = new CEdgeValue();
+				cEdgeValue2.setExpectedPredicateResult(true);
+				cEdge2.setValue(cEdgeValue2);
 				edges.add(cEdge2);
 			} else if (block.findGotoInstruction() != null) {
 				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
@@ -69,18 +77,6 @@ public class CFGMethod {
 
 		// now we need to add start and end nodes
 		return new CGraph(listOfBlock.convertToSet(), edges);
-	}
-
-	private void addCFGStartingNode(CBlocks listOfBlock, Set<CEdge> edges) {
-		// add start the node and and the edge to the first block
-		// -1 indicates the starting number
-		CNode startingNode = new CNode(-1, new CBlock(-1));
-		CNode firstBlcokNode = null;
-		if (listOfBlock.size() > 0) {
-			firstBlcokNode = new CNode(0, listOfBlock.get(0));
-		}
-		CEdge startingEdge = new CEdge(-1, startingNode, firstBlcokNode);
-		edges.add(startingEdge);
 	}
 
 	public CBlocks buildBlocks() {
@@ -148,7 +144,7 @@ public class CFGMethod {
 
 	public void displayLeadingFlags(boolean[] computeLeadingLineFlags) {
 		for (int i = 0; i < computeLeadingLineFlags.length; i++) {
-			System.out.println("Line Number " + (i+1) + " Flag: " + computeLeadingLineFlags[i] + "\n ");
+			System.out.println("Line Number " + (i + 1) + " Flag: " + computeLeadingLineFlags[i] + "\n ");
 		}
 	}
 

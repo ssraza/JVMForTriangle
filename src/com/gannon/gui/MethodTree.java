@@ -20,10 +20,10 @@ import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CFGMethod;
 import com.gannon.bytecode.controlflowgraph.CGraph;
-import com.gannon.program.cfg.CFGPanel;
+import com.gannon.bytecode.controlflowgraph.CPath;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class MethodTree extends JScrollPane implements TreeSelectionListener {
-	private static final int METHOD_LEVEL = 2;
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 	protected JTree tree;
@@ -150,20 +150,39 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 		BClass myclass = BClassGenerator.getBClass(rootName);
 		if (myclass != null) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-			BMethod selectedMethod = myclass.getMethod(node.toString());
-			if (tree.getSelectionPath().getPathCount() == METHOD_LEVEL && selectedMethod != null) {
+			if (tree.getSelectionPath().getPathCount() == ConstantsUtility.METHOD_LEVEL) {
+				BMethod selectedMethod = myclass.getMethod(node.toString());
 				mainFrame.txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
-				mainFrame.txtrInstructionarea.setText("");			
+				mainFrame.txtrInstructionarea.setText("");
 				mainFrame.txtrInstructionarea.append(selectedMethod.toString());
-				
-				//if(selectedMethod.getName().equalsIgnoreCase("triangleType")){
-				//set CFG
-				CFGMethod m=new CFGMethod(selectedMethod); 
+
+				// set CFG
+				CFGMethod m = new CFGMethod(selectedMethod);
 				CGraph buildGraph = m.buildGraph();
+				//need to change this
 				buildGraph.processDominatorNodes();
 				mainFrame.cfgPanel = new CFGPanel(buildGraph, 600, 800);
 				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
-				//}
+			} else if (tree.getSelectionPath().getPathCount() == ConstantsUtility.TESTPATH_LEVEL) {
+				// get current method
+				DefaultMutableTreeNode methodNode = (DefaultMutableTreeNode) tree.getSelectionPath().getParentPath()
+						.getLastPathComponent();
+				BMethod method = myclass.getMethod(methodNode.toString());
+				CFGMethod cfgMethod = new CFGMethod(method);
+
+				// get pathId from user click
+				int selectedPathID = Integer.parseInt(node.toString());
+
+				// find path with the pathID from generated CFG
+				CPath selectedPath=cfgMethod.buildGraph().computeAllPaths().findPath(selectedPathID);
+				
+				//covert to the path to a graph so it can be displayed
+				CGraph pathGraph=selectedPath.convertToGraph();
+
+				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
+				pathGraph.processDominatorNodes();
+				mainFrame.cfgPanel = new CFGPanel(pathGraph, 600, 800);
+				mainFrame.scrollPaneCFG.setViewportView(mainFrame.cfgPanel);
 			}
 		}
 
