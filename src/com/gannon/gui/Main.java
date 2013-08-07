@@ -61,8 +61,8 @@ public class Main extends JFrame {
 	private MethodTree scrollPaneTree;
 	protected JSplitPane splitPaneRoot;
 	private JFileChooser fc;
-	public CFGPanel cfgPanel;
 	public JScrollPane scrollPaneCFG;
+	public JScrollPane scrollPanePath;
 	
 	/**
 	 * Launch the application.
@@ -167,18 +167,10 @@ public class Main extends JFrame {
 
 		scrollPaneCFG = new JScrollPane();
 		tabbedPane.addTab("CFG", null, scrollPaneCFG, null);
+		
+		scrollPanePath = new JScrollPane();
+		tabbedPane.addTab("Path", null, scrollPanePath, null);
 
-		//JPanel panelCFG = new JPanel();
-		// scrollPaneCFG.setViewportView(panelCFG);
-
-		// creating CFG Panel ( width x height)
-	    //cfgPanel = new CFGPanel(createSampleCGraph(), 600, 800);
-		//scrollPaneCFG.setViewportView(cfgPanel);
-
-		// txtCfgHere = new JTextField();
-		// txtCfgHere.setText("CFG here2");
-		// panelCFG.add(txtCfgHere);
-		// txtCfgHere.setColumns(10);
 
 		JScrollPane scrollPaneConsole = new JScrollPane();
 		splitPaneMainAndOutputAndConsole.setRightComponent(scrollPaneConsole);
