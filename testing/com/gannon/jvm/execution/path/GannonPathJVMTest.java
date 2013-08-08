@@ -33,7 +33,8 @@ public class GannonPathJVMTest {
 		TestPath path = TrianglePathBuilderUtility.createPathID1();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID1_input();
 		// assertion
-		GannonPathJVM jvm = new GannonPathJVM();
+		GannonPathJVM jvm = new GannonPathJVM(); 
+		//System.out.print(path);
 		assertEquals(new Integer(1), jvm.run(path, input));
 		assertTrue(((PredicateNode)path.getNode(5)).hasPassed());
 		assertTrue(((PredicateNode)path.getNode(10)).hasPassed());

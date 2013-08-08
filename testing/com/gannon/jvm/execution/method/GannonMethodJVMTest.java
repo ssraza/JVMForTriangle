@@ -132,6 +132,7 @@ public class GannonMethodJVMTest {
 	public void testMethodTriangleTypePathID_10() {
 		GannonMethodJVM jvm = new GannonMethodJVM();
 		ArrayList<Object> input = TrianglePathBuilderUtility.createPathID10_input();
+		System.out.print(jvm.getExecutedPath());
 		// assertion
 		assertEquals(new Integer(4), jvm.run(myclass, m, input));
 	}

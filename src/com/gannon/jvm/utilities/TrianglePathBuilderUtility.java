@@ -108,9 +108,9 @@ public class TrianglePathBuilderUtility {
 	public static ArrayList<Object> createPathID10_input() {
 		ArrayList<Object> input = new ArrayList<Object>();
 		input.add(-1);// store reference, not using it now
-		input.add(14);
-		input.add(6);
-		input.add(1);
+		input.add(192);
+		input.add(81);
+		input.add(103);
 		return input;
 	}
 
@@ -153,11 +153,11 @@ public class TrianglePathBuilderUtility {
 		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node5);
 
-		Node node36 = new NonPredicateNode(new BIConst_4(36));
-		path.add(node36);
-
-		Node node37 = new NonPredicateNode(new BIReturn(37));
+		Node node37 = new NonPredicateNode(new BIConst_4(37));
 		path.add(node37);
+
+		Node node38 = new NonPredicateNode(new BIReturn(38));
+		path.add(node38);
 
 		// get Method instructions
 		BClass myclass = BClassGenerator.getBClass("Triangle.class");

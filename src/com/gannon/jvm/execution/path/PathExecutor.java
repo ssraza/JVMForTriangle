@@ -42,7 +42,8 @@ public class PathExecutor<T> {
 				if (node.hasReturnInstruction()) {
 					endOfPathFlag = true;
 				} else if (node.isBPredicateNode()&& !((PredicateNode) node).isIgnore()) {
-					((PredicateNode) node).setActualPredicateResult((Boolean)result.equals(true)?ConstantsUtility.EXPECTED_TRUE: ConstantsUtility.EXPECTED_FALSE);
+					((PredicateNode) node).setActualPredicateResult((Boolean) result.equals(true) ? ConstantsUtility.EXPECTED_TRUE
+							: ConstantsUtility.EXPECTED_FALSE);
 				
 					
 					// if the actual predicate result is not equal to expected

@@ -48,12 +48,13 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import javax.swing.BoxLayout;
+import javax.swing.JTable;
 
 public class Main extends JFrame {
 
 	private static final String TestPathGenerator = null;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField txtCfgHere;
 	public JTextArea txtrInstructionarea;
 	public JTextArea txtrConsole; 
@@ -64,6 +65,8 @@ public class Main extends JFrame {
 	public JScrollPane scrollPaneCFG;
 	public JScrollPane scrollPanePath;
 	public JTabbedPane tabbedPane;
+	public JPanel inputTablePanel;
+	public JPanel outputPanel;
 	
 	/**
 	 * Launch the application.
@@ -134,27 +137,16 @@ public class Main extends JFrame {
 		splitPaneRoot.setRightComponent(splitPaneMainAndOutputAndConsole);
 
 		JSplitPane splitPaneMainAndOutput = new JSplitPane();
-		splitPaneMainAndOutput.setResizeWeight(0.8);
+		splitPaneMainAndOutput.setResizeWeight(0.7);
 		splitPaneMainAndOutputAndConsole.setLeftComponent(splitPaneMainAndOutput);
 
 		JScrollPane scrollPaneOutoutWindow = new JScrollPane();
 		splitPaneMainAndOutput.setRightComponent(scrollPaneOutoutWindow);
 
-		JPanel panel = new JPanel();
-		scrollPaneOutoutWindow.setViewportView(panel);
-
-		JLabel lblInput = new JLabel("input1");
-		panel.add(lblInput);
-
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
-
-		JButton btnRun = new JButton("Run");
-		panel.add(btnRun);
-
-		JButton btnStep = new JButton("Step");
-		panel.add(btnStep);
+		outputPanel = new JPanel();
+		scrollPaneOutoutWindow.setViewportView(outputPanel);
+		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.X_AXIS));
+		
 
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
