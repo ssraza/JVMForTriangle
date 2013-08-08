@@ -8,6 +8,7 @@ import com.gannon.jvm.instructions.BPredicateInstruction;
 import com.gannon.jvm.progam.path.NonPredicateNode;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class MethodExecutor {
 	// save execution path
@@ -61,7 +62,7 @@ public class MethodExecutor {
 		if (bInstruction instanceof BPredicateInstruction) {
 			PredicateNode pNode = new PredicateNode(bInstruction);
 			executedPath.add(pNode);
-			pNode.setActualPredicateResult((Boolean) result);
+			pNode.setActualPredicateResult((Boolean)result.equals(true)?ConstantsUtility.EXPECTED_TRUE: ConstantsUtility.EXPECTED_FALSE);
 		} else {
 			executedPath.add(new NonPredicateNode(bInstruction));
 		}

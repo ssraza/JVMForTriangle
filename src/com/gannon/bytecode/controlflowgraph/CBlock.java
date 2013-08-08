@@ -28,10 +28,12 @@ public class CBlock {
 		return null;
 	}
 	
-	public BInstruction getLastInstruction() {
+	//assume last statement is predicates, IF statement
+	public BInstruction getIFInstruction() {
 		if (instructions != null && instructions.size() > 0) {
 			return instructions.get(instructions.size()-1);
 		}
+		System.out.print("getIFInstruction return null");
 		return null;
 	}
 

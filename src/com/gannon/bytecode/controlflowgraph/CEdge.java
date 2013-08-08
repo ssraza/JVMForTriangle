@@ -37,7 +37,7 @@ public final class CEdge {
 	}
 
 	public Edge convertToEdge() {
-		Node sourceNode = new Node(source.getBlock().getLastInstruction());
+		Node sourceNode = new Node(source.getBlock().getIFInstruction());
 		Node targetNode = new Node(target.getBlock().getFirstInstruction());
 		return new Edge(sourceNode, targetNode);
 	}

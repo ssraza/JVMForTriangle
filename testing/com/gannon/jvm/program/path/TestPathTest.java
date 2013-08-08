@@ -33,6 +33,7 @@ import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.NonPredicateNode;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
+import com.gannon.jvm.utilities.ConstantsUtility;
 import com.gannon.jvm.utilities.TrianglePathBuilderUtility;
 
 public class TestPathTest {
@@ -79,7 +80,7 @@ public class TestPathTest {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -96,7 +97,7 @@ public class TestPathTest {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -113,7 +114,7 @@ public class TestPathTest {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -124,7 +125,7 @@ public class TestPathTest {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -135,7 +136,7 @@ public class TestPathTest {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -146,7 +147,7 @@ public class TestPathTest {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 23));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 24));
@@ -157,7 +158,7 @@ public class TestPathTest {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 26));
-		node32.setExpectedPredicateResult(false);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node32);
 
 		Node node33 = new NonPredicateNode(new BIConst_2(27));
@@ -194,7 +195,7 @@ public class TestPathTest {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -211,7 +212,7 @@ public class TestPathTest {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -228,7 +229,7 @@ public class TestPathTest {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -239,7 +240,7 @@ public class TestPathTest {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -250,7 +251,7 @@ public class TestPathTest {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -261,7 +262,7 @@ public class TestPathTest {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 23));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 24));
@@ -272,7 +273,7 @@ public class TestPathTest {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 26));
-		node32.setExpectedPredicateResult(false);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node32);
 
 		Node node33 = new NonPredicateNode(new BIConst_2(27));

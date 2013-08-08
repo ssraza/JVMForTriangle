@@ -6,13 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.gannon.jvm.progam.path.TestPath;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
+//a CPath is generated from CFG
 public class CPath {
 	private int id;
 	private List<CNode> nodes = new LinkedList<CNode>();
 	//store expected predicate result, such as True or False
+	//its value is already set when we build the path
 	private Set<CEdge> edges = new HashSet<CEdge>();;
 
 	public CPath(int id) {
@@ -61,13 +63,16 @@ public class CPath {
 	}
 	
 
-	public CEdge findCEdge(CNode src, CNode tgt){
+	// not used and tested, only implemented IF statement. 
+	// we need to find expected predicate value from edge for a given instruction
+	public int findExpectedPredicateValue(BInstruction inst){
 		for(CEdge edge: edges){
-			if(edge.getSource().equals(src)&& edge.getTarget().equals(tgt)){
-				return edge;
+			BInstruction ifInstruction = edge.getSource().getBlock().getIFInstruction();
+			if(ifInstruction!=null && ifInstruction.equals(inst)){
+				return edge.getValue().getExpectedPredicateResult();
 			}
 		}
-		return null;
+		return ConstantsUtility.UNDEFINED_EXPECTED_VALUE;
 	}
 
 	public CGraph convertToGraph() {

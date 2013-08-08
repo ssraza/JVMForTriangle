@@ -285,7 +285,7 @@ public class Main extends JFrame {
 	}
 
 	/*
-	 * create sample CGraph
+	 * create sample CGraph for testing purpose
 	 */
 	public CGraph createSampleCGraph() {
 		String inputText = "start_node end_nodes\n" + "0 1 3\n" + "1 3\n" + "2\n" + "3 5 20\n" + "4 6 7\n"

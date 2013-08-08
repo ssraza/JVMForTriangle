@@ -150,7 +150,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(true);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node5);
 
 		Node node36 = new NonPredicateNode(new BIConst_4(36));
@@ -187,7 +187,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -204,7 +204,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(true);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node10);
 
 		Node node36 = new NonPredicateNode(new BIConst_4(36));
@@ -241,7 +241,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -258,7 +258,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -275,7 +275,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(true);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node15);
 
 		Node node36 = new NonPredicateNode(new BIConst_4(36));
@@ -312,7 +312,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -329,7 +329,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -346,7 +346,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -357,7 +357,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(false);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node18);
 
 		Node node19 = new NonPredicateNode(new BILoad(2, 19));
@@ -368,7 +368,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node21 = new PredicateNode(new BIFicmpne(lable5, 21));
-		node21.setExpectedPredicateResult(false);
+		node21.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node21);
 
 		Node node22 = new NonPredicateNode(new BIConst_1(22));
@@ -405,7 +405,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -422,7 +422,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -439,7 +439,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -450,7 +450,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -461,7 +461,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -472,7 +472,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 30));
@@ -483,7 +483,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 32));
-		node32.setExpectedPredicateResult(false);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node32);
 
 		Node node33 = new NonPredicateNode(new BIConst_2(33));
@@ -520,7 +520,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -537,7 +537,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -554,7 +554,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -565,7 +565,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(false);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node18);
 
 		Node node19 = new NonPredicateNode(new BILoad(2, 19));
@@ -576,7 +576,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable40 = new BLabel(new Label());
 		PredicateNode node21 = new PredicateNode(new BIFicmpne(lable40, 21));
-		node21.setExpectedPredicateResult(true);
+		node21.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node21);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -587,7 +587,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -598,7 +598,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 30));
@@ -609,7 +609,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 32));
-		node32.setExpectedPredicateResult(false);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node32);
 
 		Node node33 = new NonPredicateNode(new BIConst_2(33));
@@ -646,7 +646,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -663,7 +663,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -680,7 +680,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -691,7 +691,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -702,7 +702,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(true);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node26);
 
 		// Node node30 = new NonPredicateNode(new BILoad(2, 21));
@@ -713,7 +713,7 @@ public class TrianglePathBuilderUtility {
 		//
 		// BLabel lable7 = new BLabel(new Label());
 		// PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 23));
-		// node32.setExpectedPredicateResult(true);
+		// node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		// path.add(node32);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
@@ -750,7 +750,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -767,7 +767,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -784,7 +784,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -795,7 +795,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -806,7 +806,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -817,7 +817,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(true);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node29);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
@@ -854,7 +854,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -871,7 +871,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -888,7 +888,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -899,7 +899,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(true);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node18);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -910,7 +910,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -921,7 +921,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 30));
@@ -932,7 +932,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 32));
-		node32.setExpectedPredicateResult(true);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node32);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
@@ -969,7 +969,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -986,7 +986,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -1003,7 +1003,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -1014,7 +1014,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(false);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node18);
 
 		Node node19 = new NonPredicateNode(new BILoad(2, 19));
@@ -1025,7 +1025,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable40 = new BLabel(new Label());
 		PredicateNode node21 = new PredicateNode(new BIFicmpne(lable40, 21));
-		node21.setExpectedPredicateResult(true);
+		node21.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node21);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -1036,7 +1036,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(true);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node26);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
@@ -1073,7 +1073,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -1090,7 +1090,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -1107,7 +1107,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -1118,7 +1118,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(false);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node18);
 
 		Node node19 = new NonPredicateNode(new BILoad(2, 19));
@@ -1129,7 +1129,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable40 = new BLabel(new Label());
 		PredicateNode node21 = new PredicateNode(new BIFicmpne(lable40, 21));
-		node21.setExpectedPredicateResult(true);
+		node21.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node21);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -1140,7 +1140,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -1151,7 +1151,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(true);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node29);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));
@@ -1188,7 +1188,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable = new BLabel(new Label());
 		PredicateNode node5 = new PredicateNode(new BIFicmpge(lable, 5));
-		node5.setExpectedPredicateResult(false);
+		node5.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node5);
 
 		Node node6 = new NonPredicateNode(new BILoad(2, 6));
@@ -1205,7 +1205,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable2 = new BLabel(new Label());
 		PredicateNode node10 = new PredicateNode(new BIFicmpge(lable2, 10));
-		node10.setExpectedPredicateResult(false);
+		node10.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node10);
 
 		Node node11 = new NonPredicateNode(new BILoad(3, 11));
@@ -1222,7 +1222,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable3 = new BLabel(new Label());
 		PredicateNode node15 = new PredicateNode(new BIFicmpge(lable3, 15));
-		node15.setExpectedPredicateResult(false);
+		node15.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node15);
 
 		Node node16 = new NonPredicateNode(new BILoad(1, 16));
@@ -1233,7 +1233,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable4 = new BLabel(new Label());
 		PredicateNode node18 = new PredicateNode(new BIFicmpne(lable4, 18));
-		node18.setExpectedPredicateResult(false);
+		node18.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node18);
 
 		Node node19 = new NonPredicateNode(new BILoad(2, 19));
@@ -1244,7 +1244,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable40 = new BLabel(new Label());
 		PredicateNode node21 = new PredicateNode(new BIFicmpne(lable40, 21));
-		node21.setExpectedPredicateResult(true);
+		node21.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node21);
 
 		Node node24 = new NonPredicateNode(new BILoad(1, 24));
@@ -1255,7 +1255,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable5 = new BLabel(new Label());
 		PredicateNode node26 = new PredicateNode(new BIFicmpeq(lable5, 26));
-		node26.setExpectedPredicateResult(false);
+		node26.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node26);
 
 		Node node27 = new NonPredicateNode(new BILoad(1, 27));
@@ -1266,7 +1266,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable6 = new BLabel(new Label());
 		PredicateNode node29 = new PredicateNode(new BIFicmpeq(lable6, 29));
-		node29.setExpectedPredicateResult(false);
+		node29.setExpectedPredicateResult(ConstantsUtility.EXPECTED_FALSE);
 		path.add(node29);
 
 		Node node30 = new NonPredicateNode(new BILoad(2, 30));
@@ -1277,7 +1277,7 @@ public class TrianglePathBuilderUtility {
 
 		BLabel lable7 = new BLabel(new Label());
 		PredicateNode node32 = new PredicateNode(new BIFicmpeq(lable7, 32));
-		node32.setExpectedPredicateResult(true);
+		node32.setExpectedPredicateResult(ConstantsUtility.EXPECTED_TRUE);
 		path.add(node32);
 
 		Node node35 = new NonPredicateNode(new BIConst_3(35));

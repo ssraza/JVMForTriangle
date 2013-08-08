@@ -1,17 +1,14 @@
 package com.gannon.jvm.progam.path;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import com.gannon.asm.components.BMethod;
-import com.gannon.bytecode.controlflowgraph.CEdge;
 import com.gannon.bytecode.controlflowgraph.CNode;
 import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.jvm.instructions.BInstruction;
+import com.gannon.jvm.instructions.BPredicateInstruction;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class TestPath {
 	private int pathId;
@@ -28,7 +25,7 @@ public class TestPath {
 		this.pathId = pathId;
 	}
 
-	// CPath has blocks (multiple instructions), however, the test path only
+	// CPath has blocks (multiple instructions), however, a test path only
 	// contains nodes, which is an instruction. We also need the expected
 	// predicate values from CEdges
 	public TestPath(CPath cPath) {
@@ -37,15 +34,22 @@ public class TestPath {
 		for (CNode cNode : cNodes) {
 			List<BInstruction> instructions = cNode.getBlock().getInstructions();
 			for (BInstruction inst : instructions) {
-				nodes.add(new Node(inst));
+				// attach expected results from CFG to the predicate instruction
+				// now only check the source instruction. If testing loop in the
+				// future, we need to check target instruction as well
+				if (inst instanceof BPredicateInstruction) {
+					int expectedPredicateResult = cPath.findExpectedPredicateValue(inst);
+					PredicateNode node = new PredicateNode(inst);
+					node.setExpectedPredicateResult(expectedPredicateResult);
+					nodes.add(node);
+				} else {
+					// attatch node to the test path
+					nodes.add(new Node(inst));
+				}
+
 			}
 		}
-
-		// Set<CEdge> cEdges = cPath.getEdges();
-
 	}
-	
-	//private boolean findExpectedPredicate
 
 	public int getPathId() {
 		return pathId;
@@ -143,7 +147,13 @@ public class TestPath {
 		StringBuffer sb = new StringBuffer();
 		for (Node node : nodes) {
 			sb.append(node + "\n");
-			// sb.append(" ->");
+			// if (node instanceof PredicateNode) {
+			// int expectedValue = ((PredicateNode)
+			// node).getExpectedPredicateResult();
+			// if (expectedValue != ConstantsUtility.UNDEFINED_EXPECTED_VALUE) {
+			// sb.append(" ->" + expectedValue);
+			// }
+			// }
 		}
 		return sb.toString();
 
