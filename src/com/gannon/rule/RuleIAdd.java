@@ -6,12 +6,15 @@ import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 
 public class RuleIAdd extends Rule{
+	private int distance = 0;
+	private boolean increaseFlag;
 	
-	public RuleIAdd(boolean result, InputObject inputData,
+	public RuleIAdd(boolean increaseFlag, InputObject inputData,
 			Dependencies dependecies, BinNode leftNode, BinNode rightNode,
 			ArrayList<InputObject> newDataList,int distance) {
-		super(result, inputData, dependecies, leftNode, rightNode, newDataList);
+		super( inputData, dependecies, leftNode, rightNode, newDataList);
 		// TODO Auto-generated constructor stub
+		this.increaseFlag = increaseFlag;
 		this.distance = distance;
 	}
 
@@ -21,18 +24,18 @@ public class RuleIAdd extends Rule{
 	public void dataGeneration() {
 		// TODO Auto-generated method stub
 		
-		if(this.result){
+		if(this.increaseFlag){
 			//increase left
-			ChangeInputData(this.LeftNode,this.inputData,true);
+			updateCurrentInput(this.leftNode,this.inputData,true, distance);
 			//increase right
-			ChangeInputData(this.RightNode,this.inputData,true);
+			updateCurrentInput(this.rightNode,this.inputData,true, distance);
 		}
 		else{
 			
 			//decrease left
-			ChangeInputData(this.LeftNode,this.inputData,false);
+			updateCurrentInput(this.leftNode,this.inputData,false, distance);
 			//decrease right
-			ChangeInputData(this.RightNode,this.inputData,false);
+			updateCurrentInput(this.rightNode,this.inputData,false, distance);
 		}
 		
 	}

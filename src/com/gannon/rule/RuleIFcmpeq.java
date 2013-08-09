@@ -1,54 +1,62 @@
 package com.gannon.rule;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 
-public class RuleIFcmpeq extends Rule{
-
-
+public class RuleIFcmpeq extends Rule {
+	private int distance = 0;
+	private boolean expectedPredicateResult;
 	
-
-	public RuleIFcmpeq(boolean result, InputObject inputData,
-			Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			ArrayList<InputObject> newDataList) {
-		super(result, inputData, dependecies, leftNode, rightNode, newDataList);
-		// TODO Auto-generated constructor stub
-	}
+	public RuleIFcmpeq(boolean expectedPredicateResult, InputObject currentInput, Dependencies dependecies,
+			BinNode leftNode, BinNode rightNode, ArrayList<InputObject> generatedNewInputs) {
+		super(currentInput, dependecies, leftNode, rightNode, generatedNewInputs);
+		this.expectedPredicateResult = expectedPredicateResult;
+		this.distance = distance();
+	} 
 
 	@Override
 	public void dataGeneration() {
-		//==
-		if(this.result){
-			if(this.distance > 0){
-				//decrease left
-				newDataList = ChangeInputData(this.LeftNode,this.inputData,false);
-				//increase right
-				newDataList.addAll(ChangeInputData(this.RightNode,this.inputData,true));
+		if (expectedPredicateResult) {
+			// we want to force: left value = right values
+			if (isLeftGreaterThanRight()) {
+				// decrease left, true or false indicate increasing or
+				// decreasing
+				updateCurrentInput(this.leftNode, this.inputData, false, distance);
+				// increase right
+				updateCurrentInput(this.rightNode, this.inputData, true, distance);
+			} else if (isRightGreaterThanLeft()) {
+				// increase left
+				updateCurrentInput(this.leftNode, this.inputData, true, distance);
+				// decrease right
+				updateCurrentInput(this.rightNode, this.inputData, false, distance);
 			}
-			else if(this.distance <0){
-				//increase left
-				newDataList = ChangeInputData(this.LeftNode,this.inputData,true);
-				//decrease right
-				newDataList.addAll(ChangeInputData(this.RightNode,this.inputData,false));
-			}
-		}
-		else{			
+		} else {
+			// Generate new data so that left value != right values
 			this.distance = getRandomInt();
-			//increase left
-			ChangeInputData(this.LeftNode,this.inputData,true);
-			//decrease left
-			ChangeInputData(this.LeftNode,this.inputData,false);
-			//increase right
-			ChangeInputData(this.RightNode,this.inputData,true);
-			//decrease right
-			ChangeInputData(this.RightNode,this.inputData,false);
+			// increase left
+			updateCurrentInput(this.leftNode, this.inputData, true, distance);
+			// decrease left
+			updateCurrentInput(this.leftNode, this.inputData, false, distance);
+			// increase right
+			updateCurrentInput(this.rightNode, this.inputData, true, distance);
+			// decrease right
+			updateCurrentInput(this.rightNode, this.inputData, false, distance);
 		}
-		
+
 	}
-	
-	
+
+	private int distance() {
+		return (Integer) leftNode.getVariableValue() - (Integer) rightNode.getVariableValue();
+	}
+
+	private boolean isLeftGreaterThanRight() {
+		return distance() > 0 ? true : false;
+	}
+
+	private boolean isRightGreaterThanLeft() {
+		return distance() < 0 ? true : false;
+	}
 
 }

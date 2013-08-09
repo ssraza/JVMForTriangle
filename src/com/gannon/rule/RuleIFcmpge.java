@@ -6,38 +6,39 @@ import java.util.HashMap;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 
-public class RuleIFcmpge extends Rule{
-
+public class RuleIFcmpge extends Rule {
+	private int distance = 0;
+	private boolean expectedPredicateResult;
 	
-
-
-	public RuleIFcmpge(boolean result, InputObject inputData,
-			Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			ArrayList<InputObject> newDataList) {
-		super(result, inputData, dependecies, leftNode, rightNode, newDataList);
-		// TODO Auto-generated constructor stub
-	}
+	public RuleIFcmpge(boolean expectedPredicateResult, InputObject inputData, Dependencies dependecies, BinNode leftNode,
+			BinNode rightNode, ArrayList<InputObject> newDataList) {
+		super(inputData, dependecies, leftNode, rightNode, newDataList);
+		this.expectedPredicateResult = expectedPredicateResult;
+		this.distance = distance();
+	} 
 
 	@Override
 	public void dataGeneration() {
-		// TODO Auto-generated method stub
-		System.out.println("Distance original:"+distance);
-		this.distance = Math.abs(this.distance) + getRandomInt();
-		System.out.println("Distance:"+distance);
-		if(this.result){
-			//increase left 
-			ChangeInputData(this.LeftNode,this.inputData,true);
-			
-			//decrease right
-			ChangeInputData(this.RightNode,this.inputData,false);
+		// make sure left > right, we can set it as 1. Here we use a random
+		// number instead
+		int geDistance = Math.abs(this.distance) + getRandomInt();
+		if (expectedPredicateResult) {
+			// increase left
+			updateCurrentInput(this.leftNode, this.inputData, true, geDistance);
+
+			// decrease right
+			updateCurrentInput(this.rightNode, this.inputData, false, geDistance);
+		} else {
+			// decrease left
+			updateCurrentInput(this.leftNode, this.inputData, false, geDistance);
+			// increase right
+			updateCurrentInput(this.rightNode, this.inputData, true, geDistance);
 		}
-		else{			
-			//decrease left
-			ChangeInputData(this.LeftNode,this.inputData,false);
-			//increase right
-			ChangeInputData(this.RightNode,this.inputData,true);
-		}
-		
+
 	}
-	
+
+	private int distance() {
+		return (Integer) leftNode.getVariableValue() - (Integer) rightNode.getVariableValue();
+	}
+
 }

@@ -12,48 +12,58 @@ import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
 
-public abstract class Rule {
-	//protected boolean expectedPredicateResult;
+public abstract class GRule {
+	boolean result;
+	int distance;
 	InputObject inputData;
 	Dependencies dependecies;
-	BinNode leftNode;
-	BinNode rightNode;
+	BinNode LeftNode;
+	BinNode RightNode;
 
-	ArrayList<InputObject> generatedInputs;
+	ArrayList<InputObject> newDataList;
 
 	public ArrayList<InputObject> getNewDataList() {
-		return generatedInputs;
+		return newDataList;
 	}
 
-	public Rule( InputObject inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
+	public GRule(boolean result, InputObject inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
 			ArrayList<InputObject> newDataList) {
 		super();
-		//this.expectedPredicateResult = result;
+		this.result = result;
 		this.inputData = inputData;
 		this.dependecies = dependecies;
-		this.leftNode = leftNode;
-		this.rightNode = rightNode;
-		this.generatedInputs = newDataList;
+		LeftNode = leftNode;
+		RightNode = rightNode;
+		this.newDataList = newDataList;
+		this.distance = (Integer) this.LeftNode.getVariableValue() - (Integer) this.RightNode.getVariableValue();
 	}
 
 	public abstract void dataGeneration();
 
 	/**
 	 * 
-	 * @param input
+	 * @param Node
+	 * @param currentInput
 	 * @param increaseFlag
 	 *            true increase, false decrease
-	 * @param distance
-	 *            TODO
-	 * @param Node
 	 * @return
-	 * 
-	 *         This is a recursive function
 	 */
+	
+	//__(+)  (add node)
+	//_ /\
+	// _1 2  (parameter node)
+	//
 
-	protected ArrayList<InputObject> updateCurrentInput(BinNode node, InputObject input, Boolean increaseFlag,
-			int distance) {
-		if (node.isParamter()) {
+	protected ArrayList<InputObject> ChangeInputData(BinNode node, InputObject currentInput, Boolean increaseFlag) {
+		if (!node.isParamter()) {
+			Dependency d = this.dependecies.findRelation(node);
+			BInstruction i = d.getInst();
+			if (i instanceof BIAdd) {
+				RuleIAdd addObj = new RuleIAdd(increaseFlag, currentInput, this.dependecies, d.getLeftNode(),
+						d.getRightNode(), this.newDataList, Math.abs(this.distance));
+				addObj.dataGeneration();
+			}
+		} else {
 			HashMap<String, Integer> newInputData = new HashMap<String, Integer>();
 			Iterator it = this.inputData.getInputDataTable().entrySet().iterator();
 			while (it.hasNext()) {
@@ -66,24 +76,16 @@ public abstract class Rule {
 			int value = 0;
 			if (newData.isContainsKey(name)) {
 				if (increaseFlag) {
-					value = newData.getInputDataByKey(name) + Math.abs(distance);
+					value = newData.getInputDataByKey(name) + Math.abs(this.distance);
 				} else {
-					value = newData.getInputDataByKey(name) - Math.abs(distance);
+					value = newData.getInputDataByKey(name) - Math.abs(this.distance);
 				}
 				newData.setInputDataByKey(name, value);
-				generatedInputs.add(newData);
+				newDataList.add(newData);
 			}
-		} else {
-			// recursively find next node
-			Dependency d = this.dependecies.findRelation(node);
-			BInstruction i = d.getInst();
-			if (i instanceof BIAdd) {
-				RuleIAdd addObj = new RuleIAdd(increaseFlag, input, this.dependecies, d.getLeftNode(),
-						d.getRightNode(), this.generatedInputs, Math.abs(distance));
-				addObj.dataGeneration();
-			}
+
 		}
-		return generatedInputs;
+		return newDataList;
 	}
 
 	protected int getRandomInt() {
