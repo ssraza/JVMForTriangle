@@ -25,8 +25,6 @@ public abstract class Rule {
 
 	InputCollection inputs = new InputCollection(1);
 
-	// ArrayList<InputObject> generatedInputs;
-
 	public InputCollection getInputCollection() {
 		return inputs;
 	}
@@ -44,7 +42,7 @@ public abstract class Rule {
 	public abstract void dataGeneration();
 
 	/**
-	 * 
+	 *
 	 * @param input
 	 * @param increaseFlag
 	 *            true increase, false decrease
@@ -52,7 +50,7 @@ public abstract class Rule {
 	 *            TODO
 	 * @param Node
 	 * @return
-	 * 
+	 *
 	 *         This is a recursive function
 	 */
 
@@ -60,7 +58,7 @@ public abstract class Rule {
 		if (node.isParamter()) {
 			String name = node.getVariableName();
 			int index = Integer.valueOf(name);
-			
+
 			Parameter p=input.getParameterByIndex(index);
 			Input newInput=null;
 			if (increaseFlag) {

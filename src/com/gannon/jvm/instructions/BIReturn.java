@@ -23,8 +23,8 @@ public class BIReturn extends Return {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
 		//-1 means the end of the instructions??
 		activeFrame.setLineNumber(OpcodeUtility.END_INSTRUCTION_FLAG);
-		System.out.println(activeFrame.getOperandStack());
-		System.out.println(activeFrame.getVarTable());
+		//System.out.println(activeFrame.getOperandStack());
+		//System.out.println(activeFrame.getVarTable());
 		Integer returnedValue = myOperandStack.pop();
 		return returnedValue;
 	}
@@ -39,8 +39,8 @@ public class BIReturn extends Return {
 		//System.out.println(rFrame.getIntermediateVariableStack());
 		Stack<String> intermediateStack = rFrame.getIntermediateVariableStack();
 		intermediateStack.pop();
-		
-		Stack<Object> myOperandStack = rFrame.getValueStack(); 
+
+		Stack<Object> myOperandStack = rFrame.getValueStack();
 		myOperandStack.pop();
 	}
 

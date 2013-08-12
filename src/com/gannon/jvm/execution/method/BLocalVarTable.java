@@ -2,11 +2,20 @@ package com.gannon.jvm.execution.method;
 
 import java.util.ArrayList;
 
+import com.gannon.jvm.input.Input;
+
 public class BLocalVarTable {
 	ArrayList<Object> localVars = new ArrayList<Object>();
 
 	public BLocalVarTable() {
 		super();
+	}
+
+	public BLocalVarTable(Input input) {
+		super();
+		for (int i = 0; i < input.getParamters().size(); i++) {
+			localVars.add(input.get(i));
+		}
 	}
 
 	public BLocalVarTable(ArrayList<Object> localVar) {
@@ -46,7 +55,7 @@ public class BLocalVarTable {
 		return localVars.get(location);
 	}
 
-	public void clear(){
+	public void clear() {
 		localVars.clear();
 	}
 

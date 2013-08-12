@@ -44,6 +44,11 @@ public class InputGenerateExecutor<T> {
 		this.input = new Input(1, aInput);
 	}
 
+	public InputGenerateExecutor(Input input) {
+		super();
+		this.input = input;
+	}
+
 	public Object execute(PathFrame pathFrame) {
 		Object result = null;
 		TestPath path = pathFrame.getTestPath();
@@ -53,11 +58,9 @@ public class InputGenerateExecutor<T> {
 		potentialGoodReusltQueue.add(this.input);
 
 		while (!potentialGoodReusltQueue.isEmpty()) {
-			//Utility.displayInputQueue(potentialGoodReusltQueue);
 			path.clearIgnoreFlags();
 			// Loop Issue here, new data is not updated?
 			input = (Input) potentialGoodReusltQueue.poll();
-			//System.out.println("====pop form queue=======" + input);
 
 			// add the new input from queue to Path Frame
 			BLocalVarTable vt = new BLocalVarTable();
@@ -79,7 +82,6 @@ public class InputGenerateExecutor<T> {
 				// localized search
 
 				for (Node node : path.getNodes()) {
-
 					result = node.getInstruction().execute(pathFrame);
 					// if reaching the end of the program, we have a potential
 					// good input, the program stops and push the input to a
@@ -94,46 +96,22 @@ public class InputGenerateExecutor<T> {
 						((PredicateNode) node)
 								.setActualPredicateResult((Boolean) result.equals(true) ? ConstantsUtility.EXPECTED_TRUE
 										: ConstantsUtility.EXPECTED_FALSE);
-						//System.out.println("If instruction" + node);
 						// if the actual predicate result is not equal to
 						// expected results , we need to generate a new value to
 						// pass the node and the predicate as ignored for next
 						// time execution
 						if (!((PredicateNode) node).hasPassed() && ((PredicateNode) node).isIgnore() != true) {
-							BInstruction instruction = node.getInstruction();
-							Dependency dp = dps.findRelation(instruction);
-
-							BinNode leftNode = dp.getLeftNode();
-							BinNode rightNode = dp.getRightNode();
-
-							InputCollection newDataList = new InputCollection(1);
-							Rule rule = null;
-							boolean expectedPredicateResult = ((PredicateNode) node).getExpectedPredicateResult() > 0 ? true
-									: false;
-
-							if (instruction instanceof BIFicmpge) {
-								rule = new RuleIFcmpge(expectedPredicateResult, input, dps, leftNode, rightNode,
-										newDataList);
-							} else if (instruction instanceof BIFicmpne) {
-								rule = new RuleIFcmpne(expectedPredicateResult, input, dps, leftNode, rightNode,
-										newDataList);
-							} else if (instruction instanceof BIFicmpeq) {
-								rule = new RuleIFcmpeq(expectedPredicateResult, input, dps, leftNode, rightNode,
-										newDataList);
-							}
-							rule.dataGeneration();
+							InputCollection newDataList = adjustInput(dps, node);
 
 							// put new generated results to queue
 							List<Input> inputList = newDataList.getInputs();
 							for (int j = 0; j < inputList.size(); j++) {
-								//System.out.println("new generated========    " + inputList.get(j));
 								potentialGoodReusltQueue.add(inputList.get(j));
 							}
 
 							// set ignore flag in the node so next time to skip
 							// RE-Evaluate the predicate instruction
 							((PredicateNode) node).setIgnore(true);
-
 							break;
 						}
 					}
@@ -164,6 +142,33 @@ public class InputGenerateExecutor<T> {
 
 		}
 		return result;
+	}
+
+	private InputCollection adjustInput(Dependencies dps, Node node) {
+		// Apply rules to dependency to change input values. The root of the
+		// dependency is BinNode. We need to find the BinNode from the node
+		// comes from test path.
+		BInstruction instruction = node.getInstruction();
+		Dependency dp = dps.findRelation(instruction);
+
+		BinNode leftNode = dp.getLeftNode();
+		BinNode rightNode = dp.getRightNode();
+
+		boolean expectedPredicateResult = ((PredicateNode) node).getExpectedPredicateResult() > 0 ? true : false;
+
+		// a collection to collect new generated data
+		InputCollection newDataList = new InputCollection(1);
+		Rule rule = null;
+
+		if (instruction instanceof BIFicmpge) {
+			rule = new RuleIFcmpge(expectedPredicateResult, input, dps, leftNode, rightNode, newDataList);
+		} else if (instruction instanceof BIFicmpne) {
+			rule = new RuleIFcmpne(expectedPredicateResult, input, dps, leftNode, rightNode, newDataList);
+		} else if (instruction instanceof BIFicmpeq) {
+			rule = new RuleIFcmpeq(expectedPredicateResult, input, dps, leftNode, rightNode, newDataList);
+		}
+		rule.dataGeneration();
+		return newDataList;
 	}
 
 }

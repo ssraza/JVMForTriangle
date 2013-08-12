@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-/* One input for a method under the testing, it may contains multiple parameters, 
+/* One input for a method under the testing, it may contains multiple parameters,
  * e.g., for method triangleType(a,b,c), a, b, and c are the parameters
  * (a, b, c) is one input
  * */
@@ -28,7 +28,6 @@ public class Input {
 				continue;
 			Parameter p = new Parameter(i);
 			p.setType(ParameterType.INTEGER);
-			System.out.println(oldInput.get(i) + "/");
 			p.setValue(oldInput.get(i));
 			parameters.add(p);
 		}
