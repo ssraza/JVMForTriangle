@@ -2,7 +2,7 @@ package com.gannon.jvm.execution.method;
 
 import java.util.ArrayList;
 
-import com.gannon.jvm.input.Input;
+import com.gannon.jvm.data.input.Input;
 
 public class BLocalVarTable {
 	ArrayList<Object> localVars = new ArrayList<Object>();

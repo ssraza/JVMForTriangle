@@ -3,7 +3,7 @@ package com.gannon.jvm.utilities;
 import java.util.Iterator;
 import java.util.Queue;
 
-import com.gannon.jvm.input.Input;
+import com.gannon.jvm.data.input.Input;
 
 public class Utility {
 

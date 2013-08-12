@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
-import com.gannon.jvm.input.Input;
-import com.gannon.jvm.input.InputCollection;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.data.input.InputCollection;
 
 public class RuleIFcmpeq extends Rule {
 	private int distance = 0;

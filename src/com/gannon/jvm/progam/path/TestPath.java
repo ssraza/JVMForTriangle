@@ -3,15 +3,17 @@ package com.gannon.jvm.progam.path;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CNode;
-import com.gannon.bytecode.controlflowgraph.CPath;  
+import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class TestPath {
 	private int pathId;
+	private BClass bClass;
 	private BMethod bMethod;// the method to where the path belongs
 	private List<Node> nodes = new ArrayList<Node>();
 	private List<Object> inputs = new ArrayList<Object>();
@@ -28,7 +30,7 @@ public class TestPath {
 	// CPath has blocks (multiple instructions), however, a test path only
 	// contains nodes, which is an instruction. We also need the expected
 	// predicate values from CEdges
-	public TestPath(CPath cPath) { 
+	public TestPath(CPath cPath) {
 		this.pathId = cPath.getId();
 		List<CNode> cNodes = cPath.getNodes();
 		for (CNode cNode : cNodes) {
@@ -85,6 +87,14 @@ public class TestPath {
 
 	public void setInputs(ArrayList<Object> inputs) {
 		this.inputs = inputs;
+	}
+
+	public BClass getbClass() {
+		return bClass;
+	}
+
+	public void setbClass(BClass bClass) {
+		this.bClass = bClass;
 	}
 
 	public ArrayList<Integer> getExecutedInsIDs() {

@@ -1,10 +1,12 @@
 package com.gannon.jvm.input.generator;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
@@ -13,11 +15,12 @@ import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.data.dependency.GannonPredicateTreeBuilderJVM;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.data.input.InputGenerationFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.method.GannonMethodJVM;
 import com.gannon.jvm.execution.path.PathFrame;
-import com.gannon.jvm.input.Input;
-import com.gannon.jvm.input.InputCollection;
 import com.gannon.jvm.instructions.BIFicmpeq;
 import com.gannon.jvm.instructions.BIFicmpge;
 import com.gannon.jvm.instructions.BIFicmpne;
@@ -33,39 +36,38 @@ import com.gannon.rule.RuleIFcmpge;
 import com.gannon.rule.RuleIFcmpne;
 
 public class InputGenerateExecutor<T> {
-	private Queue<Input> potentialGoodReusltQueue = new LinkedList<Input>();
 
-	public ArrayList<Object> aInput;
+
 	private Input input;
-
-	public InputGenerateExecutor(ArrayList<Object> aInput) {
-		super();
-		this.aInput = aInput;
-		this.input = new Input(1, aInput);
-	}
 
 	public InputGenerateExecutor(Input input) {
 		super();
 		this.input = input;
 	}
 
-	public Object execute(PathFrame pathFrame) {
-		Object result = null;
-		TestPath path = pathFrame.getTestPath();
-		int count = 0;
+	public Set<Input> execute(InputGenerationFrame inputGenerationFrame) {
+		//inputs pass all IF statements
+		Queue<Input> potentialGoodReusltQueue = new LinkedList<Input>();
+		//the number of generated inputs
+		int generatedCounter = 0;
+
+		// store final generated input for a given path
+		Set<Input> results = new HashSet<Input>();
+
+		TestPath path = inputGenerationFrame.getTestPath();
 		// random generate input
 
 		potentialGoodReusltQueue.add(this.input);
 
 		while (!potentialGoodReusltQueue.isEmpty()) {
+			// clear all ignore flag
 			path.clearIgnoreFlags();
-			// Loop Issue here, new data is not updated?
-			input = (Input) potentialGoodReusltQueue.poll();
 
 			// add the new input from queue to Path Frame
+			input = (Input) potentialGoodReusltQueue.poll();
 			BLocalVarTable vt = new BLocalVarTable();
 			ArrayList<Object> vars = input.getOldInput();
-			pathFrame.setLocalVariableTable(new BLocalVarTable(vars));
+			inputGenerationFrame.setLocalVariableTable(new BLocalVarTable(vars));
 
 			// get dependency tree
 			GannonPredicateTreeBuilderJVM pathjvm = new GannonPredicateTreeBuilderJVM();
@@ -73,7 +75,7 @@ public class InputGenerateExecutor<T> {
 			Dependencies dps = pathjvm.getRelationFrame().getRelations();
 
 			boolean endOfPathFlag = false;
-			// clear all ignore flag
+
 			while (!endOfPathFlag) {
 				// for each predicate node, i.e., the node contains a predicate
 				// instruction (a>b), if the run-time predicate result does not
@@ -82,7 +84,7 @@ public class InputGenerateExecutor<T> {
 				// localized search
 
 				for (Node node : path.getNodes()) {
-					result = node.getInstruction().execute(pathFrame);
+					Object result = node.getInstruction().execute(inputGenerationFrame);
 					// if reaching the end of the program, we have a potential
 					// good input, the program stops and push the input to a
 					// "potential good" input queue
@@ -96,21 +98,19 @@ public class InputGenerateExecutor<T> {
 						((PredicateNode) node)
 								.setActualPredicateResult((Boolean) result.equals(true) ? ConstantsUtility.EXPECTED_TRUE
 										: ConstantsUtility.EXPECTED_FALSE);
+						// System.out.println("If instruction" + node);
 						// if the actual predicate result is not equal to
 						// expected results , we need to generate a new value to
 						// pass the node and the predicate as ignored for next
 						// time execution
 						if (!((PredicateNode) node).hasPassed() && ((PredicateNode) node).isIgnore() != true) {
-							InputCollection newDataList = adjustInput(dps, node);
+							InputCollection newGeneratedInputs = adjustInput(dps, node);
 
 							// put new generated results to queue
-							List<Input> inputList = newDataList.getInputs();
-							for (int j = 0; j < inputList.size(); j++) {
-								potentialGoodReusltQueue.add(inputList.get(j));
-							}
+							potentialGoodReusltQueue.addAll(newGeneratedInputs.getInputs());
 
-							// set ignore flag in the node so next time to skip
-							// RE-Evaluate the predicate instruction
+							// force to ignore this IF statement during next
+							// execution
 							((PredicateNode) node).setIgnore(true);
 							break;
 						}
@@ -118,30 +118,27 @@ public class InputGenerateExecutor<T> {
 				}
 			}
 
-			// get Method instructions
-
-			BClass myclass = BClassGenerator.getBClass("Triangle.class");
-			BMethod m = myclass.getMethod("triangleType");
-
-			GannonMethodJVM jvm = new GannonMethodJVM();
-			jvm.run(myclass, m, vars);
-			jvm.getExecutedPath();
-			TestPath resultPath = jvm.getExecutedPath();
-			System.out.println("Result Test Data");
-
-			if (resultPath.equals(path) && count < 10) {
-				System.out.println(count + " " + vars.get(1) + "," + vars.get(2) + "," + vars.get(3));
-				count++;
-				// break;
-			}
-			if (count == 10)
-				break;
-
 			// execute the methodJVM to see if get the same path, if so save the
 			// result
+			GannonMethodJVM jvm = new GannonMethodJVM();
+			jvm.run(inputGenerationFrame.getTestPath().getbClass(), inputGenerationFrame.getTestPath().getbMethod(),
+					vars);
+			jvm.getExecutedPath();
+			TestPath resultPath = jvm.getExecutedPath();
+
+			//check if we have enough test inputs
+			if (resultPath.equals(path)) {
+				if (generatedCounter < inputGenerationFrame.getNumberOfResultsNeeded()) {
+					results.add(input);
+					System.out.println(input);
+					generatedCounter++;
+				}else{
+					break;
+				}
+			}
 
 		}
-		return result;
+		return results;
 	}
 
 	private InputCollection adjustInput(Dependencies dps, Node node) {

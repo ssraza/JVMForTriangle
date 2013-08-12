@@ -13,9 +13,9 @@ import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
-import com.gannon.jvm.input.Input;
-import com.gannon.jvm.input.InputCollection;
-import com.gannon.jvm.input.Parameter;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.data.input.Parameter;
 import com.gannon.jvm.instructions.BIFicmpge;
 import com.gannon.jvm.instructions.BIFicmpne;
 

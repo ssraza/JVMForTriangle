@@ -10,9 +10,9 @@ import java.util.Random;
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
-import com.gannon.jvm.input.Input;
-import com.gannon.jvm.input.InputCollection;
-import com.gannon.jvm.input.Parameter;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.data.input.Parameter;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
 
@@ -84,7 +84,7 @@ public abstract class Rule {
 	protected int getRandomInt() {
 		int i = 0;
 		Random rand = new Random();
-		i = rand.nextInt(10);
+		i = rand.nextInt(10)+1;
 		return i;
 	}
 

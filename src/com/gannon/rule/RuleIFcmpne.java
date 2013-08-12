@@ -1,19 +1,16 @@
 package com.gannon.rule;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
-import com.gannon.jvm.input.Input;
-import com.gannon.jvm.input.InputCollection;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.data.input.InputCollection;
 
 public class RuleIFcmpne extends Rule {
 	private int distance = 0;
 	boolean expectedPredicateResult;
 
-	public RuleIFcmpne(boolean expectedPredicateResult, Input inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			InputCollection inputs) {
+	public RuleIFcmpne(boolean expectedPredicateResult, Input inputData, Dependencies dependecies, BinNode leftNode,
+			BinNode rightNode, InputCollection inputs) {
 		super(inputData, dependecies, leftNode, rightNode, inputs);
 		this.expectedPredicateResult = expectedPredicateResult;
 		this.distance = distance();
@@ -22,15 +19,17 @@ public class RuleIFcmpne extends Rule {
 	@Override
 	public void dataGeneration() {
 		if (expectedPredicateResult) {
-			// current is == and we want to make left != right
-			// increase left
-			updateCurrentInput(this.leftNode, this.inputData, true, getRandomInt());
-			// decrease left
-			updateCurrentInput(this.leftNode, this.inputData, false, getRandomInt());
-			// increase right
-			updateCurrentInput(this.rightNode, this.inputData, true, getRandomInt());
-			// decrease right
-			updateCurrentInput(this.rightNode, this.inputData, false, getRandomInt());
+			if (isLeftRightEqual()) {
+				// current is == and we want to make left != right
+				// increase left
+				updateCurrentInput(this.leftNode, this.inputData, true, getRandomInt());
+				// decrease left
+				updateCurrentInput(this.leftNode, this.inputData, false, getRandomInt());
+				// increase right
+				updateCurrentInput(this.rightNode, this.inputData, true, getRandomInt());
+				// decrease right
+				updateCurrentInput(this.rightNode, this.inputData, false, getRandomInt());
+			}
 		}
 		// ==
 		else {
@@ -58,5 +57,9 @@ public class RuleIFcmpne extends Rule {
 
 	private boolean isRightGreaterThanLeft() {
 		return distance() < 0 ? true : false;
+	}
+
+	private boolean isLeftRightEqual() {
+		return distance() == 0 ? true : false;
 	}
 }
