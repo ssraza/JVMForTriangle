@@ -29,7 +29,7 @@ public class MethodExecutor {
 		// the flag is set in return instruction
 		while (activeFrame.getLineNumber() != -1) {
 			BInstruction bInstruction = instructions.get(activeFrame.getLineNumber() - 1);
-			System.out.println(bInstruction.getOpCodeCommand());
+			//System.out.println(bInstruction.getOpCodeCommand());
 			runTimePredicateResult = bInstruction.execute(activeFrame);
 
 			// save runtime execution results for predicate statements to node

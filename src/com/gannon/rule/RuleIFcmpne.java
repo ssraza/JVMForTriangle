@@ -5,14 +5,16 @@ import java.util.HashMap;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
 
 public class RuleIFcmpne extends Rule {
 	private int distance = 0;
 	boolean expectedPredicateResult;
 
-	public RuleIFcmpne(boolean expectedPredicateResult, InputObject inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			ArrayList<InputObject> newDataList) {
-		super(inputData, dependecies, leftNode, rightNode, newDataList);
+	public RuleIFcmpne(boolean expectedPredicateResult, Input inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
+			InputCollection inputs) {
+		super(inputData, dependecies, leftNode, rightNode, inputs);
 		this.expectedPredicateResult = expectedPredicateResult;
 		this.distance = distance();
 	}
@@ -39,9 +41,9 @@ public class RuleIFcmpne extends Rule {
 				updateCurrentInput(this.rightNode, this.inputData, true, distance);
 			} else if (isRightGreaterThanLeft()) {
 				// increase left
-				updateCurrentInput(this.rightNode, this.inputData, false, distance);
-				// decrease right
 				updateCurrentInput(this.leftNode, this.inputData, true, distance);
+				// decrease right
+				updateCurrentInput(this.rightNode, this.inputData, false, distance);
 			}
 		}
 	}

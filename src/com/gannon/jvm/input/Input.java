@@ -1,6 +1,7 @@
 package com.gannon.jvm.input;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,13 +21,39 @@ public class Input {
 		this.id = id;
 	}
 
+	public Input(int id, List<Object> oldInput) {
+		this(id);
+		for (int i = 0; i < oldInput.size(); i++) {
+			if (i == 0)
+				continue;
+			Parameter p = new Parameter(i);
+			p.setType(ParameterType.INTEGER);
+			System.out.println(oldInput.get(i) + "/");
+			p.setValue(oldInput.get(i));
+			parameters.add(p);
+		}
+	}
+
+	public ArrayList<Object> getOldInput() {
+		ArrayList<Object> results = new ArrayList<Object>();
+		results.add(-1);
+		for (Parameter p : parameters) {
+			results.add(p.getValue());
+		}
+		return results;
+	}
+
 	public static Input generateRandom(int id, int numberOfParameters) {
 		Input input = new Input(id);
 		List<Parameter> ps = input.getParamters();
-		for (int i = 0; i < numberOfParameters; i++) {
+		for (int i = 0; i < numberOfParameters + 1; i++) {
 			ps.add(Parameter.generateRandom(i));
 		}
 		return input;
+	}
+
+	public boolean addAll(Collection<? extends Parameter> arg0) {
+		return parameters.addAll(arg0);
 	}
 
 	public String getClassName() {
@@ -49,17 +76,45 @@ public class Input {
 		return parameters;
 	}
 
-	public void updateParameter(int parameterIndex, Parameter aParameter) {
+	public Input updateParameterValue(int parameterIndex, Object value) {
+		Input result = new Input(1);
 		for (Parameter p : parameters) {
-			if (p.isIndexEqual(aParameter)) {
-				p = aParameter;
-				break;
+			int index=p.getIndex();
+			Object pvalue=p.getValue();
+			if (index == parameterIndex) {
+				pvalue=value;
 			}
+			Parameter aNewParameter=new Parameter(index);
+			aNewParameter.setValue(pvalue);
+			result.add(aNewParameter);
 		}
+		return result;
 	}
 
 	public void setParamters(List<Parameter> paramters) {
 		this.parameters = paramters;
+	}
+
+	public Parameter getParameterByIndex(int parameterIndex) {
+		for (Parameter p : parameters) {
+			if (p.getIndex() == parameterIndex) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public Parameter getHardCopyParameterByIndex(int parameterIndex) {
+		Parameter aNewParameter = new Parameter(parameterIndex);
+		for (Parameter p : parameters) {
+			if (p.getIndex() == parameterIndex) {
+				aNewParameter.setName(p.getName());
+				aNewParameter.setType(p.getType());
+				aNewParameter.setValue(p.getValue());
+				return aNewParameter;
+			}
+		}
+		return null;
 	}
 
 	public int getId() {
@@ -107,7 +162,7 @@ public class Input {
 	@Override
 	public String toString() {
 		return "Input [id=" + id + ", className=" + className + ", methodName=" + methodName + ", paramters="
-				+ parameters + "]";
+				+ parameters + "]\n";
 	}
 
 }

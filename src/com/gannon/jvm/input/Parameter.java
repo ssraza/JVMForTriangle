@@ -2,17 +2,27 @@ package com.gannon.jvm.input;
 
 public class Parameter {
 	// 1 is the first parameter
-	private final int index;
+	private int index;
 	private ParameterType type;
-	private String name;
-	private String value;
+	private String name;//a,b, c
+	private Object value;
 
 	public Parameter(int index) {
 		super();
 		this.index = index;
 	}
+	
+	
 
 	// random generate
+
+	public Parameter(int index, Object value) {
+		super();
+		this.index = index;
+		this.value = value;
+	}
+
+
 
 	public static Parameter generateRandom(int index) {
 		Parameter p = new Parameter(index);
@@ -40,18 +50,21 @@ public class Parameter {
 		this.name = name;
 	}
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 
 	public int getIndex() {
 		return index;
 	}
-
+	
+	public void setIndex( int index) {
+		this.index = index;
+	}
 	public boolean isIndexEqual(Parameter aParameter) {
 		return index == aParameter.getIndex();
 	}

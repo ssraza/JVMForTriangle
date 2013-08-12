@@ -31,9 +31,6 @@ public class BIFicmpne extends BPredicateInstruction {
 			programCounter = getOperand().getGoToLineNumber();
 			activeFrame.setLineNumber(programCounter);
 		} else {
-			System.out
-					.println("Condition is not satisfied, first value is equal to second value "
-							+ firstValue + "  " + secondValue);
 			myOperandStack.clear();
 			++programCounter;
 		}
@@ -58,12 +55,12 @@ public class BIFicmpne extends BPredicateInstruction {
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();
 		boolean predicateResult=!firstValue.equals(secondValue);
-		
+
 		Stack<String> nameStack = rFrame.getIntermediateVariableStack();
 		BinNode rightNode= new BinNode(nameStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(nameStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
-		rootNode.setVariableValue(predicateResult); 
+		rootNode.setVariableValue(predicateResult);
 		Dependency relation=new Dependency(rootNode, this);
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);

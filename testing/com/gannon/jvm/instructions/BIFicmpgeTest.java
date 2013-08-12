@@ -1,12 +1,16 @@
 package com.gannon.jvm.instructions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.objectweb.asm.Label;
 
 import com.gannon.asm.components.BBlock;
@@ -22,6 +26,13 @@ import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.progam.path.TestPath;
 
 public class BIFicmpgeTest {
+	@Rule
+	public TestRule watcher = new TestWatcher() {
+		@Override
+		protected void starting(Description description) {
+			System.out.println("Starting test: " + description.getMethodName());
+		}
+	};
 
 	@Test
 	public void testExecuteGraterAndEqualPositive() {
@@ -69,8 +80,7 @@ public class BIFicmpgeTest {
 		ArrayList<BInstruction> Instr3 = new ArrayList<BInstruction>();
 		Instr3.add(new BALoad(0, 5));
 		Instr3.add(new BIConst_0(6));
-		Instr3.add(new BPutStatic("com/gannon/ASM/BytecodeReader/Hello", "j",
-				"I", 7));
+		Instr3.add(new BPutStatic("com/gannon/ASM/BytecodeReader/Hello", "j", "I", 7));
 		block3.setInstructions(Instr3);
 		blockList.add(block3);
 
@@ -86,8 +96,7 @@ public class BIFicmpgeTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 
-		BFrame activeFrame = new BFrame(bClass, method, 0, varTable,
-				operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, 0, varTable, operandStack);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -151,8 +160,7 @@ public class BIFicmpgeTest {
 		ArrayList<BInstruction> Instr3 = new ArrayList<BInstruction>();
 		Instr3.add(new BALoad(0, 5));
 		Instr3.add(new BIConst_0(6));
-		Instr3.add(new BPutStatic("com/gannon/ASM/BytecodeReader/Hello", "j",
-				"I", 7));
+		Instr3.add(new BPutStatic("com/gannon/ASM/BytecodeReader/Hello", "j", "I", 7));
 		block3.setInstructions(Instr3);
 		blockList.add(block3);
 
@@ -168,8 +176,7 @@ public class BIFicmpgeTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 
-		BFrame activeFrame = new BFrame(bClass, method, 2, varTable,
-				operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(newLabel3), 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -214,7 +221,6 @@ public class BIFicmpgeTest {
 
 	@Test
 	public void testGetOpcode() {
-		System.out.println("getOpcode");
 		Label label = new Label();
 		BIFicmpge instance = new BIFicmpge(new BLabel(label), 0);
 		int expResult = 162;
@@ -224,7 +230,6 @@ public class BIFicmpgeTest {
 
 	@Test
 	public void testGetOpcodeCommand() {
-		System.out.println("getOpcodeCommand");
 		Label label = new Label();
 		BIFicmpge instance = new BIFicmpge(new BLabel(label), 0);
 		String expResult = "if_icmpge";
@@ -233,7 +238,7 @@ public class BIFicmpgeTest {
 	}
 
 	@Test
-	public void test() {
+	public void testDependencyEqual() {
 		Label newLabel = new Label();
 		BLabel label = new BLabel(newLabel);
 		Stack<String> operandStack = new Stack<String>();
@@ -257,14 +262,57 @@ public class BIFicmpgeTest {
 
 		BPredicateInstruction ifGreater = new BIFicmpge(label, 2);
 		ifGreater.analyzing(dependency);
-		System.out.println(dependency.getRelations().getRelations());
-		Dependency actualTree = dependency.getRelations().getRelation(
-				method.getNumberOfParameter() + 1);
-		actualTree.inorderBST();
+		//System.out.println(dependency.getRelations().getRelations());
+		Dependency actualTree = dependency.getRelations().getRelation(method.getNumberOfParameter() + 1);
+		//actualTree.inorderBST();
 
 		BinNode rightNode = new BinNode("5");
 		BinNode leftNode = new BinNode("5");
 		BinPredicateNode rootNode = new BinPredicateNode("1000");
+		Dependency expectedTree = new Dependency(rootNode, ifGreater);
+
+		expectedTree.insertToLeft(leftNode);
+		expectedTree.insertToRight(rightNode);
+		//expectedTree.inorderBST();
+
+		assertEquals(expectedTree.getAllLeaves(), actualTree.getAllLeaves());
+	}
+
+	@Test
+	public void testDependencyGreater() {
+		Label newLabel = new Label();
+		BLabel label = new BLabel(newLabel);
+		Stack<String> operandStack = new Stack<String>();
+		operandStack.add("5");
+		operandStack.add("6");
+
+		Stack<Object> variableValueStack = new Stack<Object>();
+		variableValueStack.add(53);
+		variableValueStack.add(52);
+
+		//set dependencyFrame
+		DependencyFrame dependencyFrame = new DependencyFrame();
+		dependencyFrame.setIntermediateVariableStack(operandStack);
+		dependencyFrame.setOperandStack(variableValueStack);
+
+		TestPath targetPath = new TestPath();
+		BMethod method = new BMethod(1, "", "(III)I");
+
+		targetPath.setbMethod(method);
+		dependencyFrame.setTargetPath(targetPath);
+		dependencyFrame.initParameterRelation();
+
+		BPredicateInstruction ifGreater = new BIFicmpge(label, 2);
+		ifGreater.analyzing(dependencyFrame);
+		// System.out.println(dependency.getRelations().getRelations());
+		Dependency actualTree = dependencyFrame.getRelations().getRelation(method.getNumberOfParameter() + 1);
+		actualTree.inorderBST();
+		//bottom>=up
+		assertEquals(true,actualTree.getTheBTRootNode().getVariableValue());
+
+		BinNode rightNode = new BinNode("6");
+		BinNode leftNode = new BinNode("5");
+		BinPredicateNode rootNode = new BinPredicateNode("1001");
 		Dependency expectedTree = new Dependency(rootNode, ifGreater);
 
 		expectedTree.insertToLeft(leftNode);

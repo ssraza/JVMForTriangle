@@ -3,37 +3,42 @@ package com.gannon.rule;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
+import com.gannon.jvm.input.Parameter;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
 
 public abstract class Rule {
-	//protected boolean expectedPredicateResult;
-	InputObject inputData;
+	// protected boolean expectedPredicateResult;
+	Input inputData;
 	Dependencies dependecies;
 	BinNode leftNode;
 	BinNode rightNode;
 
-	ArrayList<InputObject> generatedInputs;
+	InputCollection inputs = new InputCollection(1);
 
-	public ArrayList<InputObject> getNewDataList() {
-		return generatedInputs;
+	// ArrayList<InputObject> generatedInputs;
+
+	public InputCollection getInputCollection() {
+		return inputs;
 	}
 
-	public Rule( InputObject inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			ArrayList<InputObject> newDataList) {
+	public Rule(Input inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode, InputCollection inputs) {
 		super();
-		//this.expectedPredicateResult = result;
+		// this.expectedPredicateResult = result;
 		this.inputData = inputData;
 		this.dependecies = dependecies;
 		this.leftNode = leftNode;
 		this.rightNode = rightNode;
-		this.generatedInputs = newDataList;
+		this.inputs = inputs;
 	}
 
 	public abstract void dataGeneration();
@@ -51,45 +56,37 @@ public abstract class Rule {
 	 *         This is a recursive function
 	 */
 
-	protected ArrayList<InputObject> updateCurrentInput(BinNode node, InputObject input, Boolean increaseFlag,
-			int distance) {
+	protected InputCollection updateCurrentInput(BinNode node, Input input, Boolean increaseFlag, int distance) {
 		if (node.isParamter()) {
-			HashMap<String, Integer> newInputData = new HashMap<String, Integer>();
-			Iterator it = this.inputData.getInputDataTable().entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pairs = (Map.Entry) it.next();
-				newInputData.put(pairs.getKey().toString(), (Integer) pairs.getValue());
+			String name = node.getVariableName();
+			int index = Integer.valueOf(name);
+			
+			Parameter p=input.getParameterByIndex(index);
+			Input newInput=null;
+			if (increaseFlag) {
+				newInput=input.updateParameterValue(index, (Integer)p.getValue() + Math.abs(distance));
+			} else {
+				newInput=input.updateParameterValue(index,  (Integer)p.getValue() - Math.abs(distance));
 			}
-			InputObject newData = new InputObject(newInputData);
+			inputs.add(newInput);
 
-			String name = "i" + node.getVariableName();
-			int value = 0;
-			if (newData.isContainsKey(name)) {
-				if (increaseFlag) {
-					value = newData.getInputDataByKey(name) + Math.abs(distance);
-				} else {
-					value = newData.getInputDataByKey(name) - Math.abs(distance);
-				}
-				newData.setInputDataByKey(name, value);
-				generatedInputs.add(newData);
-			}
 		} else {
 			// recursively find next node
 			Dependency d = this.dependecies.findRelation(node);
 			BInstruction i = d.getInst();
 			if (i instanceof BIAdd) {
-				RuleIAdd addObj = new RuleIAdd(increaseFlag, input, this.dependecies, d.getLeftNode(),
-						d.getRightNode(), this.generatedInputs, Math.abs(distance));
+				RuleIAdd addObj = new RuleIAdd(increaseFlag, inputData, this.dependecies, d.getLeftNode(),
+						d.getRightNode(), this.inputs, Math.abs(distance));
 				addObj.dataGeneration();
 			}
 		}
-		return generatedInputs;
+		return inputs;
 	}
 
 	protected int getRandomInt() {
 		int i = 0;
 		Random rand = new Random();
-		i = rand.nextInt(200);
+		i = rand.nextInt(10);
 		return i;
 	}
 

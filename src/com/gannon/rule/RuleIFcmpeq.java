@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
 
 public class RuleIFcmpeq extends Rule {
 	private int distance = 0;
 	private boolean expectedPredicateResult;
 	
-	public RuleIFcmpeq(boolean expectedPredicateResult, InputObject currentInput, Dependencies dependecies,
-			BinNode leftNode, BinNode rightNode, ArrayList<InputObject> generatedNewInputs) {
-		super(currentInput, dependecies, leftNode, rightNode, generatedNewInputs);
+	public RuleIFcmpeq(boolean expectedPredicateResult, Input inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
+			InputCollection inputs) {
+		super(inputData, dependecies, leftNode, rightNode, inputs);
 		this.expectedPredicateResult = expectedPredicateResult;
 		this.distance = distance();
 	} 

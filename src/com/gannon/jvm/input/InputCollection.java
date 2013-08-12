@@ -41,6 +41,12 @@ public class InputCollection {
 	public int getId() {
 		return id;
 	}
+	
+	
+
+	public boolean add(Input e) {
+		return inputs.add(e);
+	}
 
 	@Override
 	public int hashCode() {
@@ -78,7 +84,7 @@ public class InputCollection {
 
 	@Override
 	public String toString() {
-		return "Inputs [id=" + id + ", className=" + className + ", methodName=" + methodName + ", inputs=" + inputs
+		return "Inputs [id=" + id + ", className=" + className + ", methodName=" + methodName + ", inputs=\n" + inputs
 				+ "]";
 	}
 

@@ -1,12 +1,10 @@
 package com.gannon.jvm.input.generator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 import java.util.Queue;
-import java.util.Random;
 
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
@@ -18,6 +16,8 @@ import com.gannon.jvm.data.dependency.GannonPredicateTreeBuilderJVM;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.method.GannonMethodJVM;
 import com.gannon.jvm.execution.path.PathFrame;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
 import com.gannon.jvm.instructions.BIFicmpeq;
 import com.gannon.jvm.instructions.BIFicmpge;
 import com.gannon.jvm.instructions.BIFicmpne;
@@ -26,21 +26,22 @@ import com.gannon.jvm.progam.path.Node;
 import com.gannon.jvm.progam.path.PredicateNode;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.ConstantsUtility;
-import com.gannon.rule.InputObject;
+import com.gannon.jvm.utilities.Utility;
 import com.gannon.rule.Rule;
 import com.gannon.rule.RuleIFcmpeq;
 import com.gannon.rule.RuleIFcmpge;
 import com.gannon.rule.RuleIFcmpne;
 
 public class InputGenerateExecutor<T> {
-	private Queue potentialGoodReusltQueue = new LinkedList<InputObject>();
-	private Queue resultQueue = new LinkedList<InputObject>();
+	private Queue<Input> potentialGoodReusltQueue = new LinkedList<Input>();
 
-	public ArrayList<Object> inputs;
+	public ArrayList<Object> aInput;
+	private Input input;
 
-	public InputGenerateExecutor(ArrayList<Object> inputs) {
+	public InputGenerateExecutor(ArrayList<Object> aInput) {
 		super();
-		this.inputs = inputs;
+		this.aInput = aInput;
+		this.input = new Input(1, aInput);
 	}
 
 	public Object execute(PathFrame pathFrame) {
@@ -48,24 +49,29 @@ public class InputGenerateExecutor<T> {
 		TestPath path = pathFrame.getTestPath();
 		int count = 0;
 		// random generate input
-		// potentialGoodReusltQueue.add(randomInput);
-		potentialGoodReusltQueue.add(ArrayListToInputObject());
+
+		potentialGoodReusltQueue.add(this.input);
+
 		while (!potentialGoodReusltQueue.isEmpty()) {
+			//Utility.displayInputQueue(potentialGoodReusltQueue);
 			path.clearIgnoreFlags();
-			InputObject input = (InputObject)potentialGoodReusltQueue.poll();
-			BLocalVarTable vt=new BLocalVarTable();
-			ArrayList<Object> vars = InputObjectToArrayList(input);
-			for(Object o:vars){
-				vt.add(o);
-			}
-			pathFrame.setLocalVariableTable(vt);
-			
+			// Loop Issue here, new data is not updated?
+			input = (Input) potentialGoodReusltQueue.poll();
+			//System.out.println("====pop form queue=======" + input);
+
+			// add the new input from queue to Path Frame
+			BLocalVarTable vt = new BLocalVarTable();
+			ArrayList<Object> vars = input.getOldInput();
+			pathFrame.setLocalVariableTable(new BLocalVarTable(vars));
+
+			// get dependency tree
+			GannonPredicateTreeBuilderJVM pathjvm = new GannonPredicateTreeBuilderJVM();
+			pathjvm.run(path, vars);
+			Dependencies dps = pathjvm.getRelationFrame().getRelations();
+
 			boolean endOfPathFlag = false;
 			// clear all ignore flag
 			while (!endOfPathFlag) {
-				// pathFrame.setLocalVariableTable(new
-				// BLocalVarTable(newInputfrom
-				// queue));
 				// for each predicate node, i.e., the node contains a predicate
 				// instruction (a>b), if the run-time predicate result does not
 				// equal to the expected results, the program re-executes the
@@ -73,155 +79,91 @@ public class InputGenerateExecutor<T> {
 				// localized search
 
 				for (Node node : path.getNodes()) {
-					GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
-					jvm.run(path, InputObjectToArrayList(input));
-					Dependencies dps = jvm.getRelationFrame().getRelations();
-					// System.out.println(node.getInstruction().toString());
-					// Refresh PathFrame
+
 					result = node.getInstruction().execute(pathFrame);
-					// System.out.println("test");
 					// if reaching the end of the program, we have a potential
-					// good
-					// input, the program stops and push the input to a
+					// good input, the program stops and push the input to a
 					// "potential good" input queue
 					if (node.hasReturnInstruction()) {
 						endOfPathFlag = true;
-						if(potentialGoodReusltQueue.isEmpty()) {
-							potentialGoodReusltQueue.add(randomGeneration(3));
+						if (potentialGoodReusltQueue.isEmpty()) {
+							potentialGoodReusltQueue.add(Input.generateRandom(0, 3));
 						}
-						
 						break;
 					} else if (node.isBPredicateNode() && !((PredicateNode) node).isIgnore()) {
 						((PredicateNode) node)
 								.setActualPredicateResult((Boolean) result.equals(true) ? ConstantsUtility.EXPECTED_TRUE
 										: ConstantsUtility.EXPECTED_FALSE);
+						//System.out.println("If instruction" + node);
 						// if the actual predicate result is not equal to
-						// expected
-						// results , we need to generate a new value to pass the
-						// node and the predicate as ignored for next time
-						// execution
-						if (!((PredicateNode) node).hasPassed()&& ((PredicateNode) node).isIgnore()!=true) {
+						// expected results , we need to generate a new value to
+						// pass the node and the predicate as ignored for next
+						// time execution
+						if (!((PredicateNode) node).hasPassed() && ((PredicateNode) node).isIgnore() != true) {
 							BInstruction instruction = node.getInstruction();
 							Dependency dp = dps.findRelation(instruction);
 
-							// dp.getTheBTRootNode();
 							BinNode leftNode = dp.getLeftNode();
 							BinNode rightNode = dp.getRightNode();
-							
-							ArrayList<InputObject> newDataList = new ArrayList<InputObject>();
+
+							InputCollection newDataList = new InputCollection(1);
 							Rule rule = null;
-							
+							boolean expectedPredicateResult = ((PredicateNode) node).getExpectedPredicateResult() > 0 ? true
+									: false;
+
 							if (instruction instanceof BIFicmpge) {
-								rule = new RuleIFcmpge(((PredicateNode) node).getExpectedPredicateResult() > 0 ? true :false, input, dps, leftNode, rightNode, newDataList);
+								rule = new RuleIFcmpge(expectedPredicateResult, input, dps, leftNode, rightNode,
+										newDataList);
 							} else if (instruction instanceof BIFicmpne) {
-								rule = new RuleIFcmpne(((PredicateNode) node).getExpectedPredicateResult() > 0 ? true :false , input, dps, leftNode, rightNode, newDataList);
+								rule = new RuleIFcmpne(expectedPredicateResult, input, dps, leftNode, rightNode,
+										newDataList);
 							} else if (instruction instanceof BIFicmpeq) {
-								rule = new RuleIFcmpeq(((PredicateNode) node).getExpectedPredicateResult() > 0 ? true :false, input, dps, leftNode, rightNode, newDataList);
+								rule = new RuleIFcmpeq(expectedPredicateResult, input, dps, leftNode, rightNode,
+										newDataList);
 							}
 							rule.dataGeneration();
-							ArrayList<InputObject> tmpResultList = rule.getNewDataList();
 
 							// put new generated results to queue
-							for (int j = 0; j < tmpResultList.size(); j++) {
-								tmpResultList.get(j).printData();
-								potentialGoodReusltQueue.add(tmpResultList.get(j));
+							List<Input> inputList = newDataList.getInputs();
+							for (int j = 0; j < inputList.size(); j++) {
+								//System.out.println("new generated========    " + inputList.get(j));
+								potentialGoodReusltQueue.add(inputList.get(j));
 							}
 
 							// set ignore flag in the node so next time to skip
 							// RE-Evaluate the predicate instruction
-							 ((PredicateNode) node).setIgnore(true);
+							((PredicateNode) node).setIgnore(true);
 
-							// remove one item from the queue and set the new
-							// input
-							// newInput=potentialGoodReusltQueue.remove();
-
-							// quit the current execution and re-run the path
-							// with
-							// new inputs
 							break;
 						}
 					}
 				}
 			}
-			
-			
+
 			// get Method instructions
-			
+
 			BClass myclass = BClassGenerator.getBClass("Triangle.class");
 			BMethod m = myclass.getMethod("triangleType");
-			
+
 			GannonMethodJVM jvm = new GannonMethodJVM();
-			jvm.run(myclass, m,vars);
+			jvm.run(myclass, m, vars);
 			jvm.getExecutedPath();
-			TestPath resultPath=jvm.getExecutedPath();
-			System.out.println("Test Data");
-			//input.printData();
-			//System.out.println("Result Path"+resultPath);
-			//System.out.println("Path "+path);
-			
-			if(resultPath.equals(path)&& count < 10){
-				System.out.println(count+" "+vars.get(1)+","+vars.get(2)+","+vars.get(3));
+			TestPath resultPath = jvm.getExecutedPath();
+			System.out.println("Result Test Data");
+
+			if (resultPath.equals(path) && count < 10) {
+				System.out.println(count + " " + vars.get(1) + "," + vars.get(2) + "," + vars.get(3));
 				count++;
-				//break;
+				// break;
 			}
-			if(count >=10)
+			if (count == 10)
 				break;
-			
 
-		
+			// execute the methodJVM to see if get the same path, if so save the
+			// result
 
-		// execute the methodJVM to see if get the same path, if so save the
-		// result
-
-		 }
+		}
 		return result;
-	}
-
-	private InputObject randomGeneration(int numOfParam){
-		System.out.println("randomGeneration:");
-		HashMap<String, Integer> map = new HashMap<String,Integer>();
-		Random rand = new Random();
-		for(int i=1;i<=numOfParam;i++){
-			int value = rand.nextInt(200);
-			String name= "i"+i;
-			map.put(name, value);
-			System.out.print(name+":"+value+" ");
-		}
-		InputObject newObj = new InputObject(map);
-		System.out.println();
-		return newObj;
-	}
-	
-	private ArrayList<Object> InputObjectToArrayList(InputObject obj) {
-		HashMap<String, Integer> map = obj.getInputDataTable();
-		ArrayList<Object> input = new ArrayList<Object>();
-		input.add(-1);
-		input.add(-1);
-		input.add(-1);
-		input.add(-1);
-		Iterator it = map.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pairs = (Map.Entry) it.next();
-			String name = pairs.getKey().toString();
-			int index = Integer.parseInt(name.substring(1));
-			input.set(index, pairs.getValue());
-		}
-		return input;
-	}
-
-	private InputObject ArrayListToInputObject() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-
-		for (int i = 0; i < this.inputs.size(); i++) {
-			if (i == 0)
-				continue;
-			String name = "i" + i;
-			int value = (Integer) this.inputs.get(i);
-			map.put(name, value);
-		}
-		InputObject newObj = new InputObject(map);
-		newObj.printData();
-		return newObj;
 	}
 
 }

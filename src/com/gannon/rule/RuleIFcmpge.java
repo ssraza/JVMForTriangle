@@ -5,14 +5,16 @@ import java.util.HashMap;
 
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
 
 public class RuleIFcmpge extends Rule {
 	private int distance = 0;
 	private boolean expectedPredicateResult;
 	
-	public RuleIFcmpge(boolean expectedPredicateResult, InputObject inputData, Dependencies dependecies, BinNode leftNode,
-			BinNode rightNode, ArrayList<InputObject> newDataList) {
-		super(inputData, dependecies, leftNode, rightNode, newDataList);
+	public RuleIFcmpge(boolean expectedPredicateResult, Input inputData, Dependencies dependecies, BinNode leftNode, BinNode rightNode,
+			InputCollection inputs) {
+		super(inputData, dependecies, leftNode, rightNode, inputs);
 		this.expectedPredicateResult = expectedPredicateResult;
 		this.distance = distance();
 	} 

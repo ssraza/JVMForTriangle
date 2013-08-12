@@ -57,19 +57,21 @@ public class BIFicmpge extends BPredicateInstruction {
 		return 162;
 	}
 
+	//
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
+		//test if left>=right, bottom value> =up value
 		Stack<Object>  valueStack= rFrame.getValueStack();
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();
-		boolean predicateResult=firstValue.equals(secondValue);
-		
+		boolean predicateResult=(firstValue >= secondValue);
+
 		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(myOperandStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));
 		Dependency relation=new Dependency(rootNode, this);
-		rootNode.setVariableValue(predicateResult); 
+		rootNode.setVariableValue(predicateResult);
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
 

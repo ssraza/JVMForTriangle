@@ -1,19 +1,17 @@
 package com.gannon.rule;
 
-import java.util.ArrayList;
-
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.input.Input;
+import com.gannon.jvm.input.InputCollection;
 
-public class RuleIAdd extends Rule{
+public class RuleIAdd extends Rule {
 	private int distance = 0;
 	private boolean increaseFlag;
-	
-	public RuleIAdd(boolean increaseFlag, InputObject inputData,
-			Dependencies dependecies, BinNode leftNode, BinNode rightNode,
-			ArrayList<InputObject> newDataList,int distance) {
-		super( inputData, dependecies, leftNode, rightNode, newDataList);
-		// TODO Auto-generated constructor stub
+
+	public RuleIAdd(boolean increaseFlag, Input inputData, Dependencies dependecies, BinNode leftNode,
+			BinNode rightNode, InputCollection inputs, int distance) {
+		super(inputData, dependecies, leftNode, rightNode, inputs);
 		this.increaseFlag = increaseFlag;
 		this.distance = distance;
 	}
@@ -22,23 +20,16 @@ public class RuleIAdd extends Rule{
 
 	@Override
 	public void dataGeneration() {
-		// TODO Auto-generated method stub
-		
-		if(this.increaseFlag){
-			//increase left
-			updateCurrentInput(this.leftNode,this.inputData,true, distance);
-			//increase right
-			updateCurrentInput(this.rightNode,this.inputData,true, distance);
+		if (this.increaseFlag) {
+			// increase left
+			updateCurrentInput(this.leftNode, this.inputData, true, distance);
+			// increase right
+			updateCurrentInput(this.rightNode, this.inputData, true, distance);
+		} else {
+			// decrease left
+			updateCurrentInput(this.leftNode, this.inputData, false, distance);
+			// decrease right
+			updateCurrentInput(this.rightNode, this.inputData, false, distance);
 		}
-		else{
-			
-			//decrease left
-			updateCurrentInput(this.leftNode,this.inputData,false, distance);
-			//decrease right
-			updateCurrentInput(this.rightNode,this.inputData,false, distance);
-		}
-		
 	}
-	
-
 }
