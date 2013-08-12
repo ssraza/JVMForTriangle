@@ -140,33 +140,32 @@ public class Input {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((parameters == null) ? 0 : parameters.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Input other = (Input) obj;
-		if (id != other.id)
-			return false;
-		if (parameters == null) {
-			if (other.parameters != null)
-				return false;
-		} else {
-			for (int i = 0; i < parameters.size(); i++) {
-				if (!parameters.get(i).equals(((Input) obj).getParamters().get(i))) {
-					return false;
-				}
-			}
-		}
 		return true;
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Input other = (Input) obj;
+//		if (parameters == null) {
+//			if (other.parameters != null)
+//				return false;
+//		} else {
+//			for (int i = 0; i < parameters.size(); i++) {
+//				if (!parameters.get(i).equals(((Input) obj).getParamters().get(i))) {
+//					return false;
+//				}
+//			}
+//		}
+//
+//		return true;
 	}
 
 	@Override
