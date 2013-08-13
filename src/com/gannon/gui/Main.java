@@ -67,6 +67,8 @@ public class Main extends JFrame {
 	public JTabbedPane tabbedPane;
 	public JPanel inputTablePanel;
 	public JPanel outputPanel;
+	public JScrollPane scrollPaneGeneratedInputs;
+	public JScrollPane scrollPaneInstruction; 
 	
 	/**
 	 * Launch the application.
@@ -151,9 +153,9 @@ public class Main extends JFrame {
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 
-		JScrollPane scrollPaneInstruction = new JScrollPane();
+		scrollPaneInstruction = new JScrollPane();
 		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")), scrollPaneInstruction, null);
-
+		
 		txtrInstructionarea = new JTextArea();
 		txtrInstructionarea.setText("InstructionArea");
 		scrollPaneInstruction.setViewportView(txtrInstructionarea);
@@ -163,6 +165,9 @@ public class Main extends JFrame {
 		
 		scrollPanePath = new JScrollPane();
 		tabbedPane.addTab("Path", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png")), scrollPanePath, null);
+		
+		scrollPaneGeneratedInputs = new JScrollPane();
+		tabbedPane.addTab("Generated Inputs", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/data_generation.png")), scrollPaneGeneratedInputs, null);
 
 
 		JScrollPane scrollPaneConsole = new JScrollPane();

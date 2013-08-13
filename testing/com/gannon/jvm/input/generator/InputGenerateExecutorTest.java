@@ -14,7 +14,6 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 import com.gannon.jvm.data.input.Input;
-import com.gannon.jvm.data.input.InputGenerationFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
 import com.gannon.jvm.progam.path.TestPath;

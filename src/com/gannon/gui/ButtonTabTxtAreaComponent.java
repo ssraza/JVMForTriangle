@@ -1,5 +1,7 @@
 package com.gannon.gui;
 
+import gui.tutorial.tab.ButtonTabComponent;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,7 +17,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -25,7 +29,7 @@ public class ButtonTabTxtAreaComponent extends JPanel {
 	private final JTabbedPane pane;
 	private JTextArea txtArea;
 
-	public ButtonTabTxtAreaComponent(final JTabbedPane pane, JTextArea txtArea) {
+	public ButtonTabTxtAreaComponent(final JTabbedPane pane) {
 		// unset default FlowLayout' gaps
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		if (pane == null) {
@@ -34,10 +38,29 @@ public class ButtonTabTxtAreaComponent extends JPanel {
 		this.pane = pane;
 		setOpaque(false);
 
-
-		add(txtArea);
-		// add more space between the label and the button
-		txtArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+        //make JLabel read titles from JTabbedPane
+        JLabel label = new JLabel() {
+            @Override
+			public String getText() {
+                int i = pane.indexOfTabComponent(ButtonTabTxtAreaComponent.this);
+                if (i != -1) {
+                    return pane.getTitleAt(i);
+                }
+                return null;
+            }
+        };
+        
+       // label.setIcon(new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")));
+//        String labelTxt="";
+//        int i = pane.indexOfTabComponent(ButtonTabTxtAreaComponent.this);
+//        if (i != -1) {
+//        	labelTxt= pane.getTitleAt(i);
+//        }
+//        String text = "/com/gannon/images16x16/"+labelTxt+".png";
+//		label.setIcon(new ImageIcon(Main.class.getResource(text)));
+        
+        add(label);
+        
 		// tab button
 		JButton button = new TabButton();
 		add(button);

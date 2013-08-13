@@ -17,7 +17,6 @@ import com.gannon.jvm.data.dependency.Dependency;
 import com.gannon.jvm.data.dependency.GannonPredicateTreeBuilderJVM;
 import com.gannon.jvm.data.input.Input;
 import com.gannon.jvm.data.input.InputCollection;
-import com.gannon.jvm.data.input.InputGenerationFrame;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.method.GannonMethodJVM;
 import com.gannon.jvm.execution.path.PathFrame;
