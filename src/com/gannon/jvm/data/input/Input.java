@@ -45,7 +45,8 @@ public class Input {
 	public static Input generateRandom(int id, int numberOfParameters) {
 		Input input = new Input(id);
 		List<Parameter> ps = input.getParamters();
-		for (int i = 0; i < numberOfParameters + 1; i++) {
+		//parameter index starts from 1
+		for (int i = 1; i < numberOfParameters + 1; i++) {
 			ps.add(Parameter.generateRandom(i));
 		}
 		return input;
@@ -146,32 +147,35 @@ public class Input {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Input other = (Input) obj;
+		if (parameters == null) {
+			if (other.parameters != null)
+				return false;
+		} else if (!parameters.equals(other.parameters))
+			return false;
 		return true;
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Input other = (Input) obj;
-//		if (parameters == null) {
-//			if (other.parameters != null)
-//				return false;
-//		} else {
-//			for (int i = 0; i < parameters.size(); i++) {
-//				if (!parameters.get(i).equals(((Input) obj).getParamters().get(i))) {
-//					return false;
-//				}
-//			}
-//		}
-//
-//		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Input [id=" + id + ", className=" + className + ", methodName=" + methodName + ", paramters="
 				+ parameters + "]\n";
+	}
+	
+	public String toNiceString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append("Input [id=" + id + ", (");
+		for(Parameter p:parameters){
+			sb.append(p.toNiceString());
+		}
+		sb.append(")]\n");
+		return sb.toString();
 	}
 
 }

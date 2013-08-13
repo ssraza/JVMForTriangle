@@ -4,8 +4,10 @@ import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.input.Input;
 import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.utilities.ConstantsUtility;
+import com.gannon.jvm.utilities.Utility;
 
-public class RuleIFcmpne extends Rule {
+public class RuleIFcmpne extends Rule { 
 	private int distance = 0;
 	boolean expectedPredicateResult;
 
@@ -22,13 +24,14 @@ public class RuleIFcmpne extends Rule {
 			if (isLeftRightEqual()) {
 				// current is == and we want to make left != right
 				// increase left
-				updateCurrentInput(this.leftNode, this.inputData, true, getRandomInt());
+				int randomNumber = Utility.getRandomInt(1, ConstantsUtility.MAX_NUMBER_OF_INPUTS_GENERATED);
+				updateCurrentInput(this.leftNode, this.inputData, true, randomNumber);
 				// decrease left
-				updateCurrentInput(this.leftNode, this.inputData, false, getRandomInt());
+				updateCurrentInput(this.leftNode, this.inputData, false, randomNumber);
 				// increase right
-				updateCurrentInput(this.rightNode, this.inputData, true, getRandomInt());
+				updateCurrentInput(this.rightNode, this.inputData, true, randomNumber);
 				// decrease right
-				updateCurrentInput(this.rightNode, this.inputData, false, getRandomInt());
+				updateCurrentInput(this.rightNode, this.inputData, false, randomNumber);
 			}
 		}
 		// ==

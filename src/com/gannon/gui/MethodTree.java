@@ -1,6 +1,8 @@
 package com.gannon.gui;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -21,8 +23,11 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CFGMethod;
 import com.gannon.bytecode.controlflowgraph.CGraph;
 import com.gannon.bytecode.controlflowgraph.CPath;
+import com.gannon.jvm.data.input.Input;
+import com.gannon.jvm.input.generator.GannonInputGeneratorJVM;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.ConstantsUtility;
+import com.gannon.jvm.utilities.Utility;
 
 public class MethodTree extends JScrollPane implements TreeSelectionListener {
 	protected DefaultMutableTreeNode rootNode;
@@ -160,18 +165,18 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				// set CFG
 				CFGMethod m = new CFGMethod(selectedMethod);
 				CGraph buildGraph = m.buildGraph();
-				//need to change this
+				// need to change this
 				buildGraph.processDominatorNodes();
-				
-				//switch tab
+
+				// switch tab
 				mainFrame.tabbedPane.setSelectedIndex(1);
 				mainFrame.scrollPaneCFG.setViewportView(new CFGPanel(buildGraph, 200, 400));
-				
-				//display input table panel
+
+				// display input table panel
 				InputTablePanel inputTablePanel = new InputTablePanel(mainFrame, selectedMethod);
 				mainFrame.outputPanel.removeAll();
-				mainFrame.outputPanel.add(inputTablePanel); 
-				
+				mainFrame.outputPanel.add(inputTablePanel);
+
 			} else if (tree.getSelectionPath().getPathCount() == ConstantsUtility.TESTPATH_LEVEL) {
 				// get current method
 				DefaultMutableTreeNode methodNode = (DefaultMutableTreeNode) tree.getSelectionPath().getParentPath()
@@ -183,27 +188,52 @@ public class MethodTree extends JScrollPane implements TreeSelectionListener {
 				int selectedPathID = Integer.parseInt(node.toString());
 
 				// find path with the pathID from generated CFG
-				CPath selectedPath=cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
-				
-				//covert to the path to a graph so it can be displayed
-				CGraph pathGraph=selectedPath.convertToGraph();
+				CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 
-				//log 
+				// covert to the path to a graph so it can be displayed
+				CGraph pathGraph = selectedPath.convertToGraph();
+
+				// log
 				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
-				mainFrame.txtrConsole.append("\n"+selectedPath);
-				
-				
-				//display instruction
+				mainFrame.txtrConsole.append("\n" + selectedPath);
+
+				// display instruction
 				mainFrame.txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
 				mainFrame.txtrInstructionarea.setText("");
-				mainFrame.txtrInstructionarea.append((new TestPath(selectedPath)).toString());
-				
-				//display path
+				TestPath testPath = new TestPath(selectedPath);
+				mainFrame.txtrInstructionarea.append(testPath.toString());
+
+				// display path
 				pathGraph.processDominatorNodes();
 				mainFrame.tabbedPane.setSelectedIndex(2);
 				mainFrame.scrollPanePath.setViewportView(new CFGPanel(pathGraph, 200, 400));
+
+				// ==================================================================//
+				// Test input generation
+				// ==================================================================//
+
+				// init test path
+				// path information needed are saved in test path, bClass,
+				// bMethod
+				testPath.setbClass(myclass);
+				testPath.setbMethod(method);
+				Input input = new Input(1, hardCodeInput());
+
+				GannonInputGeneratorJVM executor = new GannonInputGeneratorJVM();
+				Set<Input> results = executor.run(testPath, input, 10);
+				mainFrame.txtrConsole.setText("");
+				mainFrame.txtrConsole.append(Utility.toNiceString(results));
 			}
 		}
 
+	}
+
+	private ArrayList<Object> hardCodeInput() {
+		ArrayList<Object> inputs = new ArrayList<Object>();
+		inputs.add(-1);
+		inputs.add(111);
+		inputs.add(6565);
+		inputs.add(667);
+		return inputs;
 	}
 }

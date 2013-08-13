@@ -12,4 +12,5 @@ public class ConstantsUtility {
 	public static final int UNDEFINED_EXPECTED_VALUE=-1;
 	public static final int EXPECTED_TRUE=1;
 	public static final int EXPECTED_FALSE=0;
+	public static final int MAX_NUMBER_OF_INPUTS_GENERATED = 10000;
 }

@@ -7,6 +7,8 @@ import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.input.Input;
 import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.utilities.ConstantsUtility;
+import com.gannon.jvm.utilities.Utility;
 
 public class RuleIFcmpge extends Rule {
 	private int distance = 0;
@@ -23,7 +25,7 @@ public class RuleIFcmpge extends Rule {
 	public void dataGeneration() {
 		// make sure left > right, we can set it as 1. Here we use a random
 		// number instead
-		int geDistance = Math.abs(this.distance) + getRandomInt();
+		int geDistance = Math.abs(this.distance) +  Utility.getRandomInt(1, ConstantsUtility.MAX_NUMBER_OF_INPUTS_GENERATED);;
 		if (expectedPredicateResult) {
 			// increase left
 			updateCurrentInput(this.leftNode, this.inputData, true, geDistance);

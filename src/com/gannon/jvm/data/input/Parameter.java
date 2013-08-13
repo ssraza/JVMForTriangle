@@ -1,5 +1,7 @@
 package com.gannon.jvm.data.input;
 
+import com.gannon.jvm.utilities.ConstantsUtility;
+
 public class Parameter {
 	// 1 is the first parameter
 	private int index;
@@ -25,7 +27,7 @@ public class Parameter {
 
 		p.setType(ParameterType.INTEGER);
 		p.setName("i" + index);
-		p.setValue(Integer.toString(Integer.MIN_VALUE + (int) (Math.random() * Integer.MAX_VALUE)));
+		p.setValue((int) (Math.random() * ConstantsUtility.MAX_NUMBER_OF_INPUTS_GENERATED));
 		return p;
 
 	}
@@ -97,6 +99,10 @@ public class Parameter {
 	@Override
 	public String toString() {
 		return "Parameter [index=" + index + ", type=" + type + ", name=" + name + ", value=" + value + "]";
+	}
+	
+	public String toNiceString(){
+		return value+ " "; 
 	}
 
 }

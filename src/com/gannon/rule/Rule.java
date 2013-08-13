@@ -15,6 +15,7 @@ import com.gannon.jvm.data.input.InputCollection;
 import com.gannon.jvm.data.input.Parameter;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
+import com.gannon.jvm.utilities.ConstantsUtility;
 
 public abstract class Rule {
 	// protected boolean expectedPredicateResult;
@@ -79,13 +80,5 @@ public abstract class Rule {
 			}
 		}
 		return inputs;
-	}
-
-	protected int getRandomInt() {
-		int i = 0;
-		Random rand = new Random();
-		i = rand.nextInt(10)+1;
-		return i;
-	}
-
+	} 
 }

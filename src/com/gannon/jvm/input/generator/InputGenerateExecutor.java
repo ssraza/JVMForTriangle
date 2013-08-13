@@ -48,8 +48,6 @@ public class InputGenerateExecutor<T> {
 	public Set<Input> execute(InputGenerationFrame inputGenerationFrame) {
 		//inputs pass all IF statements
 		Queue<Input> potentialGoodReusltQueue = new LinkedList<Input>();
-		//the number of generated inputs
-		int generatedCounter = 0;
 
 		// store final generated input for a given path
 		Set<Input> results = new HashSet<Input>();
@@ -59,7 +57,7 @@ public class InputGenerateExecutor<T> {
 
 		potentialGoodReusltQueue.add(this.input);
 
-		while (!potentialGoodReusltQueue.isEmpty()) {
+		while (!potentialGoodReusltQueue.isEmpty() && results.size() < inputGenerationFrame.getNumberOfResultsNeeded()) {
 			// clear all ignore flag
 			path.clearIgnoreFlags();
 
@@ -88,11 +86,8 @@ public class InputGenerateExecutor<T> {
 					// if reaching the end of the program, we have a potential
 					// good input, the program stops and push the input to a
 					// "potential good" input queue
-					if (node.hasReturnInstruction()) {
+					if (node.hasReturnInstruction()) { 
 						endOfPathFlag = true;
-						if (potentialGoodReusltQueue.isEmpty()) {
-							potentialGoodReusltQueue.add(Input.generateRandom(0, 3));
-						}
 						break;
 					} else if (node.isBPredicateNode() && !((PredicateNode) node).isIgnore()) {
 						((PredicateNode) node)
@@ -121,20 +116,20 @@ public class InputGenerateExecutor<T> {
 			// execute the methodJVM to see if get the same path, if so save the
 			// result
 			GannonMethodJVM jvm = new GannonMethodJVM();
+			//note that var and input should be the same value but different format
 			jvm.run(inputGenerationFrame.getTestPath().getbClass(), inputGenerationFrame.getTestPath().getbMethod(),
 					vars);
 			jvm.getExecutedPath();
 			TestPath resultPath = jvm.getExecutedPath();
 
-			//check if we have enough test inputs
 			if (resultPath.equals(path)) {
-				if (generatedCounter < inputGenerationFrame.getNumberOfResultsNeeded()) {
 					results.add(input);
-					System.out.println(input);
-					generatedCounter++;
-				}else{
-					break;
-				}
+			}
+			
+			if (potentialGoodReusltQueue.isEmpty()) {
+				Input generatedRandomInput = Input.generateRandom(0, 3);
+				potentialGoodReusltQueue.add(generatedRandomInput);
+				System.out.print("generated random input ==== "+generatedRandomInput);
 			}
 
 		}

@@ -6,6 +6,8 @@ import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.input.Input;
 import com.gannon.jvm.data.input.InputCollection;
+import com.gannon.jvm.utilities.ConstantsUtility;
+import com.gannon.jvm.utilities.Utility;
 
 public class RuleIFcmpeq extends Rule {
 	private int distance = 0;
@@ -36,7 +38,7 @@ public class RuleIFcmpeq extends Rule {
 			}
 		} else {
 			// Generate new data so that left value != right values
-			this.distance = getRandomInt();
+			this.distance = Utility.getRandomInt(1, ConstantsUtility.MAX_NUMBER_OF_INPUTS_GENERATED);
 			// increase left
 			updateCurrentInput(this.leftNode, this.inputData, true, distance);
 			// decrease left
