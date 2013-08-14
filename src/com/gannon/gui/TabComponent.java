@@ -14,12 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class TabComponent {
-
-	 static final Icon CLOSE_TAB_ICON = new ImageIcon(
-			MethodTreePanel.class.getResource("/com/ganon/images24x24/folder_green.png"));
-	static final Icon PAGE_ICON = new ImageIcon(
-			MethodTreePanel.class.getResource("/com/gannon/images16x16/flow_chart.png"));
-	 int tabCount = 0;
+	static final Icon CLOSE_TAB_ICON_RED = new ImageIcon(
+			Main.class.getResource("/com/gannon/images16x16/tab_close_red.png"));
+	static final Icon CLOSE_TAB_ICON_WHITE = new ImageIcon(
+			Main.class.getResource("/com/gannon/images16x16/tab_close_white.png"));
 
 	/**
 	 * Adds a component to a JTabbedPane with a little "close tab" button on the
@@ -56,9 +54,9 @@ public class TabComponent {
 		btnClose.setOpaque(false);
 
 		// Configure icon and rollover icon for button
-		btnClose.setRolloverIcon(CLOSE_TAB_ICON);
+		btnClose.setRolloverIcon(CLOSE_TAB_ICON_RED);
 		btnClose.setRolloverEnabled(true);
-		btnClose.setIcon(CLOSE_TAB_ICON);
+		btnClose.setIcon(CLOSE_TAB_ICON_WHITE);
 
 		// Set border null so the button doesn't make the tab too big
 		btnClose.setBorder(null);

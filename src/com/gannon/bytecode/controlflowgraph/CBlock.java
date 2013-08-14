@@ -28,6 +28,15 @@ public class CBlock {
 		return null;
 	}
 	
+	public boolean hasIfStatement(){
+		for (BInstruction instr : instructions) {
+			if (instr.getOpCodeCommand().toLowerCase().contains("if")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//assume last statement is predicates, IF statement
 	public BInstruction getIFInstruction() {
 		if (instructions != null && instructions.size() > 0) {

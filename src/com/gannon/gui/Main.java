@@ -154,22 +154,10 @@ public class Main extends JFrame {
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 
 		scrollPaneInstruction = new JScrollPane();
-//		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")), scrollPaneInstruction, null);
-
 		scrollPaneIPathInstruction = new JScrollPane();
-//		txtrInstructionarea = new JTextArea();
-//		txtrInstructionarea.setText("InstructionArea");
-//		scrollPaneInstruction.setViewportView(txtrInstructionarea);
-//
 		scrollPaneCFG = new JScrollPane();
-//		tabbedPane.addTab("CFG", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/flow_chart.png")), scrollPaneCFG, null);
-//		
 		scrollPanePath = new JScrollPane();
-//		tabbedPane.addTab("Path", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png")), scrollPanePath, null);
-//		
 		scrollPaneGeneratedInputs = new JScrollPane();
-//		tabbedPane.addTab("Generated Inputs", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/data_generation.png")), scrollPaneGeneratedInputs, null);
-
 
 		JScrollPane scrollPaneConsole = new JScrollPane();
 		splitPaneMainAndOutputAndConsole.setRightComponent(scrollPaneConsole);

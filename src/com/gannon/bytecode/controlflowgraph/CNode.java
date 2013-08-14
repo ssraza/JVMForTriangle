@@ -31,6 +31,10 @@ public class CNode {
 	public void setBlock(CBlock blcok) {
 		this.block = blcok;
 	}
+	
+	public boolean hasIfStatement(){
+		return block.hasIfStatement();
+	}
 
 	@Override
 	public int hashCode() {

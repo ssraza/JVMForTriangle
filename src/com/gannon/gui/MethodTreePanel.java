@@ -1,28 +1,19 @@
 package com.gannon.gui;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -46,19 +37,23 @@ import com.gannon.jvm.data.input.Input;
 import com.gannon.jvm.input.generator.GannonInputGeneratorJVM;
 import com.gannon.jvm.progam.path.TestPath;
 import com.gannon.jvm.utilities.ConstantsUtility;
-import com.gannon.jvm.utilities.Utility;
 
 public class MethodTreePanel extends JScrollPane implements TreeSelectionListener, MouseListener {
+	/**
+	 * Navigation panel
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final String COM_GANNON_IMAGES16X16_PATH_PNG = "/com/gannon/images16x16/path.png";
+	private static final String COM_GANNON_IMAGES16X16_FLOW_CHART_PNG = "/com/gannon/images16x16/flow_chart.png";
+	private static final String COM_GANNON_IMAGES16X16_DATA_GENERATION_PNG = "/com/gannon/images16x16/data_generation.png";
+	private static final String COM_GANNON_IMAGES16X16_INSTRUCTION_PNG = "/com/gannon/images16x16/instruction.png";
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 	protected JTree tree;
 	private String rootName;
 	private Main mainFrame;
 	private BClass myclass;
-	private BMethod selectedMethod;
-	private TestPath testPath;
 	private DefaultMutableTreeNode clickedTreeNode;
-	private CPath selectedPath;
 
 	public MethodTreePanel() {
 		super();
@@ -183,154 +178,94 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		clickedTreeNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		if (myclass != null) {
 			if (tree.getSelectionPath().getPathCount() == ConstantsUtility.METHOD_LEVEL) {
-				selectedMethod = myclass.getMethod(clickedTreeNode.toString());
+				BMethod selectedMethod = myclass.getMethod(clickedTreeNode.toString());
 
-				// ====================Instructions tab=============
-				Icon icon = new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png"));
-				TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneInstruction,
-						"Method Instructions", icon);
+				showMethodInstructionsTab(selectedMethod);
 
-				JTextArea txtrInstructionarea = new JTextArea(); 
-				txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
-				txtrInstructionarea.setText("");
-				txtrInstructionarea.append(selectedMethod.toString());
-				mainFrame.scrollPaneInstruction.setViewportView(txtrInstructionarea);
-				// ============ end of Instruction tab
-
-				// display input table panel
-				InputTablePanel inputTablePanel = new InputTablePanel(mainFrame, selectedMethod);
-				mainFrame.outputPanel.removeAll();
-				mainFrame.outputPanel.add(inputTablePanel);
+				showInputTablePanel(selectedMethod);
 
 			} else if (tree.getSelectionPath().getPathCount() == ConstantsUtility.TESTPATH_LEVEL) {
 				// get current method
-				DefaultMutableTreeNode methodNode = (DefaultMutableTreeNode) tree.getSelectionPath().getParentPath()
-						.getLastPathComponent();
-				selectedMethod = myclass.getMethod(methodNode.toString());
-				CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+				DefaultMutableTreeNode selectedMethodNode = (DefaultMutableTreeNode) tree.getSelectionPath()
+						.getParentPath().getLastPathComponent();
 
-				// get pathId from user click
-				int selectedPathID = Integer.parseInt(clickedTreeNode.toString());
-
-				selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
-
-				// log
-				mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + methodNode.toString());
-				mainFrame.txtrConsole.append("\n" + selectedPath);
-
-				// ====================Path Instructions tab=============
-				Icon icon = new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png"));
-				TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneIPathInstruction,
-						"Path Instructions", icon);
-
-				JTextArea txtrInstructionarea = new JTextArea();
-				txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
-				txtrInstructionarea.setText("");
-				testPath = new TestPath(selectedPath);
-				txtrInstructionarea.append(testPath.toString());
-				mainFrame.scrollPaneIPathInstruction.setViewportView(txtrInstructionarea);
-				// ============ end of Instruction tab
+				showPathInstructionTab(selectedMethodNode, clickedTreeNode);
+				showConsolePanel(selectedMethodNode, clickedTreeNode);
 			}
 		}
 	}
 
-	private ArrayList<Object> hardCodeInput() {
-		ArrayList<Object> inputs = new ArrayList<Object>();
-		inputs.add(-1);
-		inputs.add(111);
-		inputs.add(6565);
-		inputs.add(667);
-		return inputs;
+	private void showConsolePanel(DefaultMutableTreeNode selectedMethodNode, DefaultMutableTreeNode clickedTreeNode) {
+		BMethod selectedMethod = myclass.getMethod(selectedMethodNode.toString());
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		int selectedPathID = Integer.parseInt(clickedTreeNode.toString());
+		CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
+		// log
+		mainFrame.txtrConsole.append("\nClick path: " + selectedPathID + " in method " + selectedMethodNode.toString());
+		mainFrame.txtrConsole.append("\n" + selectedPath);
 	}
 
-	// ========Implementing MouseListener for right clicking the
-	// tree============
-
+	// ====Implementing MouseListener for right clicking the tree=
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// right click pop menu
-		if (SwingUtilities.isRightMouseButton(e) && testPath != null) {
+		if (SwingUtilities.isRightMouseButton(e)) {
 			TreePath path = tree.getPathForLocation(e.getX(), e.getY());
 			Rectangle pathBounds = tree.getUI().getPathBounds(tree, path);
-			pathBounds.setFrame(pathBounds);
 			if (pathBounds != null && pathBounds.contains(e.getX(), e.getY())) {
-				JPopupMenu menu = new JPopupMenu();
-				JMenuItem inputGenerationMenuItem = new JMenuItem("Generating Inputs");
-				inputGenerationMenuItem.addActionListener(new ActionListener() {
+				pathBounds.setFrame(pathBounds);
+				if (path.getPathCount() == ConstantsUtility.METHOD_LEVEL) {
+					final DefaultMutableTreeNode clickedMethodNode = (DefaultMutableTreeNode) path
+							.getLastPathComponent();
+					JPopupMenu methodPopMenu = new JPopupMenu();
+					JMenuItem CFGMenuItem = new JMenuItem("Generating CFG");
+					CFGMenuItem.setIcon(new ImageIcon(Main.class
+							.getResource(COM_GANNON_IMAGES16X16_FLOW_CHART_PNG)));
+					CFGMenuItem.addActionListener(new ActionListener() {
 
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// ====================Generated Inputs Tab=============
-						// we don't need to hard code here.
-						Input input = new Input(1, hardCodeInput());
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							showCFGTab(clickedMethodNode);
+						}
+					});
 
-						testPath.setbClass(myclass);
-						testPath.setbMethod(selectedMethod);
+					methodPopMenu.add(CFGMenuItem);
+					methodPopMenu.show(tree, e.getX(), e.getY());
 
-						GannonInputGeneratorJVM executor = new GannonInputGeneratorJVM();
-						int numberOfResultsNeeded = 100;
-						Set<Input> results = executor.run(testPath, input, numberOfResultsNeeded);
-						GeneratedInputsArea generatedInputsArea = new GeneratedInputsArea(results);
+				} else if (path.getPathCount() == ConstantsUtility.TESTPATH_LEVEL) {
+					// get current method
+					final DefaultMutableTreeNode selectedMethodNode = (DefaultMutableTreeNode) path.getParentPath()
+							.getLastPathComponent();
+					final DefaultMutableTreeNode clickedPathIDNode = (DefaultMutableTreeNode) path
+							.getLastPathComponent();
 
-						Icon icon = new ImageIcon(Main.class
-								.getResource("/com/gannon/images16x16/data_generation.png"));
-						TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneGeneratedInputs,
-								"Generated Inputs", icon);
-						mainFrame.scrollPaneGeneratedInputs.setViewportView(generatedInputsArea);
+					JPopupMenu menu = new JPopupMenu();
+					JMenuItem inputGenerationMenuItem = new JMenuItem("Generating Inputs");
+					inputGenerationMenuItem.addActionListener(new ActionListener() {
 
-						// ============ end of tab============
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							showGeneraedInputsTab(selectedMethodNode, clickedPathIDNode);
+						}
+					});
 
-					}
-				});
+					JMenuItem pathVisulMenuItem = new JMenuItem("Path Visualization");
+					pathVisulMenuItem.addActionListener(new ActionListener() {
 
-				JMenuItem CFGMenuItem = new JMenuItem("Generating CFG");
-				CFGMenuItem.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							showPathGraphTab(selectedMethodNode, clickedPathIDNode);
+						}
+					});
 
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-
-						// ====================Graph tab=============
-						Icon icon = new ImageIcon(Main.class.getResource("/com/gannon/images16x16/flow_chart.png"));
-						TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneCFG, "CFG", icon);
-
-						CFGMethod m = new CFGMethod(selectedMethod);
-						CGraph buildGraph = m.buildGraph();
-						// need to change this
-						buildGraph.processDominatorNodes();
-						// switch tab
-						mainFrame.scrollPaneCFG.setViewportView(new CFGPanel(buildGraph, 200, 400));
-						// ============ end of graph tab
-
-					}
-				});
-
-				JMenuItem pathVisulMenuItem = new JMenuItem("Path Visualization");
-				pathVisulMenuItem.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						// ====================Path visual tab=============
-
-						// covert to the path to a graph so it can be displayed
-						CGraph pathGraph = selectedPath.convertToGraph();
-
-						pathGraph.processDominatorNodes();
-
-						Icon icon = new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png"));
-						TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPanePath, "Path Graph", icon);
-
-						mainFrame.scrollPanePath.setViewportView(new CFGPanel(pathGraph, 200, 400));
-						// ============ end of Path visual tab======
-
-					}
-				});
-
-				inputGenerationMenuItem.setIcon(new ImageIcon(Main.class
-						.getResource("/com/gannon/images16x16/data_generation.png")));
-				menu.add(inputGenerationMenuItem);
-				menu.add(CFGMenuItem);
-				menu.add(pathVisulMenuItem);
-				menu.show(tree, e.getX(), e.getY());
+					inputGenerationMenuItem.setIcon(new ImageIcon(Main.class
+							.getResource(COM_GANNON_IMAGES16X16_DATA_GENERATION_PNG)));
+					pathVisulMenuItem.setIcon(new ImageIcon(Main.class
+							.getResource(COM_GANNON_IMAGES16X16_PATH_PNG)));
+					menu.add(inputGenerationMenuItem);
+					menu.add(pathVisulMenuItem);
+					menu.show(tree, e.getX(), e.getY());
+				}
 			}
 		}
 	}
@@ -354,8 +289,127 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseReleased(MouseEvent e) {
+		//show the the selected path
+		TreePath path = tree.getPathForLocation(e.getX(), e.getY());
+		if (path != null) {
+			tree.setSelectionPath(path);
+		}
 	}
+
+	// =============== all tabs are here===
+
+	private void showPathInstructionTab(DefaultMutableTreeNode selectedMethodNode,
+			DefaultMutableTreeNode clickedTreeNode) {
+		BMethod selectedMethod = myclass.getMethod(selectedMethodNode.toString());
+		// get pathId from user click
+		int selectedPathID = Integer.parseInt(clickedTreeNode.toString());
+
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
+
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_INSTRUCTION_PNG));
+		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneIPathInstruction, "Path Instructions",
+				icon);
+
+		JTextArea txtrInstructionarea = new JTextArea();
+		txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
+		txtrInstructionarea.setText("");
+		TestPath testPath = new TestPath(selectedPath);
+		txtrInstructionarea.append(testPath.toString());
+		mainFrame.scrollPaneIPathInstruction.setViewportView(txtrInstructionarea);
+	}
+
+	private void showInputTablePanel(BMethod selectedMethod) {
+		// display input table panel
+		InputTablePanel inputTablePanel = new InputTablePanel(mainFrame, selectedMethod);
+		mainFrame.outputPanel.removeAll();
+		mainFrame.outputPanel.add(inputTablePanel);
+	}
+
+	private void showMethodInstructionsTab(BMethod selectedMethod) {
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_INSTRUCTION_PNG));
+		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneInstruction, "Method Instructions", icon);
+
+		JTextArea txtrInstructionarea = new JTextArea();
+		txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
+		txtrInstructionarea.setText("");
+		txtrInstructionarea.append(selectedMethod.toString());
+		mainFrame.scrollPaneInstruction.setViewportView(txtrInstructionarea);
+	}
+
+	private void showCFGTab(final DefaultMutableTreeNode clickedMethodNode) {
+		BMethod selectedMethod = myclass.getMethod(clickedMethodNode.toString());
+
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_FLOW_CHART_PNG));
+		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneCFG, "CFG", icon);
+
+		CFGMethod m = new CFGMethod(selectedMethod);
+		CGraph buildGraph = m.buildGraph();
+		// need to change this
+		buildGraph.processDominatorNodes();
+		// switch tab
+		mainFrame.scrollPaneCFG.setViewportView(new CFGPanel(buildGraph, 200, 400));
+	}
+
+	private void showGeneraedInputsTab(final DefaultMutableTreeNode selectedMethodNode,
+			final DefaultMutableTreeNode clickedPathIDNode) {
+		final BMethod selectedMethod = myclass.getMethod(selectedMethodNode.toString());
+
+		// get pathId from user click
+
+		int selectedPathID = Integer.parseInt(clickedPathIDNode.toString());
+
+		// get Path
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		final CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
+		final TestPath testPath = new TestPath(selectedPath);
+		// we don't need to hard code here.
+		Input input = new Input(1, hardCodeInput());
+
+		testPath.setbClass(myclass);
+		testPath.setbMethod(selectedMethod);
+
+		GannonInputGeneratorJVM executor = new GannonInputGeneratorJVM();
+		int numberOfResultsNeeded = 100;
+		Set<Input> results = executor.run(testPath, input, numberOfResultsNeeded);
+		GeneratedInputsArea generatedInputsArea = new GeneratedInputsArea(results);
+
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_DATA_GENERATION_PNG));
+		TabComponent
+				.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneGeneratedInputs, "Generated Inputs", icon);
+		mainFrame.scrollPaneGeneratedInputs.setViewportView(generatedInputsArea);
+	}
+
+	private ArrayList<Object> hardCodeInput() {
+		ArrayList<Object> inputs = new ArrayList<Object>();
+		inputs.add(-1);
+		inputs.add(111);
+		inputs.add(6565);
+		inputs.add(667);
+		return inputs;
+	}
+
+	private void showPathGraphTab(final DefaultMutableTreeNode selectedMethodNode,
+			final DefaultMutableTreeNode clickedPathIDNode) {
+		final BMethod selectedMethod = myclass.getMethod(selectedMethodNode.toString());
+
+		// get pathId from user click
+
+		int selectedPathID = Integer.parseInt(clickedPathIDNode.toString());
+
+		// get Path
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		final CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
+		// covert to the path to a graph so it can be
+		// displayed
+		CGraph pathGraph = selectedPath.convertToGraph();
+
+		pathGraph.processDominatorNodes();
+
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_PATH_PNG));
+		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPanePath, "Path Graph", icon);
+		mainFrame.scrollPanePath.setViewportView(new CFGPanel(pathGraph, 200, 400));
+	}
+
 }

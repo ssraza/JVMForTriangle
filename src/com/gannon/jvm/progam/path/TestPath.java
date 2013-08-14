@@ -9,7 +9,6 @@ import com.gannon.bytecode.controlflowgraph.CNode;
 import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
-import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class TestPath {
 	private int pathId;
@@ -51,6 +50,16 @@ public class TestPath {
 
 			}
 		}
+	}
+	
+	public boolean canGenerateInputs(){
+		//only consider statements have if statements
+		for(Node node:nodes){
+			if(node.getInstruction() instanceof BPredicateInstruction){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int getPathId() {
@@ -157,13 +166,6 @@ public class TestPath {
 		StringBuffer sb = new StringBuffer();
 		for (Node node : nodes) {
 			sb.append(node + "\n");
-			// if (node instanceof PredicateNode) {
-			// int expectedValue = ((PredicateNode)
-			// node).getExpectedPredicateResult();
-			// if (expectedValue != ConstantsUtility.UNDEFINED_EXPECTED_VALUE) {
-			// sb.append(" ->" + expectedValue);
-			// }
-			// }
 		}
 		return sb.toString();
 

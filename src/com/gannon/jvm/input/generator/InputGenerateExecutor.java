@@ -56,13 +56,12 @@ public class InputGenerateExecutor<T> {
 
 		potentialGoodReusltQueue.add(this.input);
 
-		while (!potentialGoodReusltQueue.isEmpty() && results.size() < inputGenerationFrame.getNumberOfResultsNeeded()) {
+		while (path.canGenerateInputs()&&!potentialGoodReusltQueue.isEmpty() && results.size() < inputGenerationFrame.getNumberOfResultsNeeded()) {
 			// clear all ignore flag
 			path.clearIgnoreFlags();
 
 			// add the new input from queue to Path Frame
 			input = (Input) potentialGoodReusltQueue.poll();
-			BLocalVarTable vt = new BLocalVarTable();
 			ArrayList<Object> vars = input.getOldInput();
 			inputGenerationFrame.setLocalVariableTable(new BLocalVarTable(vars));
 
@@ -128,7 +127,7 @@ public class InputGenerateExecutor<T> {
 			if (potentialGoodReusltQueue.isEmpty()) {
 				Input generatedRandomInput = Input.generateRandom(0, 3);
 				potentialGoodReusltQueue.add(generatedRandomInput);
-				System.out.print("generated random input ==== "+generatedRandomInput);
+				//System.out.print("generated random input ==== "+generatedRandomInput);
 			}
 
 		}
