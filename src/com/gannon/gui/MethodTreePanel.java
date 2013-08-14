@@ -46,7 +46,9 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 	private static final String COM_GANNON_IMAGES16X16_PATH_PNG = "/com/gannon/images16x16/path.png";
 	private static final String COM_GANNON_IMAGES16X16_FLOW_CHART_PNG = "/com/gannon/images16x16/flow_chart.png";
 	private static final String COM_GANNON_IMAGES16X16_DATA_GENERATION_PNG = "/com/gannon/images16x16/data_generation.png";
-	private static final String COM_GANNON_IMAGES16X16_INSTRUCTION_PNG = "/com/gannon/images16x16/instruction.png";
+	private static final String COM_GANNON_IMAGES16X16_PATH_INSTRUCTION_PNG = "/com/gannon/images16x16/path_instruction.png";
+	private static final String COM_GANNON_IMAGES16X16_METHOD_INSTRUCTION_PNG = "/com/gannon/images16x16/method_instruction.png";
+
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 	protected JTree tree;
@@ -308,7 +310,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
 		CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 
-		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_INSTRUCTION_PNG));
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_PATH_INSTRUCTION_PNG));
 		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneIPathInstruction, "Path Instructions",
 				icon);
 
@@ -328,7 +330,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 	}
 
 	private void showMethodInstructionsTab(BMethod selectedMethod) {
-		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_INSTRUCTION_PNG));
+		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_METHOD_INSTRUCTION_PNG));
 		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneInstruction, "Method Instructions", icon);
 
 		JTextArea txtrInstructionarea = new JTextArea();
