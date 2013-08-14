@@ -56,10 +56,9 @@ public class Main extends JFrame {
 	private static final String TestPathGenerator = null;
 	private JPanel contentPane;
 	private JTextField txtCfgHere;
-	public JTextArea txtrInstructionarea;
 	public JTextArea txtrConsole; 
 	private File file;
-	private MethodTree scrollPaneTree;
+	private MethodTreePanel scrollPaneTree;
 	protected JSplitPane splitPaneRoot;
 	private JFileChooser fc;
 	public JScrollPane scrollPaneCFG;
@@ -69,6 +68,7 @@ public class Main extends JFrame {
 	public JPanel outputPanel;
 	public JScrollPane scrollPaneGeneratedInputs;
 	public JScrollPane scrollPaneInstruction; 
+	public JScrollPane scrollPaneIPathInstruction;
 	
 	/**
 	 * Launch the application.
@@ -123,7 +123,7 @@ public class Main extends JFrame {
 		centerDesktopPane.add(splitPaneRoot, BorderLayout.CENTER);
 
 		// populated tree will be added here when open a file
-		scrollPaneTree = new MethodTree();
+		scrollPaneTree = new MethodTreePanel();
 
 		scrollPaneTree.setPreferredSize(new Dimension(100, 23));
 		scrollPaneTree.setMinimumSize(new Dimension(100, 23));
@@ -154,20 +154,21 @@ public class Main extends JFrame {
 		splitPaneMainAndOutput.setLeftComponent(tabbedPane);
 
 		scrollPaneInstruction = new JScrollPane();
-		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")), scrollPaneInstruction, null);
-		
-		txtrInstructionarea = new JTextArea();
-		txtrInstructionarea.setText("InstructionArea");
-		scrollPaneInstruction.setViewportView(txtrInstructionarea);
+//		tabbedPane.addTab("Instructions", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/instruction.png")), scrollPaneInstruction, null);
 
+		scrollPaneIPathInstruction = new JScrollPane();
+//		txtrInstructionarea = new JTextArea();
+//		txtrInstructionarea.setText("InstructionArea");
+//		scrollPaneInstruction.setViewportView(txtrInstructionarea);
+//
 		scrollPaneCFG = new JScrollPane();
-		tabbedPane.addTab("CFG", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/flow_chart.png")), scrollPaneCFG, null);
-		
+//		tabbedPane.addTab("CFG", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/flow_chart.png")), scrollPaneCFG, null);
+//		
 		scrollPanePath = new JScrollPane();
-		tabbedPane.addTab("Path", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png")), scrollPanePath, null);
-		
+//		tabbedPane.addTab("Path", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/path.png")), scrollPanePath, null);
+//		
 		scrollPaneGeneratedInputs = new JScrollPane();
-		tabbedPane.addTab("Generated Inputs", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/data_generation.png")), scrollPaneGeneratedInputs, null);
+//		tabbedPane.addTab("Generated Inputs", new ImageIcon(Main.class.getResource("/com/gannon/images16x16/data_generation.png")), scrollPaneGeneratedInputs, null);
 
 
 		JScrollPane scrollPaneConsole = new JScrollPane();
@@ -220,7 +221,7 @@ public class Main extends JFrame {
 					fc.setCurrentDirectory(file);
 					// This is where a real application would open the file.
 					txtrConsole.append("Opening: " + file.getName() + "." + ConstantsUtility.NEW_LINE);
-					scrollPaneTree = new MethodTree(Main.this, file.getName());
+					scrollPaneTree = new MethodTreePanel(Main.this, file.getName());
 					populateTree(scrollPaneTree);
 					splitPaneRoot.setLeftComponent(scrollPaneTree);
 					revalidate();
@@ -263,7 +264,7 @@ public class Main extends JFrame {
 		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height - inset * 2);
 	}
 
-	private void populateTree(MethodTree methodScollPane) {
+	private void populateTree(MethodTreePanel methodScollPane) {
 		String className = methodScollPane.getClassName();
 		BClass myclass = BClassGenerator.getBClass(className);
 		ArrayList<BMethod> methods = myclass.getMethods();
