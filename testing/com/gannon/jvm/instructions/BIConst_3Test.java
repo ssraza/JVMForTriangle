@@ -19,7 +19,7 @@ public class BIConst_3Test {
 		BIConst_3 iconst3 = new BIConst_3(5);
 		Stack<Integer> operandStack = new  Stack<Integer>();
 		BLocalVarTable varTable = new BLocalVarTable();
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		// Before calling the execute method,  LocalVariableTable and operand stack will be empty
 		// Expectation is, BIConst_3 will load 3 on top of the operand stack,

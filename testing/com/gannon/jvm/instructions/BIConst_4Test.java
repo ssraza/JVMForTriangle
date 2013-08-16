@@ -19,7 +19,7 @@ public class BIConst_4Test {
 		BIConst_4 iconst4 = new BIConst_4(6);
 		Stack<Integer> operandStack = new  Stack<Integer>();
 		BLocalVarTable varTable = new BLocalVarTable();
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		// Before calling the execute method,  LocalVariableTable and operand stack will be empty
 		// Expectation is, BIConst_4 will load 4 on top of the operand stack,

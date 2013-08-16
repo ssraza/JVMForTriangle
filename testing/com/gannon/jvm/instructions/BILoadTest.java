@@ -55,7 +55,7 @@ public class BILoadTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position, 2 on 1st and 5 on 2nd.
 		// Expectation is, BILoad(2) should load what ever is there on 2nd position of local variable table,
@@ -83,7 +83,7 @@ public class BILoadTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position, 2 on 1st and 5 on 2nd.
 		// Expectation is, BILoad(1) should load what ever is there on 1st position of local variable table,
@@ -112,7 +112,7 @@ public class BILoadTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 
 		//create a frame
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 
 		//invoke iload 3
 		BILoad bILoad = new BILoad(3,6);

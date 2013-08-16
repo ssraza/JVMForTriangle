@@ -22,7 +22,7 @@ public class BIReturnTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.add(new Integer(1)); // add value 1 to index 0
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		//RelationFrame.getInstance().pushFrame(activeFrame);
 		
@@ -45,7 +45,7 @@ public class BIReturnTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.add(new Integer(10)); // add value 1 to index 0
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		//RelationFrame.getInstance().pushFrame(activeFrame);
 		
@@ -53,7 +53,7 @@ public class BIReturnTest {
 		Stack<Integer> secondOperandStack = new Stack<Integer>();
 		operandStack.add(new Integer(7)); // add value 1 to index 0
 
-		BFrame secondActiveFrame = new BFrame(0, varTable, operandStack);
+		BFrame secondActiveFrame = new BFrame(operandStack, varTable, 0);
 		
 	//	RelationFrame.getInstance().pushFrame(secondActiveFrame);
 		

@@ -41,7 +41,7 @@ public class BBipushTest {
 		Stack<Integer> operandStack = new Stack<Integer>();
 		operandStack.add(10); // add value 10 to index 0 of operand stack
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		// Before calling the execute method,  operand stack will have 10 on its 0th position.
 		// Expectation is, BBipush(16) should load 16 on the top of the operand stack. i.e. on 1st position in this case
@@ -63,7 +63,7 @@ public class BBipushTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		
 		// Before calling the execute method,  operand stack and localvariable table are empty. 
 		// Expectation is, BBipush(8) should load 16 on the top of the operand stack. i.e. on 0th position in this case

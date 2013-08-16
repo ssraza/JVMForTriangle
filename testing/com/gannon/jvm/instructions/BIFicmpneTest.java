@@ -86,7 +86,7 @@ public class BIFicmpneTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 		
-		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, varTable, 2);
 
 		BIFicmpne ifNequal = new BIFicmpne(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -163,7 +163,7 @@ public class BIFicmpneTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 		
-		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, varTable, 2);
 
 		BIFicmpne ifNequal = new BIFicmpne(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -196,7 +196,7 @@ public class BIFicmpneTest {
 		labelMapping.put(label2.toString(), 8);
 		labelMapping.put(label3.toString(), 12);
 
-		BFrame activeFrame = new BFrame(5, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 5);
 		BIFicmpne ifGreaterNequal = new BIFicmpne(new BLabel(label1), 5);
 	//	activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method, operand stack will have 5 at 0th

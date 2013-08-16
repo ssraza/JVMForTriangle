@@ -47,7 +47,7 @@ public class BAStoreTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 
 		// Before calling the execute method, LocalVariableTable will have 7 on its 0th, 
 		// 2 on its first and 5 on its 2nd position. OperandStack will have 10,1 and 9. 9 will be the top of the stack.
@@ -57,7 +57,7 @@ public class BAStoreTest {
 		
 		bAStore.execute(activeFrame);
 
-		BLocalVarTable resultVarTable = activeFrame.getVarTable();
+		BLocalVarTable resultVarTable = activeFrame.getLocalVariableTable();
 		
 		Object result = resultVarTable.getLocalVariable(0); //get the value from 0th position of resulted Local variable table
 		
@@ -78,7 +78,7 @@ public class BAStoreTest {
 		varTable.add(2);
 		varTable.add(5);
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 
 		// Before calling the execute method, LocalVariableTable will have 7 on its 0th, 
 		// 2 on its first and 5 on its 2nd position. OperandStack will have 10,1 and 9. 9 will be the top of the stack.
@@ -88,7 +88,7 @@ public class BAStoreTest {
 		
 		bAStore.execute(activeFrame);
 
-		BLocalVarTable resultVarTable = activeFrame.getVarTable();
+		BLocalVarTable resultVarTable = activeFrame.getLocalVariableTable();
 		
 		Object result = resultVarTable.getLocalVariable(2);//get the value from 2nd position of resulted Local variable table
 		

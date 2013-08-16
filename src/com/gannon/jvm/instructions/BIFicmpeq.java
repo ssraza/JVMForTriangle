@@ -20,7 +20,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myLocalVariableTable = activeFrame.getLocalVariableTable();
 
 		// next instruction will fetched for execution
 		Integer programCounter = activeFrame.getLineNumber();

@@ -47,7 +47,7 @@ public class BIAddTest {
 		operandStack.add(5);
 		operandStack.add(9);
 
-		BFrame activeFrame = new BFrame(0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 0);
 		BIAdd bIAdd = new BIAdd(5);
 
 		// Before calling the execute method,  LocalVariableTable will have 7 on its 0th position.

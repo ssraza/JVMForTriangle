@@ -51,7 +51,7 @@ public class GannonMethodJVM {
 		int lineNumber = ConstantsUtility.INIT_PROGRAM_LINE_NUMBER;
 		// the first instruction is 1
 		Stack<Integer> operandStack = new Stack<Integer>();
-		BFrame activeFrame = new BFrame(bClass, method, lineNumber, localVariableTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, localVariableTable, lineNumber);
 		// push the frame to JVM stack
 		jvmStack.pushFrame(activeFrame);
 	}

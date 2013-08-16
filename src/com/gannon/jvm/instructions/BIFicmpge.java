@@ -28,7 +28,7 @@ public class BIFicmpge extends BPredicateInstruction {
 	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myLocalVariableTable = activeFrame.getLocalVariableTable();
 		Integer pc = activeFrame.getLineNumber();
 
 		Integer secondValue = (Integer)myOperandStack.pop();

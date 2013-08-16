@@ -22,7 +22,7 @@ public class MethodExecutor {
 	public Object execute(JVMStackSingleton jvmStack) {
 		Object runTimePredicateResult = null;
 		BFrame activeFrame = jvmStack.peekActiveFrame();
-		BMethod method = activeFrame.getMethod();
+		BMethod method = activeFrame.getbMethod();
 		ArrayList<BInstruction> instructions = method.getInstructions();
 
 		// flag pc =-1 points to next executing instruction
@@ -41,7 +41,7 @@ public class MethodExecutor {
 
 			if (JVMStackSingleton.getInstance().size() != 0) {
 				activeFrame = JVMStackSingleton.getInstance().peekActiveFrame();
-				method = activeFrame.getMethod();
+				method = activeFrame.getbMethod();
 				instructions = method.getInstructions();
 			} else {
 				break;

@@ -59,11 +59,11 @@ public class BInvokeVirtualTest {
 		BLocalVarTable varTable = new BLocalVarTable();
 		Stack<Integer> operandStack = new Stack<Integer>();
 				
-		BFrame activeFrame = new BFrame(testBclass, 0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(testBclass, operandStack, varTable, 0);
 		
 		virtualCallTest.execute(activeFrame);
 		
-		assertEquals(JVMStackSingleton.getInstance().peekActiveFrame().getMethod().getName(), "Method2");
+		assertEquals(JVMStackSingleton.getInstance().peekActiveFrame().getbMethod().getName(), "Method2");
 	}
 
 	@Test

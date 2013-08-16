@@ -14,4 +14,18 @@ public class Triangle {
 		}
 	}
 
+//	public int test(int score) {
+//		int result=0;
+//		if (score >= 300) {
+//			result=1;
+//		} else if (score >= 200) {
+//			result=2;
+//		} else if (score >= 50) {
+//			result=3;
+//		} else {
+//			result=4;
+//		}
+//		return result;
+//	}
+
 }

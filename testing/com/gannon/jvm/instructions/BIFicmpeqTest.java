@@ -80,7 +80,7 @@ public class BIFicmpeqTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 		
-		BFrame activeFrame = new BFrame(bClass, method, 0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, varTable, 0);
 
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 4
@@ -149,7 +149,7 @@ public class BIFicmpeqTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 		
-		BFrame activeFrame = new BFrame(bClass,method, 4, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass,method, operandStack, varTable, 4);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position. Program counter is set to 4
 		// Expectation is, BIFicmpge will update program counter to 5.
@@ -171,7 +171,7 @@ public class BIFicmpeqTest {
 
 		BLocalVarTable varTable = new BLocalVarTable();
 
-		BFrame activeFrame = new BFrame(10, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 10);
 		// Before calling the execute method, operand stack will have 5 at 0th
 		// position and 6 at 1st position.
 		// Expectation is, BIFicmpge will update program counter to 11.

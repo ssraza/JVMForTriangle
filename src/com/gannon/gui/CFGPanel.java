@@ -19,7 +19,11 @@ import com.gannon.program.cfg.NodeData;
 
 public class CFGPanel extends GraphPanel {
 
-    private final ArrayList<Node> listOfNodes;
+    /**
+	 * Control Flow Graph Panel
+	 */
+	private static final long serialVersionUID = 1L; 
+	private final ArrayList<Node> listOfNodes;
     private CGraph cGraph;    // contains list of cfg node
     CNode rootNode;  // root node of the cfg tree
 

@@ -19,7 +19,7 @@ public class BALoad extends BInstruction {
 	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Object> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myLocalVariableTable = activeFrame.getLocalVariableTable();
 		Integer pc = activeFrame.getLineNumber();
 
 		myOperandStack.push(myLocalVariableTable.getLocalVariable(operand1));

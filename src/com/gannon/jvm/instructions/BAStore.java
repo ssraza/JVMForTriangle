@@ -18,7 +18,7 @@ public class BAStore extends BInstruction {
 	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myLocalVariableTable = activeFrame.getLocalVariableTable();
 		Integer pc = activeFrame.getLineNumber();
 
 		Integer value = myOperandStack.pop(); // get the top of the operand

@@ -96,7 +96,7 @@ public class BIFicmpgeTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 
-		BFrame activeFrame = new BFrame(bClass, method, 0, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, varTable, 0);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(label1, 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -176,7 +176,7 @@ public class BIFicmpgeTest {
 		methods.add(method);
 		bClass.setMethods(methods);
 
-		BFrame activeFrame = new BFrame(bClass, method, 2, varTable, operandStack);
+		BFrame activeFrame = new BFrame(bClass, method, operandStack, varTable, 2);
 
 		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(newLabel3), 2);
 		// Before calling the execute method, operand stack will have 5 at 0th
@@ -206,7 +206,7 @@ public class BIFicmpgeTest {
 		labelMapping.put(label2.toString(), 8);
 		labelMapping.put(label3.toString(), 12);
 
-		BFrame activeFrame = new BFrame(5, varTable, operandStack);
+		BFrame activeFrame = new BFrame(operandStack, varTable, 5);
 		BIFicmpge ifGreaterNequal = new BIFicmpge(new BLabel(label1), 5);
 		// activeFrame.setLabelMap(labelMapping);
 		// Before calling the execute method, operand stack will have 5 at 0th

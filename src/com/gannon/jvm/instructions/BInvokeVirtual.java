@@ -27,7 +27,7 @@ public class BInvokeVirtual extends BInstruction {
 	@Override
 	public Integer execute(BFrame activeFrame) {
 		Stack<Object> myCurrentOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myCurrentLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myCurrentLocalVariableTable = activeFrame.getLocalVariableTable();
 		Integer pc = activeFrame.getLineNumber();
 		activeFrame.setLineNumber(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
@@ -42,10 +42,10 @@ public class BInvokeVirtual extends BInstruction {
 
 		Stack<Integer> newOperandStack = new Stack<Integer>();
 		
-		BFrame newFrame = new BFrame(bClass, nextMethod, 1, newActiveFrameVariableTable, newOperandStack);
+		BFrame newFrame = new BFrame(bClass, nextMethod, newOperandStack, newActiveFrameVariableTable, 1);
 
 		System.out.println("newFrame method name "
-				+ newFrame.getMethod().getName());
+				+ newFrame.getbMethod().getName());
 
 		JVMStackSingleton.getInstance().pushFrame(newFrame);
 

@@ -19,7 +19,7 @@ public class BIStore extends BInstruction {
 	@Override
 	public Object execute(BFrame activeFrame) {
 		Stack<Integer> myOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myLocalVariableTable = activeFrame.getVarTable();
+		BLocalVarTable myLocalVariableTable = activeFrame.getLocalVariableTable();
 		
 		Integer pc = activeFrame.getLineNumber();
 		// myLocalVariableTable.add(myOperandStack.elementAt(instruction.getOperand1()));//pop
