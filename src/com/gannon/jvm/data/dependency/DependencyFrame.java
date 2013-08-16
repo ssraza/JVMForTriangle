@@ -4,26 +4,22 @@ import java.util.Stack;
 
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.progam.path.TestPath;
+import com.ganon.jvm.shared.Frame;
 
 /**
  * @author Frank Xu
- *
+ * 
  *         A relation frame is similar to a BFrame, it only keeps relations
  *         during runtime analyzing. No concept of the active frame necessary
  *         because we don't need to deal with method to method calling
- *
+ * 
  */
-public class DependencyFrame {
+public class DependencyFrame extends Frame {
 	// a given path for analyzing predicate dependency
 	private TestPath targetPath;
 	private Dependencies relations = new Dependencies();;
 	// intermediate variables
 	private Stack<String> variableNameStack = new Stack<String>();
-
-	// for operand
-	private Stack<Object> valueStack = new Stack<Object>();
-
-	private BLocalVarTable localVariableTable = new BLocalVarTable();
 
 	public DependencyFrame() {
 		super();
@@ -34,11 +30,10 @@ public class DependencyFrame {
 	// we convert each variable into a relation
 	public void initParameterRelation() {
 		if (targetPath == null) {
-			System.out
-					.print("Add a target path to the relation frame before analyzing dependency!");
+			System.out.print("Add a target path to the relation frame before analyzing dependency!");
 		} else {
 			int numberOfPara = targetPath.getbMethod().getNumberOfParameter();
-			//System.out.println("numberOfPara " + numberOfPara);
+			// System.out.println("numberOfPara " + numberOfPara);
 
 			// 0 is never used
 			for (int i = 0; i <= numberOfPara; i++) {
@@ -88,21 +83,5 @@ public class DependencyFrame {
 
 	public void setIntermediateVariableStack(Stack<String> tempVariableStack) {
 		this.variableNameStack = tempVariableStack;
-	}
-
-	public Stack<Object> getValueStack() {
-		return valueStack;
-	}
-
-	public void setOperandStack(Stack<Object> operandStack) {
-		this.valueStack = operandStack;
-	}
-
-	public BLocalVarTable getLocalVariableTable() {
-		return localVariableTable;
-	}
-
-	public void setLocalVariableTable(BLocalVarTable localVariableTable) {
-		this.localVariableTable = localVariableTable;
 	}
 }

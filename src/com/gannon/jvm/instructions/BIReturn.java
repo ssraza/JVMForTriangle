@@ -40,7 +40,7 @@ public class BIReturn extends Return {
 		Stack<String> intermediateStack = rFrame.getIntermediateVariableStack();
 		intermediateStack.pop();
 
-		Stack<Object> myOperandStack = rFrame.getValueStack();
+		Stack<Object> myOperandStack = rFrame.getOperandStack();
 		myOperandStack.pop();
 	}
 

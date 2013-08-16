@@ -4,41 +4,22 @@ import java.util.Stack;
 
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.progam.path.TestPath;
+import com.ganon.jvm.shared.Frame;
 
-public class PathFrame {
+public class PathFrame extends Frame {
 	private TestPath testPath;
-	private BLocalVarTable localVariableTable;
-	private Stack operandStack;
 
-	public PathFrame(TestPath testPath, BLocalVarTable localVariableTable) {
+	public PathFrame(TestPath testPath) {
 		super();
 		this.testPath = testPath;
-		this.operandStack = new Stack();
-		this.localVariableTable = localVariableTable;
+	}
+
+	public PathFrame(TestPath testPath, BLocalVarTable localVariableTable) {
+		super(localVariableTable);
+		this.testPath = testPath;
 	}
 
 	public TestPath getTestPath() {
 		return testPath;
 	}
-
-	public void setTestPath(TestPath testPath) {
-		this.testPath = testPath;
-	}
-
-	public BLocalVarTable getLocalVariableTable() {
-		return localVariableTable;
-	}
-
-	public void setLocalVariableTable(BLocalVarTable localVariableTable) {
-		this.localVariableTable = localVariableTable;
-	}
-
-	public Stack getOperandStack() {
-		return operandStack;
-	}
-
-	public void setOperandStack(Stack operandStack) {
-		this.operandStack = operandStack;
-	}
-
 }

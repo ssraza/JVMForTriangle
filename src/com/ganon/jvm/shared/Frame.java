@@ -7,12 +7,11 @@ import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
-//can be deleted, it used now.will be the parent of all frame later
 public class Frame {
-	private BClass bClass;
-	private BMethod bMethod;
-	private Stack operandStack = new Stack();
-	private BLocalVarTable localVariableTable;
+	protected BClass bClass;
+	protected BMethod bMethod;
+	protected Stack operandStack = new Stack();
+	protected BLocalVarTable localVariableTable=new BLocalVarTable(); 
 
 	public Frame() {
 		super();
@@ -36,6 +35,11 @@ public class Frame {
 	public Frame(Stack operandStack, BLocalVarTable localVariableTable) {
 		super();
 		this.operandStack = operandStack;
+		this.localVariableTable = localVariableTable;
+	}
+
+	public Frame(BLocalVarTable localVariableTable) {
+		super();
 		this.localVariableTable = localVariableTable;
 	}
 

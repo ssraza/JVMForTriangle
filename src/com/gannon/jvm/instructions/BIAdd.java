@@ -36,7 +36,7 @@ public class BIAdd extends BInstruction  {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<Object>  valueStack= rFrame.getValueStack();
+		Stack<Object>  valueStack= rFrame.getOperandStack();
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();	
 		

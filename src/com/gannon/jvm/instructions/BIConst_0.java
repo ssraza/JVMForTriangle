@@ -36,7 +36,7 @@ public class BIConst_0 extends BInstruction {
 		tempVariableStack.add(new Integer(getOperand()).toString());
 		
 		//copied from  execute(PathFrame pathFrame) 
-		Stack<Object> valueStack = fFrame.getValueStack();
+		Stack<Object> valueStack = fFrame.getOperandStack();
 		valueStack.push(0);
 	}
 

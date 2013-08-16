@@ -13,6 +13,8 @@ public class BLocalVarTable {
 
 	public BLocalVarTable(Input input) {
 		super();
+		//first one is not used now
+		localVars.add(-1);
 		for (int i = 0; i < input.getParamters().size(); i++) {
 			localVars.add(input.get(i));
 		}
@@ -57,6 +59,11 @@ public class BLocalVarTable {
 
 	public void clear() {
 		localVars.clear();
+	}
+
+	@Override
+	public String toString() {
+		return "BLocalVarTable [localVars=" + localVars + "]";
 	}
 
 }

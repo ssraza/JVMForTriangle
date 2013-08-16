@@ -14,6 +14,7 @@ public class Input {
 	private String className;
 	private String methodName;
 
+	//parameter starts from 1
 	private List<Parameter> parameters = new ArrayList<Parameter>();
 
 	public Input(int id) {

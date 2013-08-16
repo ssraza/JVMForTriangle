@@ -61,7 +61,7 @@ public class BIFicmpge extends BPredicateInstruction {
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
 		//test if left>=right, bottom value> =up value
-		Stack<Object>  valueStack= rFrame.getValueStack();
+		Stack<Object>  valueStack= rFrame.getOperandStack();
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();
 		boolean predicateResult=(firstValue >= secondValue);

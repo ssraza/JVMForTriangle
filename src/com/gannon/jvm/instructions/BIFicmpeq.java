@@ -53,7 +53,7 @@ public class BIFicmpeq extends BPredicateInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<Object>  valueStack= rFrame.getValueStack();
+		Stack<Object>  valueStack= rFrame.getOperandStack();
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();
 		boolean predicateResult=firstValue.equals(secondValue);
