@@ -95,11 +95,11 @@ public class BIReturnTest {
 		dependency.setTargetPath(targetPath);
 		dependency.initParameterRelation();
 		dependency.initInputs();
-		dependency.getIntermediateVariableStack().push("6");
+		dependency.getIntermediateVariableNameStack().push("6");
 		dependency.getOperandStack().push("10");
 		BIReturn iReturn = new BIReturn(10);
 		iReturn.analyzing(dependency);
-		Stack<String> resultStack = dependency.getIntermediateVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableNameStack();
 		//String result = resultStack.peek();
 		assertEquals(new Stack(), resultStack);
 	}

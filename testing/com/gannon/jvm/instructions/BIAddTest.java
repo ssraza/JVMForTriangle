@@ -97,7 +97,7 @@ public class BIAddTest {
 		valueStack.add("9");
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(valueStack);
+		dependency.setIntermediateVariableNameStack(valueStack);
 		TestPath targetPath = new TestPath();
 		BMethod method = new BMethod(1, "", "(III)I");
 		
@@ -142,7 +142,7 @@ public class BIAddTest {
 
 		// set a frame
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(nameStack);
+		dependency.setIntermediateVariableNameStack(nameStack);
 		dependency.setOperandStack(variableValueStack);
 		
 		TestPath targetPath = new TestPath();

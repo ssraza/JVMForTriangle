@@ -56,7 +56,7 @@ public class BIFicmpne extends BPredicateInstruction {
 		Integer firstValue = (Integer) valueStack.pop();
 		boolean predicateResult=!firstValue.equals(secondValue);
 
-		Stack<String> nameStack = rFrame.getIntermediateVariableStack();
+		Stack<String> nameStack = rFrame.getIntermediateVariableNameStack();
 		BinNode rightNode= new BinNode(nameStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(nameStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));

@@ -26,6 +26,8 @@ import java.awt.Font;
 import java.awt.Paint;
 import java.awt.Stroke;
 
+import com.gannon.bytecode.controlflowgraph.CEdgeValue;
+
 public class EdgeData {
     public static final Stroke DEFAULT_STROKE = new BasicStroke(0.5f);
     public static final Paint DEFAULT_PAINT = Color.BLACK;
@@ -43,10 +45,11 @@ public class EdgeData {
     private Font font = DEFAULT_FONT;
     private Color color = DEFAULT_COLOR;
     private Color labelColor = DEFAULT_LABEL_COLOR;
-    
-    // new added flags
-    private boolean isInvisible=false;
 
+	// new added flags
+    private boolean isInvisible=false;
+    private CEdgeValue value;
+    
     public EdgeData() {
 
     }
@@ -196,4 +199,17 @@ public class EdgeData {
     public boolean isDisabled(){
         return disableSpring;
     }
+    
+    public final EdgeData edgeValue(CEdgeValue value){
+        this.value = value;
+        return this;
+    }
+    
+    public CEdgeValue getValue() {
+		return value;
+	}
+
+	public void setValue(CEdgeValue value) {
+		this.value = value;
+	}
 }

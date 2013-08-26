@@ -89,7 +89,7 @@ public class BBipushTest {
 		dependency.initParameterRelation();
 		BBipush bipush = new BBipush(10,0);
 		bipush.analyzing(dependency);
-		Stack<String> resultStack = dependency.getIntermediateVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableNameStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("10");
 		assertEquals(expectedStack, resultStack);

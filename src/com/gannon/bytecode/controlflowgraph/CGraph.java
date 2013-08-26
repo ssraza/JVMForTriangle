@@ -584,4 +584,15 @@ public final class CGraph {
 		}
 		return paths;
 	}
+	
+	// function to get edge value
+	public CEdgeValue getCEdgeValue(CNode sourceNode,CNode targetNode){
+		for (CEdge edge : edges) {
+			if (edge.getSource().equals(sourceNode) && edge.getTarget().equals(targetNode)) {
+				return edge.getValue();
+			}
+		}
+		
+		return null;	
+	}
 }

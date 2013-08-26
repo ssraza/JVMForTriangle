@@ -250,7 +250,7 @@ public class BIFicmpgeTest {
 		variableValueStack.add(50);
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setIntermediateVariableNameStack(operandStack);
 		dependency.setOperandStack(variableValueStack);
 
 		TestPath targetPath = new TestPath();
@@ -292,7 +292,7 @@ public class BIFicmpgeTest {
 
 		//set dependencyFrame
 		DependencyFrame dependencyFrame = new DependencyFrame();
-		dependencyFrame.setIntermediateVariableStack(operandStack);
+		dependencyFrame.setIntermediateVariableNameStack(operandStack);
 		dependencyFrame.setOperandStack(variableValueStack);
 
 		TestPath targetPath = new TestPath();

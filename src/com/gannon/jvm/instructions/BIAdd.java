@@ -43,7 +43,7 @@ public class BIAdd extends BInstruction  {
 		Integer sum = secondValue+firstValue;
 		valueStack.push(sum);
 		
-		Stack<String> myOperandStack =rFrame.getIntermediateVariableStack();
+		Stack<String> myOperandStack =rFrame.getIntermediateVariableNameStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(myOperandStack.pop(),firstValue);
 		BinNode rootNode=new BinNode(Integer.toString(OpcodeUtility.getNextID()));

@@ -22,7 +22,7 @@ public class BALoadDependencyTest {
 		dependency.initParameterRelation();
 		BALoad aLoad = new BALoad(4,0);
 		aLoad.analyzing(dependency);
-		Stack<String> resultStack = dependency.getIntermediateVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableNameStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("4");
 		assertEquals(expectedStack, resultStack);

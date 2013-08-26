@@ -215,7 +215,7 @@ public class BIFicmpeqTest {
 		variableValueStack.add(50);
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(variableNameStack);
+		dependency.setIntermediateVariableNameStack(variableNameStack);
 		dependency.setOperandStack(variableValueStack);
 		
 		TestPath targetPath = new TestPath();

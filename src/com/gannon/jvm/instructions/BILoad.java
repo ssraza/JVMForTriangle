@@ -47,7 +47,7 @@ public class BILoad extends BInstruction {
 
 	@Override
 	public void analyzing(DependencyFrame rFrame) {
-		Stack<String> intermediateVariableStack = rFrame.getIntermediateVariableStack();
+		Stack<String> intermediateVariableStack = rFrame.getIntermediateVariableNameStack();
 		intermediateVariableStack.push(getOperand().toString());
 		
 		//same as execution, we need the value as well

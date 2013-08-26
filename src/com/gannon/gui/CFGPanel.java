@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.gannon.bytecode.controlflowgraph.CEdgeValue;
 import com.gannon.bytecode.controlflowgraph.CGraph;
 import com.gannon.bytecode.controlflowgraph.CNode;
 import com.gannon.bytecode.controlflowgraph.CPath;
@@ -62,6 +63,10 @@ public class CFGPanel extends GraphPanel {
             // processing child nodes
             for (int j = 0; j < listOfChildNodes.size(); j++) {
             	CNode childNode = listOfChildNodes.get(j);
+            	
+            	// getting edge value
+            	CEdgeValue value = cGraph.getCEdgeValue(parentNode, childNode);
+            	
             	// getting node from listOfNodes
                 Node graphNode = findNode(childNode.getId());
                 
@@ -77,16 +82,16 @@ public class CFGPanel extends GraphPanel {
                     // Finding max path for loop edge
                   //  int longestPathForLoop = cfgTree.findLongestBetweenTwoNodes( childNode,tnode);
                      // adding an  invisible edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",lengthOfLongestPath);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.RED, 2.0f, true, value,lengthOfLongestPath);
                 }
                 //  checking if the edge is a branch statement (goto,if-then)
                 else if(cGraph.isLoopEdge( childNode,parentNode) && (numberOfPaths > 1))
                 {
                     // adding an edge between the two nodes
-                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "",lengthOfLongestPath);
+                    addEdgeWithNumberOfInvisibleNodes(node, graphNode, Color.BLUE, Color.RED, 2.0f, true, value,lengthOfLongestPath);
                     
                 }else{
-                    addEdge(node, graphNode, Color.BLUE, Color.YELLOW, 2.0f, true, "");
+                    addEdge(node, graphNode, Color.BLUE, Color.RED, 2.0f, true, value);
                 }   
             }
         }
@@ -98,7 +103,6 @@ public class CFGPanel extends GraphPanel {
     public CFGPanel(CGraph cGraph, int width,int height) {
     	super(new ForceDirectedLayout(), width, height);
     	// initializing graph panel
-    	
     	// initializing list of nodes
         this.listOfNodes = new ArrayList<Node>();
 
@@ -113,15 +117,27 @@ public class CFGPanel extends GraphPanel {
         drawCFGTree();
     }
 
-    public void addEdge(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, String edgeLabel) {
-        this.addEdge(node, otherNode,
+    public void addEdge(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed,  CEdgeValue value) {
+    	String edgeLabel="";
+    	
+    	// assigning edge value to label
+        if(value != null)
+        {
+        	edgeLabel = new Integer(value.getExpectedPredicateResult()).toString();
+        }
+                
+    	this.addEdge(node, otherNode,
                 new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
-                .directional(directed).label(edgeLabel));
+                .directional(directed).label(edgeLabel).edgeValue(value));
     }
     
-    public void addEdgeWithInvisibleNode(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, String edgeLabel) {
+    public void addEdgeWithInvisibleNode(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, CEdgeValue value) {
         // Adding invicible node
         Node invicibleNode = addInvicibleNode("", Color.BLACK, Color.BLACK, Color.WHITE, 1);
+        
+        // assigning edge value to label
+        String edgeLabel = value.toString();
+        
         // adding edge between first connected node and the invicible node
         this.addEdge(node, invicibleNode,
                 new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
@@ -133,22 +149,31 @@ public class CFGPanel extends GraphPanel {
 
     }
 
-    public void addEdgeWithNumberOfInvisibleNodes(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, String edgeLabel,int numberOfNodes) {
-        numberOfNodes = numberOfNodes*1;
-        // Adding invicible node
-        
+    public void addEdgeWithNumberOfInvisibleNodes(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, CEdgeValue value,int numberOfNodes) {
+    	String edgeLabel="";
+    	
+    	// creating invicible node        
         Node invicibleNode = addInvicibleNode("", Color.BLACK, Color.BLACK, Color.WHITE, 1);
+        
+        // assigning edge value to label
+        if(value != null)
+        {
+        	edgeLabel = new Integer(value.getExpectedPredicateResult()).toString();
+        }
+        
         // adding edge between first connected node and the invicible node
         this.addEdge(node, invicibleNode,
                 new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
-                .directional(false).label(edgeLabel));
+                .directional(false).label(edgeLabel).edgeValue(value));
+        
+        edgeLabel = "";
         
         for(int i=0;i<numberOfNodes-1;i++){
             Node newInvicibleNode = addInvicibleNode("", Color.BLACK, Color.BLACK, Color.WHITE, 1);
             
             // adding edge between the invicible node and the new invisible node 
             this.addEdge(invicibleNode, newInvicibleNode,
-                new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight).directional(false).label(edgeLabel).isInvisible(true));
+                new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight).directional(false).label(edgeLabel).isInvisible(true).edgeValue(value));
             
             invicibleNode = newInvicibleNode;
         }
@@ -156,7 +181,7 @@ public class CFGPanel extends GraphPanel {
          // adding edge between the invicible node and the second connected node
         this.addEdge(invicibleNode, otherNode,
                 new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
-                .directional(directed).label(edgeLabel));
+                .directional(directed).label(edgeLabel).edgeValue(value));
 
     }
     

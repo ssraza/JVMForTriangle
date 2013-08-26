@@ -66,7 +66,7 @@ public class BIFicmpge extends BPredicateInstruction {
 		Integer firstValue = (Integer) valueStack.pop();
 		boolean predicateResult=(firstValue >= secondValue);
 
-		Stack<String> myOperandStack = rFrame.getIntermediateVariableStack();
+		Stack<String> myOperandStack = rFrame.getIntermediateVariableNameStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(myOperandStack.pop(),firstValue);
 		BinPredicateNode rootNode=new BinPredicateNode(Integer.toString(OpcodeUtility.getNextID()));

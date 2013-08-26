@@ -77,11 +77,11 @@ public class DependencyFrame extends Frame {
 		this.relations = relations;
 	}
 
-	public Stack<String> getIntermediateVariableStack() {
+	public Stack<String> getIntermediateVariableNameStack() {
 		return variableNameStack;
 	}
 
-	public void setIntermediateVariableStack(Stack<String> tempVariableStack) {
+	public void setIntermediateVariableNameStack(Stack<String> tempVariableStack) {
 		this.variableNameStack = tempVariableStack;
 	}
 }

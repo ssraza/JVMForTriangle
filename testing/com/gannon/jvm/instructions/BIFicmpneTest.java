@@ -242,7 +242,7 @@ public class BIFicmpneTest {
 		variableValueStack.add(50);
 
 		DependencyFrame dependency = new DependencyFrame();
-		dependency.setIntermediateVariableStack(operandStack);
+		dependency.setIntermediateVariableNameStack(operandStack);
 		dependency.setOperandStack(variableValueStack);
 		
 		TestPath targetPath = new TestPath();

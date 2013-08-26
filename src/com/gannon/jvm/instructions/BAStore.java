@@ -47,7 +47,7 @@ public class BAStore extends BInstruction {
 	
 	@Override
 	public void analyzing(DependencyFrame dependency) {
-		Stack<String> myOperandStack = dependency.getIntermediateVariableStack();
+		Stack<String> myOperandStack = dependency.getIntermediateVariableNameStack();
 		
 		//pop TOS 
 		myOperandStack.pop();

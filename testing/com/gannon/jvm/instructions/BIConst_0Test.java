@@ -64,7 +64,7 @@ public class BIConst_0Test {
 		dependency.initParameterRelation();
 		BIConst_0 iConst0 = new BIConst_0(0);
 		iConst0.analyzing(dependency);
-		Stack<String> resultStack = dependency.getIntermediateVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableNameStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("0");
 		assertEquals(expectedStack, resultStack);

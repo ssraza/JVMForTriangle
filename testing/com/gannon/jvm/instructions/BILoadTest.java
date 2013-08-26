@@ -138,7 +138,7 @@ public class BILoadTest {
 		dependency.initInputs();
 		BILoad iLoad = new BILoad(2,0); 
 		iLoad.analyzing(dependency);
-		Stack<String> resultStack = dependency.getIntermediateVariableStack();
+		Stack<String> resultStack = dependency.getIntermediateVariableNameStack();
 		Stack<String> expectedStack = new Stack<String>();
 		expectedStack.push("2");
 		assertEquals(expectedStack, resultStack);
