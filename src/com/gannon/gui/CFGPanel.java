@@ -123,30 +123,17 @@ public class CFGPanel extends GraphPanel {
     	// assigning edge value to label
         if(value != null)
         {
-        	edgeLabel = new Integer(value.getExpectedPredicateResult()).toString();
+        	 if(value.getExpectedPredicateResult()==1){
+        		 edgeLabel = "T";
+             }
+        	 else  if(value.getExpectedPredicateResult()==0){
+        		 edgeLabel = "F";
+        	 }
         }
                 
     	this.addEdge(node, otherNode,
                 new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
                 .directional(directed).label(edgeLabel).edgeValue(value));
-    }
-    
-    public void addEdgeWithInvisibleNode(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, CEdgeValue value) {
-        // Adding invicible node
-        Node invicibleNode = addInvicibleNode("", Color.BLACK, Color.BLACK, Color.WHITE, 1);
-        
-        // assigning edge value to label
-        String edgeLabel = value.toString();
-        
-        // adding edge between first connected node and the invicible node
-        this.addEdge(node, invicibleNode,
-                new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
-                .directional(false).label(edgeLabel));
-         // adding edge between the invicible node and the second connected node
-        this.addEdge(invicibleNode, otherNode,
-                new EdgeData().color(edgeColor).labelColor(edgeLabelColor).weight(weight)
-                .directional(directed).label(edgeLabel));
-
     }
 
     public void addEdgeWithNumberOfInvisibleNodes(Node node, Node otherNode, Color edgeColor, Color edgeLabelColor, float weight, boolean directed, CEdgeValue value,int numberOfNodes) {
@@ -158,7 +145,12 @@ public class CFGPanel extends GraphPanel {
         // assigning edge value to label
         if(value != null)
         {
-        	edgeLabel = new Integer(value.getExpectedPredicateResult()).toString();
+        	if(value.getExpectedPredicateResult()==1){
+       		 edgeLabel = "T";
+            }
+	       	 else  if(value.getExpectedPredicateResult()==0){
+	       		 edgeLabel = "F";
+	       	 }
         }
         
         // adding edge between first connected node and the invicible node
