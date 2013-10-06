@@ -26,8 +26,8 @@ import java.util.List;
 public class Point {
     private static final List<Point> POINTS = new LinkedList<Point>();
     private static int nextPointId;
-    private static final double REPULSION_CONSTANT = 100.0; // repulsion constant
-    private static final double DAMPING_CONSTANT = 0.5; // damping constant, points lose velocity over time
+    private static final double REPULSION_CONSTANT = 200.0; // repulsion constant
+    private static final double DAMPING_CONSTANT = 0.7; // damping constant, points lose velocity over time
 
     /**
      * points are slightly repulsed by other points

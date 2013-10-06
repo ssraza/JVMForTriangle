@@ -8,6 +8,7 @@ import com.gannon.Executor.BytecodeObjectFactories.VisitInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitIntegerInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitJumpInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitMethodInstructionFactory;
+import com.gannon.Executor.BytecodeObjectFactories.VisitTypeInstructionFactory;
 import com.gannon.Executor.BytecodeObjectFactories.VisitVariableInstructionFactory;
 import com.gannon.asm.components.BBlock;
 import com.gannon.asm.components.BLabel;
@@ -118,6 +119,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	// MONITORENTER, or MONITOREXIT.
 	@Override
 	public void visitInsn(int opcode) {
+		System.out.println("visitInsn " + opcode);
 		currentBlock.addInstruction(new VisitInstructionFactory().createInst(
 				opcode, linNumber));
 
@@ -129,6 +131,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name,
 			String desc) {
+		System.out.println("ClassMethodVisitor " + opcode);
 		currentBlock.addInstruction(new VisitMethodInstructionFactory()
 				.createInst(opcode, owner, name, desc, linNumber));
 		linNumber++;
@@ -137,6 +140,8 @@ public class ClassMethodVisitor extends MethodVisitor {
 	// BIPUSH, SIPUSH or NEWARRAY
 	@Override
 	public void visitIntInsn(int opcode, int operand) {
+		//System.out.println(opcode);
+		System.out.println("visitIntInsn " + opcode);
 		currentBlock.addInstruction(new VisitIntegerInstructionFactory()
 				.createInst(opcode, operand, linNumber));
 
@@ -177,4 +182,20 @@ public class ClassMethodVisitor extends MethodVisitor {
 		currentMethod.addLocalVariableTable(aLocalVariable);
 		//System.out.println("local variables: " +name+ " " +desc +" "+signature+ " "  + start.toString()+" "+ end.toString()+ " "+ index);
 	}
+
+	@Override
+	public void visitLdcInsn(Object opcode) {
+		// TODO Auto-generated method stub
+		super.visitLdcInsn(opcode);
+	}
+
+	@Override
+	public void visitTypeInsn(int opcode, String packageName) {
+		// TODO Auto-generated method stub
+		currentBlock.addInstruction(new VisitTypeInstructionFactory().createInst(opcode, packageName, linNumber));
+		linNumber++;
+		super.visitTypeInsn(opcode, packageName);
+	}
+	
+	
 }

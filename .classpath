@@ -6,14 +6,14 @@
 	<classpathentry kind="src" path="resource"/>
 	<classpathentry kind="src" path="playground"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Jars/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/AbsoluteLayout.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/asm-commons-4.0.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/asm-4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/jung-3d-2.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/jung-3d-demos-2.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/asm-util.jar"/>
-	<classpathentry kind="lib" path="C:/Jars/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/asm-4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/asm-commons-4.0.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/asm-util.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/jung-3d-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/jung-3d-demos-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/raza/Java Dev/Jars/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

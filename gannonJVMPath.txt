@@ -1,1 +1,1 @@
-C:\Triangle.class
+/Users/raza/Java Dev/Workspace/JVMForTriangle/bin/com/gannon/asm/classgenerator/CallNewClass.class

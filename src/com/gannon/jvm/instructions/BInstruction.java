@@ -55,7 +55,7 @@ public abstract class BInstruction {
 
 	@Override
 	public String toString(){
-		return "["+String.valueOf(lineNumber) + "]     "+getOpCodeCommand();
+		return "["+String.valueOf(lineNumber) + "]     " + getOpCodeCommand();
 	}
 
 	@Override
