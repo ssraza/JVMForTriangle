@@ -29,10 +29,7 @@ public class BuildCFGTest {
 		BMethod m = myclass.getMethod("MethodA");
 		assertEquals("MethodA", m.getName());
 		
-		ArrayList<BMethod> allMethodList = new ArrayList<BMethod>(); 
-		allMethodList = myclass.getMethods();
-		
-		BuildCFG objCFG =  new BuildCFG(allMethodList, m);
+		BuildCFG objCFG =  new BuildCFG(myclass, m);
 		CGraph g = objCFG.getResultGraph();
 		System.out.print(g.printNodesToString());
 		

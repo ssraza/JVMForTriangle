@@ -1,10 +1,14 @@
 package com.gannon.jvm.instructions;
 
+import java.util.ArrayList;
+
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
 
-public class BInvokeSpecial extends BInstruction {
+public class BInvokeSpecial extends BInstruction  {
 
 	private String owner;
 	private String name;
@@ -50,6 +54,23 @@ public class BInvokeSpecial extends BInstruction {
 	public Object execute(PathFrame pathFrame) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public BMethod getNextMethod(BClass bClass) {
+		ArrayList<BMethod> methodList = bClass.getMethods();
+		for (int count = 0; count < methodList.size(); count ++) {
+			if (methodList.get(count).getName().equals(this.name) ) {
+				System.out.println("Next called Method is " + methodList.get(count).getName());
+				return methodList.get(count);
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 
 }

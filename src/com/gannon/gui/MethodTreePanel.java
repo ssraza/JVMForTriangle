@@ -373,7 +373,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_FLOW_CHART_PNG));
 		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneCFG, "CFG", icon);
 
-		BuildCFG m = new BuildCFG(myclass.getMethods(), selectedMethod);
+		BuildCFG m = new BuildCFG(myclass, selectedMethod);
 		CGraph buildGraph = m.getResultGraph();
 		// need to change this
 		buildGraph.processDominatorNodes();

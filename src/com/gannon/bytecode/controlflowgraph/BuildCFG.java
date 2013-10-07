@@ -3,17 +3,21 @@ package com.gannon.bytecode.controlflowgraph;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import com.gannon.asm.classgenerator.BClassGenerator;
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
+import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BInvokeVirtual;
 
 
 // the class has not been tested.
 public class BuildCFG {
-	ArrayList<BMethod> methods = new ArrayList<BMethod>();
+	private BClass bClass;
+	//ArrayList<BMethod> methods = new ArrayList<BMethod>();
 	BMethod startMethod = new BMethod();
 
-	public BuildCFG(ArrayList<BMethod> methods, BMethod startMethod) {
-		this.methods = methods;
+	public BuildCFG(BClass bClass, BMethod startMethod) {
+		this.bClass = bClass;
 		this.startMethod = startMethod;
 	}
 
@@ -39,11 +43,22 @@ public class BuildCFG {
 				
 				if (b.hasInvoke()) {
 					currentFrame.setBlockId(i + 1);
-					BInvokeVirtual ivInstruction = (BInvokeVirtual) b.getBlock().getFirstInstruction();
+					BInstruction ivInstruction = b.getBlock().getFirstInstruction();
+					System.out.println("getOwner " + ivInstruction.getOwner());
 					
 					// It will give the name including MethodNAme, Desc etc.
-
-					BMethod calleeMethod = ivInstruction.getNextMethod(this.methods);
+					BMethod calleeMethod = null;
+					
+					if (ivInstruction.getOpCodeCommand().equals("invokevirtual")) {
+						calleeMethod = ivInstruction.getNextMethod(this.bClass);
+					}
+					else if (ivInstruction.getOpCodeCommand().equals("invokespecial")) {
+						String[] classStr = ivInstruction.getOwner().split("/");
+						BClass nextClass = BClassGenerator.getBClass(classStr[classStr.length - 1] + ".class");
+						calleeMethod = ivInstruction.getNextMethod(nextClass);
+						
+					}	
+					
 					
 					if (calleeMethod != null) {
 						//currentFrame.setBlockId(i + 1);

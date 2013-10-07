@@ -28,7 +28,7 @@ import com.gannon.jvm.utilities.OpcodeUtility;
  * opCodeCommand : iload
  *
  * **/
-public abstract class BInstruction {
+public abstract class BInstruction extends BInstructionAbstract{
 	private int lineNumber; // ID of the instruction
 
 	public abstract Object execute(BFrame activeFrame);

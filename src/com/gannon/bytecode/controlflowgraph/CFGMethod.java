@@ -93,7 +93,6 @@ public class CFGMethod {
 		}
 
 		// now we need to add start and end nodes
-		//return new CGraph(listOfBlock.convertToSet(), edges);
 		return new CGraph(nodes, edges);
 	}
 

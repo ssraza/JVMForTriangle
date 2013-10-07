@@ -1,5 +1,8 @@
 package com.gannon.asm.classgenerator;
 
+import org.objectweb.asm.AnnotationVisitor;
+import org.objectweb.asm.Attribute;
+import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
@@ -187,6 +190,83 @@ public class ClassMethodVisitor extends MethodVisitor {
 	public void visitLdcInsn(Object opcode) {
 		// TODO Auto-generated method stub
 		super.visitLdcInsn(opcode);
+	}
+
+	@Override
+	public AnnotationVisitor visitAnnotation(String arg0, boolean arg1) {
+		// TODO Auto-generated method stub
+		return super.visitAnnotation(arg0, arg1);
+	}
+
+	@Override
+	public AnnotationVisitor visitAnnotationDefault() {
+		// TODO Auto-generated method stub
+		return super.visitAnnotationDefault();
+	}
+
+	@Override
+	public void visitAttribute(Attribute arg0) {
+		// TODO Auto-generated method stub
+		super.visitAttribute(arg0);
+	}
+
+	@Override
+	public void visitCode() {
+		// TODO Auto-generated method stub
+		super.visitCode();
+	}
+
+	@Override
+	public void visitEnd() {
+		// TODO Auto-generated method stub
+		super.visitEnd();
+	}
+
+	@Override
+	public void visitFrame(int arg0, int arg1, Object[] arg2, int arg3,
+			Object[] arg4) {
+		// TODO Auto-generated method stub
+		super.visitFrame(arg0, arg1, arg2, arg3, arg4);
+	}
+
+	@Override
+	public void visitInvokeDynamicInsn(String arg0, String arg1, Handle arg2,
+			Object... arg3) {
+		// TODO Auto-generated method stub
+		super.visitInvokeDynamicInsn(arg0, arg1, arg2, arg3);
+	}
+
+	@Override
+	public void visitLookupSwitchInsn(Label arg0, int[] arg1, Label[] arg2) {
+		// TODO Auto-generated method stub
+		super.visitLookupSwitchInsn(arg0, arg1, arg2);
+	}
+
+	@Override
+	public void visitMultiANewArrayInsn(String arg0, int arg1) {
+		// TODO Auto-generated method stub
+		super.visitMultiANewArrayInsn(arg0, arg1);
+	}
+
+	@Override
+	public AnnotationVisitor visitParameterAnnotation(int arg0, String arg1,
+			boolean arg2) {
+		// TODO Auto-generated method stub
+		return super.visitParameterAnnotation(arg0, arg1, arg2);
+	}
+
+	@Override
+	public void visitTableSwitchInsn(int arg0, int arg1, Label arg2,
+			Label... arg3) {
+		// TODO Auto-generated method stub
+		super.visitTableSwitchInsn(arg0, arg1, arg2, arg3);
+	}
+
+	@Override
+	public void visitTryCatchBlock(Label arg0, Label arg1, Label arg2,
+			String arg3) {
+		// TODO Auto-generated method stub
+		super.visitTryCatchBlock(arg0, arg1, arg2, arg3);
 	}
 
 	@Override

@@ -101,8 +101,10 @@ public class BInvokeVirtual extends BInstruction {
 		return nextMethod;
 	}
 	
-	public BMethod getNextMethod(ArrayList<BMethod> methodList) {
+	@Override
+	public BMethod getNextMethod(BClass bClass) {
 
+		ArrayList<BMethod> methodList = bClass.getMethods();
 		for (int count = 0; count < methodList.size(); count ++) {
 			if (methodList.get(count).getName().equals(this.name) ) {
 				System.out.println("Next called Method is " + methodList.get(count).getName());
@@ -128,6 +130,11 @@ public class BInvokeVirtual extends BInstruction {
 
 	public String getOperand() {
 		return name;
+	}
+	
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 
 	@Override

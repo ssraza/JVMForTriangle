@@ -37,5 +37,10 @@ public class BNew extends BInstruction{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + " " + packageName;
+	}
+	
 
 }

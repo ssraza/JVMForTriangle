@@ -1,1 +1,1 @@
-/Users/raza/Java Dev/Workspace/JVMForTriangle/bin/com/gannon/asm/classgenerator/CallNewClass.class
+/Users/raza/Java Dev/Workspace/JVMForTriangle/bin/com/gannon/asm/classgenerator/TestGoTo.class
