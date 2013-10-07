@@ -272,7 +272,7 @@ public class Main extends JFrame {
 	}
 
 	/*
-	 * create sample CGraph for testing purpose.
+	 * create sample CGraph for testing purpose...
 	 */
 	/*
 	public CGraph createSampleCGraph() {
