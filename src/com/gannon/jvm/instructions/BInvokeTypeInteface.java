@@ -5,5 +5,8 @@ import com.gannon.asm.components.BMethod;
 
 public interface BInvokeTypeInteface {
 	public BMethod getNextMethod(BClass bClass);
+	public BMethod getNextMethod(BClass bClass, String methodName);
 	public String getOwner();
+	public String getStringOperand();
+	
 }

@@ -1,12 +1,5 @@
 package com.gannon.rule;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import com.gannon.jvm.data.dependency.BinNode;
 import com.gannon.jvm.data.dependency.Dependencies;
 import com.gannon.jvm.data.dependency.Dependency;
@@ -15,7 +8,6 @@ import com.gannon.jvm.data.input.InputCollection;
 import com.gannon.jvm.data.input.Parameter;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BIAdd;
-import com.gannon.jvm.utilities.ConstantsUtility;
 
 public abstract class Rule {
 	// protected boolean expectedPredicateResult;

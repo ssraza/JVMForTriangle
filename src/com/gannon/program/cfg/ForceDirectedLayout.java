@@ -110,7 +110,7 @@ public final class ForceDirectedLayout implements NodeRemovedListener, EdgeRemov
     }
 
     public void applyHookesLaw() {
-        int i=0;
+        //int i=0;
         for (Edge e : this.graph.getEdges()) {
             final Spring spring = getSpring(e);
             final Vector d = Vector.subtract(spring.getPoint2().getPosition(), spring.getPoint1().getPosition());

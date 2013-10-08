@@ -40,7 +40,8 @@ public class BInvokeSpecial extends BInstruction  {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}
 
-	public String getOperand() {
+	@Override
+	public String getStringOperand() {
 		return name;
 	}
 
@@ -57,10 +58,10 @@ public class BInvokeSpecial extends BInstruction  {
 	}
 
 	@Override
-	public BMethod getNextMethod(BClass bClass) {
+	public BMethod getNextMethod(BClass bClass, String methodName) {
 		ArrayList<BMethod> methodList = bClass.getMethods();
 		for (int count = 0; count < methodList.size(); count ++) {
-			if (methodList.get(count).getName().equals(this.name) ) {
+			if (methodList.get(count).getName().equals(methodName) ) {
 				System.out.println("Next called Method is " + methodList.get(count).getName());
 				return methodList.get(count);
 			}

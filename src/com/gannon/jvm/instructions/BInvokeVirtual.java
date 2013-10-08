@@ -27,7 +27,6 @@ public class BInvokeVirtual extends BInstruction {
 	@Override
 	public Integer execute(BFrame activeFrame) {
 		Stack<Object> myCurrentOperandStack = activeFrame.getOperandStack();
-		BLocalVarTable myCurrentLocalVariableTable = activeFrame.getLocalVariableTable();
 		Integer pc = activeFrame.getLineNumber();
 		activeFrame.setLineNumber(++pc);// increment pc before invoking virtual, so as
 								// to avoid re-entering this instruction
@@ -71,17 +70,6 @@ public class BInvokeVirtual extends BInstruction {
 
 		System.out.println("callerStack   " + callerOperandStack);
 
-		// set the order to store arguments in local var table.
-		// while (!callerOperandStack.empty()){
-		// tempStack.add(callerOperandStack.pop());
-		// }
-		// System.out.println("tempStack "+tempStack);
-		// BLocalVarTable calleeLocalTable = new BLocalVarTable();
-		// // calleeLocalTable.add(0);
-		// while (!tempStack.empty()){
-		// calleeLocalTable.add(tempStack.pop());
-		// }
-
 		BLocalVarTable calleeLocalTable = new BLocalVarTable();
 		calleeLocalTable.add(0);
 		while (!callerOperandStack.empty()) {
@@ -99,6 +87,19 @@ public class BInvokeVirtual extends BInstruction {
 		BMethod nextMethod = methodList.get(nextMethodIndex);
 		System.out.println("Next called Method is " + nextMethod.getName());
 		return nextMethod;
+	}
+	
+	@Override
+	public BMethod getNextMethod(BClass bClass, String methodName) {
+
+		ArrayList<BMethod> methodList = bClass.getMethods();
+		for (int count = 0; count < methodList.size(); count ++) {
+			if (methodList.get(count).getName().equals(methodName) ) {
+				System.out.println("Next called Method is " + methodList.get(count).getName());
+				return methodList.get(count);
+			}
+		}
+		return null;
 	}
 	
 	@Override
@@ -128,7 +129,8 @@ public class BInvokeVirtual extends BInstruction {
 		return super.toString() + " " + owner + " " + name + " " + desc;
 	}
 
-	public String getOperand() {
+	@Override
+	public String getStringOperand() {
 		return name;
 	}
 	

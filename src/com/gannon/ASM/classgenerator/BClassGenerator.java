@@ -16,7 +16,9 @@ public class BClassGenerator {
 		ClassFileVisitor cp = new ClassFileVisitor();
 		ClassReader cr = null;
 		InputStream in = BClassGenerator.class.getResourceAsStream(className);
-
+		if (in == null)
+			return null;
+		
 		try {
 			cr = new ClassReader(in);
 		} catch (IOException e) {

@@ -5,7 +5,6 @@ import java.util.Stack;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.execution.method.BLocalVarTable;
-import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class Frame {
 	protected BClass bClass;

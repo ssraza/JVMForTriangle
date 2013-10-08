@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -34,29 +33,27 @@ import org.apache.commons.io.FileUtils;
 import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
-import com.gannon.bytecode.controlflowgraph.BuildCFG;
 import com.gannon.bytecode.controlflowgraph.CFGMethod;
 import com.gannon.bytecode.controlflowgraph.CGraph;
 import com.gannon.bytecode.controlflowgraph.CPath;
 import com.gannon.bytecode.controlflowgraph.CPaths;
-import com.gannon.jvm.progam.path.TestPath;
-import com.gannon.jvm.progam.path.TestPathGenerator;
 import com.gannon.jvm.utilities.ConstantsUtility;
-import com.tutorial.filechoosen.FileChooserDemo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javax.swing.BoxLayout;
-import javax.swing.JTable;
 
 public class Main extends JFrame {
 
-	private static final String TestPathGenerator = null;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//private static final String TestPathGenerator = null;
 	private JPanel contentPane;
-	private JTextField txtCfgHere;
+	//private JTextField txtCfgHere;
 	public JTextArea txtrConsole; 
 	private File file;
 	private MethodTreePanel scrollPaneTree;

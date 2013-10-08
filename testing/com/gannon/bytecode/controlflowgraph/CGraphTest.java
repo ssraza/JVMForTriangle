@@ -127,10 +127,10 @@ public class CGraphTest {
 	public void testGetLongestPath() {
 
 		CNode node0 = new CNode(0, "MethodA", new CBlock(1));
-		CNode node1 = new CNode(1, "MethodA", new CBlock(2));
+		//CNode node1 = new CNode(1, "MethodA", new CBlock(2));
 		CNode node2 = new CNode(2, "MethodA", new CBlock(3));
 		CNode node3 = new CNode(3, "MethodA", new CBlock(4));
-		CNode node4 = new CNode(4, "MethodA", new CBlock(5));
+		//CNode node4 = new CNode(4, "MethodA", new CBlock(5));
 		CNode node5 = new CNode(5, "MethodA", new CBlock(6));
 		CNode node6 = new CNode(6, "MethodA", new CBlock(7));
 		CNode node7 = new CNode(7, "MethodA", new CBlock(8));
@@ -154,12 +154,12 @@ public class CGraphTest {
 	public void testSetOfDominatorNodes() {
 
 		CNode node0 = new CNode(0, "MethodA", new CBlock(1));
-		CNode node1 = new CNode(1, "MethodA", new CBlock(2));
+		//CNode node1 = new CNode(1, "MethodA", new CBlock(2));
 		CNode node2 = new CNode(2, "MethodA", new CBlock(3));
-		CNode node3 = new CNode(3, "MethodA", new CBlock(4));
-		CNode node4 = new CNode(4, "MethodA", new CBlock(5));
+		//CNode node3 = new CNode(3, "MethodA", new CBlock(4));
+		//CNode node4 = new CNode(4, "MethodA", new CBlock(5));
 		CNode node5 = new CNode(5, "MethodA", new CBlock(6));
-		CNode node6 = new CNode(6, "MethodA", new CBlock(7));
+		//CNode node6 = new CNode(6, "MethodA", new CBlock(7));
 		CNode node7 = new CNode(7, "MethodA", new CBlock(8));
 
 		CGraph g = create8NodesGraph();
@@ -182,12 +182,12 @@ public class CGraphTest {
 	@Test
 	public void testGetNymberOfPaths() {
 		CNode node1 = new CNode(0, "MethodA", new CBlock(1));
-		CNode node2 = new CNode(1, "MethodA", new CBlock(2));
-		CNode node3 = new CNode(2, "MethodA", new CBlock(3));
-		CNode node4 = new CNode(3, "MethodA", new CBlock(4));
-		CNode node5 = new CNode(4, "MethodA", new CBlock(5));
-		CNode node6 = new CNode(5, "MethodA", new CBlock(6));
-		CNode node7 = new CNode(6, "MethodA", new CBlock(7));
+		//CNode node2 = new CNode(1, "MethodA", new CBlock(2));
+		//CNode node3 = new CNode(2, "MethodA", new CBlock(3));
+		//CNode node4 = new CNode(3, "MethodA", new CBlock(4));
+		//CNode node5 = new CNode(4, "MethodA", new CBlock(5));
+		//CNode node6 = new CNode(5, "MethodA", new CBlock(6));
+		//CNode node7 = new CNode(6, "MethodA", new CBlock(7));
 		CNode node8 = new CNode(7, "MethodA", new CBlock(8));
 
 		CGraph g = create8NodesGraph();

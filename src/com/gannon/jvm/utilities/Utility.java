@@ -2,7 +2,6 @@ package com.gannon.jvm.utilities;
 
 import java.util.Iterator;
 import java.util.Queue;
-import java.util.Random;
 import java.util.Set;
 
 import com.gannon.jvm.data.input.Input;

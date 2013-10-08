@@ -16,8 +16,6 @@ import java.util.Set;
 public final class CGraph {
 
 	private static final List<CEdge> EMPTY_EDGES = Collections.emptyList();
-	//private Set<CNode> nodes;
-	//private Set<CEdge> edges;
 	private LinkedHashSet<CNode> nodes;
 	private LinkedHashSet<CEdge> edges;
 	private Map<CNode, Map<CNode, List<CEdge>>> adjacency;// multiple edges?
@@ -28,8 +26,6 @@ public final class CGraph {
 	private int nextCEdgeId;
 
 	public CGraph() {
-		//this.nodes = new HashSet<CNode>();
-		//this.edges = new HashSet<CEdge>();
 		this.nodes = new LinkedHashSet<CNode>();
 		this.edges = new LinkedHashSet<CEdge>();
 		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
@@ -53,76 +49,6 @@ public final class CGraph {
 			addCEdge(edge);
 		}
 	}
-
-	/*
-	public CGraph(String inputText) {
-		this.nodes = new ArrayList<CNode>();
-		this.edges = new ArrayList<CEdge>();
-		this.adjacency = new HashMap<CNode, Map<CNode, List<CEdge>>>();
-		this.dominatorNodes = new HashMap<CNode, List<CNode>>();
-
-		try {
-			String[] listOfLines; // Array of strings
-			listOfLines = inputText.split("\n"); // splitting the input text to
-													// get the list of lines
-
-			int index = 1; // starting from 1 to skip first line
-
-			// Processing all input lines to create all nodes
-			while (index < listOfLines.length) {
-				String currentLine = listOfLines[index];
-				String[] listOfStrings; // Array of strings
-				listOfStrings = currentLine.split(" "); // splitting the string
-														// to get the list of
-														// nodes
-
-				// getting block id from string
-				int blockID = Integer.parseInt(listOfStrings[0]);
-
-				// creating new block
-				CBlock newNodeBlock = new CBlock(blockID);
-
-				// creating new node
-				CNode newNode = newCNode(newNodeBlock);
-
-				// adding node to node list
-				nodes.add(newNode);
-
-				index++;
-			}
-
-			index = 1;
-			// adding all edges
-			while (index < listOfLines.length) {
-				String currentLine = listOfLines[index];
-				String[] listOfStrings; // Array of strings
-				listOfStrings = currentLine.split(" "); // splitting the string
-														// to get the list of
-														// nodes
-				// getting parent node for current line which is the first node
-				CNode parentNode = getCNode(Integer.parseInt(listOfStrings[0]));
-
-				// Processing all nodes in the current line after the first node
-				for (int j = 1; j < listOfStrings.length; j++) {
-					// getting block id from string
-					int newBlockID = Integer.parseInt(listOfStrings[j]);
-					// getting child node
-					CNode childNode = getCNode(newBlockID);
-					// creating new edge
-					newCEdge(parentNode, childNode);
-				}
-
-				index++;
-			}
-
-			// initializing dominator nodes
-			processDominatorNodes();
-
-		} catch (Exception e) {
-			System.out.println("Error reading input string");
-		}
-	}
-	*/
 	
 	public int getLargestNodeID(LinkedHashSet<CNode> nodes){
 		int largestNodeID=0;
@@ -321,8 +247,6 @@ public final class CGraph {
 	}
 
 	public void processDominatorNodes() {
-		//CNode rootNode = getRoot();
-		//List<CNode> dominatorNodesList = new ArrayList<CNode>();
 
 		// clearing dominator nodes map
 		dominatorNodes.clear();

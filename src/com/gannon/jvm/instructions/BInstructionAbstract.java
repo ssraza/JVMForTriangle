@@ -12,4 +12,14 @@ public abstract class BInstructionAbstract implements BInvokeTypeInteface{
 	public String getOwner(){
 		return null;
 	}
+	@Override
+	public BMethod getNextMethod(BClass bClass, String methodName){
+		return null;
+	}
+	
+	@Override
+	public String getStringOperand(){
+		return null;
+	}
+	
 }

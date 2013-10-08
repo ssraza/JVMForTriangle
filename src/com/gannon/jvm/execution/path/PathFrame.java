@@ -1,7 +1,5 @@
 package com.gannon.jvm.execution.path;
 
-import java.util.Stack;
-
 import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.progam.path.TestPath;
 import com.ganon.jvm.shared.Frame;

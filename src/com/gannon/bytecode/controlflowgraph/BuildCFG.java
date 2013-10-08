@@ -7,13 +7,11 @@ import com.gannon.asm.classgenerator.BClassGenerator;
 import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
-import com.gannon.jvm.instructions.BInvokeVirtual;
 
 
 // the class has not been tested.
 public class BuildCFG {
 	private BClass bClass;
-	//ArrayList<BMethod> methods = new ArrayList<BMethod>();
 	BMethod startMethod = new BMethod();
 
 	public BuildCFG(BClass bClass, BMethod startMethod) {
@@ -49,29 +47,42 @@ public class BuildCFG {
 					// It will give the name including MethodNAme, Desc etc.
 					BMethod calleeMethod = null;
 					
-					if (ivInstruction.getOpCodeCommand().equals("invokevirtual")) {
+					if (ivInstruction.getOpCodeCommand().equals("invokevirtual") 
+							&& ivInstruction.getOwner().contains(this.bClass.getClassName())) {
 						calleeMethod = ivInstruction.getNextMethod(this.bClass);
+						if (calleeMethod != null) {
+							Frame calleeFrame = new Frame(calleeMethod, 0);
+							stack.push(calleeFrame);
+							CFGMethod calleeCfgMethod = new CFGMethod(calleeMethod);
+							
+							CGraph calleeMethodGraph =calleeCfgMethod.buildGraph();
+							resultGraph.mergeCallingGraph(calleeMethodGraph, b);
+							//System.out.print(resultGraph.printNodesToString());
+							//System.out.print(resultGraph.printEdgesToString());
+							currentFrame = calleeFrame;
+						}
 					}
-					else if (ivInstruction.getOpCodeCommand().equals("invokespecial")) {
+					else if (ivInstruction.getOpCodeCommand().equals("invokespecial") 
+							|| ivInstruction.getOpCodeCommand().equals("invokevirtual")) {
 						String[] classStr = ivInstruction.getOwner().split("/");
 						BClass nextClass = BClassGenerator.getBClass(classStr[classStr.length - 1] + ".class");
-						calleeMethod = ivInstruction.getNextMethod(nextClass);
-						
+						if (nextClass != null) {
+							//BInvokeSpecial isInstruction = (BInvokeSpecial)ivInstruction;
+							calleeMethod = ivInstruction.getNextMethod(nextClass, ivInstruction.getStringOperand());//(this.bClass);
+							if (calleeMethod != null) {
+								Frame calleeFrame = new Frame(calleeMethod, 0);
+								stack.push(calleeFrame);
+								BuildCFG calleeCfgGraph = new BuildCFG(nextClass, calleeMethod);
+								
+								CGraph calleeMethodGraph =calleeCfgGraph.getResultGraph();
+								resultGraph.mergeCallingGraph(calleeMethodGraph, b);
+								//System.out.print(resultGraph.printNodesToString());
+								//System.out.print(resultGraph.printEdgesToString());
+								currentFrame = calleeFrame;
+							}
+						}
 					}	
 					
-					
-					if (calleeMethod != null) {
-						//currentFrame.setBlockId(i + 1);
-						Frame calleeFrame = new Frame(calleeMethod, 0);
-						stack.push(calleeFrame);
-						CFGMethod calleeCfgMethod = new CFGMethod(calleeMethod);
-						
-						CGraph calleeMethodGraph =calleeCfgMethod.buildGraph();
-						resultGraph.mergeCallingGraph(calleeMethodGraph, b);
-						System.out.print(resultGraph.printNodesToString());
-						System.out.print(resultGraph.printEdgesToString());
-						currentFrame = calleeFrame;
-					}
 					break;
 				}
 				if (i == currentBlocks.size() - 1) {
