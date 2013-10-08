@@ -86,7 +86,8 @@ public final class Node {
         if (data.getIsInvicible()) {
             return 1d;
         } else {
-            return panel.calculateStringWidth(this.data.getLabel()) + 12d;
+            //return panel.calculateStringWidth(this.data.getmName() + " " + this.data.getLabel()) + 12d;
+        	return panel.calculateStringWidth(this.data.getLabel()) + 12d;
         }
     }
 

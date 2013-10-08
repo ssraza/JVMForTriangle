@@ -1,5 +1,7 @@
 package com.gannon.jvm.instructions;
 
+import com.gannon.asm.components.BClass;
+import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
 import com.gannon.jvm.execution.path.PathFrame;
@@ -28,7 +30,7 @@ import com.gannon.jvm.utilities.OpcodeUtility;
  * opCodeCommand : iload
  *
  * **/
-public abstract class BInstruction extends BInstructionAbstract{
+public abstract class BInstruction implements BInvokeTypeInteface{
 	private int lineNumber; // ID of the instruction
 
 	public abstract Object execute(BFrame activeFrame);
@@ -66,5 +68,23 @@ public abstract class BInstruction extends BInstructionAbstract{
 	@Override
 	public int hashCode() {
 		return Integer.toString(lineNumber).hashCode();
+	}
+	
+	@Override
+	public BMethod getNextMethod(BClass bClass){
+		return null;
+	}
+	@Override
+	public String getOwner(){
+		return null;
+	}
+	@Override
+	public BMethod getNextMethod(BClass bClass, String methodName){
+		return null;
+	}
+	
+	@Override
+	public String getStringOperand(){
+		return null;
 	}
 }
