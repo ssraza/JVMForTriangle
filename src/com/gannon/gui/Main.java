@@ -213,7 +213,7 @@ public class Main extends JFrame {
 					//revalidate();
 					repaint();
 
-					// save the path to a file
+					// save the path to a file...
 					try {
 						FileUtils.writeStringToFile(pathFile, file.getAbsolutePath());
 					} catch (IOException e) {
