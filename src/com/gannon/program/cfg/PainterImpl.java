@@ -236,7 +236,7 @@ public final class PainterImpl extends PainterBase {
 
         // draw label
         //g.drawString(nodeData.getLabel(), (int) (x - boxWidth / 2 + 5), (int) (y - 8) + h);
-        g.drawString( nodeData.getLabel() + " " + nodeData.getmName(), (int) (x - boxWidth / 2 + 5), (int) (y - 8) + h);
+        g.drawString( nodeData.getLabel() + "  " + nodeData.getmName(), (int) (x - boxWidth / 2 + 5), (int) (y - 8) + h);
 
         // g.setTransform(oldTransform);
     }
