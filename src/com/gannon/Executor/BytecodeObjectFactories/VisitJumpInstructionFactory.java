@@ -20,7 +20,6 @@ public class VisitJumpInstructionFactory {
 	 public BInstruction createInst(int opCode, Label goToLabel, int linNumber){
 		 System.out.println("VisitJumpInstructionFactory");
 		 BLabel bLabel=new BLabel(goToLabel);
-<<<<<<< HEAD
 		 if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpeq")){
 			 //System.out.println("In VisitFieldInstructionFactory IF_ICMPEQ "+ opCode+ "  " + label + "  " + linNumber);
 			 instr= new BIFicmpeq(bLabel, linNumber);
@@ -63,11 +62,6 @@ public class VisitJumpInstructionFactory {
 	    	 //System.out.println("factory for goto, label is: " + bLabel.toString());
 	    	 instr= new BGoto(bLabel, linNumber);
 	     }
-		//temp code for testing purpose
-		 if (instr == null)
-	        	System.out.println("instr null");
-
-=======
 		 if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpeq")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPEQ "+ opCode+ "  " + label + "  " + linNumber);
 	            instr= new BIFicmpeq(bLabel, linNumber);
@@ -100,8 +94,11 @@ public class VisitJumpInstructionFactory {
 	        	//System.out.println("factory for goto, label is: " + bLabel.toString());
 	            instr= new BGoto(bLabel, linNumber);
 	        }
+		 
+		//temp code for testing purpose
+		 if (instr == null)
+	        	System.out.println("instr null");
 
->>>>>>> bf407f614363ff00e2c09adc19ab3ce426a1f496
 		return instr;
 
 
