@@ -12,7 +12,10 @@ import com.gannon.jvm.instructions.BIConst_2;
 import com.gannon.jvm.instructions.BIConst_3;
 import com.gannon.jvm.instructions.BIConst_4;
 import com.gannon.jvm.instructions.BIConst_5;
+import com.gannon.jvm.instructions.BIConst_m1;
 import com.gannon.jvm.instructions.BIReturn;
+import com.gannon.jvm.instructions.BISub;
+import com.gannon.jvm.instructions.BIdiv;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPop;
 import com.gannon.jvm.instructions.BReturn;
@@ -45,6 +48,13 @@ public class VisitInstructionFactory {
 		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("iadd")) {
 			//System.out.println("In VisitInstructionFactory pop ");
 			instr = new BIAdd(linNumber);
+		}else if (OpcodeUtility.getOpCodeCommand(opCode).equals("isub")) {
+			//System.out.println("In VisitInstructionFactory pop ");
+			instr = new BISub(linNumber);
+		}
+		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("idiv")) {
+			//System.out.println("In VisitInstructionFactory pop ");
+			instr = new BIdiv(linNumber);
 		}
 		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("iconst_0")) {
 			//System.out.println("In VisitInstructionFactory iconst_0 ");
@@ -69,6 +79,9 @@ public class VisitInstructionFactory {
 		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("iconst_5")) {
 			//System.out.println("In VisitInstructionFactory iconst_5 ");
 			instr = new BIConst_5(linNumber);
+		}else if (OpcodeUtility.getOpCodeCommand(opCode).equals("iconst_m1")) {
+			//System.out.println("In VisitInstructionFactory iconst_5 ");
+			instr = new BIConst_m1(linNumber);
 		}
 		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("dup")) {
 			//System.out.println("In VisitInstructionFactory dup ");

@@ -330,7 +330,8 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		JTextArea txtrInstructionarea = new JTextArea();
 		txtrInstructionarea.setFont(new Font("CourierNew", Font.PLAIN, 12));
 		txtrInstructionarea.setText("");
-		TestPath testPath = new TestPath(selectedPath);
+		TestPath testPath = new TestPath(selectedPath, selectedMethod); //----neha
+		//TestPath testPath = new TestPath(selectedPath);----neha
 		txtrInstructionarea.append(testPath.toString());
 		mainFrame.scrollPaneIPathInstruction.setViewportView(txtrInstructionarea);
 	}
@@ -392,7 +393,8 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		// get Path
 		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
 		final CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
-		final TestPath testPath = new TestPath(selectedPath);
+		final TestPath testPath = new TestPath(selectedPath,selectedMethod); //.......neha
+		//final TestPath testPath = new TestPath(selectedPath);.......neha
 		// we don't need to hard code here.
 		Input input = new Input(1, hardCodeInput());
 

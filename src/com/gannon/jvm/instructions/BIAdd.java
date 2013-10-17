@@ -39,25 +39,22 @@ public class BIAdd extends BInstruction  {
 		Stack<Object>  valueStack= rFrame.getOperandStack();
 		Integer secondValue = (Integer) valueStack.pop();
 		Integer firstValue = (Integer) valueStack.pop();	
-		
 		Integer sum = secondValue+firstValue;
 		valueStack.push(sum);
 		
 		Stack<String> myOperandStack =rFrame.getIntermediateVariableNameStack();
 		BinNode rightNode= new BinNode(myOperandStack.pop(),secondValue);
 		BinNode leftNode= new BinNode(myOperandStack.pop(),firstValue);
-		BinNode rootNode=new BinNode(Integer.toString(OpcodeUtility.getNextID()));
-		rootNode.setVariableValue(sum);
-		Dependency relation=new Dependency(rootNode, this);
+		BinNode rootNode=new BinNode(Integer.toString(OpcodeUtility.getNextID()),sum);
+		myOperandStack.push(rootNode.getVariableName());
 		
+		Dependency relation=new Dependency(rootNode, this);		
 		relation.insertToLeft(leftNode);
 		relation.insertToRight(rightNode);
+		
 		Dependencies relations=rFrame.getRelations();
-
 		relations.expendTheRelations(relation);
 		relations.add(relation);
-
-		myOperandStack.push(rootNode.getVariableName());
 	}
 
 
