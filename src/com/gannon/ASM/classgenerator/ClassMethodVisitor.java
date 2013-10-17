@@ -80,8 +80,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	@Override
 	public void visitJumpInsn(int opcode, Label label) {
 		super.visitJumpInsn(opcode, label); // To change body of generated
-		// methods, choose Tools |
-		// Templates.
+		System.out.println("visitJumpInsn " + opcode + " " + label);
 		currentBlock.addInstruction(new VisitJumpInstructionFactory()
 				.createInst(opcode, label, linNumber));
 
@@ -91,10 +90,6 @@ public class ClassMethodVisitor extends MethodVisitor {
 	// IINC
 	@Override
 	public void visitIincInsn(int opcode, int inc) {
-
-		// int opCode = 132;
-		// currentMethod.addInstruction(new BInstruction(opCode, opcode, inc));
-
 
 		super.visitIincInsn(opcode, inc); // To change body of generated
 											// methods, choose Tools |
@@ -272,6 +267,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	@Override
 	public void visitTypeInsn(int opcode, String packageName) {
 		// TODO Auto-generated method stub
+		System.out.println("visitTypeInsn " + opcode + " " + packageName);
 		currentBlock.addInstruction(new VisitTypeInstructionFactory().createInst(opcode, packageName, linNumber));
 		linNumber++;
 		super.visitTypeInsn(opcode, packageName);

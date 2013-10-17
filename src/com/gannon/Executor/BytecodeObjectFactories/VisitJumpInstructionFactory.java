@@ -14,21 +14,25 @@ public class VisitJumpInstructionFactory {
 	BInstruction instr;
 
 	 public BInstruction createInst(int opCode, Label goToLabel, int linNumber){
-		 //IF_ICMPEQ, IF_ICMPNE, IF_ICMPGE
+		 System.out.println("VisitJumpInstructionFactory");
 		 BLabel bLabel=new BLabel(goToLabel);
 		 if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpeq")){
-	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPEQ "+ opCode+ "  " + label + "  " + linNumber);
-	            instr= new BIFicmpeq(bLabel, linNumber);
-	        }
-	        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpne")){
-	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPNE "+ opCode+ "  " + label + "  " + linNumber);
-	            instr= new BIFicmpne(bLabel, linNumber);
-	        }
-	        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpge")){
-	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
-	            instr= new BIFicmpge(bLabel, linNumber);
-	        }
-
+			 //System.out.println("In VisitFieldInstructionFactory IF_ICMPEQ "+ opCode+ "  " + label + "  " + linNumber);
+			 instr= new BIFicmpeq(bLabel, linNumber);
+		 }
+	     else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpne")){
+	        //System.out.println("In VisitFieldInstructionFactory IF_ICMPNE "+ opCode+ "  " + label + "  " + linNumber);
+	    	 instr= new BIFicmpne(bLabel, linNumber);
+	     }
+	     else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmpge")){
+	    	 //System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
+	    	 instr= new BIFicmpge(bLabel, linNumber);
+	     }
+		 
+		//temp code for testing purpose
+		 if (instr == null)
+	        	System.out.println("instr null");
+		 
 		return instr;
 
 

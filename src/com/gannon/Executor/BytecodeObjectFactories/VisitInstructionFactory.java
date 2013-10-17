@@ -1,7 +1,10 @@
 package com.gannon.Executor.BytecodeObjectFactories;
 
+import com.gannon.jvm.instructions.BAALoad;
+import com.gannon.jvm.instructions.BAAStore;
 import com.gannon.jvm.instructions.BAReturn;
 import com.gannon.jvm.instructions.BDup;
+import com.gannon.jvm.instructions.BIAStore;
 import com.gannon.jvm.instructions.BIAdd;
 import com.gannon.jvm.instructions.BIConst_0;
 import com.gannon.jvm.instructions.BIConst_1;
@@ -75,6 +78,22 @@ public class VisitInstructionFactory {
 			//System.out.println("In VisitInstructionFactory areturn ");
 			instr = new BAReturn(linNumber);
 		}
+		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("aastore")) {
+			//System.out.println("In VisitInstructionFactory areturn ");
+			instr = new BAAStore(linNumber);
+		}
+		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("iastore")) {
+			//System.out.println("In VisitIntegerInstructionFactory ireturn");
+			instr = new BIAStore(linNumber);
+		}
+		else if (OpcodeUtility.getOpCodeCommand(opCode).equals("aaload")) {
+			//System.out.println("In VisitIntegerInstructionFactory ireturn");
+			instr = new BAALoad(linNumber);//BIAStore(linNumber);
+		}
+		
+		//temp code for testing purpose
+		if (instr == null)
+        	System.out.println("instr null");
 		return instr;
 	}
 }
