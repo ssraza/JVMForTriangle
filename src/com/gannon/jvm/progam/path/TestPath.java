@@ -7,6 +7,10 @@ import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.bytecode.controlflowgraph.CNode;
 import com.gannon.bytecode.controlflowgraph.CPath;
+import com.gannon.jvm.data.dependency.BinNode;
+import com.gannon.jvm.data.dependency.Dependencies;
+import com.gannon.jvm.data.dependency.GannonPredicateTreeBuilderJVM;
+import com.gannon.jvm.instructions.BGotoMarkerInterface;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
 
@@ -29,7 +33,8 @@ public class TestPath {
 	// CPath has blocks (multiple instructions), however, a test path only
 	// contains nodes, which is an instruction. We also need the expected
 	// predicate values from CEdges
-	public TestPath(CPath cPath) {
+	public TestPath(CPath cPath, BMethod myMethod) {
+		this.setbMethod(myMethod);
 		this.pathId = cPath.getId();
 		List<CNode> cNodes = cPath.getNodes();
 		for (CNode cNode : cNodes) {
@@ -39,10 +44,16 @@ public class TestPath {
 				// now only check the source instruction. If testing loop in the
 				// future, we need to check target instruction as well
 				if (inst instanceof BPredicateInstruction) {
-					int expectedPredicateResult = cPath.findExpectedPredicateValue(inst);
-					PredicateNode node = new PredicateNode(inst);
-					node.setExpectedPredicateResult(expectedPredicateResult);
-					nodes.add(node);
+					if(!(inst instanceof BGotoMarkerInterface)){
+						int expectedPredicateResult = cPath.findExpectedPredicateValue(inst);
+						PredicateNode node = new PredicateNode(inst);
+						node.setExpectedPredicateResult(expectedPredicateResult);
+						nodes.add(node);						
+					}else
+					{
+						// attatch node to the test path
+						nodes.add(new Node(inst));
+					}
 				} else {
 					// attatch node to the test path
 					nodes.add(new Node(inst));
@@ -50,6 +61,54 @@ public class TestPath {
 
 			}
 		}
+		isInfeasible();
+	}
+	
+	public boolean isInfeasible(){
+		
+		GannonPredicateTreeBuilderJVM jvm = new GannonPredicateTreeBuilderJVM();
+		jvm.run(this);
+		Dependencies relations = jvm.getRelationFrame().getRelations();
+		int counter = 0;
+		String prevExpression=null, currentExpression=null;
+		int prevExpressionResult = 0, currentExpressionResult = 0;
+		System.out.println(relations);	
+	
+//		for(int f=0; f<relations.size(); f++)
+//		{	
+//			if(relations.getRelation(f).getInst() instanceof BPredicateInstruction )
+//			{	
+//				for(int t=counter; t<nodes.size(); t++)
+//				{
+//					if(nodes.get(t).getInstruction() instanceof BPredicateInstruction)
+//					{
+//						if(relations.getRelation(f).getInst().equals(nodes.get(t).getInstruction()))
+//						{
+//							counter = t+1;
+//							BinNode leftIfNode = relations.getRelation(f).getLeftNode();
+//							BinNode rightIfNode = relations.getRelation(f).getRightNode(); 
+//							BinNode rootIfNode = relations.getRelation(f).getTheBTRootNode();
+//							currentExpressionResult = ((PredicateNode)nodes.get(t)).getExpectedPredicateResult();
+//							currentExpression  = relations.expendPredicateRelation(relations.getRelation(f));
+//							
+//							if((currentExpression.equals(prevExpression)) && (currentExpressionResult != prevExpressionResult))
+//							{
+//								System.out.println("Infeasible Path!!!");
+//								//System.exit(0);
+//							}
+//						}
+//					}
+//				}
+//
+//				
+//				//int expresionOneValue = ((Node)relations.getRelation(f).getTheBTRootNode()).getExpectedPredicateResult();
+//				//System.out.println("if result: " +expresionOneValue);
+//			}
+//			prevExpression = currentExpression;
+//			prevExpressionResult = currentExpressionResult;
+//		}
+		
+		return false;		
 	}
 	
 	public boolean canGenerateInputs(){

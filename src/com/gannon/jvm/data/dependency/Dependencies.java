@@ -63,6 +63,70 @@ public class Dependencies {
 			theRelation.insertToRight(rRight.getTheBTRootNode());
 		}
 	}
+	
+public String expendPredicateRelation(Dependency theRelation) {
+		
+		BinNode leftNode = theRelation.getLeftNode();
+		BinNode rightNode = theRelation.getRightNode();
+		
+		String leftExp = leftNode.getVariableName();
+		String rightExp = rightNode.getVariableName();
+		String finalExp = null;
+		
+		System.out.println("original exp: "+ "("+"i"+leftExp+")"+"-"+"("+"i"+rightExp+")");
+		
+		if (!leftNode.isParamter()) {
+			Dependency rLeft = findRelation(leftNode);
+			leftExp = expendNonPredicateRelation(rLeft);
+		}
+		if (!rightNode.isParamter()) {
+			Dependency rRight = findRelation(rightNode);
+			rightExp = expendNonPredicateRelation(rRight);
+		}
+		
+		finalExp = "("+leftExp+")"+"-"+"("+rightExp+")";
+		System.out.println("final exp: "+ finalExp);
+		System.out.println("");
+		return finalExp;
+	}
+
+public String expendNonPredicateRelation(Dependency theRelation) {
+	
+	BinNode leftNode = theRelation.getLeftNode();
+	BinNode rightNode = theRelation.getRightNode();
+	
+	String leftExp=leftNode.getVariableName();
+	String rightExp=rightNode.getVariableName();
+	String exp = null, opSign=null;
+	
+	if(theRelation.getInst().getOpCodeCommand().toString().equals("iadd"))
+		opSign = "+";
+	else if(theRelation.getInst().getOpCodeCommand().toString().equals("isub"))
+		opSign = "-";
+
+	if (!leftNode.isParamter()) {
+		Dependency rLeft = findRelation(leftNode);
+		leftExp = expendNonPredicateRelation(rLeft);
+	}
+	if (!rightNode.isParamter()) {
+		Dependency rRight = findRelation(rightNode);
+		rightExp = expendNonPredicateRelation(rRight);
+	}
+	
+	exp = "i"+leftExp+opSign+"i"+rightExp;
+	
+//	if((Integer)leftNode.getVariableValue() != 0)
+//	{
+//		exp = leftExp+opSign+"i"+rightExp;
+//	}
+//	if((Integer)rightNode.getVariableValue() != 0)
+//	{
+//		exp = "i"+leftExp+opSign+rightExp;
+//	}
+
+	return exp;
+}
+
 
 	public int size(){
 		return relations.size();
