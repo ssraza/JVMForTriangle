@@ -20,6 +20,7 @@ public class VisitFieldInstructionFactory {
     private BInstruction instr;
 
     public BInstruction createInst(int opCode, String owner, String name, String desc, int linNumber){
+    	System.out.println("VisitFieldInstructionFactory");
         if(OpcodeUtility.getOpCodeCommand(opCode).equals("getfield")){
         	//System.out.println("In VisitFieldInstructionFactory getfield "+ owner+ "  " + name + "  " + desc);
             instr= new BGetField(owner, name, desc, linNumber);
@@ -36,6 +37,10 @@ public class VisitFieldInstructionFactory {
         	//System.out.println("In VisitFieldInstructionFactory putstatic "+ owner+ "  " + name + "  " + desc);
             instr= new BPutStatic(owner, name, desc, linNumber);
         }
+        
+        //temp code for testing purpose
+        if (instr == null)
+        	System.out.println("instr null");
         return instr;
     }
 

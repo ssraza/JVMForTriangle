@@ -12,6 +12,7 @@ import com.gannon.jvm.utilities.OpcodeUtility;
 public class VisitVariableInstructionFactory {
 	BInstruction instr;
     public BInstruction createInst(int opCode,int operand1, int linNumber){
+    	System.out.println("VisitVariableInstructionFactory");
         if(OpcodeUtility.getOpCodeCommand(opCode).equals("iload")){
         	//System.out.println("In VisitVariableInstructionFactory factory ILoad "+ operand1);
             instr= new BILoad(operand1, linNumber);
@@ -28,6 +29,10 @@ public class VisitVariableInstructionFactory {
         	//System.out.println("In VisitVariableInstructionFactory factory aload "+ operand1);
             instr= new BALoad(operand1, linNumber);
         }
+        
+        //temp code for testing purpose
+        if (instr == null)
+        	System.out.println("instr null");
         return instr;
     }
 }
