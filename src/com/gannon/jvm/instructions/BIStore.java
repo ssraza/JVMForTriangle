@@ -44,11 +44,14 @@ public class BIStore extends BInstruction {
 	}
 
 	@Override
-	public void analyzing(DependencyFrame dependency) {
-		Stack<String> myOperandStack = dependency.getIntermediateVariableNameStack();
+	public void analyzing(DependencyFrame rFrame) {
 		
-		//pop TOS
-		myOperandStack.pop();
+		Stack<String> nameStack = rFrame.getIntermediateVariableNameStack();
+		nameStack.push(getOperand().toString());
+		
+		Stack<Object> valueStack = rFrame.getOperandStack();
+	    valueStack.push(nameStack.pop());
+
 	}
 
 	@Override
