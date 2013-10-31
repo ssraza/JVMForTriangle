@@ -6,6 +6,7 @@ package com.gannon.Executor.BytecodeObjectFactories;
 
 import com.gannon.jvm.instructions.BGetField;
 import com.gannon.jvm.instructions.BGetStatic;
+import com.gannon.jvm.instructions.BIRem;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPutField;
 import com.gannon.jvm.instructions.BPutStatic;
@@ -20,7 +21,7 @@ public class VisitFieldInstructionFactory {
     private BInstruction instr;
 
     public BInstruction createInst(int opCode, String owner, String name, String desc, int linNumber){
-    	System.out.println("VisitFieldInstructionFactory");
+    	//System.out.println("VisitFieldInstructionFactory");
         if(OpcodeUtility.getOpCodeCommand(opCode).equals("getfield")){
         	//System.out.println("In VisitFieldInstructionFactory getfield "+ owner+ "  " + name + "  " + desc);
             instr= new BGetField(owner, name, desc, linNumber);
@@ -33,9 +34,9 @@ public class VisitFieldInstructionFactory {
         	//System.out.println("In VisitFieldInstructionFactory getstatic "+ owner+ "  " + name + "  " + desc);
             instr= new BGetStatic(owner, name, desc, linNumber);
         }
-        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("putstatic")){
+        else if(OpcodeUtility.getOpCodeCommand(opCode).equals("irem")){
         	//System.out.println("In VisitFieldInstructionFactory putstatic "+ owner+ "  " + name + "  " + desc);
-            instr= new BPutStatic(owner, name, desc, linNumber);
+            instr= new BIRem(owner, name, desc, linNumber);//BPutStatic(owner, name, desc, linNumber);
         }
         
         //temp code for testing purpose

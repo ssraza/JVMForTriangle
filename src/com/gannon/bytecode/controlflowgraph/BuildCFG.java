@@ -48,7 +48,8 @@ public class BuildCFG {
 					BMethod calleeMethod = null;
 					
 					if (ivInstruction.getOpCodeCommand().equals("invokevirtual") 
-							&& ivInstruction.getOwner().contains(this.bClass.getClassName())) {
+							&& ivInstruction.getOwner().contains(this.bClass.getClassName())
+							&& ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
 						calleeMethod = ivInstruction.getNextMethod(this.bClass);
 						if (calleeMethod != null) {
 							Frame calleeFrame = new Frame(calleeMethod, 0);
@@ -63,7 +64,8 @@ public class BuildCFG {
 						}
 					}
 					else if (ivInstruction.getOpCodeCommand().equals("invokespecial") 
-							|| ivInstruction.getOpCodeCommand().equals("invokevirtual")) {
+							|| ivInstruction.getOpCodeCommand().equals("invokevirtual")
+							&& ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
 						String[] classStr = ivInstruction.getOwner().split("/");
 						BClass nextClass = BClassGenerator.getBClass(classStr[classStr.length - 1] + ".class");
 						if (nextClass != null) {

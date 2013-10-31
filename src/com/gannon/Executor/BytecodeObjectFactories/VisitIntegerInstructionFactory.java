@@ -12,7 +12,7 @@ public class VisitIntegerInstructionFactory {
 
 
 public BInstruction createInst(int opCode,int operand1, int linNumber) {
-		System.out.println("VisitIntegerInstructionFactory");
+		//System.out.println("VisitIntegerInstructionFactory");
 		if (OpcodeUtility.getOpCodeCommand(opCode).equals("bipush")) {
 			//System.out.println("In VisitIntegerInstructionFactory ireturn");
 			instr = new BBipush(operand1, linNumber);

@@ -1,28 +1,24 @@
 package com.gannon.jvm.instructions;
 
-import java.util.Stack;
-
-import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.data.dependency.DependencyFrame;
 import com.gannon.jvm.execution.method.BFrame;
-import com.gannon.jvm.execution.method.BLocalVarTable;
 import com.gannon.jvm.execution.path.PathFrame;
 
-public class BGoto extends BPredicateInstruction implements BGotoMarkerInterface {
-	
-	public BGoto(BLabel Label, int lineNumber) {
-		super(Label, lineNumber);
+public class BIALoad extends BInstruction{
+	private int operand1;
+
+	public BIALoad(int operand1, int lineNumber) {
+		super(lineNumber);
+		this.operand1 = operand1;
 	}
 	
-	@Override
-	public String toString() {
-		return super.toString()+" "+getOperand();
+	public BIALoad(int lineNumber) {
+		super(lineNumber);
 	}
+
 	@Override
 	public Object execute(BFrame activeFrame) {
-//		Integer pc = getOperand().getGoToLineNumber();			
-//		activeFrame.setLineNumber(pc);
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -33,9 +29,9 @@ public class BGoto extends BPredicateInstruction implements BGotoMarkerInterface
 	}
 
 	@Override
-	public int getOpcode() {;
+	public int getOpcode() {
 		// TODO Auto-generated method stub
-		return 167;
+		return 46;
 	}
 
 	@Override
@@ -44,6 +40,9 @@ public class BGoto extends BPredicateInstruction implements BGotoMarkerInterface
 		
 	}
 	
-	
+	@Override
+	public String toString() {
+		return super.toString() + " " + operand1;
+	}
 
 }

@@ -62,7 +62,7 @@ public class CFGMethod {
 				cEdge2.setValue(cEdgeValue2);
 				edges.add(cEdge2);
 			} else if (block.findGotoInstruction() != null) {
-				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
+				int operandLineNumber = block.findGotoInstruction().getOperand().getGoToLineNumber();
 				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
 				CNode sourceNode = new CNode(i, this.bMethod.getName(), listOfBlock.get(i));
 				CNode targetNode = new CNode(destBlockID, this.bMethod.getName(), listOfBlock.get(destBlockID));
@@ -88,6 +88,10 @@ public class CFGMethod {
 				nodes.add(targetNode1);
 				
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
+			}
+			else {
+				System.out.println("=========== No condition true==============");
+				
 			}
 
 		}

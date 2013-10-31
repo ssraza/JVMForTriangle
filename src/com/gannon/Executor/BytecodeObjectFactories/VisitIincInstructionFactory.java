@@ -2,9 +2,7 @@ package com.gannon.Executor.BytecodeObjectFactories;
 
 import com.gannon.jvm.instructions.BIConst_0;
 import com.gannon.jvm.instructions.BIConst_1;
-import com.gannon.jvm.instructions.BIConst_2;
 import com.gannon.jvm.instructions.BIConst_m1;
-import com.gannon.jvm.instructions.BIReturn;
 import com.gannon.jvm.instructions.BIinc;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.utilities.OpcodeUtility;

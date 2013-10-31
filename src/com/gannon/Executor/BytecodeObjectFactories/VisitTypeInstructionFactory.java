@@ -8,7 +8,7 @@ import com.gannon.jvm.utilities.OpcodeUtility;
 public class VisitTypeInstructionFactory {
 	BInstruction instr;
 	public BInstruction createInst(int opCode, String packageName, int lineNumber){
-		System.out.println("VisitTypeInstructionFactory");
+		//System.out.println("VisitTypeInstructionFactory");
 		if(OpcodeUtility.getOpCodeCommand(opCode).equals("new")){
         	//System.out.println("In VisitTypeInstructionFactory factory new "+ packageName);
             instr= new BNew(packageName, lineNumber);

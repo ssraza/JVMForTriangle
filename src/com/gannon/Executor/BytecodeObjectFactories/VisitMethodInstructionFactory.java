@@ -11,7 +11,7 @@ public class VisitMethodInstructionFactory {
 BInstruction instr;
     ////INVOKEVIRTUAL, INVOKESPECIAL, INVOKESTATIC or INVOKEINTERFACE.
     public BInstruction createInst(int opCode, String owner, String name, String desc, int linNumber){
-    	System.out.println("VisitMethodInstructionFactory");
+    	//System.out.println("VisitMethodInstructionFactory");
         if(OpcodeUtility.getOpCodeCommand(opCode).equals("invokevirtual")){
         	//System.out.println("In VisitMethodInstructionFactory invokevirtual "+ owner + "  " + name + "  " + desc);
             instr= new BInvokeVirtual(owner, name, desc, linNumber);

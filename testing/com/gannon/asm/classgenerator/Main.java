@@ -26,6 +26,7 @@ public class Main {
                          {0, 0, 7, 2, 0, 6, 9, 0, 0},
                          {0, 4, 0, 5, 0, 8, 0, 7, 0}};
         
-        new SwingSudoKiller(new SwingSudokuBoard(board));
+        SwingSudoKiller s = new SwingSudoKiller();
+        s.setBoard(new SwingSudokuBoard(board));
     }   
 }

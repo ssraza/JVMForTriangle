@@ -64,10 +64,11 @@ public class CBlock {
 		return null;
 	}
 
-	public BInstruction findGotoInstruction() {
+	//public BInstruction findGotoInstruction() {
+	public BPredicateInstruction findGotoInstruction() {
 		for (BInstruction instr : instructions) {
 			if (instr.getOpCodeCommand().toLowerCase().contains("goto")) {
-				return instr;
+				return (BPredicateInstruction)instr;
 			}
 		}
 		return null;

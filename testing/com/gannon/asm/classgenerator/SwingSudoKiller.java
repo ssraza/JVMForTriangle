@@ -12,17 +12,19 @@ import javax.swing.*;
  * @author Daniele Mazzocchio
  * @version 1.0
  */
-public class SwingSudoKiller extends SudoKiller{
+public class SwingSudoKiller {
 
+	private SwingSudokuBoard sb;    // Puzzle to solve;
     /**
      * Draw the game board.
      * @param ssb The puzzle to solve.
      */
-    public SwingSudoKiller(SwingSudokuBoard ssb) {
-        super(ssb);
-        final JPanel panel = ssb.getPanel();
-
-        Runnable runner = new Runnable() {
+    
+    public void setBoard(SwingSudokuBoard ssb){
+    	this.sb = ssb;
+    	final JPanel panel = ssb.getPanel();
+    	
+    	Runnable runner = new Runnable() {
             public void run() {
                 final JFrame frame = new JFrame("SudoKiller");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +47,7 @@ public class SwingSudoKiller extends SudoKiller{
                 frame.setVisible(true);
             }
         };
+        
         EventQueue.invokeLater(runner);
     }
     
@@ -64,5 +67,58 @@ public class SwingSudoKiller extends SudoKiller{
                 gridheight, 1, 1, GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH, insets, 0, 0);
         container.add(component, gbc);
+    }
+    
+    /**
+     * Test all candidate numbers for a given cell until the board is complete.
+     * @param row Cell's row.
+     * @param col Cell's column.
+     * @return &lt;false&gt; if no legal numbers are found for this cell.
+     */
+    public boolean guess(int row, int col) {
+        int nextCol = (col + 1) % sb.size;
+        int nextRow = (nextCol == 0) ? row + 1 : row;
+        
+        //try {
+            if (sb.getCell(row, col) != sb.EMPTY)
+                return guess(nextRow, nextCol);
+        //}
+        //catch (ArrayIndexOutOfBoundsException e) {
+        //        return true;
+        //}
+        
+        for (int i = 1; i <= sb.size; i++) {
+            if (check(i, row, col)) {
+                sb.setCell(i, row, col);
+                if (guess(nextRow, nextCol)) {
+                    return true;
+                }
+            }
+        }
+        sb.setCell(sb.EMPTY, row, col);
+        return false;
+    }
+    
+    /**
+     * Check if a number is, according to Sudoku rules, a legal candidate for
+     * the given cell.
+     * @param num Number to check.
+     * @param row Cell's row.
+     * @param col Cell's column.
+     * @return &lt;false&gt; if &lt;num&gt; already appears in the row, column
+     *         or box the cell belongs to or &lt;true&gt; otherwise.
+     */
+    private boolean check(int num, int row, int col) {
+        int r = (row / sb.box_size) * sb.box_size;
+        int c = (col / sb.box_size) * sb.box_size;
+        
+        for (int i = 0; i < sb.size; i++) {
+            if (sb.getCell(row, i) == num ||
+                sb.getCell(i, col) == num ||
+                sb.getCell(r + (i % sb.box_size), c + (i / sb.box_size)) == num) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -51,7 +51,7 @@ public class BIFicmpgt extends BPredicateInstruction {
 	@Override
 	public String toString() {
 		//System.out.println("tostring");
-		return super.toString()+" "+getOperand();
+		return super.toString() + " " + getOperand();
 	}
 
 	@Override

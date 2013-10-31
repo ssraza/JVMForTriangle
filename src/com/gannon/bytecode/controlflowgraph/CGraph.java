@@ -276,6 +276,8 @@ public final class CGraph {
 		for (CNode parentNode : listOfParentNodes) {
 			dominatorNodes.get(currentNode).retainAll(dominatorNodes.get(parentNode));
 		}
+		if (dominatorNodes == null || currentNode == null)
+			System.out.println("Null Output");
 
 		dominatorNodes.get(currentNode).add(currentNode);
 	}
@@ -306,6 +308,7 @@ public final class CGraph {
 
 			// updating all other nodes
 			for (CNode node : nodes) {
+				System.out.println(node);
 				computeDominateNode(node);
 			}
 

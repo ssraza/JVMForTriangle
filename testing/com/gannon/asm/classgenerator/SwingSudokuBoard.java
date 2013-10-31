@@ -12,7 +12,11 @@ import javax.swing.*;
  * @author Daniele Mazzocchio
  * @version 1.0
  */
-public class SwingSudokuBoard extends SudokuBoard {
+public class SwingSudokuBoard {
+	final int EMPTY = 0;      // Empty cells marker
+	final int size;           // Size of the board (number of rows and columns)
+	final int box_size;       // Size of the inner boxes
+	
     private JTextField[][] cells;          // Graphical game board
     private JPanel panel = new JPanel();   // Container
 
@@ -21,7 +25,9 @@ public class SwingSudokuBoard extends SudokuBoard {
      * @param size Number of rows and columns of the board.
      */
     public SwingSudokuBoard(int size) {
-        super(size);
+    	this.size = size;
+    	this.box_size = (int) Math.sqrt(size);
+    	
         cells = new JTextField[size][size];
         panel.setLayout(new GridLayout(size, size));
         for (int row = 0; row < size; row++) {
@@ -52,7 +58,6 @@ public class SwingSudokuBoard extends SudokuBoard {
      * @param col Cell's column.
      */
     public void setCell(int num, int row, int col) {
-        super.setCell(num, row, col);
         String text = (num == EMPTY) ? "" : String.valueOf(num);
         cells[row][col].setText(text);
     }
@@ -66,12 +71,12 @@ public class SwingSudokuBoard extends SudokuBoard {
     public int getCell(int row, int col) {
         int cell;
 
-        try {
+        //try {
             cell = Integer.parseInt(cells[row][col].getText());
-        }
-        catch (NumberFormatException e) {
-            cell = EMPTY;
-        }
+        //}
+        //catch (NumberFormatException e) {
+        //    cell = EMPTY;
+        //}
         return cell;
     }
     

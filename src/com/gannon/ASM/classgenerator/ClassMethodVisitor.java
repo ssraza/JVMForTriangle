@@ -18,6 +18,7 @@ import com.gannon.asm.components.BLabel;
 import com.gannon.asm.components.BLocalVariable;
 import com.gannon.asm.components.BMethod;
 import com.gannon.asm.components.BStackMaxLocals;
+import com.gannon.jvm.instructions.BIinc;
 import com.gannon.jvm.utilities.ConstantsUtility;
 
 public class ClassMethodVisitor extends MethodVisitor {
@@ -90,10 +91,11 @@ public class ClassMethodVisitor extends MethodVisitor {
 	// IINC
 	@Override
 	public void visitIincInsn(int opcode, int inc) {
-
 		super.visitIincInsn(opcode, inc); // To change body of generated
 											// methods, choose Tools |
 											// Templates.
+		System.out.println("visitIincInsn " + opcode + " " + inc);
+		currentBlock.addInstruction(new BIinc(linNumber, inc));
 		linNumber++;
 	}
 
@@ -129,7 +131,7 @@ public class ClassMethodVisitor extends MethodVisitor {
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name,
 			String desc) {
-		System.out.println("ClassMethodVisitor " + opcode);
+		System.out.println("visitMethodInsn " + opcode);
 		currentBlock.addInstruction(new VisitMethodInstructionFactory()
 				.createInst(opcode, owner, name, desc, linNumber));
 		linNumber++;
