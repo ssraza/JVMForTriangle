@@ -15,6 +15,8 @@ import com.gannon.program.cfg.ForceDirectedLayout;
 import com.gannon.program.cfg.GraphPanel;
 import com.gannon.program.cfg.Node;
 import com.gannon.program.cfg.NodeData;
+import com.gannon.program.cfg.Point;
+import com.gannon.program.cfg.Spring;
 
 
 
@@ -105,6 +107,11 @@ public class CFGPanel extends GraphPanel {
     	// initializing graph panel
     	// initializing list of nodes
         this.listOfNodes = new ArrayList<Node>();
+        
+        // Clearing list of points (because it is a static object)
+        // Although it will create a problem of we wanted to display two or more graphs simultaneously 
+        Point.clearPoints();
+        Spring.clearSprings();
 
         // reading CFG file to get nodes and edges
         this.cGraph = cGraph;

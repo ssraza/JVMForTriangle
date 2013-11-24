@@ -102,6 +102,7 @@ public class GraphRenderer implements Runnable {
         this.layout.updateVelocity(VELOCITY_MOD_PERCENT);
         this.layout.updatePosition(POSITION_MOD_PERCENT);
         
+        
         if (this.rendererListener != null) {
             this.rendererListener.onRender();
         }

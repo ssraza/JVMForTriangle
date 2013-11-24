@@ -131,7 +131,7 @@ public final class ForceDirectedLayout implements NodeRemovedListener, EdgeRemov
     public void attractToCentre() {
         for (Node n : this.graph.getNodes()) {
             final Point p = getPoint(n);
-            Point k = new Point(new Vector(-22.0, 2.0), 0);
+            final Point k = new Point(new Vector(-22.0, 2.0), 0);
             final Vector direction = Vector.multiply(k.getPosition(), -1.0);
             p.applyForce(direction.multiply(this.repulsion / 10.0));
         }
@@ -152,11 +152,15 @@ public final class ForceDirectedLayout implements NodeRemovedListener, EdgeRemov
         		continue; // skip node
         	}
             final Point p1 = getPoint(n);
-            // getting earth point which should be downwar from any node
-            final Point earthPoint = new Point(new Vector(p1.getPosition().getX(),p1.getPosition().getY()+10), 10);
+            final Vector earthPointVector = new Vector(p1.getPosition().getX(),p1.getPosition().getY()+10);
+            // getting earth point which should be downward from any node
+            final Point earthPoint = new Point(earthPointVector , 10);
             final Vector d = Vector.subtract(earthPoint.getPosition(), p1.getPosition());
 
             p1.applyForce(d.multiply(getGravityForce()));
+            earthPoint.removeSelf();
+            Point.remove(earthPoint);
+
         }
     }
 
@@ -245,7 +249,7 @@ public final class ForceDirectedLayout implements NodeRemovedListener, EdgeRemov
         Point point = this.nodePoints.get(node);
         if (point == null) {
             point = new Point(Vector.random(), node.getData().getMass());
-            this.nodePoints.put(node, point);
+            this.nodePoints.put(node, point);          
         }
         return point;
     }
@@ -375,6 +379,8 @@ public final class ForceDirectedLayout implements NodeRemovedListener, EdgeRemov
             p.getVelocity().add(p.getForce().multiply(timeStep)).multiply(this.damping);
             p.getForce().clear();
         }
+       
+        
     }
    
 

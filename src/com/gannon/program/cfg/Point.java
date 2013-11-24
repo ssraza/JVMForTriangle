@@ -48,6 +48,7 @@ public class Point {
     }
 
     public static final void remove(Point p) {
+    	
         POINTS.remove(p);
     }
 
@@ -82,6 +83,7 @@ public class Point {
         this.force = new Vector(0d, 0d);
 
         POINTS.add(this);
+      //  System.out.println("size =" + POINTS.size());
     }
 
     public void applyForce(final Vector force) {
@@ -148,4 +150,20 @@ public class Point {
     public int hashCode() {
         return this.id;
     }
+    
+    /*
+     * new Added function
+     * editor: Bader Aldawsari.
+     * description: function to clear list of points
+     */
+    public static void clearPoints(){
+    	POINTS.clear();
+    }
+    
+    public void removeSelf(){
+    	this.velocity = null;
+    	this.position = null;
+    	this.force = null;
+    }
+    
 }

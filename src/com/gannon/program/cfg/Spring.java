@@ -75,7 +75,6 @@ public final class Spring {
      * @return the point1
      */
     public final Point getPoint1() {
-        //System.out.println("point1 = " + point1.getPosition().getX()+"pointy = " + point1.getPosition().getY());
         return this.point1;
     }
 
@@ -124,5 +123,12 @@ public final class Spring {
         return  currentLength;
     }
     
-    
+    /*
+     * new Added function
+     * editor: Bader Aldawsari.
+     * description: function to clear list of points
+     */
+    public static void clearSprings(){
+    	SPRINGS.clear();
+    }
 }
