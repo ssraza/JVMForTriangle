@@ -48,7 +48,7 @@ public class CFGPanel extends GraphPanel {
         for (Iterator<CNode> iterator = listOfCNodes.iterator(); iterator.hasNext(); ) {
         	CNode nodeToInsert =  iterator.next();
         	//adding tnode to graph panel
-            Node newNode = addNode( String.valueOf( nodeToInsert.getId()), nodeToInsert.getMethodName(),Color.BLACK, Color.GREEN, Color.BLUE, 20.0f);
+            Node newNode = addNode( String.valueOf( nodeToInsert.getId()), nodeToInsert.getMethodName(),Color.BLACK, nodeToInsert.getColor(), Color.BLUE, 20.0f);
             // adding new node to listOfNodes
             listOfNodes.add(newNode);
         }

@@ -259,7 +259,7 @@ public class Main extends JFrame {
 		DefaultMutableTreeNode p1;
 		for (BMethod m : methods) {
 			p1 = methodScollPane.addObject(null, m.getName());
-			CFGMethod cfgMethod = new CFGMethod(m);
+			CFGMethod cfgMethod = new CFGMethod(m, myclass);
 			CGraph g = cfgMethod.buildGraph();
 			CPaths paths = g.computeAllCPaths();
 			for (CPath path : paths.getPaths()) {

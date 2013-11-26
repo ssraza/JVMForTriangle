@@ -5,6 +5,7 @@ import org.objectweb.asm.Label;
 import com.gannon.asm.components.BLabel;
 import com.gannon.jvm.instructions.BGoto;
 import com.gannon.jvm.instructions.BIFeq;
+import com.gannon.jvm.instructions.BIFge;
 import com.gannon.jvm.instructions.BIFicmpeq;
 import com.gannon.jvm.instructions.BIFicmpge;
 import com.gannon.jvm.instructions.BIFicmpgt;
@@ -101,17 +102,22 @@ public class VisitJumpInstructionFactory {
 		 else if(OpcodeUtility.getOpCodeCommand(opCode).equals("if_icmplt")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
 	        	//System.out.println("factory for goto, label is: " + bLabel.toString());
-	            instr= new BIf_Icmplt(bLabel, linNumber);//BGoto(bLabel, linNumber);
+	            instr= new BIf_Icmplt(bLabel, linNumber);
 		 }
 		 else if(OpcodeUtility.getOpCodeCommand(opCode).equals("ifne")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
 	        	//System.out.println("factory for goto, label is: " + bLabel.toString());
-	            instr= new BIFne(bLabel, linNumber);//BIf_Icmplt(bLabel, linNumber);//BGoto(bLabel, linNumber);
+	            instr= new BIFne(bLabel, linNumber);
 		 }
 		 else if(OpcodeUtility.getOpCodeCommand(opCode).equals("ifeq")){
 	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
 	        	//System.out.println("factory for goto, label is: " + bLabel.toString());
-	            instr= new BIFeq(bLabel, linNumber);//BIFne(bLabel, linNumber);//BIf_Icmplt(bLabel, linNumber);//BGoto(bLabel, linNumber);
+	            instr= new BIFeq(bLabel, linNumber);
+		 }
+		 else if(OpcodeUtility.getOpCodeCommand(opCode).equals("ifge")){
+	        	//System.out.println("In VisitFieldInstructionFactory IF_ICMPGE "+ opCode+ "  " + label + "  " + linNumber);
+	        	//System.out.println("factory for goto, label is: " + bLabel.toString());
+	            instr= new BIFge(bLabel, linNumber);
 		 }
 		 	
 		 

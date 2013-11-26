@@ -1,19 +1,30 @@
 package com.gannon.bytecode.controlflowgraph;
 
+import java.awt.Color;
 import java.util.*;
 import com.gannon.jvm.instructions.BPredicateInstruction;
 
 public class CBlocks {
 	private String methodName;
+	private String className;
 	private List<CBlock> blocks = new ArrayList<CBlock>();
 
-	public CBlocks(String methodName) {
+	public CBlocks(String methodName, String className) {
 		super();
 		this.methodName = methodName;
+		this.className = className;
 	}
 
 	public String getMethodName() {
 		return methodName;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	public void setMethodName(String methodName) {
@@ -76,7 +87,7 @@ public class CBlocks {
 		Set<CNode> nodes = new HashSet<CNode>();
 		for (CBlock block : blocks) {
 			//nodes.add(new CNode(nodeId++, block));
-			nodes.add(new CNode(nodeId++, methodName, block));
+			nodes.add(new CNode(nodeId++, methodName, className, block, Color.GREEN));
 		}
 		return nodes;
 	}

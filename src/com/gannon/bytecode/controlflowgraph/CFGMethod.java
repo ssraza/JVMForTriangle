@@ -1,7 +1,9 @@
 package com.gannon.bytecode.controlflowgraph;
 
+import java.awt.Color;
 import java.util.*;
 
+import com.gannon.asm.components.BClass;
 import com.gannon.asm.components.BMethod;
 import com.gannon.jvm.instructions.BInstruction;
 import com.gannon.jvm.instructions.BPredicateInstruction;
@@ -13,15 +15,18 @@ import com.gannon.jvm.utilities.ConstantsUtility;
  */
 public class CFGMethod {
 	private BMethod bMethod;
+	private BClass bClass;
 
-	public CFGMethod(BMethod bMethod) {
+	public CFGMethod(BMethod bMethod, BClass bClass) {
 		super();
 		this.bMethod = bMethod;
+		this.bClass = bClass;
 	}
 
 	public CGraph buildGraph() {
 		CBlocks listOfBlock = buildBlocks();
 		int edgeId = 0;
+		Color clr = randomColor();
 		LinkedHashSet<CEdge> edges = new LinkedHashSet<CEdge>();
 		LinkedHashSet<CNode> nodes = new LinkedHashSet<CNode>();
 		
@@ -35,8 +40,10 @@ public class CFGMethod {
 			CBlock block = listOfBlock.get(i);
 			if (block.findIfInstruction() != null) {
 				// first edge is next to next if predicate result is false
-				CNode sourceNode = new CNode(i, this.bMethod.getName(), listOfBlock.get(i));
-				CNode targetNode1 = new CNode(i + 1, this.bMethod.getName(), listOfBlock.get(i + 1));
+				//CNode sourceNode = new CNode(i, this.bMethod.getName(), this.bClass.getClassName(), listOfBlock.get(i), clr);
+				//CNode targetNode1 = new CNode(i + 1, this.bMethod.getName(), this.bClass.getClassName(), listOfBlock.get(i + 1), clr);
+				CNode sourceNode = new CNode(i, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i), clr);
+				CNode targetNode1 = new CNode(i + 1, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i + 1), clr);
 				nodes.add(sourceNode);
 				nodes.add(targetNode1);
 				
@@ -52,7 +59,7 @@ public class CFGMethod {
 				// gotolinenumber if the expected predicate result is true
 				int operandLineNumber = block.findIfInstruction().getOperand().getGoToLineNumber();
 				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
-				CNode targetNode2 = new CNode(destBlockID, this.bMethod.getName(), listOfBlock.get(destBlockID));
+				CNode targetNode2 = new CNode(destBlockID, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(destBlockID), clr);
 				nodes.add(targetNode2);
 
 				CEdge cEdge2 = new CEdge(edgeId++, sourceNode, targetNode2);
@@ -64,16 +71,16 @@ public class CFGMethod {
 			} else if (block.findGotoInstruction() != null) {
 				int operandLineNumber = block.findGotoInstruction().getOperand().getGoToLineNumber();
 				int destBlockID = listOfBlock.findBlockIndexByLineNumber(operandLineNumber);
-				CNode sourceNode = new CNode(i, this.bMethod.getName(), listOfBlock.get(i));
-				CNode targetNode = new CNode(destBlockID, this.bMethod.getName(), listOfBlock.get(destBlockID));
+				CNode sourceNode = new CNode(i, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i), clr);
+				CNode targetNode = new CNode(destBlockID, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(destBlockID), clr);
 				nodes.add(sourceNode);
 				nodes.add(targetNode);
 			
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode));
 			} else if (block.findReturnInstruction() != null) {
 				// connect to ending node if there is a return instruction
-				CNode sourceNode = new CNode(i, this.bMethod.getName(), listOfBlock.get(i));
-				CNode endingNode = new CNode(listOfBlock.size() - 1, this.bMethod.getName(), listOfBlock.getLast());
+				CNode sourceNode = new CNode(i, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i), clr);
+				CNode endingNode = new CNode(listOfBlock.size() - 1, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.getLast(), clr);
 				nodes.add(sourceNode);
 				nodes.add(endingNode);
 				
@@ -82,16 +89,12 @@ public class CFGMethod {
 			} else if (i < listOfBlock.size() - 1) {
 				// connect to next block if this block doesn't have all above
 				// instructions and not reach the end of the block
-				CNode sourceNode = new CNode(i, this.bMethod.getName(), listOfBlock.get(i));
-				CNode targetNode1 = new CNode(i + 1, this.bMethod.getName(), listOfBlock.get(i + 1));
+				CNode sourceNode = new CNode(i, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i), clr);
+				CNode targetNode1 = new CNode(i + 1, this.bMethod.getName(), this.bClass.getSourceFile(), listOfBlock.get(i + 1), clr);
 				nodes.add(sourceNode);
 				nodes.add(targetNode1);
 				
 				edges.add(new CEdge(edgeId++, sourceNode, targetNode1));
-			}
-			else {
-				System.out.println("=========== No condition true==============");
-				
 			}
 
 		}
@@ -99,10 +102,19 @@ public class CFGMethod {
 		// now we need to add start and end nodes
 		return new CGraph(nodes, edges);
 	}
+	
+	public Color randomColor()
+	{
+	  Random random=new Random(); // Probably really put this somewhere where it gets executed only once
+	  int red=random.nextInt(256);
+	  int green=random.nextInt(256);
+	  int blue=random.nextInt(256);
+	  return new Color(red, green, blue);
+	}
 
 	public CBlocks buildBlocks() {
 		int blockID = 0;
-		CBlocks blocks = new CBlocks(bMethod.getName());
+		CBlocks blocks = new CBlocks(bMethod.getName(), bClass.getClassName());
 		boolean blockLeader[] = computeLeadingLineFlags();
 		ArrayList<BInstruction> instructions = bMethod.getInstructions();
 		CBlock block = new CBlock(bMethod.getName(), blockID++);
@@ -115,7 +127,7 @@ public class CFGMethod {
 			}
 			block.addInstruction(instructions.get(j));
 		}
-		System.out.println(block.toString());
+		//System.out.println(block.toString());
 		blocks.add(block);
 		return blocks; 
 	}

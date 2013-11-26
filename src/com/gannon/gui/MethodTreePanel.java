@@ -200,7 +200,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 
 	private void showConsolePanel(DefaultMutableTreeNode selectedMethodNode, DefaultMutableTreeNode clickedTreeNode) {
 		BMethod selectedMethod = myclass.getMethod(selectedMethodNode.toString());
-		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod, myclass);
 		int selectedPathID = Integer.parseInt(clickedTreeNode.toString());
 		CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 		// log
@@ -320,7 +320,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		// get pathId from user click
 		int selectedPathID = Integer.parseInt(clickedTreeNode.toString());
 
-		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod, myclass);
 		CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 
 		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_PATH_INSTRUCTION_PNG));
@@ -360,7 +360,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		Icon icon = new ImageIcon(Main.class.getResource(COM_GANNON_IMAGES16X16_FLOW_CHART_PNG));
 		TabComponent.addClosableTab(mainFrame.tabbedPane, mainFrame.scrollPaneCFG, "CFG", icon);
 
-		CFGMethod m = new CFGMethod(selectedMethod);
+		CFGMethod m = new CFGMethod(selectedMethod, myclass);
 		CGraph buildGraph = m.buildGraph();
 		// need to change this
 		buildGraph.processDominatorNodes();
@@ -391,7 +391,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		int selectedPathID = Integer.parseInt(clickedPathIDNode.toString());
 
 		// get Path
-		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod, myclass);
 		final CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 		final TestPath testPath = new TestPath(selectedPath,selectedMethod); //.......neha
 		//final TestPath testPath = new TestPath(selectedPath);.......neha
@@ -430,7 +430,7 @@ public class MethodTreePanel extends JScrollPane implements TreeSelectionListene
 		int selectedPathID = Integer.parseInt(clickedPathIDNode.toString());
 
 		// get Path
-		CFGMethod cfgMethod = new CFGMethod(selectedMethod);
+		CFGMethod cfgMethod = new CFGMethod(selectedMethod, myclass);
 		final CPath selectedPath = cfgMethod.buildGraph().computeAllCPaths().findPath(selectedPathID);
 		// covert to the path to a graph so it can be
 		// displayed

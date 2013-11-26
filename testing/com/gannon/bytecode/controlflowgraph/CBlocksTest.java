@@ -31,7 +31,7 @@ public class CBlocksTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CBlocks blocks=cfg.buildBlocks();
 		BLabel blabel=new BLabel(new Label());
 		blabel.setGoToLineNumber(37);//jump to 37 
@@ -47,7 +47,7 @@ public class CBlocksTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CBlocks blocks=cfg.buildBlocks();
 		BLabel blabel=new BLabel(new Label());
 		blabel.setGoToLineNumber(35);//jump to 35 
@@ -62,7 +62,7 @@ public class CBlocksTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CBlocks blocks=cfg.buildBlocks();
 		System.out.print(blocks);
 		assertEquals(20,blocks.size());

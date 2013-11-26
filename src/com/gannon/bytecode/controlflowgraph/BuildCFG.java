@@ -20,7 +20,7 @@ public class BuildCFG {
 	}
 
 	public CGraph getResultGraph() {
-		CFGMethod cfgMethod=new CFGMethod(startMethod);
+		CFGMethod cfgMethod=new CFGMethod(startMethod, bClass);
 		CGraph resultGraph = cfgMethod.buildGraph();
 
 		Frame currentFrame = new Frame(startMethod, 0);
@@ -31,7 +31,7 @@ public class BuildCFG {
 		}
 
 		while (!stack.empty()) {
-			CFGMethod currentMGI = new CFGMethod(currentFrame.getMethod());
+			CFGMethod currentMGI = new CFGMethod(currentFrame.getMethod(), bClass);
 			CGraph currentGraph=currentMGI.buildGraph();
 			ArrayList<CNode> currentBlocks=new ArrayList<CNode>(currentGraph.getCNodes());
 			int blockId = currentFrame.getBlockId();
@@ -42,47 +42,59 @@ public class BuildCFG {
 				if (b.hasInvoke()) {
 					currentFrame.setBlockId(i + 1);
 					BInstruction ivInstruction = b.getBlock().getFirstInstruction();
-					System.out.println("getOwner " + ivInstruction.getOwner());
+					System.out.println("getOwner " + ivInstruction.getOwner() + "getStringOperand " + ivInstruction.getStringOperand());
 					
 					// It will give the name including MethodNAme, Desc etc.
 					BMethod calleeMethod = null;
 					
 					if (ivInstruction.getOpCodeCommand().equals("invokevirtual") 
-							&& ivInstruction.getOwner().contains(this.bClass.getClassName())
-							&& ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
-						calleeMethod = ivInstruction.getNextMethod(this.bClass);
-						if (calleeMethod != null) {
-							Frame calleeFrame = new Frame(calleeMethod, 0);
-							stack.push(calleeFrame);
-							CFGMethod calleeCfgMethod = new CFGMethod(calleeMethod);
-							
-							CGraph calleeMethodGraph =calleeCfgMethod.buildGraph();
-							resultGraph.mergeCallingGraph(calleeMethodGraph, b);
-							//System.out.print(resultGraph.printNodesToString());
-							//System.out.print(resultGraph.printEdgesToString());
-							currentFrame = calleeFrame;
-						}
-					}
-					else if (ivInstruction.getOpCodeCommand().equals("invokespecial") 
-							|| ivInstruction.getOpCodeCommand().equals("invokevirtual")
-							&& ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
-						String[] classStr = ivInstruction.getOwner().split("/");
-						BClass nextClass = BClassGenerator.getBClass(classStr[classStr.length - 1] + ".class");
-						if (nextClass != null) {
-							//BInvokeSpecial isInstruction = (BInvokeSpecial)ivInstruction;
-							calleeMethod = ivInstruction.getNextMethod(nextClass, ivInstruction.getStringOperand());//(this.bClass);
+							&& ivInstruction.getOwner().contains(this.bClass.getClassName())) {
+						
+						if (ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
+							calleeMethod = ivInstruction.getNextMethod(this.bClass);
 							if (calleeMethod != null) {
 								Frame calleeFrame = new Frame(calleeMethod, 0);
 								stack.push(calleeFrame);
-								BuildCFG calleeCfgGraph = new BuildCFG(nextClass, calleeMethod);
+								CFGMethod calleeCfgMethod = new CFGMethod(calleeMethod, this.bClass);
 								
-								CGraph calleeMethodGraph =calleeCfgGraph.getResultGraph();
+								CGraph calleeMethodGraph =calleeCfgMethod.buildGraph();
 								resultGraph.mergeCallingGraph(calleeMethodGraph, b);
 								//System.out.print(resultGraph.printNodesToString());
 								//System.out.print(resultGraph.printEdgesToString());
 								currentFrame = calleeFrame;
 							}
 						}
+					}
+					else if (ivInstruction.getOpCodeCommand().equals("invokespecial") 
+							|| ivInstruction.getOpCodeCommand().equals("invokevirtual")) {
+				
+						if (ivInstruction.getStringOperand().equals(this.startMethod.getName()) ==  false) {
+							
+							if (this.startMethod.getName().equals("<init>") && ivInstruction.getStringOperand().equals("<init>")){
+								
+							}
+							else {
+								String[] classStr = ivInstruction.getOwner().split("/");
+								BClass nextClass = BClassGenerator.getBClass(classStr[classStr.length - 1] + ".class");
+								if (nextClass != null) {
+									//BInvokeSpecial isInstruction = (BInvokeSpecial)ivInstruction;
+									calleeMethod = ivInstruction.getNextMethod(nextClass, ivInstruction.getStringOperand());//(this.bClass);
+									if (calleeMethod != null) {
+										Frame calleeFrame = new Frame(calleeMethod, 0);
+										stack.push(calleeFrame);
+										BuildCFG calleeCfgGraph = new BuildCFG(nextClass, calleeMethod);
+										
+										CGraph calleeMethodGraph =calleeCfgGraph.getResultGraph();
+										resultGraph.mergeCallingGraph(calleeMethodGraph, b);
+										//System.out.print(resultGraph.printNodesToString());
+										//System.out.print(resultGraph.printEdgesToString());
+										currentFrame = calleeFrame;
+									}
+								}
+							}
+							
+						}
+						
 					}	
 					
 					break;

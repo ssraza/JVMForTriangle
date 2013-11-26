@@ -1,5 +1,6 @@
 package com.gannon.bytecode.controlflowgraph;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -158,7 +159,7 @@ public final class CGraph {
 	}
 
 	public CNode newCNode(final CBlock data) {
-		return addCNode(new CNode(this.nextCNodeId++, data));
+		return addCNode(new CNode(this.nextCNodeId++, data, Color.GREEN));
 	}
 
 	public void removeCEdge(final CEdge e) {
@@ -276,8 +277,7 @@ public final class CGraph {
 		for (CNode parentNode : listOfParentNodes) {
 			dominatorNodes.get(currentNode).retainAll(dominatorNodes.get(parentNode));
 		}
-		if (dominatorNodes == null || currentNode == null)
-			System.out.println("Null Output");
+		//Current node gets null some times
 
 		dominatorNodes.get(currentNode).add(currentNode);
 	}
@@ -308,7 +308,7 @@ public final class CGraph {
 
 			// updating all other nodes
 			for (CNode node : nodes) {
-				System.out.println(node);
+				//System.out.println(node);
 				computeDominateNode(node);
 			}
 

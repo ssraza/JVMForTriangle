@@ -14,4 +14,31 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>testing/com/gannon/asm/classgenerator/Main.java</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/Sudoku_2/Main.java</locationURI>
+		</link>
+		<link>
+			<name>testing/com/gannon/asm/classgenerator/SudoKiller.java</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/Sudoku_2/SudoKiller.java</locationURI>
+		</link>
+		<link>
+			<name>testing/com/gannon/asm/classgenerator/SudokuBoard.java</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/Sudoku_2/SudokuBoard.java</locationURI>
+		</link>
+		<link>
+			<name>testing/com/gannon/asm/classgenerator/SwingSudoKiller.java</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/Sudoku_2/SwingSudoKiller.java</locationURI>
+		</link>
+		<link>
+			<name>testing/com/gannon/asm/classgenerator/SwingSudokuBoard.java</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/Sudoku_2/SwingSudokuBoard.java</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

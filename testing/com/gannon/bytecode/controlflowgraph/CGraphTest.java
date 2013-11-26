@@ -2,6 +2,7 @@ package com.gannon.bytecode.controlflowgraph;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class CGraphTest {
 
 	@Test
 	public void testGetRoot() {
-		CNode expectedRoot = new CNode(0, new CBlock(1));
+		CNode expectedRoot = new CNode(0, new CBlock(1), Color.GREEN);
 
 		CGraph g = create4NodesGraph();
 		assertEquals(expectedRoot, g.getRoot());
@@ -44,7 +45,7 @@ public class CGraphTest {
 
 	@Test
 	public void testGetSink() {
-		CNode expectedRoot = new CNode(3, new CBlock(4));
+		CNode expectedRoot = new CNode(3, new CBlock(4), Color.GREEN);
 		CGraph g = create4NodesGraph();
 		assertEquals(expectedRoot, g.getSink());
 
@@ -52,13 +53,13 @@ public class CGraphTest {
 
 	private CGraph create4NodesGraph() {
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(0, new CBlock(1));
+		CNode node1 = new CNode(0, new CBlock(1), Color.GREEN);
 		g.addCNode(node1);
-		CNode node2 = new CNode(1, new CBlock(2));
+		CNode node2 = new CNode(1, new CBlock(2), Color.GREEN);
 		g.addCNode(node2);
-		CNode node3 = new CNode(2, new CBlock(3));
+		CNode node3 = new CNode(2, new CBlock(3), Color.GREEN);
 		g.addCNode(node3);
-		CNode node4 = new CNode(3, new CBlock(4));
+		CNode node4 = new CNode(3, new CBlock(4), Color.GREEN);
 		g.addCNode(node4);
 
 		g.addCEdge(new CEdge(1, node1, node2));
@@ -83,21 +84,21 @@ public class CGraphTest {
 	// 7
 	private CGraph create8NodesGraph() {
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node1 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		g.addCNode(node1);
-		CNode node2 = new CNode(1, "MethodA", new CBlock(2));
+		CNode node2 = new CNode(1, "MethodA", "ClassA", new CBlock(2), Color.GREEN);
 		g.addCNode(node2);
-		CNode node3 = new CNode(2, "MethodA", new CBlock(3));
+		CNode node3 = new CNode(2, "MethodA", "ClassA", new CBlock(3), Color.GREEN);
 		g.addCNode(node3);
-		CNode node4 = new CNode(3, "MethodA", new CBlock(4));
+		CNode node4 = new CNode(3, "MethodA", "ClassA", new CBlock(4), Color.GREEN);
 		g.addCNode(node4);
-		CNode node5 = new CNode(4, "MethodA", new CBlock(5));
+		CNode node5 = new CNode(4, "MethodA", "ClassA", new CBlock(5), Color.GREEN);
 		g.addCNode(node5);
-		CNode node6 = new CNode(5, "MethodA", new CBlock(6));
+		CNode node6 = new CNode(5, "MethodA", "ClassA", new CBlock(6), Color.GREEN);
 		g.addCNode(node6);
-		CNode node7 = new CNode(6, "MethodA", new CBlock(7));
+		CNode node7 = new CNode(6, "MethodA", "ClassA", new CBlock(7), Color.GREEN);
 		g.addCNode(node7);
-		CNode node8 = new CNode(7, "MethodA", new CBlock(8));
+		CNode node8 = new CNode(7, "MethodA", "ClassA", new CBlock(8), Color.GREEN);
 		g.addCNode(node8);
 
 		g.addCEdge(new CEdge(1, node1, node2));
@@ -123,14 +124,14 @@ public class CGraphTest {
 	@Test
 	public void testGetLongestPath() {
 
-		CNode node0 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node0 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		//CNode node1 = new CNode(1, "MethodA", new CBlock(2));
-		CNode node2 = new CNode(2, "MethodA", new CBlock(3));
-		CNode node3 = new CNode(3, "MethodA", new CBlock(4));
+		CNode node2 = new CNode(2, "MethodA", "ClassA", new CBlock(3), Color.GREEN);
+		CNode node3 = new CNode(3, "MethodA", "ClassA", new CBlock(4), Color.GREEN);
 		//CNode node4 = new CNode(4, "MethodA", new CBlock(5));
-		CNode node5 = new CNode(5, "MethodA", new CBlock(6));
-		CNode node6 = new CNode(6, "MethodA", new CBlock(7));
-		CNode node7 = new CNode(7, "MethodA", new CBlock(8));
+		CNode node5 = new CNode(5, "MethodA", "ClassA", new CBlock(6), Color.GREEN);
+		CNode node6 = new CNode(6, "MethodA", "ClassA", new CBlock(7), Color.GREEN);
+		CNode node7 = new CNode(7, "MethodA", "ClassA", new CBlock(8), Color.GREEN);
 
 		CGraph g = create8NodesGraph();
 		CPath longestPath = g.getLongestPath(node0, node7);
@@ -150,14 +151,14 @@ public class CGraphTest {
 	@Test
 	public void testSetOfDominatorNodes() {
 
-		CNode node0 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node0 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		//CNode node1 = new CNode(1, "MethodA", new CBlock(2));
-		CNode node2 = new CNode(2, "MethodA", new CBlock(3));
+		CNode node2 = new CNode(2, "MethodA", "ClassA", new CBlock(3), Color.GREEN);
 		//CNode node3 = new CNode(3, "MethodA", new CBlock(4));
 		//CNode node4 = new CNode(4, "MethodA", new CBlock(5));
-		CNode node5 = new CNode(5, "MethodA", new CBlock(6));
+		CNode node5 = new CNode(5, "MethodA", "ClassA", new CBlock(6), Color.GREEN);
 		//CNode node6 = new CNode(6, "MethodA", new CBlock(7));
-		CNode node7 = new CNode(7, "MethodA", new CBlock(8));
+		CNode node7 = new CNode(7, "MethodA", "ClassA", new CBlock(8), Color.GREEN);
 
 		CGraph g = create8NodesGraph();
 		g.processDominatorNodes();
@@ -178,14 +179,14 @@ public class CGraphTest {
 
 	@Test
 	public void testGetNymberOfPaths() {
-		CNode node1 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node1 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		//CNode node2 = new CNode(1, "MethodA", new CBlock(2));
 		//CNode node3 = new CNode(2, "MethodA", new CBlock(3));
 		//CNode node4 = new CNode(3, "MethodA", new CBlock(4));
 		//CNode node5 = new CNode(4, "MethodA", new CBlock(5));
 		//CNode node6 = new CNode(5, "MethodA", new CBlock(6));
 		//CNode node7 = new CNode(6, "MethodA", new CBlock(7));
-		CNode node8 = new CNode(7, "MethodA", new CBlock(8));
+		CNode node8 = new CNode(7, "MethodA", "ClassA", new CBlock(8), Color.GREEN);
 
 		CGraph g = create8NodesGraph();
 
@@ -200,7 +201,7 @@ public class CGraphTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		System.out.print(cfg.buildGraph());
 
 	}
@@ -208,7 +209,7 @@ public class CGraphTest {
 	public CGraph getCFG() {
 		BClass myclass = BClassGenerator.getBClass("ClassForRandomMethods.class");
 		BMethod m = myclass.getMethod("testGraphMethod2");
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CGraph graph = cfg.buildGraph();
 		return graph;
 	}
@@ -226,7 +227,7 @@ public class CGraphTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CGraph graph = cfg.buildGraph();
 		System.out.println(graph.getAdjacency());
 	}
@@ -237,7 +238,7 @@ public class CGraphTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CGraph graph = cfg.buildGraph();
 		//assertEquals(Arrays.asList(1), graph.getAdjacentNodeIDs(0));
 
@@ -249,7 +250,7 @@ public class CGraphTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		CGraph graph = cfg.buildGraph();
 		//assertEquals(Arrays.asList(19, 14), graph.getAdjacentNodeIDs(13));
 
@@ -263,17 +264,17 @@ public class CGraphTest {
 		// this graph is directional
 		CGraph graph = new CGraph();
 		CGraph g = new CGraph();
-		CNode node1 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node1 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		g.addCNode(node1);
-		CNode node2 = new CNode(1, "MethodA", new CBlock(2));
+		CNode node2 = new CNode(1, "MethodA", "ClassA", new CBlock(2), Color.GREEN);
 		g.addCNode(node2);
-		CNode node3 = new CNode(2, "MethodA", new CBlock(3));
+		CNode node3 = new CNode(2, "MethodA", "ClassA", new CBlock(3), Color.GREEN);
 		g.addCNode(node3);
-		CNode node4 = new CNode(3, "MethodA", new CBlock(4));
+		CNode node4 = new CNode(3, "MethodA", "ClassA", new CBlock(4), Color.GREEN);
 		g.addCNode(node4);
-		CNode node5 = new CNode(4, "MethodA", new CBlock(5));
+		CNode node5 = new CNode(4, "MethodA", "ClassA", new CBlock(5), Color.GREEN);
 		g.addCNode(node5);
-		CNode node6 = new CNode(5, "MethodA", new CBlock(6));
+		CNode node6 = new CNode(5, "MethodA", "ClassA", new CBlock(6), Color.GREEN);
 		g.addCNode(node6);
 
 		
@@ -333,17 +334,17 @@ public class CGraphTest {
 		// this graph is directional
 		CGraph graph = new CGraph();
 		CGraph g = new CGraph();
-		CNode node0 = new CNode(0, "MethodA", new CBlock(1));
+		CNode node0 = new CNode(0, "MethodA", "ClassA", new CBlock(1), Color.GREEN);
 		g.addCNode(node0);
-		CNode node1 = new CNode(1, "MethodA", new CBlock(2));
+		CNode node1 = new CNode(1, "MethodA", "ClassA", new CBlock(2), Color.GREEN);
 		g.addCNode(node1);
-		CNode node2 = new CNode(2, "MethodA", new CBlock(3));
+		CNode node2 = new CNode(2, "MethodA", "ClassA", new CBlock(3), Color.GREEN);
 		g.addCNode(node2);
-		CNode node3 = new CNode(3, "MethodA", new CBlock(4));
+		CNode node3 = new CNode(3, "MethodA", "ClassA", new CBlock(4), Color.GREEN);
 		g.addCNode(node3);
-		CNode node4 = new CNode(4, "MethodA", new CBlock(5));
+		CNode node4 = new CNode(4, "MethodA", "ClassA", new CBlock(5), Color.GREEN);
 		g.addCNode(node4);
-		CNode node5 = new CNode(5, "MethodA", new CBlock(6));
+		CNode node5 = new CNode(5, "MethodA", "ClassA", new CBlock(6), Color.GREEN);
 		g.addCNode(node5);
 
 		g.addCEdge(new CEdge(1, node0, node1));
@@ -374,37 +375,37 @@ public class CGraphTest {
 		
 		CPath actualCPath1=g.constructPathFromNodeIDs(1,path1);
 		CPath expectedCPath1=new CPath(1);
-		expectedCPath1.add(new CNode(START, "MethodA", new CBlock(1)));
-		expectedCPath1.add(new CNode(END, "MethodA",new CBlock(2)));
+		expectedCPath1.add(new CNode(START, "MethodA", "ClassA", new CBlock(1), Color.GREEN));
+		expectedCPath1.add(new CNode(END, "MethodA", "ClassA",new CBlock(2), Color.GREEN));
 		
 		CPath actualCPath2=g.constructPathFromNodeIDs(2,path2);
 		CPath expectedCPath2=new CPath(2);
-		expectedCPath2.add(new CNode(START, "MethodA", new CBlock(2)));
-		expectedCPath2.add(new CNode(5, "MethodA", new CBlock(5)));
-		expectedCPath2.add(new CNode(END, "MethodA",new CBlock(4)));
+		expectedCPath2.add(new CNode(START, "MethodA", "ClassA", new CBlock(2), Color.GREEN));
+		expectedCPath2.add(new CNode(5, "MethodA", "ClassA", new CBlock(5), Color.GREEN));
+		expectedCPath2.add(new CNode(END, "MethodA", "ClassA",new CBlock(4), Color.GREEN));
 		
 		
 		CPath actualCPath3=g.constructPathFromNodeIDs(3,path3);
 		CPath expectedCPath3=new CPath(3);
-		expectedCPath3.add(new CNode(START, "MethodA", new CBlock(1)));
-		expectedCPath3.add(new CNode(5, "MethodA", new CBlock(5)));
-		expectedCPath3.add(new CNode(2, "MethodA", new CBlock(2)));
-		expectedCPath3.add(new CNode(END, "MethodA",new CBlock(4)));
+		expectedCPath3.add(new CNode(START, "MethodA", "ClassA", new CBlock(1), Color.GREEN));
+		expectedCPath3.add(new CNode(5, "MethodA", "ClassA", new CBlock(5), Color.GREEN));
+		expectedCPath3.add(new CNode(2, "MethodA", "ClassA", new CBlock(2), Color.GREEN));
+		expectedCPath3.add(new CNode(END, "MethodA", "ClassA",new CBlock(4), Color.GREEN));
 		
 		CPath actualCPath4=g.constructPathFromNodeIDs(4,path4);
 		CPath expectedCPath4=new CPath(4);
-		expectedCPath4.add(new CNode(START, "MethodA", new CBlock(1)));
-		expectedCPath4.add(new CNode(0, "MethodA", new CBlock(0)));
-		expectedCPath4.add(new CNode(2, "MethodA", new CBlock(2)));
-		expectedCPath4.add(new CNode(END, "MethodA", new CBlock(4)));
+		expectedCPath4.add(new CNode(START, "MethodA", "ClassA", new CBlock(1), Color.GREEN));
+		expectedCPath4.add(new CNode(0, "MethodA", "ClassA", new CBlock(0), Color.GREEN));
+		expectedCPath4.add(new CNode(2, "MethodA", "ClassA", new CBlock(2), Color.GREEN));
+		expectedCPath4.add(new CNode(END, "MethodA", "ClassA", new CBlock(4), Color.GREEN));
 		
 		CPath actualCPath5=g.constructPathFromNodeIDs(5,path5);
 		CPath expectedCPath5=new CPath(5);
-		expectedCPath5.add(new CNode(START, "MethodA", new CBlock(1)));
-		expectedCPath5.add(new CNode(0, "MethodA", new CBlock(0)));
-		expectedCPath5.add(new CNode(2, "MethodA", new CBlock(2)));
-		expectedCPath5.add(new CNode(5, "MethodA", new CBlock(5)));
-		expectedCPath5.add(new CNode(END, "MethodA", new CBlock(4)));
+		expectedCPath5.add(new CNode(START, "MethodA", "ClassA", new CBlock(1), Color.GREEN));
+		expectedCPath5.add(new CNode(0, "MethodA", "ClassA", new CBlock(0), Color.GREEN));
+		expectedCPath5.add(new CNode(2, "MethodA", "ClassA", new CBlock(2), Color.GREEN));
+		expectedCPath5.add(new CNode(5, "MethodA", "ClassA", new CBlock(5), Color.GREEN));
+		expectedCPath5.add(new CNode(END, "MethodA", "ClassA", new CBlock(4), Color.GREEN));
 		
 		
 		assertEquals(expectedCPath1,actualCPath1);

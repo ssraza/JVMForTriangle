@@ -30,7 +30,7 @@ public class CFGMethodTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		boolean[] actualFlags = cfg.computeLeadingLineFlags();
 	// for testing without break condition as a block	
 //		boolean[] expectedFlags = new boolean[] { 
@@ -61,7 +61,7 @@ public class CFGMethodTest {
 		BMethod m = myclass.getMethod("triangleType");
 		assertEquals("triangleType", m.getName());
 
-		CFGMethod cfg = new CFGMethod(m);
+		CFGMethod cfg = new CFGMethod(m, myclass);
 		System.out.println("Graph results==="+cfg.buildGraph()+"=======");
 		
 	}
